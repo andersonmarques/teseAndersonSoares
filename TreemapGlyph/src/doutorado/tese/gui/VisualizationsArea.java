@@ -75,9 +75,6 @@ public class VisualizationsArea {
         this.view.getAlgorithm().setBorderSize(15);
         this.view.setBounds(rect);
         
-//        setLayoutView();
-//        this.view.setLayout(new FlowLayout());
-//        this.view.setPreferredSize(new Dimension(this.view.getBounds().width, this.view.getBounds().height));
         TMOnDrawFinished listener = (new TMOnDrawFinished() {
             @Override
             public void onDrawFinished(String t) {

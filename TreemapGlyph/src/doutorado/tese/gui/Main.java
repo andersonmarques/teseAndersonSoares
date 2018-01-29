@@ -24,6 +24,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingWorker;
@@ -34,6 +35,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
+import net.bouthier.treemapAWT.TMView;
 
 /**
  *
@@ -53,6 +55,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
         initComponents();
 
+        lpane = new JLayeredPane();
+        glyphPanel = new GlassPanel();        
+        
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
 
@@ -294,7 +299,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public String[] parseListString2Vetor(List<String> lista) {
+    public String[] parseListString2Array(List<String> lista) {
         String[] convertida = new String[lista.size()];
         for (int i = 0; i < convertida.length; i++) {
             convertida[i] = lista.get(i);
@@ -306,14 +311,23 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         limparPainelEsquerda();
         String itemTamanho = tamanhoTreeampComboBox.getSelectedItem().toString();
         String itemLegenda = legendaComboBox.getSelectedItem().toString();
-        String[] itensHierarquia = parseListString2Vetor(hierarquiaList.getSelectedValuesList());
+        String[] itensHierarquia = parseListString2Array(hierarquiaList.getSelectedValuesList());
         List<String> variaveisStarGlyph = variaveisStarList.getSelectedValuesList();
 
         VisualizationsArea v = new VisualizationsArea(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
                 manipulador, itemTamanho, itensHierarquia, itemLegenda, variaveisStarGlyph);
 
-        painelEsquerda.add(v.getView());
-
+//        painelEsquerda.add(v.getView());
+        
+        painelEsquerda.add(lpane);
+        TMView view = v.getView();
+        lpane.setBounds(view.getBounds());
+//        glyphPanelGreen.setBackground(Color.GREEN);
+        glyphPanel.setBounds(view.getBounds());
+//        glyphPanel.setOpaque(false);
+        lpane.add(view, new Integer(0), 0);
+        lpane.add(glyphPanel, new Integer(1), 0);
+        
 //        v.getView().repaint();
         prepararLegendaStarGlyph(variaveisStarGlyph);
         progressoBarra.setVisible(false);
@@ -343,9 +357,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void checkGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkGlyphActionPerformed
         if (checkGlyph.isSelected()) {
             Flags.setShowGlyph(true);
-            GlassPanel glass = new GlassPanel(painelEsquerda.getBounds());
-            painelEsquerda.add(glass);
-            painelEsquerda.repaint();
+//            GlassPanel glass = new GlassPanel(painelEsquerda.getBounds());
+//            painelEsquerda.add(glass);
+//            painelEsquerda.repaint();
         } else {
             Flags.setShowGlyph(false);
         }
@@ -433,7 +447,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JList<String> variaveisStarList;
     // End of variables declaration//GEN-END:variables
     static Main frame;
-
+    private JLayeredPane lpane;
+    private GlassPanel glyphPanel;
+    
     private ManipuladorArquivo manipulador;
     private File selectedFile;
     private Task task;

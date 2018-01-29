@@ -17,6 +17,11 @@ import javax.swing.JPanel;
  */
 public class GlassPanel extends JPanel {
 
+    public GlassPanel() {
+        setOpaque(false);
+        setLayout(new GroupLayout(this));
+    }
+
     public GlassPanel(Rectangle bounds) {
         setOpaque(false);
         setBounds(bounds);
@@ -25,9 +30,11 @@ public class GlassPanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(new Color(0, 255, 0, 255));
+        g.setColor(new Color(0, 255, 0, 0));
         Rectangle r = getBounds();
         g.fillRect(r.x, r.y, r.width, r.height);
+        g.setColor(Color.red);
+        g.drawLine(r.x, r.y, r.width, r.height);
     }
 
 }
