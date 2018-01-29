@@ -1,59 +1,42 @@
 package doutorado.tese.visualizacao.glyph;
 
-import doutorado.tese.io.ManipuladorArquivo;
-import doutorado.tese.util.Coluna;
-import doutorado.tese.util.Flags;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
-import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
+import javax.swing.JComponent;
 
 /**
  *
  * @author Anderson
  */
-public class Circulo extends JLabel{
-    public float widht;
-    public float height;
-    public float x;
-    public float y;
+public class Circulo extends JComponent {
 
-    public Circulo(float widht, float height, float x, float y) {
-    
-        this.widht = widht;
-        this.height = height;
-        this.x = x;
-        this.y = y;    
-           
+    private Rectangle rect;
+   
+    public Circulo(Rectangle r) {
+        this.rect = r;
+        setBounds(this.rect);
     }
-    
-       @Override
+
+    @Override
     public void paint(Graphics g) {
-        AffineTransform tx1 = new AffineTransform();
-        tx1.translate(widht, height);
-        tx1.scale(0.5, 0.5);
-
-
+        this.setOpaque(false);
+        super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        g.setColor(Color.blue);
-        g.fillOval(270, 130, 50, 50);
-        g2d.translate(x, y);
-        g2d.setTransform(tx1);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
+        g2d.drawOval(0, 0, 10, 10);
+//        AffineTransform tx1 = new AffineTransform();
+//        tx1.translate(widht, height);
+//        tx1.scale(0.5, 0.5);
+
+//        g.setColor(Color.blue);
+//        g.fillOval(x, y, widht, height);
+//        g2d.translate(x, y);
+//        g2d.setTransform(tx1);
+
         g2d.dispose();
     }
-    
-    public void DrawingCicle(Graphics g) {
-        
-    }
-    
-    
-    
 
 }

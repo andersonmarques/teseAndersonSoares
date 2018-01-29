@@ -20,13 +20,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JLayeredPane;
+import javax.swing.JRootPane;
 import javax.swing.JTextPane;
-import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -97,6 +96,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         setTitle("Treemap Glyphs");
 
         jSplitPane1.setDividerLocation(1000);
+        jSplitPane1.setOpaque(false);
+
+        painelEsquerda.setBackground(new java.awt.Color(153, 255, 153));
+        painelEsquerda.setOpaque(false);
 
         javax.swing.GroupLayout painelEsquerdaLayout = new javax.swing.GroupLayout(painelEsquerda);
         painelEsquerda.setLayout(painelEsquerdaLayout);
@@ -308,9 +311,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         VisualizationsArea v = new VisualizationsArea(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
                 manipulador, itemTamanho, itensHierarquia, itemLegenda, variaveisStarGlyph);
+
         painelEsquerda.add(v.getView());
 
-//        painelEsquerda.repaint();
+//        v.getView().repaint();
         prepararLegendaStarGlyph(variaveisStarGlyph);
         progressoBarra.setVisible(false);
 
@@ -339,6 +343,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void checkGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkGlyphActionPerformed
         if (checkGlyph.isSelected()) {
             Flags.setShowGlyph(true);
+            GlassPanel glass = new GlassPanel(painelEsquerda.getBounds());
+            painelEsquerda.add(glass);
+            painelEsquerda.repaint();
         } else {
             Flags.setShowGlyph(false);
         }
@@ -387,8 +394,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new Main().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                frame = new Main();
+                frame.setVisible(true);
+
+            }
         });
     }
 
@@ -420,10 +432,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JComboBox<String> tamanhoTreeampComboBox;
     private javax.swing.JList<String> variaveisStarList;
     // End of variables declaration//GEN-END:variables
+    static Main frame;
+
     private ManipuladorArquivo manipulador;
     private File selectedFile;
     private Task task;
-    private JFXPanel fxPanel;
 
     class Task extends SwingWorker<Void, Void> {
 

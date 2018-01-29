@@ -1,17 +1,9 @@
 package doutorado.tese.visualizacao.glyph;
 
-import doutorado.tese.io.ManipuladorArquivo;
-import doutorado.tese.util.Coluna;
-import doutorado.tese.util.Flags;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
-import java.util.List;
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
 

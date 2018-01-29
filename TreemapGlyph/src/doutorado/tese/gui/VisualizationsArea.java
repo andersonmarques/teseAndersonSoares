@@ -10,13 +10,15 @@ import doutorado.tese.visualizacao.treemap.treemapAPI.TMModel_Size;
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Flags;
+import doutorado.tese.visualizacao.glyph.Circulo;
+import doutorado.tese.visualizacao.glyph.Estrela;
+import doutorado.tese.visualizacao.glyph.Retangulo;
 import doutorado.tese.visualizacao.glyph.StarGlyph;
-import doutorado.tese.visualizacao.glyph.fx.ManagerGlyph;
+import doutorado.tese.visualizacao.glyph.Triangulo;
 import doutorado.tese.visualizacao.treemap.Rect;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import doutorado.tese.visualizacao.treemap.TreeMapLevel;
 import doutorado.tese.visualizacao.treemap.TreeMapNode;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -25,7 +27,6 @@ import java.util.Queue;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import net.bouthier.treemapAWT.TMModelNode;
-import net.bouthier.treemapAWT.TMNode;
 import net.bouthier.treemapAWT.TMOnDrawFinished;
 import net.bouthier.treemapAWT.TMNodeModel;
 import net.bouthier.treemapAWT.TMNodeModelComposite;
@@ -73,6 +74,10 @@ public class VisualizationsArea {
 
         this.view.getAlgorithm().setBorderSize(15);
         this.view.setBounds(rect);
+        
+//        setLayoutView();
+//        this.view.setLayout(new FlowLayout());
+//        this.view.setPreferredSize(new Dimension(this.view.getBounds().width, this.view.getBounds().height));
         TMOnDrawFinished listener = (new TMOnDrawFinished() {
             @Override
             public void onDrawFinished(String t) {
@@ -81,37 +86,41 @@ public class VisualizationsArea {
         });
         TMThreadModel.listener = listener;
         TMUpdaterConcrete.listener = listener;
+
         if (Flags.isShowStarGlyph()) {
             acionarStarGlyph(variaveisStarGlyph);
+        }
+
+        if (Flags.isShowGlyph()) {
+            acionarGlyphs();
         }
         //acionarGLyphFX();
     }
 
+    public void acionarGlyphs() {
+        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {//manipulador.getItensTreemap().length
+            Estrela e = new Estrela(manipulador.getItensTreemap()[i].getBounds());
+            Triangulo t = new Triangulo(manipulador.getItensTreemap()[i].getBounds());
+            Circulo c = new Circulo(manipulador.getItensTreemap()[i].getBounds());
+            Retangulo r = new Retangulo(manipulador.getItensTreemap()[i].getBounds());
+            this.view.add(r);
+            this.view.add(e);
+            this.view.add(c);
+            this.view.add(t);
+        }
+    }
+
     public void acionarStarGlyph(List<String> variaveisStarGlyph) {
-        starGlyphs = new StarGlyph[manipulador.getItensTreemap().length];
-        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-//            estrelas[i] = new Estrela(treemap.getRoot().getItemsFilhos().get(i).getBounds());
+        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {//manipulador.getItensTreemap().length
             StarGlyph starGlyph = new StarGlyph(manipulador.getItensTreemap()[i].getBounds(), variaveisStarGlyph);
-//            System.out.println("Item: " + manipulador.getItensTreemap()[i].getLabel()+
-//                    "Pai: "+manipulador.getItensTreemap()[i].getPaiLevel());
+//            System.out.println("Item: " + manipulador.getItensTreemap()[i].getLabel()
+//                    + " Rect: " + manipulador.getItensTreemap()[i].getBounds());
             starGlyph.setQuantVar(variaveisStarGlyph.size());
             starGlyph.setManipulador(manipulador);
             starGlyph.setVisible(true);
             this.view.add(starGlyph);
         }
-        this.view.repaint();
-    }
-
-    public void acionarGLyphFX() {//chamado de dentro do swing para acionar as coisas do Fx
-        JFXPanel fxPanelGlyph = new JFXPanel();
-        this.view.add(fxPanelGlyph);
-
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {//o que for do javafx vai aqui
-                ManagerGlyph.getPanelFx(fxPanelGlyph);
-            }
-        });
+//        this.view.repaint();
     }
 
     public void getRootBoundsFromView(String t) {
