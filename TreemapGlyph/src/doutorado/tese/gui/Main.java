@@ -56,8 +56,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         initComponents();
 
         lpane = new JLayeredPane();
-        glyphPanel = new GlassPanel();        
-        
+//        glyphPanel = new GlassPanel();        
+
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
 
@@ -318,16 +318,15 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 manipulador, itemTamanho, itensHierarquia, itemLegenda, variaveisStarGlyph);
 
 //        painelEsquerda.add(v.getView());
-        
         painelEsquerda.add(lpane);
         TMView view = v.getView();
         lpane.setBounds(view.getBounds());
 //        glyphPanelGreen.setBackground(Color.GREEN);
-        glyphPanel.setBounds(view.getBounds());
+//        glyphPanel.setBounds(view.getBounds());
 //        glyphPanel.setOpaque(false);
         lpane.add(view, new Integer(0), 0);
-        lpane.add(glyphPanel, new Integer(1), 0);
-        
+//        lpane.add(glyphPanel, new Integer(1), 0);
+
 //        v.getView().repaint();
         prepararLegendaStarGlyph(variaveisStarGlyph);
         progressoBarra.setVisible(false);
@@ -357,11 +356,17 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void checkGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkGlyphActionPerformed
         if (checkGlyph.isSelected()) {
             Flags.setShowGlyph(true);
-//            GlassPanel glass = new GlassPanel(painelEsquerda.getBounds());
-//            painelEsquerda.add(glass);
-//            painelEsquerda.repaint();
+            glyphPanel = new GlassPanel();
+            glyphPanel.setBounds(painelEsquerda.getBounds());
+            
+            glyphPanel.setManipulador(manipulador);
+            
+            glyphPanel.setVisible(true);
+            lpane.add(glyphPanel, new Integer(1), 0);
         } else {
             Flags.setShowGlyph(false);
+            glyphPanel.setVisible(false);
+            lpane.remove(glyphPanel);
         }
     }//GEN-LAST:event_checkGlyphActionPerformed
 
@@ -449,7 +454,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     static Main frame;
     private JLayeredPane lpane;
     private GlassPanel glyphPanel;
-    
+
     private ManipuladorArquivo manipulador;
     private File selectedFile;
     private Task task;

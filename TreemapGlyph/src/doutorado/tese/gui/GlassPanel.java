@@ -5,6 +5,9 @@
  */
 package doutorado.tese.gui;
 
+import doutorado.tese.io.ManipuladorArquivo;
+import doutorado.tese.visualizacao.glyph.Estrela;
+import doutorado.tese.visualizacao.glyph.Retangulo;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -17,6 +20,8 @@ import javax.swing.JPanel;
  */
 public class GlassPanel extends JPanel {
 
+    private ManipuladorArquivo manipulador;
+    
     public GlassPanel() {
         setOpaque(false);
         setLayout(new GroupLayout(this));
@@ -28,13 +33,40 @@ public class GlassPanel extends JPanel {
         setLayout(new GroupLayout(this));
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(new Color(0, 255, 0, 0));
         Rectangle r = getBounds();
         g.fillRect(r.x, r.y, r.width, r.height);
-        g.setColor(Color.red);
-        g.drawLine(r.x, r.y, r.width, r.height);
+        
+        g.setColor(Color.BLACK);        
+        /** Desenhar estrela **/
+        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
+            Rectangle bounds = manipulador.getItensTreemap()[i].getBounds();
+            Estrela e = new Estrela(bounds);
+            e.paint(g);
+        }
+        /**Desenhar Retangulo**/
+//        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
+//            Rectangle bounds = manipulador.getItensTreemap()[i].getBounds();
+//            Retangulo e = new Retangulo(bounds);
+//            e.paint(g);
+//        }
+    }
+
+    /**
+     * @return the manipulador
+     */
+    public ManipuladorArquivo getManipulador() {
+        return manipulador;
+    }
+
+    /**
+     * @param manipulador the manipulador to set
+     */
+    public void setManipulador(ManipuladorArquivo manipulador) {
+        this.manipulador = manipulador;
     }
 
 }

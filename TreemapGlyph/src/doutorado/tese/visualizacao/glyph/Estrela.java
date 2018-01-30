@@ -16,7 +16,7 @@ import javax.swing.JComponent;
  *
  * @author Anderson
  */
-public class Estrela extends JComponent {
+public class Estrela{
 
     private int[] xPoints;
     private int[] yPoints;
@@ -26,11 +26,18 @@ public class Estrela extends JComponent {
         this.rect = r;
         setBounds(this.rect);
     }
+    
+    public void setBounds(Rectangle rect){
+        this.rect = rect;
+    }
+    
+    public Rectangle getBounds(){
+        return rect;
+    }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        this.setOpaque(false);
-        super.paintComponent(g);
+    public void paint(Graphics g) {
+//        this.setOpaque(false);
+//        super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
@@ -39,47 +46,7 @@ public class Estrela extends JComponent {
         g2d.drawPolygon(xPoints, yPoints, xPoints.length);
     }
 
-    public void montarEstrela() {
-//        int width = (int) Math.round(rect.width) - 1;
-//        int height = (int) Math.round(rect.height) - 1;
-//
-//        int halfWidth = width / 2;
-//        int halfHeight = height / 2;
-//        int innerWidth = width / 8;
-//        int innerHeight = height / 8;
-//
-//        halfWidth += rect.x;
-//        halfHeight += rect.y;
-//
-//        xPoints = new int[9];
-//        yPoints = new int[9];
-//
-//        xPoints[0] = halfWidth;
-//        yPoints[0] = (int) Math.round(rect.y);
-//
-//        xPoints[1] = halfWidth - innerWidth;
-//        yPoints[1] = halfHeight - innerHeight;
-//
-//        xPoints[2] = (int) Math.round(rect.x);
-//        yPoints[2] = halfHeight;
-//
-//        xPoints[3] = halfWidth - innerWidth;
-//        yPoints[3] = halfHeight + innerHeight;
-//
-//        xPoints[4] = halfWidth;
-//        yPoints[4] = height + (int) Math.round(rect.y);
-//
-//        xPoints[5] = halfWidth + innerWidth;
-//        yPoints[5] = halfHeight + innerHeight;
-//
-//        xPoints[6] = width + (int) Math.round(rect.x);
-//        yPoints[6] = halfHeight;
-//
-//        xPoints[7] = halfWidth + innerWidth;
-//        yPoints[7] = halfHeight - innerHeight;
-//
-//        xPoints[8] = halfWidth;
-//        yPoints[8] = (int) Math.round(rect.y);
+    private void montarEstrela() {
         int width = (int) Math.round(rect.width) - 1;
         int height = (int) Math.round(rect.height) - 1;
 
@@ -88,34 +55,74 @@ public class Estrela extends JComponent {
         int innerWidth = width / 8;
         int innerHeight = height / 8;
 
+        halfWidth += rect.x;
+        halfHeight += rect.y;
+
         xPoints = new int[9];
         yPoints = new int[9];
 
         xPoints[0] = halfWidth;
-        yPoints[0] = 0;
+        yPoints[0] = (int) Math.round(rect.y);
 
         xPoints[1] = halfWidth - innerWidth;
         yPoints[1] = halfHeight - innerHeight;
 
-        xPoints[2] = 0;
+        xPoints[2] = (int) Math.round(rect.x);
         yPoints[2] = halfHeight;
 
         xPoints[3] = halfWidth - innerWidth;
         yPoints[3] = halfHeight + innerHeight;
 
         xPoints[4] = halfWidth;
-        yPoints[4] = height;
+        yPoints[4] = height + (int) Math.round(rect.y);
 
         xPoints[5] = halfWidth + innerWidth;
         yPoints[5] = halfHeight + innerHeight;
 
-        xPoints[6] = width;
+        xPoints[6] = width + (int) Math.round(rect.x);
         yPoints[6] = halfHeight;
 
         xPoints[7] = halfWidth + innerWidth;
         yPoints[7] = halfHeight - innerHeight;
 
         xPoints[8] = halfWidth;
-        yPoints[8] = 0;
+        yPoints[8] = (int) Math.round(rect.y);
+//        int width = (int) Math.round(rect.width) - 1;
+//        int height = (int) Math.round(rect.height) - 1;
+//
+//        int halfWidth = width / 2;
+//        int halfHeight = height / 2;
+//        int innerWidth = width / 8;
+//        int innerHeight = height / 8;
+//
+//        xPoints = new int[9];
+//        yPoints = new int[9];
+//
+//        xPoints[0] = halfWidth;
+//        yPoints[0] = 0;
+//
+//        xPoints[1] = halfWidth - innerWidth;
+//        yPoints[1] = halfHeight - innerHeight;
+//
+//        xPoints[2] = 0;
+//        yPoints[2] = halfHeight;
+//
+//        xPoints[3] = halfWidth - innerWidth;
+//        yPoints[3] = halfHeight + innerHeight;
+//
+//        xPoints[4] = halfWidth;
+//        yPoints[4] = height;
+//
+//        xPoints[5] = halfWidth + innerWidth;
+//        yPoints[5] = halfHeight + innerHeight;
+//
+//        xPoints[6] = width;
+//        yPoints[6] = halfHeight;
+//
+//        xPoints[7] = halfWidth + innerWidth;
+//        yPoints[7] = halfHeight - innerHeight;
+//
+//        xPoints[8] = halfWidth;
+//        yPoints[8] = 0;
     }
 }
