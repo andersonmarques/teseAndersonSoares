@@ -95,13 +95,13 @@ public class VisualizationsArea {
     public void acionarGlyphs() {
         for (int i = 0; i < manipulador.getItensTreemap().length; i++) {//manipulador.getItensTreemap().length
 //            Estrela e = new Estrela(manipulador.getItensTreemap()[i].getBounds());
-            Triangulo t = new Triangulo(manipulador.getItensTreemap()[i].getBounds());
-            Circulo c = new Circulo(manipulador.getItensTreemap()[i].getBounds());
+            //Triangulo t = new Triangulo(manipulador.getItensTreemap()[i].getBounds());
+            //Circulo c = new Circulo(manipulador.getItensTreemap()[i].getBounds());
 //            Retangulo r = new Retangulo(manipulador.getItensTreemap()[i].getBounds());
 //            this.view.add(r);
 //            this.view.add(e);
-            this.view.add(c);
-            this.view.add(t);
+            //this.view.add(c);
+            //this.view.add(t);
         }
     }
 

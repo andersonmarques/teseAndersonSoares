@@ -6,8 +6,10 @@
 package doutorado.tese.gui;
 
 import doutorado.tese.io.ManipuladorArquivo;
+import doutorado.tese.visualizacao.glyph.Circulo;
 import doutorado.tese.visualizacao.glyph.Estrela;
 import doutorado.tese.visualizacao.glyph.Retangulo;
+import doutorado.tese.visualizacao.glyph.Triangulo;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -44,10 +46,16 @@ public class GlassPanel extends JPanel {
         /** Desenhar estrela **/
         for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
             Rectangle bounds = manipulador.getItensTreemap()[i].getBounds();
-            //Estrela e = new Estrela(bounds);
+            Estrela star = new Estrela(bounds);
             Retangulo e = new Retangulo(bounds);
-
+            Circulo c = new Circulo(bounds);
+            Triangulo t = new Triangulo(bounds); 
+            
             e.paint(g);
+            c.paint(g);
+            //star.paint(g);
+            //t.paint(g);
+            
         }
         /**Desenhar Retangulo**/
 //        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {

@@ -40,11 +40,6 @@ public class Retangulo {
         g2d.setColor(new Color(70, 67, 123));
         g2d.fillRect(xPoints[0], yPoints[0] ,xPoints[1], yPoints[1]);
         
-        
-
-        
-        
-        
         System.out.println(xPoints[0]+" "+yPoints[0]+" "+xPoints[1]+" "+yPoints[1]);
 
        
@@ -52,16 +47,16 @@ public class Retangulo {
     }
 
     private void montarRetangulo() {
-        int width = (int) Math.round(rect.width) - 20;
-        int height = (int) Math.round(rect.height) - 20;
+        int width = (int) Math.round(rect.width/2) ;
+        int height = (int) Math.round(rect.height/2) ;
         
         
         
         xPoints = new int[2];
         yPoints = new int[2];
         
-        xPoints[0] = rect.x+20;
-        yPoints[0] = rect.y+20;
+        xPoints[0] = rect.x+(width/2);
+        yPoints[0] = rect.y+(height/2);
         
         xPoints[1] = width;
         yPoints[1] = height;
