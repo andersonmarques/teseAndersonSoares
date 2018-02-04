@@ -216,18 +216,18 @@ public class ManipuladorArquivo {
     public void carregarItensTreemap() {
         int totalItens = getDadosColuna(getCabecalho()[0]).length;
         itensTreemap = new TreeMapItem[totalItens];
-        for (int i = 0; i < totalItens; i++) {
-            String[] dadosLinha = getDadosLinha(i + 2);
+        for (int linha = 0; linha < totalItens; linha++) {
+            String[] dadosLinha = getDadosLinha(linha + 2);
             TreeMapItem itemLocal = null;
             try {
                 itemLocal = new TreeMapItem(1, 0);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            for (int j = 0; j < dadosLinha.length; j++) {
-                itemLocal.getMapaDetalhesItem().put(getColunas()[j], dadosLinha[j]);
+            for (int coluna = 0; coluna < dadosLinha.length; coluna++) {
+                itemLocal.getMapaDetalhesItem().put(getColunas()[coluna], dadosLinha[coluna]);
             }
-            itensTreemap[i] = itemLocal;
+            itensTreemap[linha] = itemLocal;
         }
     }
 

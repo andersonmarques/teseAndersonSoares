@@ -46,15 +46,15 @@ public class GlassPanel extends JPanel {
         /** Desenhar estrela **/
         for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
             Rectangle bounds = manipulador.getItensTreemap()[i].getBounds();
-            Estrela star = new Estrela(bounds);
+//            Estrela star = new Estrela(bounds);
             Retangulo e = new Retangulo(bounds);
             Circulo c = new Circulo(bounds);
-            Triangulo t = new Triangulo(bounds); 
+//            Triangulo t = new Triangulo(bounds); 
             
             e.paint(g);
             c.paint(g);
-            //star.paint(g);
-            //t.paint(g);
+//            star.paint(g);
+//            t.paint(g);
             
         }
         /**Desenhar Retangulo**/
