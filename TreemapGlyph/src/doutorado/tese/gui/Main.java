@@ -11,20 +11,24 @@ import doutorado.tese.util.Flags;
 import doutorado.tese.util.Metadados;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLayeredPane;
 import javax.swing.JTextPane;
+import javax.swing.ListModel;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -54,7 +58,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         initComponents();
 
         lpane = new JLayeredPane();
-//        glyphPanel = new GlassPanel();        
 
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
@@ -74,23 +77,38 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         progressoBarra = new javax.swing.JProgressBar();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        tamanhoTreeampComboBox = new javax.swing.JComboBox<>();
-        checkLegenda = new javax.swing.JCheckBox();
-        legendaComboBox = new javax.swing.JComboBox<>();
         botaoGerarVisualizacao = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
+        colunasHierarquicasList = new javax.swing.JList<>();
+        inserirBotao_treemap = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
         hierarquiaList = new javax.swing.JList<>();
+        cimaBotao_treemap = new javax.swing.JButton();
+        baixoBotao_treemap = new javax.swing.JButton();
+        removerBotao_treemap = new javax.swing.JButton();
+        checkLegenda = new javax.swing.JCheckBox();
+        legendaComboBox = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        tamanhoTreeampComboBox = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        corTreemapComboBox = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         checkGlyph = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        variaveisStarList = new javax.swing.JList<>();
-        checkStarGlyph = new javax.swing.JCheckBox();
+        variaveisGlyphList = new javax.swing.JList<>();
+        inserirBotao_glyph = new javax.swing.JButton();
+        removerBotao__glyph = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        variaveisGlyphList2 = new javax.swing.JList<>();
+        botaoGerarGlyphs = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         painelLegenda = new javax.swing.JTextPane();
-        jPanel3 = new javax.swing.JPanel();
+        checkStarGlyph = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         fileMenuItem = new javax.swing.JMenuItem();
@@ -110,11 +128,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         painelEsquerda.setLayout(painelEsquerdaLayout);
         painelEsquerdaLayout.setHorizontalGroup(
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 999, Short.MAX_VALUE)
+            .addGap(0, 965, Short.MAX_VALUE)
         );
         painelEsquerdaLayout.setVerticalGroup(
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 552, Short.MAX_VALUE)
+            .addGap(0, 644, Short.MAX_VALUE)
         );
 
         jSplitPane1.setLeftComponent(painelEsquerda);
@@ -124,10 +142,55 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         progressoBarra.setName("teste"); // NOI18N
         progressoBarra.setStringPainted(true);
 
-        jLabel1.setText("Size:");
+        botaoGerarVisualizacao.setText("View Treemap");
+        botaoGerarVisualizacao.setEnabled(false);
+        botaoGerarVisualizacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoGerarVisualizacaoActionPerformed(evt);
+            }
+        });
 
-        tamanhoTreeampComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
-        tamanhoTreeampComboBox.setEnabled(false);
+        jLabel2.setText("Group Hierarchy:");
+
+        colunasHierarquicasList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "---" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(colunasHierarquicasList);
+
+        inserirBotao_treemap.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        inserirBotao_treemap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaDir.png"))); // NOI18N
+        inserirBotao_treemap.setEnabled(false);
+        inserirBotao_treemap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirBotao_treemapActionPerformed(evt);
+            }
+        });
+
+        hierarquiaList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "---" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane4.setViewportView(hierarquiaList);
+
+        cimaBotao_treemap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaUp.png"))); // NOI18N
+        cimaBotao_treemap.setEnabled(false);
+        cimaBotao_treemap.setPreferredSize(new java.awt.Dimension(65, 41));
+
+        baixoBotao_treemap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaDown.png"))); // NOI18N
+        baixoBotao_treemap.setEnabled(false);
+        baixoBotao_treemap.setPreferredSize(new java.awt.Dimension(65, 41));
+
+        removerBotao_treemap.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        removerBotao_treemap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaEsq.png"))); // NOI18N
+        removerBotao_treemap.setEnabled(false);
+        removerBotao_treemap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerBotao_treemapActionPerformed(evt);
+            }
+        });
 
         checkLegenda.setText("Label:");
         checkLegenda.addActionListener(new java.awt.event.ActionListener() {
@@ -140,71 +203,97 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         legendaComboBox.setToolTipText("");
         legendaComboBox.setEnabled(false);
 
-        botaoGerarVisualizacao.setText("Show Visualization");
-        botaoGerarVisualizacao.setEnabled(false);
-        botaoGerarVisualizacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoGerarVisualizacaoActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Size:");
 
-        jLabel2.setText("hierarchy:");
+        tamanhoTreeampComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        tamanhoTreeampComboBox.setEnabled(false);
 
-        hierarquiaList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "---" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(hierarquiaList);
+        jLabel4.setText("Color:");
+
+        corTreemapComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        corTreemapComboBox.setEnabled(false);
+
+        jLabel5.setText("Available Attributes:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(checkLegenda)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(legendaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addGap(21, 21, 21)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel4))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(tamanhoTreeampComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(corTreemapComboBox, 0, 166, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(checkLegenda))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tamanhoTreeampComboBox, 0, 166, Short.MAX_VALUE)
-                            .addComponent(legendaComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(21, 21, 21)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(removerBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel5))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(removerBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(legendaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkLegenda))
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tamanhoTreeampComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 63, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(corTreemapComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
                 .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Treemap", jPanel1);
@@ -216,15 +305,113 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        jLabel3.setText("variables:");
+        jLabel3.setText("Available Attributes:");
 
-        variaveisStarList.setModel(new javax.swing.AbstractListModel<String>() {
+        variaveisGlyphList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "---" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        variaveisStarList.setEnabled(false);
-        jScrollPane1.setViewportView(variaveisStarList);
+        variaveisGlyphList.setEnabled(false);
+        variaveisGlyphList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                variaveisGlyphListValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(variaveisGlyphList);
+
+        inserirBotao_glyph.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        inserirBotao_glyph.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaDir.png"))); // NOI18N
+        inserirBotao_glyph.setEnabled(false);
+        inserirBotao_glyph.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirBotao_glyphActionPerformed(evt);
+            }
+        });
+
+        removerBotao__glyph.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        removerBotao__glyph.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaEsq.png"))); // NOI18N
+        removerBotao__glyph.setEnabled(false);
+        removerBotao__glyph.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerBotao__glyphActionPerformed(evt);
+            }
+        });
+
+        variaveisGlyphList2.setEnabled(false);
+        variaveisGlyphList2.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                variaveisGlyphList2ValueChanged(evt);
+            }
+        });
+        jScrollPane5.setViewportView(variaveisGlyphList2);
+
+        botaoGerarGlyphs.setText("View Glyphs");
+        botaoGerarGlyphs.setEnabled(false);
+        botaoGerarGlyphs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoGerarGlyphsActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Chosen Attributes:");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(inserirBotao_glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(removerBotao__glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 49, Short.MAX_VALUE))
+                    .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(checkGlyph)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(inserirBotao_glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(removerBotao__glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Glyph", jPanel2);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Subtitle"));
+
+        painelLegenda.setEditable(false);
+        painelLegenda.setBorder(javax.swing.BorderFactory.createTitledBorder("Subtitle StarGlyph"));
+        jScrollPane2.setViewportView(painelLegenda);
 
         checkStarGlyph.setText("Star glyph");
         checkStarGlyph.addActionListener(new java.awt.event.ActionListener() {
@@ -233,81 +420,47 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        painelLegenda.setEditable(false);
-        painelLegenda.setBorder(javax.swing.BorderFactory.createTitledBorder("Subtitle StarGlyph"));
-        jScrollPane2.setViewportView(painelLegenda);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel3)
-                                .addComponent(checkGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(checkStarGlyph)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkGlyph)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkStarGlyph)
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Glyph", jPanel2);
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Legend"));
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkStarGlyph)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 203, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(checkStarGlyph)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout painelDireitaLayout = new javax.swing.GroupLayout(painelDireita);
         painelDireita.setLayout(painelDireitaLayout);
         painelDireitaLayout.setHorizontalGroup(
             painelDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDireitaLayout.createSequentialGroup()
                 .addComponent(progressoBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(painelDireitaLayout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         painelDireitaLayout.setVerticalGroup(
             painelDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDireitaLayout.createSequentialGroup()
                 .addComponent(progressoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSplitPane1.setRightComponent(painelDireita);
@@ -338,7 +491,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1359, Short.MAX_VALUE)
+            .addComponent(jSplitPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,8 +513,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         limparPainelEsquerda();
         String itemTamanho = tamanhoTreeampComboBox.getSelectedItem().toString();
         String itemLegenda = legendaComboBox.getSelectedItem().toString();
-        String[] itensHierarquia = parseListString2Array(hierarquiaList.getSelectedValuesList());
-        List<String> variaveisStarGlyph = variaveisStarList.getSelectedValuesList();
+        String[] itensHierarquia = parseListString2Array(colunasHierarquicasList.getSelectedValuesList());
+        List<String> variaveisStarGlyph = variaveisGlyphList.getSelectedValuesList();
 
         VisualizationsArea v = new VisualizationsArea(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
                 manipulador, itemTamanho, itensHierarquia, itemLegenda, variaveisStarGlyph);
@@ -385,10 +538,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void checkStarGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkStarGlyphActionPerformed
         if (checkStarGlyph.isSelected()) {
             Flags.setShowStarGlyph(true);
-            variaveisStarList.setEnabled(true);
+            variaveisGlyphList.setEnabled(true);
         } else {
             Flags.setShowStarGlyph(false);
-            variaveisStarList.setEnabled(false);
+            variaveisGlyphList.setEnabled(false);
         }
     }//GEN-LAST:event_checkStarGlyphActionPerformed
 
@@ -406,14 +559,17 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         if (checkGlyph.isSelected()) {
             Flags.setShowGlyph(true);
             glyphPanel = new GlassPanel();
-            glyphPanel.setBounds(painelEsquerda.getBounds());
-            
-            glyphPanel.setManipulador(manipulador);
-            
-            glyphPanel.setVisible(true);
+            variaveisGlyphList.setEnabled(true);
+            if(variaveisGlyphList2.getModel().getSize() >= 1){
+                variaveisGlyphList2.setEnabled(true);
+                botaoGerarGlyphs.setEnabled(true);
+            }
             lpane.add(glyphPanel, new Integer(1), 0);
         } else {
             Flags.setShowGlyph(false);
+            variaveisGlyphList.setEnabled(false);
+            variaveisGlyphList2.setEnabled(false);
+            botaoGerarGlyphs.setEnabled(false);
             glyphPanel.setVisible(false);
             lpane.remove(glyphPanel);
         }
@@ -437,6 +593,86 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             task.execute();
         }
     }//GEN-LAST:event_fileMenuItemActionPerformed
+
+    private void inserirBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotao_treemapActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inserirBotao_treemapActionPerformed
+
+    private void removerBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotao_treemapActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removerBotao_treemapActionPerformed
+
+    private void inserirBotao_glyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotao_glyphActionPerformed
+        List<Object> newListaAtribGlyphs = new ArrayList<>();
+        List<Object> atributosEscolhidos = new ArrayList<>();
+        for (int i = 0; i < variaveisGlyphList2.getModel().getSize(); i++) {
+            String elementAt = variaveisGlyphList2.getModel().getElementAt(i);
+            atributosEscolhidos.add(elementAt);
+        }
+        atributosEscolhidos.addAll(variaveisGlyphList.getSelectedValuesList());
+        loadVariaveisEscolhidasGlyph(atributosEscolhidos.toArray());
+        variaveisGlyphList2.setEnabled(true);
+        botaoGerarGlyphs.setEnabled(true);
+
+        //remover o conteudo da lista de atributos original
+        ListModel<String> modelOriginal = variaveisGlyphList.getModel();
+        List<String> selectedValuesList = variaveisGlyphList.getSelectedValuesList();
+        for (int i = 0; i < modelOriginal.getSize(); i++) {
+            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+                newListaAtribGlyphs.add(modelOriginal.getElementAt(i));
+            }
+        }
+        loadVariaveisGlyph(newListaAtribGlyphs.toArray());
+    }//GEN-LAST:event_inserirBotao_glyphActionPerformed
+
+    private void removerBotao__glyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotao__glyphActionPerformed
+        List<Object> newListaAtribGlyphs = new ArrayList<>();
+        List<Object> atributos = new ArrayList<>();
+
+        for (int i = 0; i < variaveisGlyphList.getModel().getSize(); i++) {
+            String elementAt = variaveisGlyphList.getModel().getElementAt(i);
+            atributos.add(elementAt);
+        }
+        atributos.addAll(variaveisGlyphList2.getSelectedValuesList());
+        loadVariaveisGlyph(atributos.toArray());        
+
+        //remover o conteudo da lista de atributos glyphs
+        ListModel<String> modelGlyphs = variaveisGlyphList2.getModel();
+        List<String> selectedValuesList = variaveisGlyphList2.getSelectedValuesList();
+        for (int i = 0; i < modelGlyphs.getSize(); i++) {
+            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
+                newListaAtribGlyphs.add(modelGlyphs.getElementAt(i));
+            }
+        }
+        loadVariaveisEscolhidasGlyph(newListaAtribGlyphs.toArray());
+        
+        if(variaveisGlyphList2.getModel().getSize() == 0){
+            variaveisGlyphList2.setEnabled(false);
+            botaoGerarGlyphs.setEnabled(false);
+        }
+    }//GEN-LAST:event_removerBotao__glyphActionPerformed
+
+    private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
+        glyphPanel.setBounds(painelEsquerda.getBounds());
+        glyphPanel.setManipulador(manipulador);
+        glyphPanel.setVisible(true);
+    }//GEN-LAST:event_botaoGerarGlyphsActionPerformed
+
+    private void variaveisGlyphList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_variaveisGlyphList2ValueChanged
+        if (variaveisGlyphList2.getSelectedValuesList().size() >= 1) {
+            removerBotao__glyph.setEnabled(true);
+        } else {
+            removerBotao__glyph.setEnabled(false);
+        }
+    }//GEN-LAST:event_variaveisGlyphList2ValueChanged
+
+    private void variaveisGlyphListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_variaveisGlyphListValueChanged
+        if (variaveisGlyphList.getSelectedValuesList().size() >= 1) {
+            inserirBotao_glyph.setEnabled(true);
+        } else {
+            inserirBotao_glyph.setEnabled(false);
+        }
+    }//GEN-LAST:event_variaveisGlyphListValueChanged
 
     /**
      * @param args the command line arguments
@@ -474,17 +710,27 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JButton baixoBotao_treemap;
+    private javax.swing.JButton botaoGerarGlyphs;
     private javax.swing.JButton botaoGerarVisualizacao;
     private javax.swing.JCheckBox checkGlyph;
     private javax.swing.JCheckBox checkLegenda;
     private javax.swing.JCheckBox checkStarGlyph;
+    private javax.swing.JButton cimaBotao_treemap;
+    private javax.swing.JList<String> colunasHierarquicasList;
+    private javax.swing.JComboBox<String> corTreemapComboBox;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem fileMenuItem;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JList<String> hierarquiaList;
+    private javax.swing.JButton inserirBotao_glyph;
+    private javax.swing.JButton inserirBotao_treemap;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -492,6 +738,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JComboBox<String> legendaComboBox;
@@ -499,8 +747,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JPanel painelEsquerda;
     private javax.swing.JTextPane painelLegenda;
     private javax.swing.JProgressBar progressoBarra;
+    private javax.swing.JButton removerBotao__glyph;
+    private javax.swing.JButton removerBotao_treemap;
     private javax.swing.JComboBox<String> tamanhoTreeampComboBox;
-    private javax.swing.JList<String> variaveisStarList;
+    private javax.swing.JList<String> variaveisGlyphList;
+    private javax.swing.JList<String> variaveisGlyphList2;
     // End of variables declaration//GEN-END:variables
     static Main frame;
     private JLayeredPane lpane;
@@ -590,7 +841,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 porcentagem = (ordem * 100) / tarefas;
                 break;
             case 7:
-                loadVariaveisStartGlyph();
+                loadVariaveisGlyph(getColunasCategoricas().toArray());
                 porcentagem = (ordem * 100) / tarefas;
                 break;
             case 8:
@@ -628,15 +879,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     private void loadItensHierarquiaTreemap() {
+        DefaultComboBoxModel model = new DefaultComboBoxModel(getColunasCategoricas().toArray());
+        colunasHierarquicasList.setModel(model);
+        colunasHierarquicasList.setEnabled(true);
+    }
+
+    private List<String> getColunasCategoricas() {
         List<String> list = new ArrayList<>();
         for (Coluna c : manipulador.getColunas()) {
             if (c.getDescription().equals(Metadados.Descricao.CATEGORICAL)) {
                 list.add(c.getName());
             }
         }
-        DefaultComboBoxModel model = new DefaultComboBoxModel(list.toArray());
-        hierarquiaList.setModel(model);
-        hierarquiaList.setEnabled(true);
+        return list;
     }
 
     private void atualizarComboBox(JComboBox comboBox, List<String> itens) {
@@ -645,21 +900,29 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         comboBox.setModel(model);
     }
 
-    private void loadVariaveisStartGlyph() {
-        List<String> itens = new ArrayList<>();
-        for (String cabecalho : manipulador.getCabecalho()) {
-            String tipo = manipulador.getMapaCabecalho().get(cabecalho);
-            if (tipo.equalsIgnoreCase(Metadados.TipoDados.Integer.name())
-                    || tipo.equalsIgnoreCase(Metadados.TipoDados.Double.name())) {
-                itens.add(cabecalho);
-            }
-        }
-        Object[] items = itens.toArray();
-        DefaultComboBoxModel model = new DefaultComboBoxModel(items);
-        variaveisStarList.setModel(model);
-//        variaveisStarList.setEnabled(true);
+    private void loadVariaveisGlyph(Object[] objs) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
+        variaveisGlyphList.setModel(model);
     }
 
+    private void loadVariaveisEscolhidasGlyph(Object[] objs) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
+        variaveisGlyphList2.setModel(model);
+    }
+
+//    private void loadVariaveisStarGlyph() {
+//        List<String> itens = new ArrayList<>();
+//        for (String cabecalho : manipulador.getCabecalho()) {
+//            String tipo = manipulador.getMapaCabecalho().get(cabecalho);
+//            if (tipo.equalsIgnoreCase(Metadados.TipoDados.Integer.name())
+//                    || tipo.equalsIgnoreCase(Metadados.TipoDados.Double.name())) {
+//                itens.add(cabecalho);
+//            }
+//        }
+//        Object[] items = itens.toArray();
+//        DefaultComboBoxModel model = new DefaultComboBoxModel(items);
+//        variaveisGlyphList.setModel(model);
+//    }
     private void appendToPane(JTextPane tp, String msg, Color c) {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
