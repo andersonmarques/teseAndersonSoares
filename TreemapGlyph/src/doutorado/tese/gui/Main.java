@@ -874,6 +874,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void loadItensLegendaTreemap() {
         List<String> itens = new ArrayList<>();
         itens.addAll(Arrays.asList(manipulador.getCabecalho()));
+        itens.remove(manipulador.getCabecalho().length - 1);
         atualizarComboBox(legendaComboBox, itens);
         botaoGerarVisualizacao.setEnabled(true);
     }
@@ -886,10 +887,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private List<String> getColunasCategoricas() {
         List<String> list = new ArrayList<>();
-        for (Coluna c : manipulador.getColunas()) {
+        for (int i = 0; i < manipulador.getColunas().length - 1; i++) {
+            Coluna c = manipulador.getColunas()[i];   
             if (c.getDescription().equals(Metadados.Descricao.CATEGORICAL)) {
                 list.add(c.getName());
-            }
+            }         
         }
         return list;
     }

@@ -6,13 +6,17 @@
 package doutorado.tese.io;
 
 import doutorado.tese.util.Coluna;
+import doutorado.tese.util.Flags;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,7 +56,11 @@ public class ManipuladorArquivo {
                     montarMapaCabecalhoTipos(getCabecalho(), tipos);
                 }
 //                montarColunas(cabecalho, tipos);
-                bufferArquivo.append(line).append("\n");
+                if (numLinha <= 1) {
+                    bufferArquivo.append(line).append("\n");
+                } else {
+                    bufferArquivo.append(line).append(Flags.VALUE_SAME_SIZE).append("\n");
+                }
                 numLinha++;
             }
             linhas = bufferArquivo.toString().split("\n");
@@ -109,11 +117,27 @@ public class ManipuladorArquivo {
     }
 
     private String[] montarCabecalho(String line) {
-        return line.split("\t|,");
+        List<String> asList = new ArrayList<>();
+        asList.addAll(Arrays.asList(line.split("\t|,")));
+        asList.add("SAME_SIZE");
+
+        String[] cabecalhoLocal = new String[asList.size()];
+        for (int i = 0; i < cabecalhoLocal.length; i++) {
+            cabecalhoLocal[i] = asList.get(i);
+        }
+        return cabecalhoLocal;
     }
 
     private String[] desvendarTiposDados(String line) {
-        return line.split("\t|,");
+        List<String> asList = new ArrayList<>();
+        asList.addAll(Arrays.asList(line.split("\t|,")));
+        asList.add("Integer");
+
+        String[] tiposLocal = new String[asList.size()];
+        for (int i = 0; i < tiposLocal.length; i++) {
+            tiposLocal[i] = asList.get(i);
+        }
+        return tiposLocal;
     }
 
     private void montarMapaCabecalhoTipos(String[] cabecalho, String[] tipos) {

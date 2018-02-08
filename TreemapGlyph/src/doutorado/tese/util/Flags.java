@@ -14,6 +14,7 @@ import java.awt.Color;
 public class Flags {
     
     public final static String PROGRESS = "progress";
+    public final static String VALUE_SAME_SIZE = "\t1";
     private static boolean showGlyph = false;
     private static boolean showLegenda = false;
     private static boolean showStarGlyph = false;
