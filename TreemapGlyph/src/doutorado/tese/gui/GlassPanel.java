@@ -7,14 +7,14 @@ package doutorado.tese.gui;
 
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.visualizacao.glyph.Circulo;
-import doutorado.tese.visualizacao.glyph.Estrela;
+import doutorado.tese.visualizacao.glyph.GlyphManager;
 import doutorado.tese.visualizacao.glyph.Retangulo;
-import doutorado.tese.visualizacao.glyph.Triangulo;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
+import javax.swing.ListModel;
 
 /**
  *
@@ -23,7 +23,8 @@ import javax.swing.JPanel;
 public class GlassPanel extends JPanel {
 
     private ManipuladorArquivo manipulador;
-    
+    private GlyphManager glyphManager;
+
     public GlassPanel() {
         setOpaque(false);
         setLayout(new GroupLayout(this));
@@ -35,34 +36,20 @@ public class GlassPanel extends JPanel {
         setLayout(new GroupLayout(this));
     }
 
+    public void setAtributosEscolhidos(ListModel<String> atributosEscolhidos) {
+        glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos);
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(new Color(0, 255, 0, 0));
+        g.setColor(new Color(0, 255, 0, 0));//painel com fundo transparente
         Rectangle r = getBounds();
         g.fillRect(r.x, r.y, r.width, r.height);
-        
-        g.setColor(Color.BLACK);        
-        /** Desenhar estrela **/
-        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-            Rectangle bounds = manipulador.getItensTreemap()[i].getBounds();
-//            Estrela star = new Estrela(bounds);
-            Retangulo e = new Retangulo(bounds);
-            Circulo c = new Circulo(bounds);
-//            Triangulo t = new Triangulo(bounds); 
-            
-            e.paint(g);
-            c.paint(g);
-//            star.paint(g);
-//            t.paint(g);
-            
-        }
-        /**Desenhar Retangulo**/
-//        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-//            Rectangle bounds = manipulador.getItensTreemap()[i].getBounds();
-//            Retangulo e = new Retangulo(bounds);
-//            e.paint(g);
-//        }
+
+//        g.setColor(Color.BLACK);
+        glyphManager.paint(g);
+
     }
 
     /**

@@ -35,11 +35,11 @@ public class Circulo {
         montarRetangulo();
         //g2d.dispose();
 
-        System.out.println(rect + " x" + xPoints[1] + "y" + xPoints[1]);
+//        System.out.println(rect + " x" + xPoints[1] + "y" + xPoints[1]);
         g2d.setColor(new Color(221, 160, 221));
         g2d.fillOval(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
 
-        System.out.println(xPoints[0] + " " + yPoints[0] + " " + xPoints[1] + " " + yPoints[1]);
+//        System.out.println(xPoints[0] + " " + yPoints[0] + " " + xPoints[1] + " " + yPoints[1]);
 
     }
 

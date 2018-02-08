@@ -655,7 +655,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
         glyphPanel.setBounds(painelEsquerda.getBounds());
         glyphPanel.setManipulador(manipulador);
+        glyphPanel.setAtributosEscolhidos(variaveisGlyphList2.getModel());
         glyphPanel.setVisible(true);
+        glyphPanel.repaint();
     }//GEN-LAST:event_botaoGerarGlyphsActionPerformed
 
     private void variaveisGlyphList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_variaveisGlyphList2ValueChanged

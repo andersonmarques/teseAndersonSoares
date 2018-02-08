@@ -158,7 +158,7 @@ public class Coluna {
     }
 
     /**
-     * @return the dadosDistintos
+     * @return Retorna uma lista com os dados da coluna que sao distintos.
      */
     public List<String> getDadosDistintos() {
         return dadosDistintos;
