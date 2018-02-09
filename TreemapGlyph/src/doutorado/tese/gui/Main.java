@@ -58,7 +58,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         initComponents();
 
         lpane = new JLayeredPane();
-
+        checkStarGlyph.setVisible(false);
+        painelLegenda.setVisible(false);
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
 
@@ -83,7 +84,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         colunasHierarquicasList = new javax.swing.JList<>();
         inserirBotao_treemap = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        hierarquiaList = new javax.swing.JList<>();
+        colunasHierarquicasList2 = new javax.swing.JList<>();
         cimaBotao_treemap = new javax.swing.JButton();
         baixoBotao_treemap = new javax.swing.JButton();
         removerBotao_treemap = new javax.swing.JButton();
@@ -152,10 +153,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         jLabel2.setText("Group Hierarchy:");
 
-        colunasHierarquicasList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "---" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        colunasHierarquicasList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                colunasHierarquicasListValueChanged(evt);
+            }
         });
         jScrollPane3.setViewportView(colunasHierarquicasList);
 
@@ -168,20 +169,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        hierarquiaList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "---" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        colunasHierarquicasList2.setEnabled(false);
+        colunasHierarquicasList2.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                colunasHierarquicasList2ValueChanged(evt);
+            }
         });
-        jScrollPane4.setViewportView(hierarquiaList);
+        jScrollPane4.setViewportView(colunasHierarquicasList2);
 
         cimaBotao_treemap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaUp.png"))); // NOI18N
         cimaBotao_treemap.setEnabled(false);
-        cimaBotao_treemap.setPreferredSize(new java.awt.Dimension(65, 41));
 
         baixoBotao_treemap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaDown.png"))); // NOI18N
         baixoBotao_treemap.setEnabled(false);
-        baixoBotao_treemap.setPreferredSize(new java.awt.Dimension(65, 41));
 
         removerBotao_treemap.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         removerBotao_treemap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaEsq.png"))); // NOI18N
@@ -501,10 +501,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public String[] parseListString2Array(List<String> lista) {
-        String[] convertida = new String[lista.size()];
+    public String[] parseListString2Array(ListModel<String> lista) {
+        String[] convertida = new String[lista.getSize()];
         for (int i = 0; i < convertida.length; i++) {
-            convertida[i] = lista.get(i);
+            convertida[i] = lista.getElementAt(i);
         }
         return convertida;
     }
@@ -513,7 +513,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         limparPainelEsquerda();
         String itemTamanho = tamanhoTreeampComboBox.getSelectedItem().toString();
         String itemLegenda = legendaComboBox.getSelectedItem().toString();
-        String[] itensHierarquia = parseListString2Array(colunasHierarquicasList.getSelectedValuesList());
+        String[] itensHierarquia = parseListString2Array(colunasHierarquicasList2.getModel());
         List<String> variaveisStarGlyph = variaveisGlyphList.getSelectedValuesList();
 
         VisualizationsArea v = new VisualizationsArea(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
@@ -595,21 +595,65 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_fileMenuItemActionPerformed
 
     private void inserirBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotao_treemapActionPerformed
-        // TODO add your handling code here:
+        List<Object> newListaAtribTreemap = new ArrayList<>();
+        List<Object> atributosEscolhidos = new ArrayList<>();
+        for (int i = 0; i < colunasHierarquicasList2.getModel().getSize(); i++) {
+            String elementAt = colunasHierarquicasList2.getModel().getElementAt(i);
+            atributosEscolhidos.add(elementAt);
+        }
+        atributosEscolhidos.addAll(colunasHierarquicasList.getSelectedValuesList());
+        atributosEscolhidos.sort(null);
+        loadVariaveisEscolhidasTreemap(atributosEscolhidos.toArray());
+        colunasHierarquicasList2.setEnabled(true);
+        botaoGerarVisualizacao.setEnabled(true);
+
+        //remover o conteudo da lista de atributos original
+        ListModel<String> modelOriginal = colunasHierarquicasList.getModel();
+        List<String> selectedValuesList = colunasHierarquicasList.getSelectedValuesList();
+        for (int i = 0; i < modelOriginal.getSize(); i++) {
+            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+                newListaAtribTreemap.add(modelOriginal.getElementAt(i));
+            }
+        }
+        loadItensHierarquiaTreemap(newListaAtribTreemap.toArray());        
     }//GEN-LAST:event_inserirBotao_treemapActionPerformed
 
     private void removerBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotao_treemapActionPerformed
-        // TODO add your handling code here:
+        List<Object> newListaAtribTreemap = new ArrayList<>();
+        List<Object> atributos = new ArrayList<>();
+
+        for (int i = 0; i < colunasHierarquicasList.getModel().getSize(); i++) {
+            String elementAt = colunasHierarquicasList.getModel().getElementAt(i);
+            atributos.add(elementAt);
+        }
+        atributos.addAll(colunasHierarquicasList2.getSelectedValuesList());
+        atributos.sort(null);
+        loadItensHierarquiaTreemap(atributos.toArray());        
+
+        //remover o conteudo da lista de hierarquia treemap
+        ListModel<String> modelGlyphs = colunasHierarquicasList2.getModel();
+        List<String> selectedValuesList = colunasHierarquicasList2.getSelectedValuesList();
+        for (int i = 0; i < modelGlyphs.getSize(); i++) {
+            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
+                newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
+            }
+        }
+        loadVariaveisEscolhidasTreemap(newListaAtribTreemap.toArray());
+        
+        if(colunasHierarquicasList2.getModel().getSize() == 0){
+            colunasHierarquicasList2.setEnabled(false);
+        }
     }//GEN-LAST:event_removerBotao_treemapActionPerformed
 
     private void inserirBotao_glyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotao_glyphActionPerformed
         List<Object> newListaAtribGlyphs = new ArrayList<>();
-        List<Object> atributosEscolhidos = new ArrayList<>();
+        ArrayList<Object> atributosEscolhidos = new ArrayList<>();
         for (int i = 0; i < variaveisGlyphList2.getModel().getSize(); i++) {
             String elementAt = variaveisGlyphList2.getModel().getElementAt(i);
             atributosEscolhidos.add(elementAt);
         }
         atributosEscolhidos.addAll(variaveisGlyphList.getSelectedValuesList());
+        atributosEscolhidos.sort(null);
         loadVariaveisEscolhidasGlyph(atributosEscolhidos.toArray());
         variaveisGlyphList2.setEnabled(true);
         botaoGerarGlyphs.setEnabled(true);
@@ -676,6 +720,22 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }//GEN-LAST:event_variaveisGlyphListValueChanged
 
+    private void colunasHierarquicasListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasHierarquicasListValueChanged
+        if (colunasHierarquicasList.getSelectedValuesList().size() >= 1) {
+            inserirBotao_treemap.setEnabled(true);
+        } else {
+            inserirBotao_treemap.setEnabled(false);
+        }
+    }//GEN-LAST:event_colunasHierarquicasListValueChanged
+
+    private void colunasHierarquicasList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasHierarquicasList2ValueChanged
+        if (colunasHierarquicasList2.getSelectedValuesList().size() >= 1) {
+            removerBotao_treemap.setEnabled(true);
+        } else {
+            removerBotao_treemap.setEnabled(false);
+        }
+    }//GEN-LAST:event_colunasHierarquicasList2ValueChanged
+
     /**
      * @param args the command line arguments
      */
@@ -720,11 +780,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JCheckBox checkStarGlyph;
     private javax.swing.JButton cimaBotao_treemap;
     private javax.swing.JList<String> colunasHierarquicasList;
+    private javax.swing.JList<String> colunasHierarquicasList2;
     private javax.swing.JComboBox<String> corTreemapComboBox;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem fileMenuItem;
     private javax.swing.JMenu helpMenu;
-    private javax.swing.JList<String> hierarquiaList;
     private javax.swing.JButton inserirBotao_glyph;
     private javax.swing.JButton inserirBotao_treemap;
     private javax.swing.JLabel jLabel1;
@@ -847,7 +907,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 porcentagem = (ordem * 100) / tarefas;
                 break;
             case 8:
-                loadItensHierarquiaTreemap();
+                loadItensHierarquiaTreemap(getColunasCategoricas().toArray());
                 porcentagem = (ordem * 100) / tarefas;
                 break;
             default:
@@ -881,8 +941,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         botaoGerarVisualizacao.setEnabled(true);
     }
 
-    private void loadItensHierarquiaTreemap() {
-        DefaultComboBoxModel model = new DefaultComboBoxModel(getColunasCategoricas().toArray());
+    private void loadItensHierarquiaTreemap(Object[] objs) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
         colunasHierarquicasList.setModel(model);
         colunasHierarquicasList.setEnabled(true);
     }
@@ -912,6 +972,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void loadVariaveisEscolhidasGlyph(Object[] objs) {
         DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
         variaveisGlyphList2.setModel(model);
+    }
+    
+    private void loadVariaveisEscolhidasTreemap(Object[] objs){
+        DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
+        colunasHierarquicasList2.setModel(model);
     }
 
 //    private void loadVariaveisStarGlyph() {
