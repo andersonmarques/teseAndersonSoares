@@ -6,7 +6,7 @@
 package doutorado.tese.io;
 
 import doutorado.tese.util.Coluna;
-import doutorado.tese.util.Flags;
+import doutorado.tese.util.Constantes;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import java.io.BufferedReader;
 import java.io.File;
@@ -59,7 +59,7 @@ public class ManipuladorArquivo {
                 if (numLinha <= 1) {
                     bufferArquivo.append(line).append("\n");
                 } else {
-                    bufferArquivo.append(line).append(Flags.VALUE_SAME_SIZE).append("\n");
+                    bufferArquivo.append(line).append(Constantes.VALUE_SAME_SIZE).append("\n");
                 }
                 numLinha++;
             }

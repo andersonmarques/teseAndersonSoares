@@ -9,7 +9,7 @@ import doutorado.tese.visualizacao.treemap.treemapAPI.TMModel_Draw;
 import doutorado.tese.visualizacao.treemap.treemapAPI.TMModel_Size;
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
-import doutorado.tese.util.Flags;
+import doutorado.tese.util.Constantes;
 import doutorado.tese.visualizacao.glyph.Circulo;
 import doutorado.tese.visualizacao.glyph.Estrela;
 import doutorado.tese.visualizacao.glyph.Retangulo;
@@ -51,8 +51,7 @@ public class VisualizationsArea {
     private StarGlyph[] starGlyphs;
 
     public VisualizationsArea(int w, int h, ManipuladorArquivo manipulador,
-            String itemTamanho, String[] itensHierarquia, String itemLegenda,
-            List<String> variaveisStarGlyph) {
+            String itemTamanho, String[] itensHierarquia, String itemLegenda) {
         this.manipulador = manipulador;
         this.hierarquiaFila = new LinkedList<>();
 
@@ -81,30 +80,8 @@ public class VisualizationsArea {
         });
         TMThreadModel.listener = listener;
         TMUpdaterConcrete.listener = listener;
-
-        if (Flags.isShowStarGlyph()) {
-            acionarStarGlyph(variaveisStarGlyph);
-        }
-
-//        if (Flags.isShowGlyph()) {
-//            acionarGlyphs();
-//        }
-        //acionarGLyphFX();
     }
-
-    public void acionarGlyphs() {
-        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {//manipulador.getItensTreemap().length
-//            Estrela e = new Estrela(manipulador.getItensTreemap()[i].getBounds());
-            //Triangulo t = new Triangulo(manipulador.getItensTreemap()[i].getBounds());
-            //Circulo c = new Circulo(manipulador.getItensTreemap()[i].getBounds());
-//            Retangulo r = new Retangulo(manipulador.getItensTreemap()[i].getBounds());
-//            this.view.add(r);
-//            this.view.add(e);
-            //this.view.add(c);
-            //this.view.add(t);
-        }
-    }
-
+    
     public void acionarStarGlyph(List<String> variaveisStarGlyph) {
         for (int i = 0; i < manipulador.getItensTreemap().length; i++) {//manipulador.getItensTreemap().length
             StarGlyph starGlyph = new StarGlyph(manipulador.getItensTreemap()[i].getBounds(), variaveisStarGlyph);
@@ -185,7 +162,7 @@ public class VisualizationsArea {
     private TreeMapNode createTree(String[] hierarquia, String itemTamanho, String itemLegenda) {
         setHierarchy(hierarquia);
         setSizeColumn(ManipuladorArquivo.getColuna(itemTamanho));
-        if (!Flags.isShowLegenda()) {
+        if (!Constantes.isShowLegenda()) {
             setTreemapItemLabel(root.getChildren(), false);
         } else {
             setLabelColumn(ManipuladorArquivo.getColuna(itemLegenda));

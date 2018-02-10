@@ -7,7 +7,7 @@ package doutorado.tese.visualizacao.glyph;
 
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
-import doutorado.tese.util.Flags;
+import doutorado.tese.util.Constantes;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -74,7 +74,7 @@ public class StarGlyph extends JLabel{
                 double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
                 double porcentagemDado = calcularPorcentagemDado(dado, dadoMaxVal);
                 r = calcularPorcentagemParaR(porcentagemDado, maiorRaio);
-                g2d.setColor(Color.decode(Flags.getCor()[i]));
+                g2d.setColor(Color.decode(Constantes.getCor()[i]));
                 desenharEixoPolar(g2d);
                 anguloAlfa += anguloAcc;
             }

@@ -6,7 +6,7 @@
 package doutorado.tese.gui;
 
 import doutorado.tese.io.ManipuladorArquivo;
-import doutorado.tese.util.Flags;
+import doutorado.tese.util.Constantes;
 import doutorado.tese.visualizacao.glyph.Estrela;
 import doutorado.tese.visualizacao.glyph.StarGlyph;
 import doutorado.tese.visualizacao.treemap.TreeMapLevel;
@@ -46,7 +46,7 @@ public class AreaDesenho extends JLabel {
 //        treemap = new Treemap(manipulador, bounds);
 //        treemap.setHierarchy(itensHierarquia);
 //        treemap.setSizeColumn(ManipuladorArquivo.getColuna(itemTamanho));
-//        if (!Flags.isShowLegenda()) {
+//        if (!Constantes.isShowLegenda()) {
 //            this.treemap.setTreemapItemLabel(treemap.getRoot().getItemsFilhos(), false);
 //        } else {
 //            treemap.setLabelColumn(ManipuladorArquivo.getColuna(itemLegenda));
@@ -89,7 +89,7 @@ public class AreaDesenho extends JLabel {
 //        treeMap.setGroupByByNames(itensHierarquia);
 //        treeMap.setColorByName(corColName);
 ////        treeMap.getModel().
-//        if (Flags.isShowLegenda()) {
+//        if (Constantes.isShowLegenda()) {
 //            treeMap.setBackgroundByName(itemLegenda);
 //        }
 //        treeMap.setLabels();
@@ -107,13 +107,13 @@ public class AreaDesenho extends JLabel {
 //        treemap.paint(g2d);
         //3.1 Desenhamos os StarGlyphs por grupo
 //        for (int i = 0; i < treemap.getRoot().getItemsFilhos().size(); i++) {
-//            if (Flags.isShowStarGlyph()) {
+//            if (Constantes.isShowStarGlyph()) {
 //                starGlyphs[i].paint(g);
 //            }
 //        }
         //3.2 Desenhamos os StarGlyphs por itens
         for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-            if (Flags.isShowStarGlyph()) {
+            if (Constantes.isShowStarGlyph()) {
                 starGlyphs[i].paint(g);
             }
         }
@@ -127,16 +127,16 @@ public class AreaDesenho extends JLabel {
 //            rect = items[i].getBounds();
 //
 //            //Desenhar estrelas
-//            if (Flags.isShowGlyph()) {
+//            if (Constantes.isShowGlyph()) {
 //                estrelas[i].paint(g);
 //            }
 //            //Escrever label
-//            if (Flags.isShowLegenda()) {
+//            if (Constantes.isShowLegenda()) {
 //                rect.label = dadosLegenda[i];
 //                Point centro = centralizarLegenda(rect, g2d);
 //                g.drawString(rect.label, centro.x, centro.y);
 //            }
-//            if (Flags.isShowStarGlyph()) {
+//            if (Constantes.isShowStarGlyph()) {
 //                starGlyphs[i].paint(g);
 //            }
 //            g.setColor(Color.black);

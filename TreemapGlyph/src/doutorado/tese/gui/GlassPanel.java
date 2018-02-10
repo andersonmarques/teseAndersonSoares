@@ -6,15 +6,13 @@
 package doutorado.tese.gui;
 
 import doutorado.tese.io.ManipuladorArquivo;
-import doutorado.tese.visualizacao.glyph.Circulo;
 import doutorado.tese.visualizacao.glyph.GlyphManager;
-import doutorado.tese.visualizacao.glyph.Retangulo;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
-import javax.swing.ListModel;
 
 /**
  *
@@ -36,7 +34,7 @@ public class GlassPanel extends JPanel {
         setLayout(new GroupLayout(this));
     }
 
-    public void setAtributosEscolhidos(ListModel<String> atributosEscolhidos) {
+    public void setAtributosEscolhidos(List<Object> atributosEscolhidos) {
         glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos);
     }
 
@@ -49,7 +47,7 @@ public class GlassPanel extends JPanel {
 
 //        g.setColor(Color.BLACK);
         glyphManager.paint(g);
-
+        g.dispose();
     }
 
     /**
