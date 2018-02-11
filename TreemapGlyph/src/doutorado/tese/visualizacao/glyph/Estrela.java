@@ -47,8 +47,8 @@ public class Estrela{
     }
 
     private void montarEstrela() {
-        int width = (int) Math.round(rect.width) - 1;
-        int height = (int) Math.round(rect.height) - 1;
+       int width = (int) ((int) Math.round(rect.width) - rect.width *0.62);
+        int height = (int) ((int) Math.round(rect.height) - rect.height *0.62);
 
         int halfWidth = width / 2;
         int halfHeight = height / 2;
@@ -87,42 +87,6 @@ public class Estrela{
 
         xPoints[8] = halfWidth;
         yPoints[8] = (int) Math.round(rect.y);
-//        int width = (int) Math.round(rect.width) - 1;
-//        int height = (int) Math.round(rect.height) - 1;
-//
-//        int halfWidth = width / 2;
-//        int halfHeight = height / 2;
-//        int innerWidth = width / 8;
-//        int innerHeight = height / 8;
-//
-//        xPoints = new int[9];
-//        yPoints = new int[9];
-//
-//        xPoints[0] = halfWidth;
-//        yPoints[0] = 0;
-//
-//        xPoints[1] = halfWidth - innerWidth;
-//        yPoints[1] = halfHeight - innerHeight;
-//
-//        xPoints[2] = 0;
-//        yPoints[2] = halfHeight;
-//
-//        xPoints[3] = halfWidth - innerWidth;
-//        yPoints[3] = halfHeight + innerHeight;
-//
-//        xPoints[4] = halfWidth;
-//        yPoints[4] = height;
-//
-//        xPoints[5] = halfWidth + innerWidth;
-//        yPoints[5] = halfHeight + innerHeight;
-//
-//        xPoints[6] = width;
-//        yPoints[6] = halfHeight;
-//
-//        xPoints[7] = halfWidth + innerWidth;
-//        yPoints[7] = halfHeight - innerHeight;
-//
-//        xPoints[8] = halfWidth;
-//        yPoints[8] = 0;
+
     }
 }

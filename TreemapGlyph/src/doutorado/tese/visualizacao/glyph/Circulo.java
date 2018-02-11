@@ -11,6 +11,7 @@ public class Circulo {
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
+    private int numberColor;
 
     public Circulo(Rectangle r) {
         this.rect = r;
@@ -32,18 +33,69 @@ public class Circulo {
 
         g2d.setPaint(Color.BLUE);
 
-        montarRetangulo();
-        //g2d.dispose();
+        montarCirculo();
+        
+//        Color c = selecionarCor(2);
+//        g2d.setColor(c);
 
-//        System.out.println(rect + " x" + xPoints[1] + "y" + xPoints[1]);
+        
+        
         g2d.setColor(new Color(221, 160, 221));
         g2d.fillOval(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
 
-//        System.out.println(xPoints[0] + " " + yPoints[0] + " " + xPoints[1] + " " + yPoints[1]);
 
     }
 
-    private void montarRetangulo() {
+    public Color selecionarCor(int number){
+        //verde
+        Color c1 = new Color(125, 167, 116);
+        //azul
+        Color c2 = new Color(42, 179, 231);
+        
+        //roxo
+        Color c3 = new Color(70, 67, 123);
+        //pesego
+        Color c4 = new Color(241, 98, 69);
+        //preto
+        Color c5 = new Color(63, 121, 186);       
+        //cinza
+        Color c6 = new Color(169,169,169);   
+        //vermelho
+        Color c7 = new Color(139,0,0);
+        //branco
+        Color c8 = new Color(255,255,255);
+        //amarelo
+        Color c9 = new Color(252, 211, 61);
+       
+        switch (numberColor) {
+
+            case 1:
+                return c1;
+            case 2:
+                return c2;
+            case 3:
+                return c3;
+            case 4:
+                return c4;
+            case 5:
+                return c5;
+            case 6:
+                return c6;
+            case 7:
+                return c7;
+            case 8:
+                return c8;
+            case 9:
+                return c9;
+
+            default:
+                    throw new AssertionError();
+            }
+                  
+    }
+    
+    
+    private void montarCirculo() {
         int width = (int) Math.round(rect.width / 2);
         int height = (int) Math.round((rect.height) / 2);
 

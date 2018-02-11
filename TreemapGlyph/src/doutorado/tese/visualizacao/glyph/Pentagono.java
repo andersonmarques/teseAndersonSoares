@@ -13,13 +13,13 @@ import java.awt.RenderingHints;
 import javax.swing.JComponent;
 
 
-public class Cruz{
+public class Pentagono{
 
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
 
-    public Cruz(Rectangle r) {
+    public Pentagono(Rectangle r) {
         this.rect = r;
         setBounds(this.rect);
     }
@@ -39,11 +39,11 @@ public class Cruz{
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         g2d.setPaint(Color.BLACK);
-        montarCruz();
+        montarPentagono();
         g2d.drawPolygon(xPoints, yPoints, xPoints.length);
     }
 
-    private void montarCruz() {
+    private void montarPentagono() {
         int width = (int) ((int) Math.round(rect.width) - rect.width *0.62);
         int height = (int) ((int) Math.round(rect.height) - rect.height *0.62);
 
@@ -56,46 +56,23 @@ public class Cruz{
         halfWidth += rect.x;
         halfHeight += rect.y;
 
-        xPoints = new int[12];
-        yPoints = new int[12];
+        xPoints = new int[5];
+        yPoints = new int[5];
 
-        xPoints[0] = halfWidth - innerWidth;
+        xPoints[0] = halfWidth;
         yPoints[0] = (int) Math.round(rect.y);
 
-        xPoints[1] = halfWidth - innerWidth;
-        yPoints[1] = halfHeight - innerHeight;
+        xPoints[1] = (int) Math.round(rect.x);
+        yPoints[1] = halfHeight;
 
-        xPoints[2] = (int) Math.round(rect.x);
-        yPoints[2] = halfHeight - innerHeight;
+        xPoints[2] = halfWidth - innerWidth;
+        yPoints[2] = height + (int) Math.round(rect.y);
 
-        xPoints[3] = (int) Math.round(rect.x);
-        yPoints[3] = halfHeight + innerHeight;
+        xPoints[3] = halfWidth + innerWidth;
+        yPoints[3] = height + (int) Math.round(rect.y);
 
-        xPoints[4] = halfWidth - innerWidth;
-        yPoints[4] = halfHeight + innerHeight;
-
-        xPoints[5] = halfWidth-innerWidth;
-        yPoints[5] = height + (int) Math.round(rect.y);
-
-        xPoints[6] = halfWidth+innerWidth;
-        yPoints[6] = height + (int) Math.round(rect.y);
-
-        xPoints[7] = halfWidth+innerWidth;
-        yPoints[7] = halfHeight + innerHeight;
-
-        xPoints[8] = width +(int) Math.round(rect.x);
-        yPoints[8] = halfHeight + innerHeight;
-
-        xPoints[9] = width +(int) Math.round(rect.x);
-        yPoints[9] = halfHeight - innerHeight;
-
-        xPoints[10] =halfWidth + innerWidth ;
-        yPoints[10] = halfHeight - innerHeight;
-
-        xPoints[11] = halfWidth + innerWidth  ;
-        yPoints[11] = (int) Math.round(rect.y);
-        
-        
+        xPoints[4] = width +(int) Math.round(rect.x);
+        yPoints[4] = halfHeight;
 
      
 

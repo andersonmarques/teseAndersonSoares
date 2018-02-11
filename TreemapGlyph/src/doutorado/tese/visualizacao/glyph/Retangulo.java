@@ -42,10 +42,50 @@ public class Retangulo {
 //        System.out.println(xPoints[0] + " " + yPoints[0] + " " + xPoints[1] + " " + yPoints[1]);
 
     }
+    //função para deixar os glyphs quadrados
+        private float verificarRetangulo(float width, float height){
+        if(width > height){
+            width = height;
+            
+             return width;
+        }
+        else if(width < height){
+            height = width;
+             return height;
+        }
+        return 0;
+    }
 
     private void montarRetangulo() {
+        
+        
+        
         int width = (int) Math.round(rect.width / 2);
         int height = (int) Math.round(rect.height / 2);
+        
+        
+//        float ponto = verificarRetangulo(width,height);
+//
+//        
+//        if(width > height){
+//          //xPoints[0] = (int) (rect.x + (width / 2));
+//          //yPoints[0] = rect.y + (rect.y / 2);
+//
+//        }
+//        else if(width < height){
+//            //xPoints[0] = rect.x + (width / 2);
+//            //yPoints[0] = (int) (rect.y + (rect.y / 2));
+//        
+//        
+//        
+//            xPoints[0] = rect.x + (width / 2);
+//            yPoints[0] = rect.y + (height / 2);
+//       
+//        
+//        xPoints[1] = (int) ponto;
+//        yPoints[1] = (int) ponto;
+//        
+//    }
 
         xPoints = new int[2];
         yPoints = new int[2];
