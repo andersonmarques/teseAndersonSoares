@@ -176,7 +176,6 @@ public final class GlyphManager {
                 for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
                     TreeMapItem item = manipulador.getItensTreemap()[i];
                     Rectangle bounds = item.getBounds();
-                    Circulo c = new Circulo(bounds);
                     if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(0))) {
                         Triangulo t = new Triangulo(bounds);
                         t.paint(g);

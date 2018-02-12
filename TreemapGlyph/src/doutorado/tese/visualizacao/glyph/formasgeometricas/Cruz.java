@@ -11,10 +11,8 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import javax.swing.JComponent;
 
-
-public class Cruz{
+public class Cruz {
 
     private int[] xPoints;
     private int[] yPoints;
@@ -25,26 +23,24 @@ public class Cruz{
         this.rect = r;
         setBounds(this.rect);
     }
-    
-    public void setBounds(Rectangle rect){
+
+    public void setBounds(Rectangle rect) {
         this.rect = rect;
     }
-    
-    public Rectangle getBounds(){
+
+    public Rectangle getBounds() {
         return rect;
     }
 
     public void paint(Graphics g) {
-//        this.setOpaque(false);
-//        super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
+
         g2d.setPaint(Color.BLACK);
         montarCruz();
-        
+
         Polygon p = new Polygon();
-        
+
         p.addPoint(xPoints[0], yPoints[0]);
         p.addPoint(xPoints[1], yPoints[1]);
         p.addPoint(xPoints[2], yPoints[2]);
@@ -58,23 +54,22 @@ public class Cruz{
         p.addPoint(xPoints[10], yPoints[10]);
         p.addPoint(xPoints[11], yPoints[11]);
 
-
-        p.translate(xy[0],xy[1]);
+        p.translate(xy[0], xy[1]);
 
         g2d.setColor(Color.white);
         g2d.fillPolygon(p);
+        g2d.setColor(Color.BLACK);
+        g2d.drawPolygon(p);
     }
 
     private void montarCruz() {
-       int width = (int) ((int) Math.round(rect.width)*0.6);
-        int height = (int) ((int) Math.round(rect.height)*0.6);
-
+        int width = (int) ((int) Math.round(rect.width) * 0.6);
+        int height = (int) ((int) Math.round(rect.height) * 0.6);
 
         xy = new int[2];
-        xy[0] =  (int) (Math.round(rect.width)+ rect.width/2+ width *0.6)/10;
-        xy[1] =  (int) (Math.round(rect.height) +rect.height/2 + height* 0.6) /10;
-        
-        
+        xy[0] = (int) (Math.round(rect.width) + rect.width / 2 + width * 0.6) / 10;
+        xy[1] = (int) (Math.round(rect.height) + rect.height / 2 + height * 0.6) / 10;
+
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 4;
@@ -101,30 +96,26 @@ public class Cruz{
         xPoints[4] = halfWidth - innerWidth;
         yPoints[4] = halfHeight + innerHeight;
 
-        xPoints[5] = halfWidth-innerWidth;
+        xPoints[5] = halfWidth - innerWidth;
         yPoints[5] = height + (int) Math.round(rect.y);
 
-        xPoints[6] = halfWidth+innerWidth;
+        xPoints[6] = halfWidth + innerWidth;
         yPoints[6] = height + (int) Math.round(rect.y);
 
-        xPoints[7] = halfWidth+innerWidth;
+        xPoints[7] = halfWidth + innerWidth;
         yPoints[7] = halfHeight + innerHeight;
 
-        xPoints[8] = width +(int) Math.round(rect.x);
+        xPoints[8] = width + (int) Math.round(rect.x);
         yPoints[8] = halfHeight + innerHeight;
 
-        xPoints[9] = width +(int) Math.round(rect.x);
+        xPoints[9] = width + (int) Math.round(rect.x);
         yPoints[9] = halfHeight - innerHeight;
 
-        xPoints[10] =halfWidth + innerWidth ;
+        xPoints[10] = halfWidth + innerWidth;
         yPoints[10] = halfHeight - innerHeight;
 
-        xPoints[11] = halfWidth + innerWidth  ;
+        xPoints[11] = halfWidth + innerWidth;
         yPoints[11] = (int) Math.round(rect.y);
-        
-        
-
-     
 
     }
 }

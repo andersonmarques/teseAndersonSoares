@@ -11,61 +11,55 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import static java.lang.Math.sqrt;
-import javax.swing.JComponent;
 
-
-public class Hexagono{
-    
+public class Hexagono {
 
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
     private int[] xy;
+
     public Hexagono(Rectangle r) {
         this.rect = r;
         setBounds(this.rect);
     }
-    
-    public void setBounds(Rectangle rect){
+
+    public void setBounds(Rectangle rect) {
         this.rect = rect;
     }
-    
-    public Rectangle getBounds(){
+
+    public Rectangle getBounds() {
         return rect;
     }
 
     public void paint(Graphics g) {
-//        this.setOpaque(false);
-//        super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
+
         g2d.setPaint(Color.BLACK);
         montarHexagono();
-        
+
         Polygon p = new Polygon();
-        
+
         p.addPoint(xPoints[0], yPoints[0]);
         p.addPoint(xPoints[1], yPoints[1]);
         p.addPoint(xPoints[2], yPoints[2]);
         p.addPoint(xPoints[3], yPoints[3]);
         p.addPoint(xPoints[4], yPoints[4]);
         p.addPoint(xPoints[5], yPoints[5]);
-        p.translate(xy[0],xy[1]);
+        p.translate(xy[0], xy[1]);
 
         g2d.setColor(Color.white);
         g2d.fillPolygon(p);
-
+        g2d.setColor(Color.BLACK);
+        g2d.drawPolygon(p);
     }
+
     private void montarHexagono() {
-
-       
         //porcetagem do tamnaho
-        int width = (int) ((int) Math.round(rect.width)*0.6);
-        int height = (int) ((int) Math.round(rect.height)*0.6);
+        int width = (int) ((int) Math.round(rect.width) * 0.6);
+        int height = (int) ((int) Math.round(rect.height) * 0.6);
 
-        
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 4;
@@ -73,13 +67,12 @@ public class Hexagono{
 
         halfWidth += rect.x;
         halfHeight += rect.y;
-        
-        xy = new int[2];
-      
-        
-        xy[0] =  (int) (Math.round(rect.width)+ rect.width/2+ width *0.6)/10;
 
-        xy[1] =  (int) (Math.round(rect.height) +rect.height/2 + height* 0.6) /10;
+        xy = new int[2];
+
+        xy[0] = (int) (Math.round(rect.width) + rect.width / 2 + width * 0.6) / 10;
+
+        xy[1] = (int) (Math.round(rect.height) + rect.height / 2 + height * 0.6) / 10;
 
         xPoints = new int[6];
         yPoints = new int[6];
@@ -88,21 +81,18 @@ public class Hexagono{
         yPoints[0] = (int) Math.round(rect.y);
 
         xPoints[1] = (int) Math.round(rect.x);
-        yPoints[1] = halfHeight-innerHeight;
+        yPoints[1] = halfHeight - innerHeight;
 
         xPoints[2] = (int) Math.round(rect.x);
-        yPoints[2] = halfHeight+innerHeight;
+        yPoints[2] = halfHeight + innerHeight;
 
         xPoints[3] = halfWidth;
         yPoints[3] = height + (int) Math.round(rect.y);
 
-        xPoints[4] = width +(int) Math.round(rect.x);
-        yPoints[4] = halfHeight+innerHeight;
-        
-        xPoints[5] = width +(int) Math.round(rect.x);
-        yPoints[5] = halfHeight-innerHeight;
+        xPoints[4] = width + (int) Math.round(rect.x);
+        yPoints[4] = halfHeight + innerHeight;
 
-     
-
+        xPoints[5] = width + (int) Math.round(rect.x);
+        yPoints[5] = halfHeight - innerHeight;
     }
 }
