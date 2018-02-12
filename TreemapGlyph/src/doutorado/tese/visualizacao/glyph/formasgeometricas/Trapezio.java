@@ -8,6 +8,7 @@ package doutorado.tese.visualizacao.glyph.formasgeometricas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import javax.swing.JComponent;
@@ -41,18 +42,31 @@ public class Trapezio {
         
         g2d.setPaint(Color.BLACK);
         montarTrapezio();
-        g2d.drawPolygon(xPoints, yPoints, xPoints.length);
+        
+        Polygon p = new Polygon();
+        
+        p.addPoint(xPoints[0], yPoints[0]);
+        p.addPoint(xPoints[1], yPoints[1]);
+        p.addPoint(xPoints[2], yPoints[2]);
+        p.addPoint(xPoints[3], yPoints[3]);
+        p.translate(xy[0],xy[1]);
+
+        g2d.setColor(Color.white);
+        g2d.fillPolygon(p);
+        
+     
     }
 
     private void montarTrapezio() {
-        
-        //porcetagem do tamnaho
-        int width = (int) ((int) Math.round(rect.width) - rect.width *0.62);
-        int height = (int) ((int) Math.round(rect.height) - rect.height *0.62);
+        int width = (int) ((int) Math.round(rect.width)*0.6);
+        int height = (int) ((int) Math.round(rect.height)*0.6);
 
-        xy = new int [2];
-        xy[0] = rect.x;
-        xy[1] = 13 ;
+
+        xy = new int[2];
+        xy[0] =  (int) (Math.round(rect.width)+ rect.width/2+ width *0.6)/10;
+        xy[1] =  (int) (Math.round(rect.height) +rect.height/2 + height* 0.6) /10;
+        
+        
         
         int halfWidth = width / 2;
         int halfHeight = height / 2;

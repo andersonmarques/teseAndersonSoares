@@ -1,71 +1,108 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package doutorado.tese.visualizacao.glyph.formasgeometricas;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import javax.swing.JLabel;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import static java.lang.Math.sqrt;
+import javax.swing.JComponent;
 
 
-public class hexagono extends JLabel{
-    public float widht;
-    public float height;
-    public float x;
-    public float y;
-
-//    public hexagono(float widht, float height, float x, float y) {
-//    
-//        this.widht = widht;
-//        this.height = height;
-//        this.x = x;
-//        this.y = y;    
-//           
-//    }
+public class Hexagono{
     
-       @Override
+
+    private int[] xPoints;
+    private int[] yPoints;
+    private Rectangle rect;
+    private int[] xy;
+    public Hexagono(Rectangle r) {
+        this.rect = r;
+        setBounds(this.rect);
+    }
+    
+    public void setBounds(Rectangle rect){
+        this.rect = rect;
+    }
+    
+    public Rectangle getBounds(){
+        return rect;
+    }
+
     public void paint(Graphics g) {
-        AffineTransform tx1 = new AffineTransform();
-        tx1.translate(widht, height);
-        tx1.scale(0.5, 0.5);
-        
+//        this.setOpaque(false);
+//        super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-
-//        g2d.setColor(new Color(125, 167, 116));
-//        g2d.fillRect(10, 10, 90, 60);
-//
-//        g2d.setColor(new Color(42, 179, 231));
-//        g2d.fillRect(130, 10, 90, 60);
-//
-//        g2d.setColor(new Color(70, 67, 123));
-//        g2d.fillRect(250, 10, 90, 60);
-//
-//        g2d.setColor(new Color(130, 100, 84));
-//        g2d.fillRect(10, 100, 90, 60);
-//
-//        g2d.setColor(new Color(252, 211, 61));
-//        g2d.fillRect(130, 100, 90, 60);
-//
-//        g2d.setColor(new Color(241, 98, 69));
-//        g2d.fillRect(250, 100, 90, 60);
-//
-//        g2d.setColor(new Color(217, 146, 54));
-//        g2d.fillRect(10, 190, 90, 60);
-//
-//        g2d.setColor(new Color(63, 121, 186));
-//        g2d.fillRect(130, 190, 90, 60);
-//
-//        g2d.setColor(new Color(31, 21, 1));
-//        g2d.fillRect(250, 190, 90, 60);
-//         
-//        g2d.fillRect(70, 180, 120, 60);           
-//        g2d.setTransform(tx1);
-//        
-        g2d.dispose();
-    }
-    
-    public void DrawingCicle(Graphics g) {
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
+        g2d.setPaint(Color.BLACK);
+        montarHexagono();
+        
+        Polygon p = new Polygon();
+        
+        p.addPoint(xPoints[0], yPoints[0]);
+        p.addPoint(xPoints[1], yPoints[1]);
+        p.addPoint(xPoints[2], yPoints[2]);
+        p.addPoint(xPoints[3], yPoints[3]);
+        p.addPoint(xPoints[4], yPoints[4]);
+        p.addPoint(xPoints[5], yPoints[5]);
+        p.translate(xy[0],xy[1]);
+
+        g2d.setColor(Color.white);
+        g2d.fillPolygon(p);
+
     }
-    
-   
+    private void montarHexagono() {
+
+       
+        //porcetagem do tamnaho
+        int width = (int) ((int) Math.round(rect.width)*0.6);
+        int height = (int) ((int) Math.round(rect.height)*0.6);
+
+        
+        int halfWidth = width / 2;
+        int halfHeight = height / 2;
+        int innerWidth = width / 4;
+        int innerHeight = height / 4;
+
+        halfWidth += rect.x;
+        halfHeight += rect.y;
+        
+        xy = new int[2];
+      
+        
+        xy[0] =  (int) (Math.round(rect.width)+ rect.width/2+ width *0.6)/10;
+
+        xy[1] =  (int) (Math.round(rect.height) +rect.height/2 + height* 0.6) /10;
+
+        xPoints = new int[6];
+        yPoints = new int[6];
+
+        xPoints[0] = halfWidth;
+        yPoints[0] = (int) Math.round(rect.y);
+
+        xPoints[1] = (int) Math.round(rect.x);
+        yPoints[1] = halfHeight-innerHeight;
+
+        xPoints[2] = (int) Math.round(rect.x);
+        yPoints[2] = halfHeight+innerHeight;
+
+        xPoints[3] = halfWidth;
+        yPoints[3] = height + (int) Math.round(rect.y);
+
+        xPoints[4] = width +(int) Math.round(rect.x);
+        yPoints[4] = halfHeight+innerHeight;
+        
+        xPoints[5] = width +(int) Math.round(rect.x);
+        yPoints[5] = halfHeight-innerHeight;
+
+     
+
+    }
 }

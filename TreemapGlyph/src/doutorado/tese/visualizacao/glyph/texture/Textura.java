@@ -49,14 +49,14 @@ public class Textura {
     }
 
     private void montarRetangulo() {
-        int width = (int) Math.round(rect.width / 2);
-        int height = (int) Math.round(rect.height / 2);
-
+        int width = (int) Math.round(rect.width / 1.4);
+        int height = (int) Math.round(rect.height / 1.4);
+ 
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = rect.x + (width / 2);
-        yPoints[0] = rect.y + (height / 2);
+        xPoints[0] = rect.x +width/5;
+        yPoints[0] = rect.y +height/5;
 
         xPoints[1] = width;
         yPoints[1] = height;

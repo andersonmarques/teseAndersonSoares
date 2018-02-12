@@ -33,8 +33,13 @@ public class Retangulo {
         g2d.setPaint(Color.BLUE);
 
         montarRetangulo();
+        //g2d.dispose();
+
+//        System.out.println(rect + " x" + xPoints[1] + "y" + xPoints[1]);
         g2d.setColor(new Color(70, 67, 123));
-        g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+        g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+
+//        System.out.println(xPoints[0] + " " + yPoints[0] + " " + xPoints[1] + " " + yPoints[1]);
 
     }
     //função para deixar os glyphs quadrados
@@ -51,9 +56,10 @@ public class Retangulo {
         return 0;
     }
 
-    private void montarRetangulo() {
-        int width = (int) Math.round(rect.width / 2);
-        int height = (int) Math.round(rect.height / 2);        
+    private void montarRetangulo() {        
+        int width = (int) Math.round(rect.width / 1.4);
+        int height = (int) Math.round(rect.height / 1.4);
+        
         
 //        float ponto = verificarRetangulo(width,height);
 //
@@ -81,8 +87,8 @@ public class Retangulo {
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = rect.x + (width / 2);
-        yPoints[0] = rect.y + (height / 2);
+        xPoints[0] = rect.x ;
+        yPoints[0] = rect.y ;
 
         xPoints[1] = width;
         yPoints[1] = height;

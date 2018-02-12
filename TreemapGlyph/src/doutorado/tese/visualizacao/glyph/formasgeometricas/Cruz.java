@@ -8,6 +8,7 @@ package doutorado.tese.visualizacao.glyph.formasgeometricas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import javax.swing.JComponent;
@@ -18,6 +19,7 @@ public class Cruz{
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
+    private int[] xy;
 
     public Cruz(Rectangle r) {
         this.rect = r;
@@ -40,14 +42,39 @@ public class Cruz{
         
         g2d.setPaint(Color.BLACK);
         montarCruz();
-        g2d.drawPolygon(xPoints, yPoints, xPoints.length);
+        
+        Polygon p = new Polygon();
+        
+        p.addPoint(xPoints[0], yPoints[0]);
+        p.addPoint(xPoints[1], yPoints[1]);
+        p.addPoint(xPoints[2], yPoints[2]);
+        p.addPoint(xPoints[3], yPoints[3]);
+        p.addPoint(xPoints[4], yPoints[4]);
+        p.addPoint(xPoints[5], yPoints[5]);
+        p.addPoint(xPoints[6], yPoints[6]);
+        p.addPoint(xPoints[7], yPoints[7]);
+        p.addPoint(xPoints[8], yPoints[8]);
+        p.addPoint(xPoints[9], yPoints[9]);
+        p.addPoint(xPoints[10], yPoints[10]);
+        p.addPoint(xPoints[11], yPoints[11]);
+
+
+        p.translate(xy[0],xy[1]);
+
+        g2d.setColor(Color.white);
+        g2d.fillPolygon(p);
     }
 
     private void montarCruz() {
-        int width = (int) ((int) Math.round(rect.width) - rect.width *0.62);
-        int height = (int) ((int) Math.round(rect.height) - rect.height *0.62);
+       int width = (int) ((int) Math.round(rect.width)*0.6);
+        int height = (int) ((int) Math.round(rect.height)*0.6);
 
 
+        xy = new int[2];
+        xy[0] =  (int) (Math.round(rect.width)+ rect.width/2+ width *0.6)/10;
+        xy[1] =  (int) (Math.round(rect.height) +rect.height/2 + height* 0.6) /10;
+        
+        
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 4;

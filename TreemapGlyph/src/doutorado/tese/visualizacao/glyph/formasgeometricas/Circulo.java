@@ -81,17 +81,22 @@ public class Circulo {
     
     
     private void montarCirculo() {
-        int width = (int) Math.round(rect.width / 2);
-        int height = (int) Math.round((rect.height) / 2);
-
+        int width = (int) Math.round(rect.width/1.6 );
+        int height = (int) Math.round(rect.height/1.6 );
+        
+        
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = (int) (rect.x + (width * 0.62));
-        yPoints[0] = (int) (rect.y + (height * 0.62));
+      
+        xPoints[0] = rect.x +width/4;
+        yPoints[0] = rect.y +width/4;
 
-        xPoints[1] = (int) (width * 0.8);
-        yPoints[1] = (int) (height * 0.8);
+        xPoints[1] = (int) (width);
+        yPoints[1] = (int) (height);
+        
+        
+        
     }
 
 }
