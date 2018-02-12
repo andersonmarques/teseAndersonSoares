@@ -8,25 +8,25 @@ package doutorado.tese.gui;
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
+import doutorado.tese.util.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Image;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.ListModel;
 import javax.swing.SwingWorker;
@@ -58,8 +58,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         initComponents();
 
         lpane = new JLayeredPane();
-        checkStarGlyph.setVisible(false);
-        painelLegenda.setVisible(false);
+        legendaVisualizacao = new LegendaVisualizacao(painelLegendaVis.getBounds());
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
 
@@ -109,10 +108,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        painelLegenda = new javax.swing.JTextPane();
-        checkStarGlyph = new javax.swing.JCheckBox();
+        legendaBarraRolage = new javax.swing.JScrollPane();
+        GridLayout grid = new GridLayout(0, 1);
+        painelLegendaVis = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         fileMenuItem = new javax.swing.JMenuItem();
@@ -225,43 +223,39 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(checkLegenda)
+                            .addGap(18, 18, 18)
+                            .addComponent(legendaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGap(21, 21, 21)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel4))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tamanhoTreeampComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(corTreemapComboBox, 0, 166, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(checkLegenda)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(legendaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addGap(21, 21, 21)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel4))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(tamanhoTreeampComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(corTreemapComboBox, 0, 166, Short.MAX_VALUE))))
+                            .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(removerBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(21, 21, 21)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(removerBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel5))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                    .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel2)))
+                    .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,9 +288,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(corTreemapComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Treemap", jPanel1);
@@ -320,15 +314,35 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         atributo1Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         atributo1Glyph.setEnabled(false);
+        atributo1Glyph.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                atributo1GlyphItemStateChanged(evt);
+            }
+        });
 
         atributo2Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         atributo2Glyph.setEnabled(false);
+        atributo2Glyph.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                atributo2GlyphItemStateChanged(evt);
+            }
+        });
 
         atributo3Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         atributo3Glyph.setEnabled(false);
+        atributo3Glyph.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                atributo3GlyphItemStateChanged(evt);
+            }
+        });
 
         atributo4Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         atributo4Glyph.setEnabled(false);
+        atributo4Glyph.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                atributo4GlyphItemStateChanged(evt);
+            }
+        });
 
         atributo5Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         atributo5Glyph.setEnabled(false);
@@ -379,7 +393,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(atributo1Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 141, Short.MAX_VALUE))
+                        .addGap(0, 92, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -418,52 +432,23 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         jTabbedPane1.addTab("Glyph", jPanel2);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Subtitle"));
+        legendaBarraRolage.setBackground(new java.awt.Color(255, 255, 255));
+        legendaBarraRolage.setBorder(null);
 
-        painelLegenda.setEditable(false);
-        painelLegenda.setBorder(javax.swing.BorderFactory.createTitledBorder("Subtitle StarGlyph"));
-        jScrollPane2.setViewportView(painelLegenda);
+        painelLegendaVis.setLayout(grid);
 
-        checkStarGlyph.setText("Star glyph");
-        checkStarGlyph.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkStarGlyphActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkStarGlyph)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(checkStarGlyph)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
-        );
+        legendaBarraRolage.setViewportView(painelLegendaVis);
 
         javax.swing.GroupLayout painelDireitaLayout = new javax.swing.GroupLayout(painelDireita);
         painelDireita.setLayout(painelDireitaLayout);
         painelDireitaLayout.setHorizontalGroup(
             painelDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(painelDireitaLayout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDireitaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(progressoBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(legendaBarraRolage)
         );
         painelDireitaLayout.setVerticalGroup(
             painelDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -472,7 +457,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(legendaBarraRolage))
         );
 
         jSplitPane1.setRightComponent(painelDireita);
@@ -523,36 +508,23 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void botaoGerarVisualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarVisualizacaoActionPerformed
         limparPainelEsquerda();
-        String itemTamanho = tamanhoTreeampComboBox.getSelectedItem().toString();
-        String itemLegenda = legendaComboBox.getSelectedItem().toString();
+        itemTamanho = tamanhoTreeampComboBox.getSelectedItem().toString();
+        itemLegenda = legendaComboBox.getSelectedItem().toString();
+        itemCor = corTreemapComboBox.getSelectedItem().toString();
         String[] itensHierarquia = parseListString2Array(colunasHierarquicasList2.getModel());
-//        List<String> variaveisStarGlyph = variaveisGlyphList.getSelectedValuesList();
 
         VisualizationsArea v = new VisualizationsArea(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
                 manipulador, itemTamanho, itensHierarquia, itemLegenda);
 
-//        painelEsquerda.add(v.getView());
         painelEsquerda.add(lpane);
         TMView view = v.getView();
         lpane.setBounds(view.getBounds());
-//        glyphPanelGreen.setBackground(Color.GREEN);
-//        glyphPanel.setBounds(view.getBounds());
-//        glyphPanel.setOpaque(false);
+
         lpane.add(view, new Integer(0), 0);
 
         progressoBarra.setVisible(false);
-
+        atualizarLegendaTreemap(itemTamanho, itemLegenda, itemCor);
     }//GEN-LAST:event_botaoGerarVisualizacaoActionPerformed
-
-    private void checkStarGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkStarGlyphActionPerformed
-        if (checkStarGlyph.isSelected()) {
-            Constantes.setShowStarGlyph(true);
-//            variaveisGlyphList.setEnabled(true);
-        } else {
-            Constantes.setShowStarGlyph(false);
-//            variaveisGlyphList.setEnabled(false);
-        }
-    }//GEN-LAST:event_checkStarGlyphActionPerformed
 
     private void checkLegendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLegendaActionPerformed
         if (checkLegenda.isSelected()) {
@@ -568,18 +540,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         if (checkGlyph.isSelected()) {
             Constantes.setShowGlyph(true);
             glyphPanel = new GlassPanel();
-//            variaveisGlyphList.setEnabled(true);
-//            if(variaveisGlyphList2.getModel().getSize() >= 1){
-//                variaveisGlyphList2.setEnabled(true);
-//            }
-
             atributo1Glyph.setEnabled(true);
             botaoGerarGlyphs.setEnabled(true);
             lpane.add(glyphPanel, new Integer(1), 0);
         } else {
             Constantes.setShowGlyph(false);
-//            variaveisGlyphList.setEnabled(false);
-//            variaveisGlyphList2.setEnabled(false);
             botaoGerarGlyphs.setEnabled(false);
             glyphPanel.setVisible(false);
             lpane.remove(glyphPanel);
@@ -663,6 +628,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
         glyphPanel.setVisible(true);
         glyphPanel.repaint();
+
+        atualizarLegendaGlyphs(atributosEscolhidosGlyph);
     }//GEN-LAST:event_botaoGerarGlyphsActionPerformed
 
     private void colunasHierarquicasListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasHierarquicasListValueChanged
@@ -680,6 +647,30 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             removerBotao_treemap.setEnabled(false);
         }
     }//GEN-LAST:event_colunasHierarquicasList2ValueChanged
+
+    private void atributo1GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo1GlyphItemStateChanged
+        getColunasCategoricas().add(0, "---");
+        loadVariaveisGlyph(getColunasCategoricas().toArray(), atributo2Glyph);
+        atributo2Glyph.setEnabled(true);
+    }//GEN-LAST:event_atributo1GlyphItemStateChanged
+
+    private void atributo2GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo2GlyphItemStateChanged
+        getColunasCategoricas().add(0, "---");
+        loadVariaveisGlyph(getColunasCategoricas().toArray(), atributo3Glyph);
+        atributo3Glyph.setEnabled(true);
+    }//GEN-LAST:event_atributo2GlyphItemStateChanged
+
+    private void atributo3GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo3GlyphItemStateChanged
+        getColunasCategoricas().add(0, "---");
+        loadVariaveisGlyph(getColunasCategoricas().toArray(), atributo4Glyph);
+        atributo4Glyph.setEnabled(true);
+    }//GEN-LAST:event_atributo3GlyphItemStateChanged
+
+    private void atributo4GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo4GlyphItemStateChanged
+        getColunasCategoricas().add(0, "---");
+        loadVariaveisGlyph(getColunasCategoricas().toArray(), atributo5Glyph);
+        atributo5Glyph.setEnabled(true);
+    }//GEN-LAST:event_atributo4GlyphItemStateChanged
 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
         ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
@@ -737,7 +728,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton botaoGerarVisualizacao;
     private javax.swing.JCheckBox checkGlyph;
     private javax.swing.JCheckBox checkLegenda;
-    private javax.swing.JCheckBox checkStarGlyph;
     private javax.swing.JButton cimaBotao_treemap;
     private javax.swing.JList<String> colunasHierarquicasList;
     private javax.swing.JList<String> colunasHierarquicasList2;
@@ -759,16 +749,15 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JScrollPane legendaBarraRolage;
     private javax.swing.JComboBox<String> legendaComboBox;
     private javax.swing.JPanel painelDireita;
     private javax.swing.JPanel painelEsquerda;
-    private javax.swing.JTextPane painelLegenda;
+    private javax.swing.JPanel painelLegendaVis;
     private javax.swing.JProgressBar progressoBarra;
     private javax.swing.JButton removerBotao_treemap;
     private javax.swing.JComboBox<String> tamanhoTreeampComboBox;
@@ -776,10 +765,33 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     static Main frame;
     private JLayeredPane lpane;
     private GlassPanel glyphPanel;
+    private LegendaVisualizacao legendaVisualizacao;
+    private String itemTamanho;
+    private String itemLegenda;
+    private String itemCor;
 
     private ManipuladorArquivo manipulador;
     private File selectedFile;
     private Task task;
+
+    private void atualizarLegendaGlyphs(ArrayList<Object> atributosEscolhidosGlyph) {
+        painelLegendaVis.removeAll();
+        atualizarLegendaTreemap(itemTamanho, itemLegenda, itemCor);
+        legendaVisualizacao.setAtributosGlyphs(atributosEscolhidosGlyph);
+        for (int i = 0; i < atributosEscolhidosGlyph.size(); i++) {
+            if (!atributosEscolhidosGlyph.get(i).equals("---")) {
+                JPanel painelDimensao = legendaVisualizacao.addLegendaDimensao(i);
+                painelLegendaVis.add(painelDimensao);
+            }
+            painelLegendaVis.revalidate();
+        }
+    }
+
+    private void atualizarLegendaTreemap(String itemTamanho, String itemLegenda, String itemCor) {
+        painelLegendaVis.removeAll();
+//        JPanel painelDimensao = legendaVisualizacao.addLegendaCor(itemCor);
+//        painelLegendaVis.add(painelDimensao);
+    }
 
     class Task extends SwingWorker<Void, Void> {
 
@@ -861,7 +873,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 porcentagem = (ordem * 100) / tarefas;
                 break;
             case 7:
-                loadVariaveisGlyph(getColunasCategoricas().toArray());
+                loadVariaveisGlyph(getColunasCategoricas().toArray(), atributo1Glyph);
                 porcentagem = (ordem * 100) / tarefas;
                 break;
             case 8:
@@ -922,9 +934,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         comboBox.setModel(model);
     }
 
-    private void loadVariaveisGlyph(Object[] objs) {
+    private void loadVariaveisGlyph(Object[] objs, JComboBox<String> atributo) {
         DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
-        atributo1Glyph.setModel(model);
+        atributo.setModel(model);
     }
 
     private void loadVariaveisEscolhidasGlyph(Object[] objs) {
@@ -963,15 +975,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         tp.replaceSelection(msg);
     }
 
-    private void prepararLegendaStarGlyph(List<String> itensVariaveisStarGlyph) {
-        painelLegenda.setEditable(true);
-        painelLegenda.setText("");
-        for (int i = 0; i < itensVariaveisStarGlyph.size(); i++) {
-            appendToPane(painelLegenda, itensVariaveisStarGlyph.get(i) + "\n", Color.decode(Constantes.getCor()[i]));
-        }
-        painelLegenda.setEditable(false);
-    }
-
+//    private void prepararLegendaStarGlyph(List<String> itensVariaveisStarGlyph) {
+//        painelLegenda.setEditable(true);
+//        painelLegenda.setText("");
+//        for (int i = 0; i < itensVariaveisStarGlyph.size(); i++) {
+//            appendToPane(painelLegenda, itensVariaveisStarGlyph.get(i) + "\n", Color.decode(Constantes.getCor()[i]));
+//        }
+//        painelLegenda.setEditable(false);
+//    }
     /**
      * Invoked when task's progress property changes.
      */

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.visualizacao.glyph;
+package doutorado.tese.visualizacao.glyph.formasgeometricas;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,15 +12,14 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import javax.swing.JComponent;
 
-//trapezio descendente
-public class Trapezio {
+
+public class Cruz{
 
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
-    private int[] xy;
 
-    public Trapezio(Rectangle r) {
+    public Cruz(Rectangle r) {
         this.rect = r;
         setBounds(this.rect);
     }
@@ -40,20 +39,15 @@ public class Trapezio {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         g2d.setPaint(Color.BLACK);
-        montarTrapezio();
+        montarCruz();
         g2d.drawPolygon(xPoints, yPoints, xPoints.length);
     }
 
-    private void montarTrapezio() {
-        
-        //porcetagem do tamnaho
+    private void montarCruz() {
         int width = (int) ((int) Math.round(rect.width) - rect.width *0.62);
         int height = (int) ((int) Math.round(rect.height) - rect.height *0.62);
 
-        xy = new int [2];
-        xy[0] = rect.x;
-        xy[1] = 13 ;
-        
+
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 4;
@@ -62,22 +56,47 @@ public class Trapezio {
         halfWidth += rect.x;
         halfHeight += rect.y;
 
-        xPoints = new int[4];
-        yPoints = new int[4];
+        xPoints = new int[12];
+        yPoints = new int[12];
 
-        xPoints[0] = halfWidth+innerWidth;
+        xPoints[0] = halfWidth - innerWidth;
         yPoints[0] = (int) Math.round(rect.y);
 
-        xPoints[1] = halfWidth-innerWidth;
-        yPoints[1] =  (int) Math.round(rect.y);
+        xPoints[1] = halfWidth - innerWidth;
+        yPoints[1] = halfHeight - innerHeight;
 
         xPoints[2] = (int) Math.round(rect.x);
-        yPoints[2] = height + (int) Math.round(rect.y);
+        yPoints[2] = halfHeight - innerHeight;
 
-        xPoints[3] = width + (int) Math.round(rect.x);
-        yPoints[3] = height + (int) Math.round(rect.y);
+        xPoints[3] = (int) Math.round(rect.x);
+        yPoints[3] = halfHeight + innerHeight;
 
+        xPoints[4] = halfWidth - innerWidth;
+        yPoints[4] = halfHeight + innerHeight;
+
+        xPoints[5] = halfWidth-innerWidth;
+        yPoints[5] = height + (int) Math.round(rect.y);
+
+        xPoints[6] = halfWidth+innerWidth;
+        yPoints[6] = height + (int) Math.round(rect.y);
+
+        xPoints[7] = halfWidth+innerWidth;
+        yPoints[7] = halfHeight + innerHeight;
+
+        xPoints[8] = width +(int) Math.round(rect.x);
+        yPoints[8] = halfHeight + innerHeight;
+
+        xPoints[9] = width +(int) Math.round(rect.x);
+        yPoints[9] = halfHeight - innerHeight;
+
+        xPoints[10] =halfWidth + innerWidth ;
+        yPoints[10] = halfHeight - innerHeight;
+
+        xPoints[11] = halfWidth + innerWidth  ;
+        yPoints[11] = (int) Math.round(rect.y);
         
+        
+
      
 
     }

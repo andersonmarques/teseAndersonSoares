@@ -1,4 +1,4 @@
-package doutorado.tese.visualizacao.glyph;
+package doutorado.tese.visualizacao.glyph.formasgeometricas;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -28,22 +28,9 @@ public class Circulo {
 
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        g2d.setPaint(Color.BLUE);
-
         montarCirculo();
-        
-//        Color c = selecionarCor(2);
-//        g2d.setColor(c);
-
-        
-        
-        g2d.setColor(new Color(221, 160, 221));
         g2d.fillOval(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
-
-
     }
 
     public Color selecionarCor(int number){
@@ -68,7 +55,6 @@ public class Circulo {
         Color c9 = new Color(252, 211, 61);
        
         switch (numberColor) {
-
             case 1:
                 return c1;
             case 2:
@@ -90,8 +76,7 @@ public class Circulo {
 
             default:
                     throw new AssertionError();
-            }
-                  
+            }                  
     }
     
     

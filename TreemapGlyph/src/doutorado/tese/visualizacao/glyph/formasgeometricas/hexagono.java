@@ -1,4 +1,4 @@
-package doutorado.tese.visualizacao.glyph;
+package doutorado.tese.visualizacao.glyph.formasgeometricas;
 
 import java.awt.Color;
 import java.awt.Graphics;

@@ -7,7 +7,7 @@ package doutorado.tese.gui;
 
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Constantes;
-import doutorado.tese.visualizacao.glyph.Estrela;
+import doutorado.tese.visualizacao.glyph.formasgeometricas.Estrela;
 import doutorado.tese.visualizacao.glyph.StarGlyph;
 import doutorado.tese.visualizacao.treemap.TreeMapLevel;
 import java.awt.Graphics;

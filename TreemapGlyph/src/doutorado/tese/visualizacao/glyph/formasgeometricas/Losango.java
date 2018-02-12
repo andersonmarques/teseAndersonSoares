@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.visualizacao.glyph;
+package doutorado.tese.visualizacao.glyph.formasgeometricas;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,13 +13,13 @@ import java.awt.RenderingHints;
 import javax.swing.JComponent;
 
 
-public class Pentagono{
+public class Losango{
 
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
 
-    public Pentagono(Rectangle r) {
+    public Losango(Rectangle r) {
         this.rect = r;
         setBounds(this.rect);
     }
@@ -39,40 +39,39 @@ public class Pentagono{
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         g2d.setPaint(Color.BLACK);
-        montarPentagono();
+        montarLosango();
         g2d.drawPolygon(xPoints, yPoints, xPoints.length);
     }
 
-    private void montarPentagono() {
-        int width = (int) ((int) Math.round(rect.width) - rect.width *0.62);
-        int height = (int) ((int) Math.round(rect.height) - rect.height *0.62);
+    private void montarLosango() {
+        int width = (int) ((int) Math.round(rect.width) - rect.width *0.5);
+        int height = (int) ((int) Math.round(rect.height) - rect.height *0.5);
 
 
         int halfWidth = width / 2;
         int halfHeight = height / 2;
-        int innerWidth = width / 4;
-        int innerHeight = height / 4;
+        int innerWidth = width / 2;
+        int innerHeight = height /2;
 
         halfWidth += rect.x;
         halfHeight += rect.y;
 
-        xPoints = new int[5];
-        yPoints = new int[5];
+        xPoints = new int[4];
+        yPoints = new int[4];
 
         xPoints[0] = halfWidth;
         yPoints[0] = (int) Math.round(rect.y);
 
-        xPoints[1] = (int) Math.round(rect.x);
+        xPoints[1] = halfWidth-innerWidth;
         yPoints[1] = halfHeight;
 
-        xPoints[2] = halfWidth - innerWidth;
+        xPoints[2] = halfWidth;
         yPoints[2] = height + (int) Math.round(rect.y);
 
         xPoints[3] = halfWidth + innerWidth;
-        yPoints[3] = height + (int) Math.round(rect.y);
+        yPoints[3] = halfHeight;
 
-        xPoints[4] = width +(int) Math.round(rect.x);
-        yPoints[4] = halfHeight;
+        
 
      
 

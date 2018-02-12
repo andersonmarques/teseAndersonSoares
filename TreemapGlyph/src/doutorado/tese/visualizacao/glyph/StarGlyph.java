@@ -83,10 +83,10 @@ public class StarGlyph extends JLabel{
         g2d.dispose();
     }
 
-    public void encontrarPontoCentro(int halfWidth, int width, int halfHeight, int height) {
-        pontoMedioX = (int) ((halfWidth + width) / 2);
-        pontoMedioY = (int) ((halfHeight + height) / 2);
-    }
+//    public void encontrarPontoCentro(int halfWidth, int width, int halfHeight, int height) {
+//        pontoMedioX = (int) ((halfWidth + width) / 2);
+//        pontoMedioY = (int) ((halfHeight + height) / 2);
+//    }
 
     private int encontrarMaiorRaio() {
         Point center = getCenter();

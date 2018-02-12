@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.visualizacao.glyph;
+package doutorado.tese.visualizacao.glyph.formasgeometricas;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,13 +11,9 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
-import static javafx.scene.transform.Transform.translate;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-
-public class Triangulo  extends JPanel{
+public class Triangulo extends JPanel {
 
     private int[] xPoints;
     private int[] yPoints;
@@ -28,12 +24,12 @@ public class Triangulo  extends JPanel{
         this.rect = r;
         setBounds(this.rect);
     }
-    
-    public void setBounds(Rectangle rect){
+
+    public void setBounds(Rectangle rect) {
         this.rect = rect;
     }
-    
-    public Rectangle getBounds(){
+
+    public Rectangle getBounds() {
         return rect;
     }
 
@@ -43,36 +39,26 @@ public class Triangulo  extends JPanel{
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g2d.setPaint(Color.BLACK);
-        
-    
-    
         montarTriangulo();
-        
-        
-        
         Polygon p = new Polygon();
-        
         p.addPoint(xPoints[0], yPoints[0]);
         p.addPoint(xPoints[1], yPoints[1]);
         p.addPoint(xPoints[2], yPoints[2]);
-       
-        p.translate(10,xy[1]);
+        p.translate(10, xy[1]);
         g2d.setColor(Color.WHITE);
         g2d.fillPolygon(p);
- 
+        g2d.setPaint(Color.BLACK);        
+        g2d.drawPolygon(p);
 
-        
     }
 
     private void montarTriangulo() {
-        int width = (int) Math.round(rect.width*0.62) - 1;
-        int height = (int) Math.round(rect.height*0.62) - 1;
-        
-       xy = new int [2];
-       xy[0] = rect.x;
-       xy[1] = 13 ;
+        int width = (int) Math.round(rect.width * 0.62) - 1;
+        int height = (int) Math.round(rect.height * 0.62) - 1;
 
+        xy = new int[2];
+        xy[0] = rect.x;
+        xy[1] = 13;
 
         int halfWidth = width / 2;
         int halfHeight = height / 2;
@@ -89,11 +75,10 @@ public class Triangulo  extends JPanel{
         yPoints[0] = (int) Math.round(rect.y);
 
         xPoints[1] = halfWidth - innerWidth;
-        yPoints[1] = halfHeight+ innerHeight;
+        yPoints[1] = halfHeight + innerHeight;
 
         xPoints[2] = width + (int) Math.round(rect.x);
-        yPoints[2] = halfHeight+ innerHeight;
-        
-        
+        yPoints[2] = halfHeight + innerHeight;
+
     }
 }
