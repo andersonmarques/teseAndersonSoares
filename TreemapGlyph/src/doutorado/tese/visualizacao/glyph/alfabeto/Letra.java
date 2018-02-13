@@ -49,7 +49,7 @@ public class Letra {
     }
     
     private Point getCenter() {
-        int pX = (xPoints[0] + (xPoints[1] / 2) - 5);
+        int pX = (xPoints[0] + (xPoints[1] / 2) - 6);
         int pY = (yPoints[0] + (yPoints[1] / 2) + 2);
         return new Point(pX, pY);
     }

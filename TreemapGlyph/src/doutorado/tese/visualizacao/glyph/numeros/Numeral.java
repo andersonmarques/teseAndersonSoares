@@ -44,11 +44,10 @@ public class Numeral {
         montarRetangulo();
         g2d.setColor(Color.BLACK);
         g2d.drawString(numero, getCenter().x, getCenter().y);
-//        g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
     }
     
     private Point getCenter() {
-        int pX = (xPoints[0] + (xPoints[1] / 2) + 2);
+        int pX = (xPoints[0] + (xPoints[1] / 2) + 1);
         int pY = (yPoints[0] + (yPoints[1] / 2) + 2);
         return new Point(pX, pY);
     }

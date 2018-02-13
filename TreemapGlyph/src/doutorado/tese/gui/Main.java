@@ -8,7 +8,7 @@ package doutorado.tese.gui;
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
-import doutorado.tese.util.LegendaVisualizacao;
+import doutorado.tese.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -447,7 +447,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addContainerGap()
                 .addComponent(progressoBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, Short.MAX_VALUE)
             .addComponent(legendaBarraRolage)
         );
         painelDireitaLayout.setVerticalGroup(

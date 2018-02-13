@@ -13,6 +13,7 @@ import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.visualizacao.glyph.alfabeto.Letra;
+import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
 import doutorado.tese.visualizacao.glyph.numeros.Numeral;
 import doutorado.tese.visualizacao.glyph.texture.Textura;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
@@ -44,250 +45,109 @@ public final class GlyphManager {
             if (!atributosEscolhidos.get(i).equals("---")) {
                 Coluna c = ManipuladorArquivo.getColuna(atributosEscolhidos.get(i).toString());
                 List<String> dadosDistintos = c.getDadosDistintos();
-//                System.out.println("Coluna: " + c.getName() + " - dadosDistintos = " + dadosDistintos.size());
                 colunaDadosDist.put(c.getName(), dadosDistintos.size());
             }
         }
     }
 
-    private void calcularPrimeiraDimensao(Graphics g, Coluna col) {
-        List<String> dadosDistintos = col.getDadosDistintos();
-        Integer quantDadosDist = colunaDadosDist.get(col.getName());
-        switch (quantDadosDist) {
-            case 2:
-                for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-                    TreeMapItem item = manipulador.getItensTreemap()[i];
-                    Rectangle bounds = item.getBounds();
-                    if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(0))) {
-                        Textura t = new Textura(bounds, Constantes.TipoTextura.PATTERN_DIAGDOTS.name());
-                        t.paint(g);
-                    } else {
-                        Textura t = new Textura(bounds, Constantes.TipoTextura.PATTERN_PLUS.name());
-                        t.paint(g);
-                    }
-                }
-                break;
-            case 3:
-                for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-                    TreeMapItem item = manipulador.getItensTreemap()[i];
-                    Rectangle bounds = item.getBounds();
-                    if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(0))) {
-                        Textura t = new Textura(bounds, Constantes.TipoTextura.PATTERN_DIAGDOTS.name());
-                        t.paint(g);
-                    } else if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(1))) {
-                        Textura t = new Textura(bounds, Constantes.TipoTextura.PATTERN_PLUS.name());
-                        t.paint(g);
-                    } else {
-                        Textura t = new Textura(bounds, Constantes.TipoTextura.PATTERN_TIO.name());
-                        t.paint(g);
-                    }
-                }
-                break;
-            default:
-                System.out.println("Sem opcoes...");
-        }
+    private void adicionarTextura(Graphics g, Rectangle bounds, String textura) {
+        Textura t = new Textura(bounds, textura);
+        t.paint(g);
+    }
+
+    private void adicionarCorForma(Graphics g, Rectangle bounds, Color cor) {
+        FormaGeometrica f = new FormaGeometrica(bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[Constantes.TIPOS_FORMAS_GEOMETRICAS.length - 1]);
+        f.setColor(cor);
+        f.paint(g);
+    }
+
+    private void adicionarFormaGeometrica(Graphics g, Rectangle bounds, String nomeForma) {
+        FormaGeometrica f = new FormaGeometrica(bounds, nomeForma);
+        f.paint(g);
+    }
+
+    private void adicionarLetrasAlfabeto(Graphics g, Rectangle bounds, String letra) {
+        Letra f = new Letra(bounds, letra);
+        f.paint(g);
+    }
+
+    private void adicionarNumeros(Graphics g, Rectangle bounds, String numero) {
+        Numeral f = new Numeral(bounds, numero);
+        f.paint(g);
     }
 
     public void paint(Graphics g) {
         for (int dimensao = 0; dimensao < atributosEscolhidos.size(); dimensao++) {
             if (!atributosEscolhidos.get(dimensao).equals("---")) {
                 Coluna col = ManipuladorArquivo.getColuna(atributosEscolhidos.get(dimensao).toString());
-                switch (dimensao) {
-                    case 0:
-                        calcularPrimeiraDimensao(g, col);
-                        break;
-                    case 1:
-                        calcularSegundaDimensao(g, col);
-                        break;
-                    case 2:
-                        calcularTerceiraDimensao(g, col);
-                        break;
-                    case 3:
-                        calcularQuartaDimensao(g, col);
-                        break;
-                    case 4:
-                        calcularQuintaDimensao(g, col);
-                        break;
-                    default:
-                        System.err.println("Nao foi possível calcular a dimensão.");
+                List<String> dadosDistintos = col.getDadosDistintos();
+                for (TreeMapItem item : manipulador.getItensTreemap()) {
+                    switch (dimensao) {
+                        case 0:
+                            calcularPrimeiraDimensao(g, col, item, dadosDistintos);
+                            break;
+                        case 1:
+                            calcularSegundaDimensao(g, col, item, dadosDistintos);
+                            break;
+                        case 2:
+                            calcularTerceiraDimensao(g, col, item, dadosDistintos);
+                            break;
+                        case 3:
+                            calcularQuartaDimensao(g, col, item, dadosDistintos);
+                            break;
+                        case 4:
+                            calcularQuintaDimensao(g, col, item, dadosDistintos);
+                            break;
+                        default:
+                            System.err.println("Nao foi possível calcular a dimensão.");
+                    }
                 }
             }
         }
     }
 
-    private void calcularSegundaDimensao(Graphics g, Coluna col) {
-        List<String> dadosDistintos = col.getDadosDistintos();
-        Integer quantDadosDist = colunaDadosDist.get(col.getName());
-        switch (quantDadosDist) {
-            case 2:
-                for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-                    TreeMapItem item = manipulador.getItensTreemap()[i];
-                    Rectangle bounds = item.getBounds();
-                    Circulo c = new Circulo(bounds);
-                    if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(0))) {
-                        g.setColor(Color.decode(Constantes.getCor()[0]));
-                        c.paint(g);
-                    } else {
-                        g.setColor(Color.decode(Constantes.getCor()[1]));
-                        c.paint(g);
-                    }
-                }
+    private void calcularPrimeiraDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+        for (int j = 0; j < Constantes.TIPO_TEXTURA.length; j++) {
+            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+                adicionarTextura(g, item.getBounds(), Constantes.TIPO_TEXTURA[j]);
                 break;
-            case 3:
-                for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-                    TreeMapItem item = manipulador.getItensTreemap()[i];
-                    Rectangle bounds = item.getBounds();
-                    Circulo c = new Circulo(bounds);
-                    if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(0))) {
-                        g.setColor(Color.decode(Constantes.getCor()[0]));
-                        c.paint(g);
-                    } else if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(1))) {
-                        g.setColor(Color.decode(Constantes.getCor()[1]));
-                        c.paint(g);
-                    } else {
-                        g.setColor(Color.decode(Constantes.getCor()[2]));
-                        c.paint(g);
-                    }
-                }
-                break;
-            default:
-                System.out.println("Sem opcoes...");
+            }
         }
     }
 
-    private void calcularTerceiraDimensao(Graphics g, Coluna col) {
-        List<String> dadosDistintos = col.getDadosDistintos();
-        Integer quantDadosDist = colunaDadosDist.get(col.getName());
-        switch (quantDadosDist) {
-            case 2:
-                for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-                    TreeMapItem item = manipulador.getItensTreemap()[i];
-                    Rectangle bounds = item.getBounds();
-                    if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(0))) {
-                        Triangulo t = new Triangulo(bounds);
-                        t.paint(g);
-                    } else {
-                        Estrela r = new Estrela(bounds);
-                        r.paint(g);
-                    }
-                }
+    private void calcularSegundaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+        for (int j = 0; j < Constantes.getCor().length; j++) {
+            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+                adicionarCorForma(g, item.getBounds(), Color.decode(Constantes.getCor()[j]));
                 break;
-            case 3:
-                for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-                    TreeMapItem item = manipulador.getItensTreemap()[i];
-                    Rectangle bounds = item.getBounds();
-                    if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(0))) {
-                        Triangulo t = new Triangulo(bounds);
-                        t.paint(g);
-                    } else if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(1))) {
-                        Estrela r = new Estrela(bounds);
-                        r.paint(g);
-                    } else {
-                        Cruz cruz = new Cruz(bounds);
-                        cruz.paint(g);
-                    }
-                }
-                break;
-            default:
-                System.out.println("Sem opcoes...");
+            }
         }
     }
 
-    private void calcularQuartaDimensao(Graphics g, Coluna col) {
-        List<String> dadosDistintos = col.getDadosDistintos();
-        Integer quantDadosDist = colunaDadosDist.get(col.getName());
-        switch (quantDadosDist) {
-            case 2:
-                for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-                    TreeMapItem item = manipulador.getItensTreemap()[i];
-                    Rectangle bounds = item.getBounds();
-                    if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(0))) {
-                        Letra t = new Letra(bounds, "A");
-                        t.paint(g);
-                    } else {
-                        Letra t = new Letra(bounds, "B");
-                        t.paint(g);
-                    }
-                }
+    private void calcularTerceiraDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+        for (int j = 0; j < Constantes.TIPOS_FORMAS_GEOMETRICAS.length; j++) {
+            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+                adicionarFormaGeometrica(g, item.getBounds(), Constantes.TIPOS_FORMAS_GEOMETRICAS[j]);
                 break;
-            case 3:
-                for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-                    TreeMapItem item = manipulador.getItensTreemap()[i];
-                    Rectangle bounds = item.getBounds();
-                    Circulo c = new Circulo(bounds);
-                    if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(0))) {
-                        Letra t = new Letra(bounds, "A");
-                        t.paint(g);
-                    } else if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(1))) {
-                        Letra t = new Letra(bounds, "B");
-                        t.paint(g);
-                    } else {
-                        Letra t = new Letra(bounds, "C");
-                        t.paint(g);
-                    }
-                }
-                break;
-                case 4:
-                for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-                    TreeMapItem item = manipulador.getItensTreemap()[i];
-                    Rectangle bounds = item.getBounds();
-                    Circulo c = new Circulo(bounds);
-                    if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(0))) {
-                        Letra t = new Letra(bounds, "A");
-                        t.paint(g);
-                    } else if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(1))) {
-                        Letra t = new Letra(bounds, "B");
-                        t.paint(g);
-                    }else if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(2))) {
-                        Letra t = new Letra(bounds, "C");
-                        t.paint(g);
-                    } else {
-                        Letra t = new Letra(bounds, "D");
-                        t.paint(g);
-                    }
-                }
-                break;
-            default:
-                System.out.println("Sem opcoes...");
+            }
         }
     }
 
-    private void calcularQuintaDimensao(Graphics g, Coluna col) {
-        List<String> dadosDistintos = col.getDadosDistintos();
-        Integer quantDadosDist = colunaDadosDist.get(col.getName());
-        switch (quantDadosDist) {
-            case 2:
-                for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-                    TreeMapItem item = manipulador.getItensTreemap()[i];
-                    Rectangle bounds = item.getBounds();
-                    if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(0))) {
-                        Numeral t = new Numeral(bounds, "1");
-                        t.paint(g);
-                    } else {
-                        Numeral t = new Numeral(bounds, "2");
-                        t.paint(g);
-                    }
-                }
+    private void calcularQuartaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+        for (int j = 0; j < Constantes.LETRAS_ALFABETO.length; j++) {
+            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+                adicionarLetrasAlfabeto(g, item.getBounds(), Constantes.LETRAS_ALFABETO[j]);
                 break;
-            case 3:
-                for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-                    TreeMapItem item = manipulador.getItensTreemap()[i];
-                    Rectangle bounds = item.getBounds();
-                    Circulo c = new Circulo(bounds);
-                    if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(0))) {
-                        Numeral t = new Numeral(bounds, "1");
-                        t.paint(g);
-                    } else if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(1))) {
-                        Numeral t = new Numeral(bounds, "2");
-                        t.paint(g);
-                    } else {
-                        Numeral t = new Numeral(bounds, "3");
-                        t.paint(g);
-                    }
-                }
+            }
+        }
+    }
+
+    private void calcularQuintaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+        for (int j = 0; j < Constantes.NUMEROS.length; j++) {
+            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+                adicionarNumeros(g, item.getBounds(), Constantes.NUMEROS[j]);
                 break;
-            default:
-                System.out.println("Sem opcoes...");
+            }
         }
     }
 }
