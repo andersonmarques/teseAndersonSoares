@@ -11,9 +11,12 @@ import doutorado.tese.util.Constantes;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
+import static java.lang.ProcessBuilder.Redirect.to;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -31,56 +34,16 @@ public class LegendaVisualizacao {
         setBounds(bound);
     }
 
-    public JLabel criarLabel(String conteudoDist, int dimensao) {
+    public JLabel criarLabel(String conteudoDist, Icon icon) {
         JLabel label = null;
-        Coluna col = ManipuladorArquivo.getColuna(this.atributosEscolhidosGlyph.get(dimensao).toString());
-        List<String> dadosDistintos = col.getDadosDistintos();
-        switch (dimensao) {
-            case 0:
-                IconeLegenda icon = new IconeLegenda();
-                icon.setDimensao(0);
-                icon.setValorIcon(Constantes.TIPO_TEXTURA[0]);
-                label = new JLabel(conteudoDist, icon, JLabel.RIGHT);
-                //Set the position of the text, relative to the icon:
-                label.setVerticalTextPosition(JLabel.CENTER);
-                label.setHorizontalTextPosition(JLabel.RIGHT);
-                break;
-            case 1:
-                label = new JLabel(conteudoDist, new IconeLegenda(), JLabel.RIGHT);
-                //Set the position of the text, relative to the icon:
-                label.setVerticalTextPosition(JLabel.CENTER);
-                label.setHorizontalTextPosition(JLabel.RIGHT);
-                break;
-            case 2:
-                label = new JLabel(conteudoDist, new IconeLegenda(), JLabel.RIGHT);
-                //Set the position of the text, relative to the icon:
-                label.setVerticalTextPosition(JLabel.CENTER);
-                label.setHorizontalTextPosition(JLabel.RIGHT);
-                break;
-            case 3:
-                label = new JLabel(conteudoDist, new IconeLegenda(), JLabel.RIGHT);
-                //Set the position of the text, relative to the icon:
-                label.setVerticalTextPosition(JLabel.CENTER);
-                label.setHorizontalTextPosition(JLabel.RIGHT);
-                break;
-            case 4:
-                label = new JLabel(conteudoDist, new IconeLegenda(), JLabel.RIGHT);
-                //Set the position of the text, relative to the icon:
-                label.setVerticalTextPosition(JLabel.CENTER);
-                label.setHorizontalTextPosition(JLabel.RIGHT);
-                break;
-            default:
-                System.err.println("Nao ha dimensoes");
-                ;
+        if (icon != null) {
+            label = new JLabel(conteudoDist, icon, JLabel.RIGHT);
+            //Set the position of the text, relative to the icon:
+            label.setVerticalTextPosition(JLabel.CENTER);
+            label.setHorizontalTextPosition(JLabel.RIGHT);
+        } else {
+            label = new JLabel(conteudoDist);
         }
-//        if (icon != null) {
-//            label = new JLabel(conteudoDist, icon, JLabel.CENTER);
-//            //Set the position of the text, relative to the icon:
-//            label.setVerticalTextPosition(JLabel.BOTTOM);
-//            label.setHorizontalTextPosition(JLabel.RIGHT);
-//        } else {
-//            label = new JLabel(conteudoDist);
-//        }
 //        label.setBounds(getBounds());
         label.setVisible(true);
         return label;
@@ -119,7 +82,28 @@ public class LegendaVisualizacao {
         Coluna c = ManipuladorArquivo.getColuna(this.atributosEscolhidosGlyph.get(dimensao).toString());
         List<String> dadosDistintos = c.getDadosDistintos();
         for (int i = 0; i < dadosDistintos.size(); i++) {
-            JLabel label = criarLabel(dadosDistintos.get(i), dimensao);
+            IconeLegenda icon = new IconeLegenda();
+            icon.setDimensao(dimensao);
+            switch (dimensao) {
+                case 0:
+                    icon.setValorIcon(Constantes.TIPO_TEXTURA[i]);
+                    break;
+                case 1:
+                    icon.setValorIcon(Constantes.getCor()[i]);
+                    break;
+                case 2:
+                    icon.setValorIcon(Constantes.TIPOS_FORMAS_GEOMETRICAS[i]);
+                    break;
+                case 3:
+                    icon.setValorIcon(Constantes.LETRAS_ALFABETO[i]);
+                    break;
+                case 4:
+                    icon.setValorIcon(Constantes.NUMEROS[i]);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            JLabel label = criarLabel(dadosDistintos.get(i), icon);
             painel.add(label);
             label.setHorizontalAlignment(SwingConstants.LEFT);
             painel.setAlignmentX(label.LEFT_ALIGNMENT);

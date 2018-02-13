@@ -5,17 +5,17 @@
  */
 package doutorado.tese.legenda;
 
-import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
+import doutorado.tese.visualizacao.glyph.alfabeto.Letra;
+import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
+import doutorado.tese.visualizacao.glyph.numeros.Numeral;
 import doutorado.tese.visualizacao.glyph.texture.Textura;
-import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.List;
 import javax.swing.Icon;
 
 /**
@@ -34,25 +34,33 @@ public class IconeLegenda implements Icon {
     public void paintIcon(Component c, Graphics g, int x, int y) {
         Graphics2D g2d = (Graphics2D) g.create();
 
-//        switch (dimensao) {
-//            case 0:
-//                calcularPrimeiraDimensao(g, x, y);
-//                break;
-//            case 1:
-//                calcularSegundaDimensao(g, col, item, dadosDistintos);
-//                break;
-//            case 2:
-//                calcularTerceiraDimensao(g, col, item, dadosDistintos);
-//                break;
-//            case 3:
-//                calcularQuartaDimensao(g, col, item, dadosDistintos);
-//                break;
-//            case 4:
-//                calcularQuintaDimensao(g, col, item, dadosDistintos);
-//                break;
-//            default:
+        Rectangle bounds = new Rectangle(x, y, width, height);
+        switch (dimensao) {
+            case 0:
+                Textura t = new Textura(bounds, valor);
+                t.paint(g);
+                break;
+            case 1:
+                FormaGeometrica f = new FormaGeometrica(bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[Constantes.TIPOS_FORMAS_GEOMETRICAS.length - 1]);
+                f.setColor(Color.decode(valor));
+                f.paint(g);
+                break;
+            case 2:
+                FormaGeometrica forma = new FormaGeometrica(bounds, valor);
+                forma.paint(g);
+                break;
+            case 3:
+                Letra letra = new Letra(bounds, valor);
+                letra.paint(g);
+                break;
+            case 4:
+                Numeral num = new Numeral(bounds, valor);
+                num.paint(g);
+                break;
+            default:
                 inserirIconeAusente(g2d, x, y);
-//        }
+                break;
+        }
         g2d.dispose();
     }
 
@@ -66,12 +74,6 @@ public class IconeLegenda implements Icon {
 
     public void setDimensao(int dimensao) {
         this.dimensao = dimensao;
-    }
-
-    private void calcularPrimeiraDimensao(Graphics g, int x, int y) {
-        Rectangle bounds = new Rectangle(x, y, width, height);
-        Textura t = new Textura(bounds, this.valor);
-        t.paint(g);
     }
 
     private void inserirIconeAusente(Graphics2D g2d, int x, int y) {
