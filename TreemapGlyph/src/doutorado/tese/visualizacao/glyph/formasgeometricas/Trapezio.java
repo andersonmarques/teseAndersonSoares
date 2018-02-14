@@ -46,7 +46,7 @@ public class Trapezio {
         p.addPoint(xPoints[1], yPoints[1]);
         p.addPoint(xPoints[2], yPoints[2]);
         p.addPoint(xPoints[3], yPoints[3]);
-        p.translate(xy[0], xy[1]);
+       
 
         g2d.setColor(Color.white);
         g2d.fillPolygon(p);
@@ -55,8 +55,8 @@ public class Trapezio {
     }
 
     private void montarTrapezio() {
-        int width = (int) ((int) Math.round(rect.width) * 0.6);
-        int height = (int) ((int) Math.round(rect.height) * 0.6);
+        int width = (int) ((int) Math.round(rect.width) * 0.4);
+        int height = (int) ((int) Math.round(rect.height) * 0.4);
 
         xy = new int[2];
         xy[0] = (int) (Math.round(rect.width) + rect.width / 2 + width * 0.6) / 10;
@@ -67,23 +67,25 @@ public class Trapezio {
         int innerWidth = width / 4;
         int innerHeight = height / 4;
 
-        halfWidth += rect.x;
-        halfHeight += rect.y;
+        
+        halfWidth += rect.x + rect.width/2 - width/2;
+        halfHeight += rect.y + rect.height/2 - height/2;
+        
 
         xPoints = new int[4];
         yPoints = new int[4];
 
         xPoints[0] = halfWidth + innerWidth;
-        yPoints[0] = (int) Math.round(rect.y);
+        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
 
         xPoints[1] = halfWidth - innerWidth;
-        yPoints[1] = (int) Math.round(rect.y);
+        yPoints[1] = (int) Math.round(rect.y + rect.height/2 - height/2);
 
-        xPoints[2] = (int) Math.round(rect.x);
-        yPoints[2] = height + (int) Math.round(rect.y);
+        xPoints[2] = (int) Math.round(rect.x + rect.width/2 - width/2);
+        yPoints[2] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
 
-        xPoints[3] = width + (int) Math.round(rect.x);
-        yPoints[3] = height + (int) Math.round(rect.y);
+        xPoints[3] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
+        yPoints[3] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
 
     }
 }

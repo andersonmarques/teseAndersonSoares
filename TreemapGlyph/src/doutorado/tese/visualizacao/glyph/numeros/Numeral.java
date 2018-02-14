@@ -6,6 +6,7 @@
 package doutorado.tese.visualizacao.glyph.numeros;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -43,6 +44,7 @@ public class Numeral {
 
         montarRetangulo();
         g2d.setColor(Color.BLACK);
+        g2d.setFont(new Font("Arial Black", Font.PLAIN, 12));
         g2d.drawString(numero, getCenter().x, getCenter().y);
     }
     
@@ -72,14 +74,14 @@ public class Numeral {
     }
 
     private void montarRetangulo() {
-        int width = (int) Math.round(rect.width / 2);
+    int width = (int) Math.round(rect.width / 2);
         int height = (int) Math.round(rect.height / 2);
 
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = rect.x + (width / 2);
-        yPoints[0] = rect.y + (height / 2);
+        xPoints[0] = (int) (rect.x + (width / 2));
+        yPoints[0] = (int) (rect.y + (height / 2)+height*0.1);
 
         xPoints[1] = width;
         yPoints[1] = height;

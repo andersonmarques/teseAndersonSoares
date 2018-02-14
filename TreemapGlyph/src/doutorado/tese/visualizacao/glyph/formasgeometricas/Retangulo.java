@@ -54,8 +54,8 @@ public class Retangulo {
     }
 
     private void montarRetangulo() {        
-        int width = (int) Math.round(rect.width / 1.4);
-        int height = (int) Math.round(rect.height / 1.4);
+        int width = (int) Math.round(rect.width * 0.4);
+        int height = (int) Math.round(rect.height * 0.4);
         
         
 //        float ponto = verificarRetangulo(width,height);
@@ -81,11 +81,13 @@ public class Retangulo {
 //        
 //    }
 
+
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = rect.x ;
-        yPoints[0] = rect.y ;
+        xPoints[0] =   rect.x + rect.width/2 - width/2 ;
+        yPoints[0] =   rect.y + rect.height/2 - height/2
+ ;
 
         xPoints[1] = width;
         yPoints[1] = height;

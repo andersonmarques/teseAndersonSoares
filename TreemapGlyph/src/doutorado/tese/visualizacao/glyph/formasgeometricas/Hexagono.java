@@ -47,7 +47,7 @@ public class Hexagono {
         p.addPoint(xPoints[3], yPoints[3]);
         p.addPoint(xPoints[4], yPoints[4]);
         p.addPoint(xPoints[5], yPoints[5]);
-        p.translate(xy[0], xy[1]);
+        
 
         g2d.setColor(Color.white);
         g2d.fillPolygon(p);
@@ -57,16 +57,16 @@ public class Hexagono {
 
     private void montarHexagono() {
         //porcetagem do tamnaho
-        int width = (int) ((int) Math.round(rect.width) * 0.6);
-        int height = (int) ((int) Math.round(rect.height) * 0.6);
+        int width = (int) ((int) Math.round(rect.width) * 0.5);
+        int height = (int) ((int) Math.round(rect.height) * 0.5);
 
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 4;
         int innerHeight = height / 4;
 
-        halfWidth += rect.x;
-        halfHeight += rect.y;
+        halfWidth += rect.x + rect.width/2 - width/2;
+        halfHeight += rect.y + rect.height/2 - height/2;
 
         xy = new int[2];
 
@@ -78,21 +78,21 @@ public class Hexagono {
         yPoints = new int[6];
 
         xPoints[0] = halfWidth;
-        yPoints[0] = (int) Math.round(rect.y);
+        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
 
-        xPoints[1] = (int) Math.round(rect.x);
+        xPoints[1] = (int) Math.round(rect.x + rect.width/2 - width/2);
         yPoints[1] = halfHeight - innerHeight;
 
-        xPoints[2] = (int) Math.round(rect.x);
+        xPoints[2] = (int) Math.round(rect.x + rect.width/2 - width/2);
         yPoints[2] = halfHeight + innerHeight;
 
         xPoints[3] = halfWidth;
-        yPoints[3] = height + (int) Math.round(rect.y);
+        yPoints[3] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
 
-        xPoints[4] = width + (int) Math.round(rect.x);
+        xPoints[4] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
         yPoints[4] = halfHeight + innerHeight;
 
-        xPoints[5] = width + (int) Math.round(rect.x);
+        xPoints[5] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
         yPoints[5] = halfHeight - innerHeight;
     }
 }

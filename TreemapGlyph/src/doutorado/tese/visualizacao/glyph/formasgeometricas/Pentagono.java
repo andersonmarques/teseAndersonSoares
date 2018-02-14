@@ -46,19 +46,19 @@ public class Pentagono {
         p.addPoint(xPoints[2], yPoints[2]);
         p.addPoint(xPoints[3], yPoints[3]);
         p.addPoint(xPoints[4], yPoints[4]);
-        p.translate(xy[0], xy[1]);
+        //p.translate(xy[0], xy[1]);
 
         g2d.setColor(Color.white);
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);
-        p.translate(xy[0], xy[1]);
+        //p.translate(xy[0], xy[1]);
 
     }
 
     private void montarPentagono() {
-        int width = (int) ((int) Math.round(rect.width) * 0.6);
-        int height = (int) ((int) Math.round(rect.height) * 0.6);
+        int width = (int) ((int) Math.round(rect.width) * 0.5);
+        int height = (int) ((int) Math.round(rect.height) * 0.5);
 
         xy = new int[2];
 
@@ -71,25 +71,26 @@ public class Pentagono {
         int innerWidth = width / 4;
         int innerHeight = height / 4;
 
-        halfWidth += rect.x;
-        halfHeight += rect.y;
-
+    
+        halfWidth += rect.x + rect.width/2 - width/2;
+        halfHeight += rect.y + rect.height/2 - height/2;
+        
         xPoints = new int[5];
         yPoints = new int[5];
 
         xPoints[0] = halfWidth;
-        yPoints[0] = (int) Math.round(rect.y);
+        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
 
-        xPoints[1] = (int) Math.round(rect.x);
+        xPoints[1] = (int) Math.round(rect.x + rect.width/2 - width/2);
         yPoints[1] = halfHeight;
 
         xPoints[2] = halfWidth - innerWidth;
-        yPoints[2] = height + (int) Math.round(rect.y);
+        yPoints[2] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
 
         xPoints[3] = halfWidth + innerWidth;
-        yPoints[3] = height + (int) Math.round(rect.y);
+        yPoints[3] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
 
-        xPoints[4] = width + (int) Math.round(rect.x);
+        xPoints[4] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
         yPoints[4] = halfHeight;
 
     }

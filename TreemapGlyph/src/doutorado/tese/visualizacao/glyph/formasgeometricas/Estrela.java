@@ -55,8 +55,7 @@ public class Estrela{
         p.addPoint(xPoints[7], yPoints[7]);
         p.addPoint(xPoints[8], yPoints[8]);
 
-        p.translate(xy[0],xy[1]);
-
+        
         g2d.setColor(Color.white);
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
@@ -68,47 +67,47 @@ public class Estrela{
         int height = (int) ((int) Math.round(rect.height)*0.6);
 
 
-        xy = new int[2];
-        xy[0] =  (int) (Math.round(rect.width)+ rect.width/2+ width *0.6)/10;
-        xy[1] =  (int) (Math.round(rect.height) +rect.height/2 + height* 0.6) /10;
-        
+//        xy = new int[2];
+//        xy[0] =  (int) (Math.round(rect.width)+ rect.width/2+ width *0.6)/10;
+//        xy[1] =  (int) (Math.round(rect.height) +rect.height/2 + height* 0.6) /10;
+//        
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 8;
         int innerHeight = height / 8;
 
-        halfWidth += rect.x;
-        halfHeight += rect.y;
+        halfWidth += rect.x + rect.width/2 - width/2;
+        halfHeight += rect.y + rect.height/2 - height/2;
 
         xPoints = new int[9];
         yPoints = new int[9];
 
         xPoints[0] = halfWidth;
-        yPoints[0] = (int) Math.round(rect.y);
+        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
 
         xPoints[1] = halfWidth - innerWidth;
         yPoints[1] = halfHeight - innerHeight;
 
-        xPoints[2] = (int) Math.round(rect.x);
+        xPoints[2] = (int) Math.round(rect.x + rect.width/2 - width/2);
         yPoints[2] = halfHeight;
 
         xPoints[3] = halfWidth - innerWidth;
         yPoints[3] = halfHeight + innerHeight;
 
         xPoints[4] = halfWidth;
-        yPoints[4] = height + (int) Math.round(rect.y);
+        yPoints[4] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
 
         xPoints[5] = halfWidth + innerWidth;
         yPoints[5] = halfHeight + innerHeight;
 
-        xPoints[6] = width + (int) Math.round(rect.x);
+        xPoints[6] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
         yPoints[6] = halfHeight;
 
         xPoints[7] = halfWidth + innerWidth;
         yPoints[7] = halfHeight - innerHeight;
 
         xPoints[8] = halfWidth;
-        yPoints[8] = (int) Math.round(rect.y);
+        yPoints[8] = (int) Math.round(rect.y + rect.height/2 - height/2);
 
     }
 }

@@ -49,10 +49,12 @@ public class Losango{
         p.addPoint(xPoints[1], yPoints[1]);
         p.addPoint(xPoints[2], yPoints[2]);
         p.addPoint(xPoints[3], yPoints[3]);
-        p.translate(xy[0],xy[1]);
+        //p.translate(xy[0],xy[1]);
 
         g2d.setColor(Color.white);
         g2d.fillPolygon(p);
+        g2d.setColor(Color.BLACK);
+        g2d.drawPolygon(p);
         
     }
 
@@ -62,6 +64,7 @@ public class Losango{
 
 
         xy = new int[2];
+        
         xy[0] =  (int) (Math.round(rect.width)+ rect.width/2+ width *0.6)/10;
         xy[1] =  (int) (Math.round(rect.height) +rect.height/2 + height* 0.6) /10;
         
@@ -70,20 +73,20 @@ public class Losango{
         int innerWidth = width / 2;
         int innerHeight = height /2;
 
-        halfWidth += rect.x;
-        halfHeight += rect.y;
+        halfWidth += rect.x + rect.width/2 - width/2;
+        halfHeight += rect.y + rect.height/2 - height/2;
 
         xPoints = new int[4];
         yPoints = new int[4];
 
         xPoints[0] = halfWidth;
-        yPoints[0] = (int) Math.round(rect.y);
+        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
 
         xPoints[1] = halfWidth-innerWidth;
         yPoints[1] = halfHeight;
 
         xPoints[2] = halfWidth;
-        yPoints[2] = height + (int) Math.round(rect.y);
+        yPoints[2] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
 
         xPoints[3] = halfWidth + innerWidth;
         yPoints[3] = halfHeight;

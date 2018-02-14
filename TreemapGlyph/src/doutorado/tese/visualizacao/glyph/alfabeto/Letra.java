@@ -5,7 +5,9 @@
  */
 package doutorado.tese.visualizacao.glyph.alfabeto;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -43,8 +45,18 @@ public class Letra {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         montarRetangulo();
+        
+        
+        
+       
+        g2d.setPaint(Color.white);
+        g2d.setStroke(new BasicStroke(1));
         g2d.setColor(Color.BLACK);
+        g2d.setFont(new Font("Arial Black", Font.PLAIN, 12));
         g2d.drawString(letra, getCenter().x, getCenter().y);
+        
+        
+        
 //        g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
     }
     
@@ -80,8 +92,8 @@ public class Letra {
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = rect.x + (width / 2);
-        yPoints[0] = rect.y + (height / 2);
+        xPoints[0] = (int) (rect.x + (width / 2));
+        yPoints[0] = (int) (rect.y + (height / 2)+height*0.1);
 
         xPoints[1] = width;
         yPoints[1] = height;

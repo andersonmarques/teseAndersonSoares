@@ -47,7 +47,7 @@ public class Triangulo extends JPanel{
         p.addPoint(xPoints[1], yPoints[1]);
         p.addPoint(xPoints[2], yPoints[2]);
        
-        p.translate(xy[0],xy[1]);
+//        p.translate(xy[0],xy[1]);
         g2d.setColor(Color.WHITE);
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
@@ -55,31 +55,31 @@ public class Triangulo extends JPanel{
     }
 
     private void montarTriangulo() {
-        int width = (int) ((int) Math.round(rect.width)*0.6);
-        int height = (int) ((int) Math.round(rect.height)*0.6);
+        int width = (int) ((int) Math.round(rect.width)*0.4);
+        int height = (int) ((int) Math.round(rect.height)*0.4);
 
-        xy = new int[2];
-        xy[0] =  (int) (Math.round(rect.width)+ rect.width/2+ width *0.6)/10;
-        xy[1] =  (int) (Math.round(rect.height) +rect.height/2 + height* 0.6) /10;
+//        xy = new int[2];
+//        xy[0] =  (int) (Math.round(rect.width)+ rect.width/2+ width *0.6)/10;
+//        xy[1] =  (int) (Math.round(rect.height) +rect.height/2 + height* 0.6) /10;
 
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 2;
         int innerHeight = height / 2;
 
-        halfWidth += rect.x;
-        halfHeight += rect.y;
+        halfWidth += rect.x + rect.width/2 - width/2;
+        halfHeight += rect.y + rect.height/2 - height/2;
 
         xPoints = new int[3];
         yPoints = new int[3];
 
         xPoints[0] = halfWidth;
-        yPoints[0] = (int) Math.round(rect.y);
+        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
 
         xPoints[1] = halfWidth - innerWidth;
         yPoints[1] = halfHeight+ innerHeight;
 
-        xPoints[2] = width + (int) Math.round(rect.x);
+        xPoints[2] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
         yPoints[2] = halfHeight+ innerHeight;
     }
 }
