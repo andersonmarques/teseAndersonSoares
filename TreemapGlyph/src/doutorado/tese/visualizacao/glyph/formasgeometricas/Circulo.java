@@ -84,11 +84,32 @@ public class Circulo {
         }
     }
 
-    private void montarCirculo() {
-        int width = (int) Math.round(rect.width / 1.8);
-        int height = (int) Math.round(rect.height / 1.8);
+      //função para deixar os glyphs quadrados
+        private int[] verificarRetangulo(int [] point){
+        if(point[0] > point[1]){
+            point[0] = point[1];
+           return point;
+        }
+        else if(point[0] < point[1]){
+            point[1] = point[0];
+           return point;
+        }
+        return null;
+    }
 
-       
+    
+    private void montarCirculo() {
+        int[] points = new int[2];
+
+        points[0] = rect.width;
+        points[1] = rect.height;
+
+        verificarRetangulo(points);
+
+        int width = (int) Math.round(points[0] * 0.65);
+        int height = (int) Math.round(points[1] * 0.65);
+
+
         xPoints = new int[2];
         yPoints = new int[2];
 

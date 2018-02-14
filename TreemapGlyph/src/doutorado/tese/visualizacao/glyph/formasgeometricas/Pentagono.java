@@ -17,7 +17,7 @@ public class Pentagono {
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
-    private int[] xy;
+    
 
     public Pentagono(Rectangle r) {
         this.rect = r;
@@ -52,20 +52,35 @@ public class Pentagono {
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);
-        //p.translate(xy[0], xy[1]);
+       
 
+    }
+    
+    private int[] verificarRetangulo(int [] point){
+        if(point[0] > point[1]){
+            point[0] = point[1];
+           return point;
+        }
+        else if(point[0] < point[1]){
+            point[1] = point[0];
+           return point;
+        }
+        return null;
     }
 
     private void montarPentagono() {
-        int width = (int) ((int) Math.round(rect.width) * 0.5);
-        int height = (int) ((int) Math.round(rect.height) * 0.5);
+        int[] points = new int[2];
 
-        xy = new int[2];
+        points[0] = rect.width;
+        points[1] = rect.height;
 
-        xy[0] = (int) (Math.round(rect.width) + rect.width / 2 + width * 0.6) / 10;
+        verificarRetangulo(points);
 
-        xy[1] = (int) (Math.round(rect.height) + rect.height / 2 + height * 0.6) / 10;
+        int width = (int) Math.round(points[0] * 0.5);
+        int height = (int) Math.round(points[1] * 0.5);
 
+
+     
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 4;

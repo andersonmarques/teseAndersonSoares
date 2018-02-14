@@ -19,8 +19,7 @@ public class Triangulo extends JPanel{
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
-    private int[] xy;
-
+    
     public Triangulo(Rectangle r) {
         this.rect = r;
         setBounds(this.rect);
@@ -53,14 +52,31 @@ public class Triangulo extends JPanel{
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);
     }
+    
+    
+    private int[] verificarRetangulo(int [] point){
+        if(point[0] > point[1]){
+            point[0] = point[1];
+           return point;
+        }
+        else if(point[0] < point[1]){
+            point[1] = point[0];
+           return point;
+        }
+        return null;
+    }
 
     private void montarTriangulo() {
-        int width = (int) ((int) Math.round(rect.width)*0.4);
-        int height = (int) ((int) Math.round(rect.height)*0.4);
+        int[] points = new int[2];
 
-//        xy = new int[2];
-//        xy[0] =  (int) (Math.round(rect.width)+ rect.width/2+ width *0.6)/10;
-//        xy[1] =  (int) (Math.round(rect.height) +rect.height/2 + height* 0.6) /10;
+        points[0] = rect.width;
+        points[1] = rect.height;
+
+        verificarRetangulo(points);
+
+        int width = (int) Math.round(points[0] * 0.5);
+        int height = (int) Math.round(points[1] * 0.5);
+
 
         int halfWidth = width / 2;
         int halfHeight = height / 2;

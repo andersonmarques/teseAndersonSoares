@@ -52,7 +52,7 @@ public class Letra {
         g2d.setPaint(Color.white);
         g2d.setStroke(new BasicStroke(1));
         g2d.setColor(Color.BLACK);
-        g2d.setFont(new Font("Arial Black", Font.PLAIN, 12));
+        g2d.setFont(new Font("Arial", Font.PLAIN, 8));
         g2d.drawString(letra, getCenter().x, getCenter().y);
         
         
@@ -61,8 +61,8 @@ public class Letra {
     }
     
     private Point getCenter() {
-        int pX = (xPoints[0] + (xPoints[1] / 2) - 6);
-        int pY = (yPoints[0] + (yPoints[1] / 2) + 2);
+        int pX = (xPoints[0] + (xPoints[1] / 2) - 4);
+        int pY = (yPoints[0] + (yPoints[1] / 2) + 4);
         return new Point(pX, pY);
     }
     

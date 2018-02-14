@@ -44,7 +44,7 @@ public class Numeral {
 
         montarRetangulo();
         g2d.setColor(Color.BLACK);
-        g2d.setFont(new Font("Arial Black", Font.PLAIN, 12));
+        g2d.setFont(new Font("Arial", Font.PLAIN, 8));
         g2d.drawString(numero, getCenter().x, getCenter().y);
     }
     

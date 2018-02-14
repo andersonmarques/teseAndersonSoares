@@ -21,7 +21,7 @@ public class Estrela{
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
-    private int[] xy;
+   
 
     public Estrela(Rectangle r) {
         this.rect = r;
@@ -54,6 +54,8 @@ public class Estrela{
         p.addPoint(xPoints[6], yPoints[6]);
         p.addPoint(xPoints[7], yPoints[7]);
         p.addPoint(xPoints[8], yPoints[8]);
+        p.addPoint(xPoints[9], yPoints[9]);
+     
 
         
         g2d.setColor(Color.white);
@@ -61,16 +63,31 @@ public class Estrela{
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);      
     }
+    
+     //função para deixar os glyphs quadrados
+        private int[] verificarRetangulo(int [] point){
+        if(point[0] > point[1]){
+            point[0] = point[1];
+           return point;
+        }
+        else if(point[0] < point[1]){
+            point[1] = point[0];
+           return point;
+        }
+        return null;
+    }
 
     private void montarEstrela() {
-        int width = (int) ((int) Math.round(rect.width)*0.6);
-        int height = (int) ((int) Math.round(rect.height)*0.6);
+        int[] points = new int[2];
 
+        points[0] = rect.width;
+        points[1] = rect.height;
 
-//        xy = new int[2];
-//        xy[0] =  (int) (Math.round(rect.width)+ rect.width/2+ width *0.6)/10;
-//        xy[1] =  (int) (Math.round(rect.height) +rect.height/2 + height* 0.6) /10;
-//        
+        verificarRetangulo(points);
+
+        int width = (int) Math.round(points[0] * 0.6);
+        int height = (int) Math.round(points[1] * 0.6);
+
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 8;
@@ -79,8 +96,8 @@ public class Estrela{
         halfWidth += rect.x + rect.width/2 - width/2;
         halfHeight += rect.y + rect.height/2 - height/2;
 
-        xPoints = new int[9];
-        yPoints = new int[9];
+        xPoints = new int[10];
+        yPoints = new int[10];
 
         xPoints[0] = halfWidth;
         yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
@@ -89,25 +106,35 @@ public class Estrela{
         yPoints[1] = halfHeight - innerHeight;
 
         xPoints[2] = (int) Math.round(rect.x + rect.width/2 - width/2);
-        yPoints[2] = halfHeight;
+        yPoints[2] = halfHeight-innerHeight;
 
-        xPoints[3] = halfWidth - innerWidth;
+        xPoints[3] = halfWidth - (innerWidth+innerWidth/2);
         yPoints[3] = halfHeight + innerHeight;
 
-        xPoints[4] = halfWidth;
+        xPoints[4] = halfWidth - (2*innerWidth+innerWidth);
         yPoints[4] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
 
-        xPoints[5] = halfWidth + innerWidth;
-        yPoints[5] = halfHeight + innerHeight;
+        xPoints[5] = halfWidth;
+        yPoints[5] = halfHeight + (2*innerHeight);
 
-        xPoints[6] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
-        yPoints[6] = halfHeight;
+        xPoints[6] = halfWidth + (2*innerWidth+innerWidth);
+        yPoints[6] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
 
-        xPoints[7] = halfWidth + innerWidth;
-        yPoints[7] = halfHeight - innerHeight;
+        xPoints[7] = halfWidth + (innerWidth+innerWidth/2);
+        yPoints[7] = halfHeight + innerHeight;
+        
+        xPoints[8] = width + Math.round(rect.x + rect.width/2 - width/2);
+        yPoints[8] = halfHeight - innerHeight;
+        
+        xPoints[9] = halfWidth + innerWidth;
+        yPoints[9] = halfHeight - innerHeight;
 
-        xPoints[8] = halfWidth;
-        yPoints[8] = (int) Math.round(rect.y + rect.height/2 - height/2);
+
+      
+
+        
+        
+        
 
     }
 }

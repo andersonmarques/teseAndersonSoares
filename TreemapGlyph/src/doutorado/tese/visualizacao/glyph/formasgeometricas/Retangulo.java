@@ -40,48 +40,31 @@ public class Retangulo {
 
     }
     //função para deixar os glyphs quadrados
-        private float verificarRetangulo(float width, float height){
-        if(width > height){
-            width = height;
-            
-             return width;
+        private int[] verificarRetangulo(int [] point){
+        if(point[0] > point[1]){
+            point[0] = point[1];
+           return point;
         }
-        else if(width < height){
-            height = width;
-             return height;
+        else if(point[0] < point[1]){
+            point[1] = point[0];
+           return point;
         }
-        return 0;
+        return null;
     }
 
     private void montarRetangulo() {        
-        int width = (int) Math.round(rect.width * 0.4);
-        int height = (int) Math.round(rect.height * 0.4);
-        
-        
-//        float ponto = verificarRetangulo(width,height);
-//
-//        
-//        if(width > height){
-//          //xPoints[0] = (int) (rect.x + (width / 2));
-//          //yPoints[0] = rect.y + (rect.y / 2);
-//
-//        }
-//        else if(width < height){
-//            //xPoints[0] = rect.x + (width / 2);
-//            //yPoints[0] = (int) (rect.y + (rect.y / 2));
-//        
-//        
-//        
-//            xPoints[0] = rect.x + (width / 2);
-//            yPoints[0] = rect.y + (height / 2);
-//       
-//        
-//        xPoints[1] = (int) ponto;
-//        yPoints[1] = (int) ponto;
-//        
-//    }
+        int[] points = new int[2];
+
+        points[0] = rect.width;
+        points[1] = rect.height;
+
+        verificarRetangulo(points);
+
+        int width = (int) Math.round(points[0] * 0.4);
+        int height = (int) Math.round(points[1] * 0.4);
 
 
+        
         xPoints = new int[2];
         yPoints = new int[2];
 
