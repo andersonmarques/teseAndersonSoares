@@ -24,11 +24,13 @@ public class Letra {
     private int[] yPoints;
     private Rectangle rect;
     private String letra;
+    private Font fonte;
 
     public Letra(Rectangle r, String letra) {
         this.rect = r;
         setBounds(this.rect);
         this.letra = letra;
+        fonte = new Font("Arial", Font.PLAIN, 8);
     }
 
     public void setBounds(Rectangle rect) {
@@ -45,24 +47,17 @@ public class Letra {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         montarRetangulo();
-        
-        
-        
        
         g2d.setPaint(Color.white);
         g2d.setStroke(new BasicStroke(1));
         g2d.setColor(Color.BLACK);
-        g2d.setFont(new Font("Arial", Font.PLAIN, 8));
+        g2d.setFont(getFonte());
         g2d.drawString(letra, getCenter().x, getCenter().y);
-        
-        
-        
-//        g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
     }
     
     private Point getCenter() {
         int pX = (xPoints[0] + (xPoints[1] / 2) - 4);
-        int pY = (yPoints[0] + (yPoints[1] / 2) + 4);
+        int pY = (yPoints[0] + (yPoints[1] / 2) + 2);
         return new Point(pX, pY);
     }
     
@@ -97,5 +92,19 @@ public class Letra {
 
         xPoints[1] = width;
         yPoints[1] = height;
+    }
+
+    /**
+     * @return the fonte
+     */
+    public Font getFonte() {
+        return fonte;
+    }
+
+    /**
+     * @param fonte the fonte to set
+     */
+    public void setFonte(Font fonte) {
+        this.fonte = fonte;
     }
 }

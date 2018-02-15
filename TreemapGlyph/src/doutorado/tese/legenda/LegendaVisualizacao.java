@@ -9,6 +9,7 @@ import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import static java.lang.ProcessBuilder.Redirect.to;
@@ -41,6 +42,7 @@ public class LegendaVisualizacao {
             //Set the position of the text, relative to the icon:
             label.setVerticalTextPosition(JLabel.CENTER);
             label.setHorizontalTextPosition(JLabel.RIGHT);
+            label.setFont(new Font("Arial", Font.PLAIN, 12));
         } else {
             label = new JLabel(conteudoDist);
         }

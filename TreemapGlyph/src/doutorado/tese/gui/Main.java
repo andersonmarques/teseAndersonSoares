@@ -180,6 +180,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         cimaBotao_treemap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaUp.png"))); // NOI18N
         cimaBotao_treemap.setEnabled(false);
+        cimaBotao_treemap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cimaBotao_treemapActionPerformed(evt);
+            }
+        });
 
         baixoBotao_treemap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaDown.png"))); // NOI18N
         baixoBotao_treemap.setEnabled(false);
@@ -671,6 +676,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         loadVariaveisGlyph(getColunasCategoricas().toArray(), atributo5Glyph);
         atributo5Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo4GlyphItemStateChanged
+
+    private void cimaBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaBotao_treemapActionPerformed
+        ListModel<String> model = colunasHierarquicasList2.getModel();
+//TODO salvar o item selecionado        
+//TODO pegar o item selecionado e remover
+//TODO adiciona-lo uma posição acima de onde ele estava
+        
+    }//GEN-LAST:event_cimaBotao_treemapActionPerformed
 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
         ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();

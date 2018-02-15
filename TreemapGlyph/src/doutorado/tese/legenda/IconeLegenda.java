@@ -13,6 +13,7 @@ import doutorado.tese.visualizacao.glyph.texture.Textura;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -51,10 +52,12 @@ public class IconeLegenda implements Icon {
                 break;
             case 3:
                 Letra letra = new Letra(bounds, valor);
+                letra.setFonte(new Font("Arial", Font.PLAIN, 12));
                 letra.paint(g);
                 break;
             case 4:
                 Numeral num = new Numeral(bounds, valor);
+                num.setFonte(new Font("Arial", Font.PLAIN, 12));
                 num.paint(g);
                 break;
             default:

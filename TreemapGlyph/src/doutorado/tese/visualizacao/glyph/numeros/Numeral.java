@@ -22,11 +22,13 @@ public class Numeral {
     private int[] yPoints;
     private Rectangle rect;
     private String numero;
+    private Font fonte;
 
     public Numeral(Rectangle r, String numero) {
         this.rect = r;
         setBounds(this.rect);
         this.numero = numero;
+        fonte = new Font("Arial", Font.PLAIN, 8);
     }
 
     public void setBounds(Rectangle rect) {
@@ -44,7 +46,7 @@ public class Numeral {
 
         montarRetangulo();
         g2d.setColor(Color.BLACK);
-        g2d.setFont(new Font("Arial", Font.PLAIN, 8));
+        g2d.setFont(getFonte());
         g2d.drawString(numero, getCenter().x, getCenter().y);
     }
     
@@ -85,5 +87,19 @@ public class Numeral {
 
         xPoints[1] = width;
         yPoints[1] = height;
+    }
+
+    /**
+     * @return the fonte
+     */
+    public Font getFonte() {
+        return fonte;
+    }
+
+    /**
+     * @param fonte the fonte to set
+     */
+    public void setFonte(Font fonte) {
+        this.fonte = fonte;
     }
 }
