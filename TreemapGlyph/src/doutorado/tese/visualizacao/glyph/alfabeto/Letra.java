@@ -30,7 +30,15 @@ public class Letra {
         this.rect = r;
         setBounds(this.rect);
         this.letra = letra;
-        fonte = new Font("Arial", Font.PLAIN, 8);
+        
+        int width = rect.width;
+        int height = rect.height;
+        width = width/14;
+        height = height/14;
+        int area = width+height;
+
+ 
+        fonte = new Font("Arial", Font.PLAIN, area);
     }
 
     public void setBounds(Rectangle rect) {
@@ -51,13 +59,16 @@ public class Letra {
         g2d.setPaint(Color.white);
         g2d.setStroke(new BasicStroke(1));
         g2d.setColor(Color.BLACK);
+        
+        
+        
         g2d.setFont(getFonte());
         g2d.drawString(letra, getCenter().x, getCenter().y);
     }
     
     private Point getCenter() {
-        int pX = (xPoints[0] + (xPoints[1] / 2) - 4);
-        int pY = (yPoints[0] + (yPoints[1] / 2) + 2);
+        int pX = (int) (xPoints[0] + (xPoints[1] / 2) - 3*(yPoints[1]/14));
+        int pY = (yPoints[0] + (yPoints[1] / 2)+(yPoints[1]/14));
         return new Point(pX, pY);
     }
     
@@ -68,16 +79,17 @@ public class Letra {
      * @param height
      * @return 
      */
-    private float verificarRetangulo(float width, float height) {
-        if (width > height) {
-            width = height;
-
-            return width;
-        } else if (width < height) {
-            height = width;
-            return height;
+    
+     private int[] verificarRetangulo(int [] point){
+        if(point[0] > point[1]){
+            point[0] = point[1];
+           return point;
         }
-        return 0;
+        else if(point[0] < point[1]){
+            point[1] = point[0];
+           return point;
+        }
+        return null;
     }
 
     private void montarRetangulo() {
@@ -88,7 +100,7 @@ public class Letra {
         yPoints = new int[2];
 
         xPoints[0] = (int) (rect.x + (width / 2));
-        yPoints[0] = (int) (rect.y + (height / 2)+height*0.1);
+        yPoints[0] = (int) (rect.y + (height / 2)+ height*0.14);
 
         xPoints[1] = width;
         yPoints[1] = height;
