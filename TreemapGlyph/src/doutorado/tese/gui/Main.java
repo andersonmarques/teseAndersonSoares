@@ -648,8 +648,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void colunasHierarquicasList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasHierarquicasList2ValueChanged
         if (colunasHierarquicasList2.getSelectedValuesList().size() >= 1) {
             removerBotao_treemap.setEnabled(true);
+            if (colunasHierarquicasList2.getSelectedIndex() > 0) {
+                cimaBotao_treemap.setEnabled(true);
+            } else {
+                cimaBotao_treemap.setEnabled(false);
+            }
         } else {
             removerBotao_treemap.setEnabled(false);
+            cimaBotao_treemap.setEnabled(false);
         }
     }//GEN-LAST:event_colunasHierarquicasList2ValueChanged
 
@@ -678,11 +684,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_atributo4GlyphItemStateChanged
 
     private void cimaBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaBotao_treemapActionPerformed
-        ListModel<String> model = colunasHierarquicasList2.getModel();
-//TODO salvar o item selecionado        
-//TODO pegar o item selecionado e remover
-//TODO adiciona-lo uma posição acima de onde ele estava
-        
+        List<String> novaLista = new ArrayList<>();
+        int[] selectedValuesList = colunasHierarquicasList2.getSelectedIndices();
+        for (int i = 0; i < colunasHierarquicasList2.getModel().getSize(); i++) {
+            for (int j = 0; j < selectedValuesList.length; j++) {
+                if (i == selectedValuesList[j]) {
+                    novaLista.add(i - 1, colunasHierarquicasList2.getModel().getElementAt(i));
+                } else {
+                    novaLista.add(colunasHierarquicasList2.getModel().getElementAt(i));
+                }
+            }
+        }
+        loadVariaveisEscolhidasTreemap(novaLista.toArray());
     }//GEN-LAST:event_cimaBotao_treemapActionPerformed
 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
