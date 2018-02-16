@@ -188,6 +188,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         baixoBotao_treemap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaDown.png"))); // NOI18N
         baixoBotao_treemap.setEnabled(false);
+        baixoBotao_treemap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                baixoBotao_treemapActionPerformed(evt);
+            }
+        });
 
         removerBotao_treemap.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         removerBotao_treemap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaEsq.png"))); // NOI18N
@@ -653,9 +658,15 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             } else {
                 cimaBotao_treemap.setEnabled(false);
             }
+            if (colunasHierarquicasList2.getSelectedIndex() < colunasHierarquicasList2.getModel().getSize() - 1) {
+                baixoBotao_treemap.setEnabled(true);
+            } else {
+                baixoBotao_treemap.setEnabled(false);
+            }
         } else {
             removerBotao_treemap.setEnabled(false);
             cimaBotao_treemap.setEnabled(false);
+            baixoBotao_treemap.setEnabled(false);
         }
     }//GEN-LAST:event_colunasHierarquicasList2ValueChanged
 
@@ -697,6 +708,28 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
         loadVariaveisEscolhidasTreemap(novaLista.toArray());
     }//GEN-LAST:event_cimaBotao_treemapActionPerformed
+
+    private void baixoBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixoBotao_treemapActionPerformed
+        List<String> novaLista = new ArrayList<>(colunasHierarquicasList2.getModel().getSize());
+        for (int i = 0; i < colunasHierarquicasList2.getModel().getSize(); i++) {
+            novaLista.add(colunasHierarquicasList2.getModel().getElementAt(i));
+        }
+        int[] selectedValuesList = colunasHierarquicasList2.getSelectedIndices();
+        for (int i = 0; i < novaLista.size(); i++) {
+            for (int j = 0; j < selectedValuesList.length; j++) {
+                if (i == selectedValuesList[j]) {
+                    String caraFrente = novaLista.get(i + 1);
+                    String caraAtual = novaLista.get(i);
+                    novaLista.add(i + 1, caraAtual);
+                    novaLista.add(i, caraFrente);
+                    novaLista.remove(i + 2);
+                    novaLista.remove(i + 2);
+                    break;
+                }
+            }
+        }
+        loadVariaveisEscolhidasTreemap(novaLista.toArray());
+    }//GEN-LAST:event_baixoBotao_treemapActionPerformed
 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
         ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
