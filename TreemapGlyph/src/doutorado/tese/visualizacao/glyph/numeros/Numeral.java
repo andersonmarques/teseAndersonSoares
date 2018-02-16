@@ -28,7 +28,14 @@ public class Numeral {
         this.rect = r;
         setBounds(this.rect);
         this.numero = numero;
-        fonte = new Font("Arial", Font.PLAIN, 8);
+        
+        int width = rect.width;
+        int height = rect.height;
+        width = width/14;
+        height = height/14;
+        int area = width+height;
+        fonte = new Font("Arial", Font.PLAIN, area);
+        
     }
 
     public void setBounds(Rectangle rect) {
@@ -51,8 +58,9 @@ public class Numeral {
     }
     
     private Point getCenter() {
-        int pX = (xPoints[0] + (xPoints[1] / 2) + 1);
-        int pY = (yPoints[0] + (yPoints[1] / 2) + 2);
+        
+        int pX = (xPoints[0] + (xPoints[1] / 2)+ (xPoints[1]/14)/2);
+        int pY = (yPoints[0] + (yPoints[1] / 2)+yPoints[1]/14);
         return new Point(pX, pY);
     }
     
@@ -63,17 +71,9 @@ public class Numeral {
      * @param height
      * @return 
      */
-    private float verificarRetangulo(float width, float height) {
-        if (width > height) {
-            width = height;
-
-            return width;
-        } else if (width < height) {
-            height = width;
-            return height;
-        }
-        return 0;
-    }
+    
+    
+ 
 
     private void montarRetangulo() {
     int width = (int) Math.round(rect.width / 2);
@@ -83,7 +83,7 @@ public class Numeral {
         yPoints = new int[2];
 
         xPoints[0] = (int) (rect.x + (width / 2));
-        yPoints[0] = (int) (rect.y + (height / 2)+height*0.1);
+        yPoints[0] = (int) (rect.y + (height / 2)+height*0.14);
 
         xPoints[1] = width;
         yPoints[1] = height;
