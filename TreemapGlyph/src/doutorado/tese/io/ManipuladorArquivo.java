@@ -35,14 +35,25 @@ public class ManipuladorArquivo {
     private static Coluna[] colunas;
     private TreeMapItem[] itensTreemap;
     private String[] linhas;
+    private String extensaoArquivo;
 
     public ManipuladorArquivo() {
-        charset = Charset.forName("iso-8859-1");
+        charset = Charset.forName("iso-8859-1");//iso-8859-1
         bufferArquivo = new StringBuilder();
+    }
+
+    public String getExtensionFile(String fileName) {
+        String extension = "";
+        int i = fileName.lastIndexOf('.');
+        if (i > 0) {
+            extension = fileName.substring(i + 1);
+        }
+        return extension;
     }
 
     public void lerArquivo(File arquivo) {
         file = arquivo;
+        extensaoArquivo = getExtensionFile(file.getName());
         try (BufferedReader reader = Files.newBufferedReader(file.toPath(), charset)) {
             String line = null;
             int numLinha = 0;
@@ -79,7 +90,12 @@ public class ManipuladorArquivo {
 //        String[] linhas = bufferArquivo.toString().split("\n");
         String[] dados = new String[getLinhas().length - 2];
         for (int numLinha = 2; numLinha < getLinhas().length; numLinha++) {
-            String[] vetorLinha = getLinhas()[numLinha].split("\t|,");
+            String[] vetorLinha = null;
+            if (extensaoArquivo.equalsIgnoreCase("txt")) {
+                vetorLinha = getLinhas()[numLinha].split("\t");
+            } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
+                vetorLinha = getLinhas()[numLinha].split(",");
+            }
             for (int j = 0; j < cabecalho.length; j++) {
                 if (cabecalho[j].equalsIgnoreCase(nomeColuna)) {
                     dados[numLinha - 2] = vetorLinha[j];
@@ -91,15 +107,20 @@ public class ManipuladorArquivo {
     }
 
     public String[] getDadosLinha(int numLinha) {
-        String[] vetorLinha = getLinhas()[numLinha].split("\t|,");
+        String[] vetorLinha = null;
+        if (extensaoArquivo.equalsIgnoreCase("txt")) {
+            vetorLinha = getLinhas()[numLinha].split("\t");
+        } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
+            vetorLinha = getLinhas()[numLinha].split(",");
+        }
         return vetorLinha;
     }
 
-    public Object[] getDadosByLinha(int numLinha) {
-        String[] vetorLinha = getLinhas()[numLinha].split("\t|,");
-        return vetorLinha;
-    }
-
+//    public Object[] getDadosByLinha(int numLinha) {
+//        System.out.println("Ainda é usado...");
+//        String[] vetorLinha = getLinhas()[numLinha].split("\t|,");
+//        return vetorLinha;
+//    }
     /**
      * Retorna um objeto coluna pelo nome da coluna
      *
@@ -118,7 +139,12 @@ public class ManipuladorArquivo {
 
     private String[] montarCabecalho(String line) {
         List<String> asList = new ArrayList<>();
-        asList.addAll(Arrays.asList(line.split("\t|,")));
+
+        if (extensaoArquivo.equalsIgnoreCase("txt")) {
+            asList.addAll(Arrays.asList(line.split("\t")));
+        } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
+            asList.addAll(Arrays.asList(line.split(",")));
+        }
         asList.add("SAME_SIZE");
 
         String[] cabecalhoLocal = new String[asList.size()];
@@ -130,7 +156,11 @@ public class ManipuladorArquivo {
 
     private String[] desvendarTiposDados(String line) {
         List<String> asList = new ArrayList<>();
-        asList.addAll(Arrays.asList(line.split("\t|,")));
+        if (extensaoArquivo.equalsIgnoreCase("txt")) {
+            asList.addAll(Arrays.asList(line.split("\t")));
+        } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
+            asList.addAll(Arrays.asList(line.split(",")));
+        }
         asList.add("Integer");
 
         String[] tiposLocal = new String[asList.size()];
@@ -248,9 +278,12 @@ public class ManipuladorArquivo {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+//            System.out.print("linha:" + linha);
             for (int coluna = 0; coluna < dadosLinha.length; coluna++) {
+//                System.out.print("\t[" + coluna + "]: " + dadosLinha[coluna]);
                 itemLocal.getMapaDetalhesItem().put(getColunas()[coluna], dadosLinha[coluna]);
             }
+//            System.out.println("");
             itensTreemap[linha] = itemLocal;
         }
     }

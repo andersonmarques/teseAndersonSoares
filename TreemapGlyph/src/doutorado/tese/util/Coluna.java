@@ -146,6 +146,7 @@ public class Coluna {
             double lower = Integer.MAX_VALUE;
 
             for (int i = 2; i < dadosColunas.length; i++) {
+//                System.out.println("linha["+i+"]: "+dadosColunas[i]);
                 double dado = Double.valueOf(dadosColunas[i]);
                 higher = findMax(dado, higher);
                 lower = findMin(dado, lower);
