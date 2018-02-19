@@ -18,6 +18,7 @@ import java.awt.RenderingHints;
  * @author Anderson Soares
  */
 public class Numeral {
+
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
@@ -28,20 +29,17 @@ public class Numeral {
         this.rect = r;
         setBounds(this.rect);
         this.numero = numero;
-        
+
         int width = rect.width;
         int height = rect.height;
-        width = width/15;
-        height = height/15;
-        int area = width+height;
+        width = width / 15;
+        height = height / 15;
+        int area = width + height;
 
-        if(area<10){
-                fonte = new Font("Arial", Font.PLAIN, area);
-               // fonte2 =new Font("Arial", Font.PLAIN, 11);
-        }
-        else{
-        fonte = new Font("Arial", Font.PLAIN, area);
-        // fonte2 = new Font("Arial black", Font.PLAIN, area);
+        if (area < 10) {
+            fonte = new Font("Arial", Font.PLAIN, area);
+        } else {//TODO rever esse trecho
+            fonte = new Font("Arial", Font.PLAIN, area);
         }
     }
 
@@ -63,69 +61,64 @@ public class Numeral {
         g2d.setFont(getFonte());
         g2d.drawString(numero, getCenter().x, getCenter().y);
     }
-    
+
     private Point getCenter() {
-             int[] points = new int[2];
+        int[] points = new int[2];
         points[0] = rect.width;
         points[1] = rect.height;
-        
+
         verificarRetangulo(points);
-        
-        
+
         int width = (int) Math.round(points[0] * 0.2);
         int height = (int) Math.round(points[1] * 0.2);
-        
 
-        int pX = (int) (rect.x + rect.width/2);
-        int pY = (rect.y + rect.height/2 + (height/6));
-        
-        
+        int pX = (int) (rect.x + rect.width / 2);
+        int pY = (rect.y + rect.height / 2 + (height / 6));
+
         return new Point(pX, pY);
     }
-    
+
     /**
      * Função para deixar os glyphs quadrados
-     * 
+     *
      * @param width
      * @param height
-     * @return 
+     * @return
      */
-         private int[] verificarRetangulo(int [] point){
-        if(point[0] > point[1]){
+    private int[] verificarRetangulo(int[] point) {
+        if (point[0] > point[1]) {
             point[0] = point[1];
-           return point;
-        }
-        else if(point[0] < point[1]){
+            return point;
+        } else if (point[0] < point[1]) {
             point[1] = point[0];
-           return point;
+            return point;
         }
         return null;
     }
 
     private void montarRetangulo() {
-        
-        
+
         int[] points = new int[2];
 
         points[0] = rect.width;
         points[1] = rect.height;
-        
+
         verificarRetangulo(points);
-        
+
         int width = (int) Math.round(points[0] * 0.2);
         int height = (int) Math.round(points[1] * 0.2);
-        
-        
+
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = (int) (rect.x + (rect.x / 2)-width/2);
-        yPoints[0] = (int) (rect.y + (rect.y / 2)-height/2);
+        xPoints[0] = (int) (rect.x + (rect.x / 2) - width / 2);
+        yPoints[0] = (int) (rect.y + (rect.y / 2) - height / 2);
 
         xPoints[1] = width;
         yPoints[1] = height;
-    
+
     }
+
     /**
      * @return the fonte
      */
