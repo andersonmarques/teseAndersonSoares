@@ -74,8 +74,8 @@ public class Triangulo extends JPanel{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.5);
-        int height = (int) Math.round(points[1] * 0.5);
+        int width = (int) Math.round(points[0] * 0.45);
+        int height = (int) Math.round(points[1] * 0.45);
 
 
         int halfWidth = width / 2;
@@ -90,7 +90,7 @@ public class Triangulo extends JPanel{
         yPoints = new int[3];
 
         xPoints[0] = halfWidth;
-        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2)- width/5;
 
         xPoints[1] = halfWidth - innerWidth;
         yPoints[1] = halfHeight+ innerHeight;

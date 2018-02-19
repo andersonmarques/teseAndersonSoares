@@ -55,7 +55,8 @@ public class Estrela{
         p.addPoint(xPoints[7], yPoints[7]);
         p.addPoint(xPoints[8], yPoints[8]);
         p.addPoint(xPoints[9], yPoints[9]);
-     
+        p.addPoint(xPoints[10], yPoints[10]);
+
 
         
         g2d.setColor(Color.white);
@@ -85,51 +86,59 @@ public class Estrela{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.6);
-        int height = (int) Math.round(points[1] * 0.6);
+        int width = (int) Math.round(points[0] * 0.45);
+        int height = (int) Math.round(points[1] * 0.45);
 
-        int halfWidth = width / 2;
+          int halfWidth = width / 2;
         int halfHeight = height / 2;
-        int innerWidth = width / 8;
-        int innerHeight = height / 8;
+        int innerWidth = width / 2;
+        int innerHeight = height / 2;
 
         halfWidth += rect.x + rect.width/2 - width/2;
         halfHeight += rect.y + rect.height/2 - height/2;
 
-        xPoints = new int[10];
-        yPoints = new int[10];
+        xPoints = new int[11];
+        yPoints = new int[11];
 
         xPoints[0] = halfWidth;
-        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
-
-        xPoints[1] = halfWidth - innerWidth;
-        yPoints[1] = halfHeight - innerHeight;
-
-        xPoints[2] = (int) Math.round(rect.x + rect.width/2 - width/2);
-        yPoints[2] = halfHeight-innerHeight;
-
-        xPoints[3] = halfWidth - (innerWidth+innerWidth/2);
-        yPoints[3] = halfHeight + innerHeight;
-
-        xPoints[4] = halfWidth - (2*innerWidth+innerWidth);
-        yPoints[4] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
-
+        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2)- width/5;
+        
+        xPoints[1] = (int) Math.round(rect.x + rect.width/2 -innerWidth/3);
+        yPoints[1] = halfHeight - innerHeight+width/5;
+        
+        xPoints[2] = halfWidth- (innerWidth+innerWidth/3);
+        yPoints[2] = halfHeight - innerHeight+width/5;
+        
+        xPoints[3] = (int) Math.round(rect.x + rect.width/2 -innerWidth/2);
+        yPoints[3] = halfHeight;
+        
+        
+        xPoints[4] = halfWidth-innerWidth;
+        yPoints[4] = halfHeight + innerHeight;
+        
         xPoints[5] = halfWidth;
-        yPoints[5] = halfHeight + (2*innerHeight);
-
-        xPoints[6] = halfWidth + (2*innerWidth+innerWidth);
-        yPoints[6] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
-
-        xPoints[7] = halfWidth + (innerWidth+innerWidth/2);
-        yPoints[7] = halfHeight + innerHeight;
+        yPoints[5] = halfHeight + innerHeight/2;
         
-        xPoints[8] = width + Math.round(rect.x + rect.width/2 - width/2);
-        yPoints[8] = halfHeight - innerHeight;
+        xPoints[6] = halfWidth+innerWidth;;
+        yPoints[6] = halfHeight+ innerHeight;
         
-        xPoints[9] = halfWidth + innerWidth;
-        yPoints[9] = halfHeight - innerHeight;
 
+        
+      
+        xPoints[7] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
+        yPoints[7] = halfHeight+ innerHeight;
+        
+        xPoints[8] = (int) Math.round(rect.x + rect.width/2 +innerWidth/2);
+        yPoints[8] = halfHeight;
+        
+        xPoints[9] = halfWidth + (innerWidth+innerWidth/4);
+        yPoints[9] = halfHeight - innerHeight+width/5;
+        
 
+        xPoints[10] =  (int) Math.round(rect.x + rect.width/2 + innerWidth/3);
+        yPoints[10] = halfHeight - innerHeight+width/5;
+        
+        
       
 
         

@@ -31,11 +31,18 @@ public class Numeral {
         
         int width = rect.width;
         int height = rect.height;
-        width = width/14;
-        height = height/14;
+        width = width/15;
+        height = height/15;
         int area = width+height;
+
+        if(area<10){
+                fonte = new Font("Arial", Font.PLAIN, area);
+               // fonte2 =new Font("Arial", Font.PLAIN, 11);
+        }
+        else{
         fonte = new Font("Arial", Font.PLAIN, area);
-        
+        // fonte2 = new Font("Arial black", Font.PLAIN, area);
+        }
     }
 
     public void setBounds(Rectangle rect) {
@@ -58,9 +65,21 @@ public class Numeral {
     }
     
     private Point getCenter() {
+             int[] points = new int[2];
+        points[0] = rect.width;
+        points[1] = rect.height;
         
-        int pX = (xPoints[0] + (xPoints[1] / 2)+ (xPoints[1]/14)/2);
-        int pY = (yPoints[0] + (yPoints[1] / 2)+yPoints[1]/14);
+        verificarRetangulo(points);
+        
+        
+        int width = (int) Math.round(points[0] * 0.2);
+        int height = (int) Math.round(points[1] * 0.2);
+        
+
+        int pX = (int) (rect.x + rect.width/2);
+        int pY = (rect.y + rect.height/2 + (height/6));
+        
+        
         return new Point(pX, pY);
     }
     
@@ -71,24 +90,42 @@ public class Numeral {
      * @param height
      * @return 
      */
-    
-    
- 
+         private int[] verificarRetangulo(int [] point){
+        if(point[0] > point[1]){
+            point[0] = point[1];
+           return point;
+        }
+        else if(point[0] < point[1]){
+            point[1] = point[0];
+           return point;
+        }
+        return null;
+    }
 
     private void montarRetangulo() {
-    int width = (int) Math.round(rect.width / 2);
-        int height = (int) Math.round(rect.height / 2);
+        
+        
+        int[] points = new int[2];
 
+        points[0] = rect.width;
+        points[1] = rect.height;
+        
+        verificarRetangulo(points);
+        
+        int width = (int) Math.round(points[0] * 0.2);
+        int height = (int) Math.round(points[1] * 0.2);
+        
+        
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = (int) (rect.x + (width / 2));
-        yPoints[0] = (int) (rect.y + (height / 2)+height*0.14);
+        xPoints[0] = (int) (rect.x + (rect.x / 2)-width/2);
+        yPoints[0] = (int) (rect.y + (rect.y / 2)-height/2);
 
         xPoints[1] = width;
         yPoints[1] = height;
+    
     }
-
     /**
      * @return the fonte
      */
