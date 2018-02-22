@@ -33,6 +33,7 @@ public final class GlyphManager {
     private final List<Object> atributosEscolhidos;
     private HashMap<String, Integer> colunaDadosDist;
     private TMNodeModelRoot rootNodeZoom;
+    
 
     public GlyphManager(ManipuladorArquivo manipulador, List<Object> atributosEscolhidos) {
         this.manipulador = manipulador;
@@ -85,10 +86,6 @@ public final class GlyphManager {
                 if (getRootNodeZoom() != null) {
                     setGlyphsInTreeMapItems(getRootNodeZoom().getRoot(), dimensao, g, col, dadosDistintos);
                 }
-                //desenha glyphs em todos os itens, mesmo com zoom
-//                for (TreeMapItem item : manipulador.getItensTreemap()) {
-//                    defineDimension2DrawGlyph(dimensao, g, col, item, dadosDistintos);
-//                }
             }
         }
     }

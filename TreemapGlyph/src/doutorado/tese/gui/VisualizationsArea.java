@@ -39,6 +39,8 @@ public class VisualizationsArea {
     private Queue<String> hierarquiaFila;
     private String labelColumn = "";
     private TreeMapNode root;
+    private TreeMapNode fixedRoot;
+    
     //variaveis para a API do Treemap
     private TMModelNode modelTree = null; // the model of the demo tree
     private TreeMap treeMap = null; // the treemap builded
@@ -53,6 +55,7 @@ public class VisualizationsArea {
 
         Rectangle rect = new Rectangle(0, 0, w, h);
         root = new TreeMapLevel(new Rect(rect.x, rect.y, rect.width, rect.height));//TMModelNode
+        fixedRoot = root;
         root.setPaiLevel(null);
         root.setRaiz(true);
         root.setLabel("ROOT");
@@ -67,7 +70,7 @@ public class VisualizationsArea {
 
         this.view.getAlgorithm().setBorderSize(15);
         this.view.setBounds(rect);
-        
+
         TMOnDrawFinished listener = (new TMOnDrawFinished() {
             @Override
             public void onDrawFinished(String t) {
@@ -77,7 +80,7 @@ public class VisualizationsArea {
         TMThreadModel.listener = listener;
         TMUpdaterConcrete.listener = listener;
     }
-    
+
     public void acionarStarGlyph(List<String> variaveisStarGlyph) {
         for (int i = 0; i < manipulador.getItensTreemap().length; i++) {//manipulador.getItensTreemap().length
             StarGlyph starGlyph = new StarGlyph(manipulador.getItensTreemap()[i].getBounds(), variaveisStarGlyph);
@@ -97,21 +100,43 @@ public class VisualizationsArea {
             Rectangle area = nodeModel.getArea();
             this.root.setBounds(area);
 
+            this.root = this.fixedRoot;            
+            equalizeRoots(root, nodeModel);
+            
             setAreaNodesTree(this.root, nodeModel);
-
+        }
+    }
+    
+    public boolean equalizeRoots(TreeMapNode equalized, TMNodeModel nodeModel){
+//        System.out.println(equalized.getLabel()+ " - " + nodeModel.getTitle());
+        if(equalized.getLabel().equals(nodeModel.getTitle())){
+            this.root = equalized;
+            return true;
+        }else {
+//            String str = "";
+//            for(TreeMapNode e : equalized.getChildren())
+//                str += e.getLabel()+", ";
+            for(TreeMapNode e : equalized.getChildren())
+                 if(equalizeRoots(e, nodeModel))
+                     return true;
+            return false;
         }
     }
 
-    public void setAreaNodesTree(TMModelNode item, TMNodeModel nodoModel) {
+    public void setAreaNodesTree(TMModelNode item, TMNodeModel nodoPaiModel) {
         TreeMapNode nodo = (TreeMapNode) item;
 
-        if (nodoModel instanceof TMNodeModelComposite) {
+        if (nodoPaiModel instanceof TMNodeModelComposite) {
+//            System.out.println("Pai: " + ((TMNodeModelComposite) nodoPaiModel).getTitle());
+//            System.out.println("Num filhos: " + ((TMNodeModelComposite) nodoPaiModel).getChildrenList().size());
+//            System.out.println("Nodo: "+nodo.getLabel()+" nodo.getChildren().size(): "+nodo.getChildren().size());
             for (int i = 0; i < nodo.getChildren().size(); i++) {
 
                 TreeMapNode filho = nodo.getChildren().get(i);
-
-                TMNodeModel filhoModel = ((TMNodeModelComposite) nodoModel).getChildrenList().get(i);
-
+                System.out.println("filho meu: "+filho.getLabel());
+                TMNodeModel filhoModel = ((TMNodeModelComposite) nodoPaiModel).getChildrenList().get(i);
+                System.out.println("filho dele: "+filhoModel.getTitle());
+                
                 filho.setBounds(filhoModel.getArea());
                 filho.setLabel(filhoModel.getTitle());
                 filho.setParent(nodo);
