@@ -37,6 +37,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
+import net.bouthier.treemapAWT.TMNodeModelRoot;
 import net.bouthier.treemapAWT.TMView;
 
 /**
@@ -57,7 +58,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
         initComponents();
 
-        lpane = new JLayeredPane();
+        layerPane = new JLayeredPane();
+
         legendaVisualizacao = new LegendaVisualizacao(painelLegendaVis.getBounds());
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
@@ -526,11 +528,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         VisualizationsArea v = new VisualizationsArea(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
                 manipulador, itemTamanho, itensHierarquia, itemLegenda);
 
-        painelEsquerda.add(lpane);
-        TMView view = v.getView();
-        lpane.setBounds(view.getBounds());
-
-        lpane.add(view, new Integer(0), 0);
+        painelEsquerda.add(layerPane);
+        view = v.getView();
+        layerPane.setBounds(view.getBounds());
+        layerPane.add(view, new Integer(0), 0);
 
         progressoBarra.setVisible(false);
         atualizarLegendaTreemap(itemTamanho, itemLegenda, itemCor);
@@ -550,14 +551,16 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         if (checkGlyph.isSelected()) {
             Constantes.setShowGlyph(true);
             glyphPanel = new GlassPanel();
+            glyphPanel.setTMView(view);
+
             atributo1Glyph.setEnabled(true);
             botaoGerarGlyphs.setEnabled(true);
-            lpane.add(glyphPanel, new Integer(1), 0);
+            layerPane.add(glyphPanel, new Integer(1), 0);
         } else {
             Constantes.setShowGlyph(false);
             botaoGerarGlyphs.setEnabled(false);
             glyphPanel.setVisible(false);
-            lpane.remove(glyphPanel);
+            layerPane.remove(glyphPanel);
         }
     }//GEN-LAST:event_checkGlyphActionPerformed
 
@@ -636,6 +639,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         glyphPanel.setManipulador(manipulador);
         ArrayList<Object> atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
         glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
+
         glyphPanel.setVisible(true);
         glyphPanel.repaint();
 
@@ -822,12 +826,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JComboBox<String> tamanhoTreeampComboBox;
     // End of variables declaration//GEN-END:variables
     static Main frame;
-    private JLayeredPane lpane;
+    private JLayeredPane layerPane;
     private GlassPanel glyphPanel;
     private LegendaVisualizacao legendaVisualizacao;
     private String itemTamanho;
     private String itemLegenda;
     private String itemCor;
+    private TMView view;
 
     private ManipuladorArquivo manipulador;
     private File selectedFile;
@@ -895,6 +900,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 manipulador = new ManipuladorArquivo();
                 manipulador.lerArquivo(selectedFile);
                 porcentagem = (ordem * 100) / tarefas;
+                progressoBarra.setToolTipText("Tratando arquivo: "+porcentagem+"%");
                 break;
             case 2:
                 try {
@@ -903,6 +909,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     e.printStackTrace();
                 }
                 porcentagem = (ordem * 100) / tarefas;
+                progressoBarra.setToolTipText("Montando colunas: "+porcentagem+"%");
                 break;
             case 3:
                 try {
@@ -911,6 +918,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     e.printStackTrace();
                 }
                 porcentagem = (ordem * 100) / tarefas;
+                progressoBarra.setToolTipText("Carregando itens no TreeMap: "+porcentagem+"%");
                 break;
             case 4:
                 try {
@@ -922,22 +930,27 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     e.printStackTrace();
                 }
                 porcentagem = (ordem * 100) / tarefas;
+                progressoBarra.setToolTipText("Definindo a descrição das colunas: "+porcentagem+"%");
                 break;
             case 5:
                 loadItensTamanhoTreemap();
                 porcentagem = (ordem * 100) / tarefas;
+                progressoBarra.setToolTipText("Preparando lista tamanho: "+porcentagem+"%");
                 break;
             case 6:
                 loadItensLegendaTreemap();
                 porcentagem = (ordem * 100) / tarefas;
+                progressoBarra.setToolTipText("Preparando lista legenda: "+porcentagem+"%");
                 break;
             case 7:
                 loadVariaveisGlyph(getColunasCategoricas().toArray(), atributo1Glyph);
                 porcentagem = (ordem * 100) / tarefas;
+                progressoBarra.setToolTipText("Carregando variáveis glyph: "+porcentagem+"%");
                 break;
             case 8:
                 loadItensHierarquiaTreemap(getColunasCategoricas().toArray());
                 porcentagem = (ordem * 100) / tarefas;
+                progressoBarra.setToolTipText("Carregando variáveis hierarquia Treemap: "+porcentagem+"%");
                 break;
             default:
                 throw new AssertionError();

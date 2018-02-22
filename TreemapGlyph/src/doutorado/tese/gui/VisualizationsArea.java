@@ -92,7 +92,7 @@ public class VisualizationsArea {
     }
 
     public void getRootBoundsFromView(String t) {
-        TMNodeModel nodeModel = this.view.getAlgorithm().getRoot();//TMNodeMode
+        TMNodeModel nodeModel = this.view.getAlgorithm().getRoot();//TMNodeModel
         if (nodeModel != null) {
             Rectangle area = nodeModel.getArea();
             this.root.setBounds(area);
@@ -106,7 +106,6 @@ public class VisualizationsArea {
         TreeMapNode nodo = (TreeMapNode) item;
 
         if (nodoModel instanceof TMNodeModelComposite) {
-//            filhoModel = ((TMNodeModelComposite) nodoModel).getChildrenList().get(i);
             for (int i = 0; i < nodo.getChildren().size(); i++) {
 
                 TreeMapNode filho = nodo.getChildren().get(i);
@@ -115,6 +114,7 @@ public class VisualizationsArea {
 
                 filho.setBounds(filhoModel.getArea());
                 filho.setLabel(filhoModel.getTitle());
+                filho.setParent(nodo);
 //            System.out.println("Titulo: "+filho.getLabel()+" - "+filho.getBounds());
                 setAreaNodesTree(filho, filhoModel);
             }

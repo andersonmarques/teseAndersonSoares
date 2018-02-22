@@ -10,9 +10,12 @@ import doutorado.tese.visualizacao.glyph.GlyphManager;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
+import net.bouthier.treemapAWT.TMNodeModelRoot;
+import net.bouthier.treemapAWT.TMView;
 
 /**
  *
@@ -22,10 +25,19 @@ public class GlassPanel extends JPanel {
 
     private ManipuladorArquivo manipulador;
     private GlyphManager glyphManager;
+    private TMNodeModelRoot nodeModelRoot;
+    private TMView view;
 
     public GlassPanel() {
         setOpaque(false);
         setLayout(new GroupLayout(this));
+//        this.addMouseListener(new java.awt.event.MouseAdapter() {
+//            @Override
+//            public void mouseClicked(java.awt.event.MouseEvent evt) {
+//                glassPanelMouseClicked(evt);
+//            }
+//        });
+//        this.addMouseListener(view.getAction());
     }
 
     public GlassPanel(Rectangle bounds) {
@@ -45,9 +57,10 @@ public class GlassPanel extends JPanel {
         Rectangle r = getBounds();
         g.fillRect(r.x, r.y, r.width, r.height);
 
-//        g.setColor(Color.BLACK);
+        glyphManager.setRootNodeZoom(view.getRootAnderson());
         glyphManager.paint(g);
         g.dispose();
+
     }
 
     /**
@@ -62,6 +75,10 @@ public class GlassPanel extends JPanel {
      */
     public void setManipulador(ManipuladorArquivo manipulador) {
         this.manipulador = manipulador;
+    }
+
+    public void setTMView(TMView view) {
+        this.view = view;
     }
 
 }
