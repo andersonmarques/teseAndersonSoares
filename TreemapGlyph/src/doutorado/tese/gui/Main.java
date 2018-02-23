@@ -674,22 +674,22 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_colunasHierarquicasList2ValueChanged
 
     private void atributo1GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo1GlyphItemStateChanged
-        loadVariaveisGlyph(getListaAtributosCategoricos(), atributo2Glyph);
+        loadVariaveisGlyph(getListaAtributosCategoricos(2), atributo2Glyph);
         atributo2Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo1GlyphItemStateChanged
 
     private void atributo2GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo2GlyphItemStateChanged
-        loadVariaveisGlyph(getListaAtributosCategoricos(), atributo3Glyph);
+        loadVariaveisGlyph(getListaAtributosCategoricos(3), atributo3Glyph);
         atributo3Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo2GlyphItemStateChanged
 
     private void atributo3GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo3GlyphItemStateChanged
-        loadVariaveisGlyph(getListaAtributosCategoricos(), atributo4Glyph);
+        loadVariaveisGlyph(getListaAtributosCategoricos(4), atributo4Glyph);
         atributo4Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo3GlyphItemStateChanged
 
     private void atributo4GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo4GlyphItemStateChanged
-        loadVariaveisGlyph(getListaAtributosCategoricos(), atributo5Glyph);
+        loadVariaveisGlyph(getListaAtributosCategoricos(5), atributo5Glyph);
         atributo5Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo4GlyphItemStateChanged
 
@@ -938,7 +938,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 progressoBarra.setToolTipText("Preparando lista legenda: " + porcentagem + "%");
                 break;
             case 7:
-                loadVariaveisGlyph(getListaAtributosCategoricos(), atributo1Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(1), atributo1Glyph);
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis glyph: " + porcentagem + "%");
                 break;
@@ -985,16 +985,52 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     /**
-     * Metodo usado para carregar os atributos categoricos nas
-     * listas de glyphs
-     * @return um array contendo os atributos que serao exibidos nas listas dos 
+     * Metodo usado para carregar os atributos categoricos nas listas de glyphs
+     *
+     * @param nivel
+     * @return um array contendo os atributos que serao exibidos nas listas dos
      * glyphs
      */
-    private Object[] getListaAtributosCategoricos() {
+    private Object[] getListaAtributosCategoricos(int nivel) {
         ArrayList<String> list = new ArrayList<>();
         list.add(0, "---");
-        list.addAll(getColunasCategoricas());
+        list.addAll(analisarAtributosCategoricos(nivel));
         return list.toArray();
+    }
+
+    private List<String> analisarQuantAtributosCategoricos(List<String> list, Object[] obj) {
+        for (String colunasCategorica : getColunasCategoricas()) {
+            Coluna c = ManipuladorArquivo.getColuna(colunasCategorica);
+            int quantDadosDistintos = c.getDadosDistintos().size();
+            if (quantDadosDistintos <= obj.length) {
+                list.add(c.getName());
+            }
+        }
+        return list;
+    }
+
+    private List<String> analisarAtributosCategoricos(int nivel) {
+        ArrayList<String> list = new ArrayList<>();
+        switch (nivel) {
+            case 1:
+                analisarQuantAtributosCategoricos(list, Constantes.TIPO_TEXTURA);
+                break;
+            case 2:
+                analisarQuantAtributosCategoricos(list, Constantes.getCor());
+                break;
+            case 3:
+                analisarQuantAtributosCategoricos(list, Constantes.TIPOS_FORMAS_GEOMETRICAS);
+                break;
+            case 4:
+                analisarQuantAtributosCategoricos(list, Constantes.LETRAS_ALFABETO);
+                break;
+            case 5:
+                analisarQuantAtributosCategoricos(list, Constantes.NUMEROS);
+                break;
+            default:
+                System.err.println("Nao foi carregar atributos para a dimensão.");
+        }
+        return list;
     }
 
     private List<String> getColunasCategoricas() {

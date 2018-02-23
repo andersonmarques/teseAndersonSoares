@@ -86,6 +86,10 @@ public class Constantes {
         showStarGlyph = aShowStarGlyph;
     }
 
+    /**
+     * Vetor de cores usado no segundo nivel de glyphs e na dimensao cores do treemap
+     * @return 
+     */
     public static String[] getCor() {
         return cor;
     }
