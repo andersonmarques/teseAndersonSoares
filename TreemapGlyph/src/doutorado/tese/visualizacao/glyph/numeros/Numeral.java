@@ -32,15 +32,13 @@ public class Numeral {
 
         int width = rect.width;
         int height = rect.height;
-        width = width / 15;
-        height = height / 15;
+        width = width / 13;
+        height = height / 13;
         int area = width + height;
 
-        if (area < 10) {
-            fonte = new Font("Arial", Font.PLAIN, area);
-        } else {//TODO rever esse trecho
-            fonte = new Font("Arial", Font.PLAIN, area);
-        }
+       
+        fonte = new Font("Arial", Font.PLAIN, area);
+        
     }
 
     public void setBounds(Rectangle rect) {
@@ -72,8 +70,8 @@ public class Numeral {
         int width = (int) Math.round(points[0] * 0.2);
         int height = (int) Math.round(points[1] * 0.2);
 
-        int pX = (int) (rect.x + rect.width / 2);
-        int pY = (rect.y + rect.height / 2 + (height / 6));
+        int pX = (int) (rect.x + rect.width / 2+ width/4);
+        int pY = (int) (rect.y + rect.height / 2 + (height / 2.5));
 
         return new Point(pX, pY);
     }

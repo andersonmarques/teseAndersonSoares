@@ -38,16 +38,16 @@ public class FormaGeometrica {
                 Cruz cruz = new Cruz(bounds);
                 cruz.paint(g);
                 break;
-            case "ESTRELA":
-                Estrela e = new Estrela(bounds);
+            case "ELLIPSE":
+                Ellipse e = new Ellipse(bounds);
                 e.paint(g);
                 break;
             case "CIRCULO":
                 Circulo c = new Circulo(bounds, cor);
                 c.paint(g);
                 break;
-            case "TRIANGULO":
-                Triangulo t = new Triangulo(bounds);
+            case "OCTOGONO":
+                Octogono t = new Octogono(bounds);
                 t.paint(g);
                 break;
             case "HEXAGONO":

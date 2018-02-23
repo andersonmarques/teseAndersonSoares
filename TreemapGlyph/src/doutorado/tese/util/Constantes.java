@@ -39,8 +39,8 @@ public class Constantes {
         "PATTERN_TIO"
     };
     /**
-     * 0 - "TRIANGULO",
-     * 1 - "ESTRELA", 
+     * 0 - "OCTOGONO",
+     * 1 - "ELLIPSE", 
      * 2 - "CRUZ", 
      * 3 - "HEXAGONO", 
      * 4 - "LOSANGO", 
@@ -50,7 +50,7 @@ public class Constantes {
      * 8 - "CIRCULO"
      */
     public final static String[] TIPOS_FORMAS_GEOMETRICAS = {
-        "TRIANGULO", "ESTRELA", "CRUZ", "HEXAGONO", "LOSANGO", "PENTAGONO", "TRAPEZIO", "RETANGULO", "CIRCULO" 
+        "OCTOGONO", "ELLIPSE", "CRUZ", "HEXAGONO", "LOSANGO", "PENTAGONO", "TRAPEZIO", "RETANGULO", "CIRCULO" 
     };
     
     public final static String[] LETRAS_ALFABETO = {
