@@ -28,6 +28,8 @@ public class Letra {
     private String letra;
     private Font fonte;
     private String shandowLetra;
+    public int widht;
+    public int height;
 //    private Font fonte2;
 
     public Letra(Rectangle r, String letra) {
@@ -41,9 +43,14 @@ public class Letra {
         width = width / 13;
         height = height / 13;
         int area = width + height;
-
-        fonte = new Font("Arial", Font.PLAIN, area);
         
+        
+        if(area<8){
+        
+        }
+        else{    
+        fonte = new Font("Arial", Font.PLAIN, area);
+        }
     }
 
     public void setBounds(Rectangle rect) {
@@ -60,17 +67,31 @@ public class Letra {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         montarRetangulo();
+        
+        int width = rect.width;
+        int height = rect.height;
+        width = width / 13;
+        height = height / 13;
+        int area = width + height;
+        
+        
+        g2d.setPaint(Color.black);
 
-        g2d.setPaint(Color.white);
         g2d.setFont(getFonte());
         g2d.drawString(shandowLetra, getCenter().x, getCenter().y);
 
-        g2d.setColor(Color.BLACK);
-        g2d.drawString(letra, getCenter().x, getCenter().y);
+        g2d.setPaint(Color.white);
+        g2d.fillRect(rect.x+rect.width/2-width ,rect.y+ rect.height/2-height , (int) (2*area),area);
 
+        
+        g2d.setColor(Color.black);
+        g2d.drawString(letra, getCenter().x, getCenter().y);
+        
+      
     }
 
-    private Point getCenter() {
+    private Point getCenter(){
+       
         int[] points = new int[2];
         points[0] = rect.width;
         points[1] = rect.height;
@@ -118,6 +139,8 @@ public class Letra {
 
         xPoints = new int[2];
         yPoints = new int[2];
+        
+        
 
         xPoints[0] = (int) (rect.x + (rect.x / 2) - width / 2);
         yPoints[0] = (int) (rect.y + (rect.y / 2) - height / 2);

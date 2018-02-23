@@ -13,6 +13,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
+
 /**
  *
  * @author Anderson Soares
@@ -24,6 +25,8 @@ public class Numeral {
     private Rectangle rect;
     private String numero;
     private Font fonte;
+    public int width;
+    public int height;
 
     public Numeral(Rectangle r, String numero) {
         this.rect = r;
@@ -36,9 +39,12 @@ public class Numeral {
         height = height / 13;
         int area = width + height;
 
-       
-        fonte = new Font("Arial", Font.PLAIN, area);
+        if(area<8){
         
+        }
+        else{    
+        fonte = new Font("Arial", Font.PLAIN, area);
+        }
     }
 
     public void setBounds(Rectangle rect) {
@@ -51,13 +57,24 @@ public class Numeral {
 
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+        
+        
+       
+        int area = width + height;
 
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         montarRetangulo();
-        g2d.setColor(Color.BLACK);
+        
+        g2d.setPaint(Color.white);
+        //g2d.fillRect( rect.x+ rect.width/2 ,rect.y+rect.height/2 ,3*area,area);
+        
+        g2d.setColor(Color.black);
         g2d.setFont(getFonte());
         g2d.drawString(numero, getCenter().x, getCenter().y);
+        
+        
+
     }
 
     private Point getCenter() {
