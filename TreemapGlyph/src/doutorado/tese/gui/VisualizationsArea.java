@@ -84,14 +84,11 @@ public class VisualizationsArea {
     public void acionarStarGlyph(List<String> variaveisStarGlyph) {
         for (int i = 0; i < manipulador.getItensTreemap().length; i++) {//manipulador.getItensTreemap().length
             StarGlyph starGlyph = new StarGlyph(manipulador.getItensTreemap()[i].getBounds(), variaveisStarGlyph);
-//            System.out.println("Item: " + manipulador.getItensTreemap()[i].getLabel()
-//                    + " Rect: " + manipulador.getItensTreemap()[i].getBounds());
             starGlyph.setQuantVar(variaveisStarGlyph.size());
             starGlyph.setManipulador(manipulador);
             starGlyph.setVisible(true);
             this.view.add(starGlyph);
         }
-//        this.view.repaint();
     }
 
     public void getRootBoundsFromView(String t) {
@@ -108,14 +105,10 @@ public class VisualizationsArea {
     }
     
     public boolean equalizeRoots(TreeMapNode equalized, TMNodeModel nodeModel){
-//        System.out.println(equalized.getLabel()+ " - " + nodeModel.getTitle());
         if(equalized.getLabel().equals(nodeModel.getTitle())){
             this.root = equalized;
             return true;
         }else {
-//            String str = "";
-//            for(TreeMapNode e : equalized.getChildren())
-//                str += e.getLabel()+", ";
             for(TreeMapNode e : equalized.getChildren())
                  if(equalizeRoots(e, nodeModel))
                      return true;
@@ -127,24 +120,17 @@ public class VisualizationsArea {
         TreeMapNode nodo = (TreeMapNode) item;
 
         if (nodoPaiModel instanceof TMNodeModelComposite) {
-//            System.out.println("Pai: " + ((TMNodeModelComposite) nodoPaiModel).getTitle());
-//            System.out.println("Num filhos: " + ((TMNodeModelComposite) nodoPaiModel).getChildrenList().size());
-//            System.out.println("Nodo: "+nodo.getLabel()+" nodo.getChildren().size(): "+nodo.getChildren().size());
             for (int i = 0; i < nodo.getChildren().size(); i++) {
 
                 TreeMapNode filho = nodo.getChildren().get(i);
-                System.out.println("filho meu: "+filho.getLabel());
                 TMNodeModel filhoModel = ((TMNodeModelComposite) nodoPaiModel).getChildrenList().get(i);
-                System.out.println("filho dele: "+filhoModel.getTitle());
                 
                 filho.setBounds(filhoModel.getArea());
                 filho.setLabel(filhoModel.getTitle());
                 filho.setParent(nodo);
-//            System.out.println("Titulo: "+filho.getLabel()+" - "+filho.getBounds());
                 setAreaNodesTree(filho, filhoModel);
             }
         }
-
     }
 
     public void setHierarchy(String[] hierarquia) {

@@ -674,26 +674,22 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_colunasHierarquicasList2ValueChanged
 
     private void atributo1GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo1GlyphItemStateChanged
-        getColunasCategoricas().add(0, "---");
-        loadVariaveisGlyph(getColunasCategoricas().toArray(), atributo2Glyph);
+        loadVariaveisGlyph(getListaAtributosCategoricos(), atributo2Glyph);
         atributo2Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo1GlyphItemStateChanged
 
     private void atributo2GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo2GlyphItemStateChanged
-        getColunasCategoricas().add(0, "---");
-        loadVariaveisGlyph(getColunasCategoricas().toArray(), atributo3Glyph);
+        loadVariaveisGlyph(getListaAtributosCategoricos(), atributo3Glyph);
         atributo3Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo2GlyphItemStateChanged
 
     private void atributo3GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo3GlyphItemStateChanged
-        getColunasCategoricas().add(0, "---");
-        loadVariaveisGlyph(getColunasCategoricas().toArray(), atributo4Glyph);
+        loadVariaveisGlyph(getListaAtributosCategoricos(), atributo4Glyph);
         atributo4Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo3GlyphItemStateChanged
 
     private void atributo4GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo4GlyphItemStateChanged
-        getColunasCategoricas().add(0, "---");
-        loadVariaveisGlyph(getColunasCategoricas().toArray(), atributo5Glyph);
+        loadVariaveisGlyph(getListaAtributosCategoricos(), atributo5Glyph);
         atributo5Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo4GlyphItemStateChanged
 
@@ -899,7 +895,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 manipulador = new ManipuladorArquivo();
                 manipulador.lerArquivo(selectedFile);
                 porcentagem = (ordem * 100) / tarefas;
-                progressoBarra.setToolTipText("Tratando arquivo: "+porcentagem+"%");
+                progressoBarra.setToolTipText("Tratando arquivo: " + porcentagem + "%");
                 break;
             case 2:
                 try {
@@ -908,7 +904,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     e.printStackTrace();
                 }
                 porcentagem = (ordem * 100) / tarefas;
-                progressoBarra.setToolTipText("Montando colunas: "+porcentagem+"%");
+                progressoBarra.setToolTipText("Montando colunas: " + porcentagem + "%");
                 break;
             case 3:
                 try {
@@ -917,7 +913,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     e.printStackTrace();
                 }
                 porcentagem = (ordem * 100) / tarefas;
-                progressoBarra.setToolTipText("Carregando itens no TreeMap: "+porcentagem+"%");
+                progressoBarra.setToolTipText("Carregando itens no TreeMap: " + porcentagem + "%");
                 break;
             case 4:
                 try {
@@ -929,27 +925,27 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     e.printStackTrace();
                 }
                 porcentagem = (ordem * 100) / tarefas;
-                progressoBarra.setToolTipText("Definindo a descrição das colunas: "+porcentagem+"%");
+                progressoBarra.setToolTipText("Definindo a descrição das colunas: " + porcentagem + "%");
                 break;
             case 5:
                 loadItensTamanhoTreemap();
                 porcentagem = (ordem * 100) / tarefas;
-                progressoBarra.setToolTipText("Preparando lista tamanho: "+porcentagem+"%");
+                progressoBarra.setToolTipText("Preparando lista tamanho: " + porcentagem + "%");
                 break;
             case 6:
                 loadItensLegendaTreemap();
                 porcentagem = (ordem * 100) / tarefas;
-                progressoBarra.setToolTipText("Preparando lista legenda: "+porcentagem+"%");
+                progressoBarra.setToolTipText("Preparando lista legenda: " + porcentagem + "%");
                 break;
             case 7:
-                loadVariaveisGlyph(getColunasCategoricas().toArray(), atributo1Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(), atributo1Glyph);
                 porcentagem = (ordem * 100) / tarefas;
-                progressoBarra.setToolTipText("Carregando variáveis glyph: "+porcentagem+"%");
+                progressoBarra.setToolTipText("Carregando variáveis glyph: " + porcentagem + "%");
                 break;
             case 8:
                 loadItensHierarquiaTreemap(getColunasCategoricas().toArray());
                 porcentagem = (ordem * 100) / tarefas;
-                progressoBarra.setToolTipText("Carregando variáveis hierarquia Treemap: "+porcentagem+"%");
+                progressoBarra.setToolTipText("Carregando variáveis hierarquia Treemap: " + porcentagem + "%");
                 break;
             default:
                 throw new AssertionError();
@@ -988,6 +984,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         colunasHierarquicasList.setEnabled(true);
     }
 
+    /**
+     * Metodo usado para carregar os atributos categoricos nas
+     * listas de glyphs
+     * @return um array contendo os atributos que serao exibidos nas listas dos 
+     * glyphs
+     */
+    private Object[] getListaAtributosCategoricos() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add(0, "---");
+        list.addAll(getColunasCategoricas());
+        return list.toArray();
+    }
+
     private List<String> getColunasCategoricas() {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < manipulador.getColunas().length - 1; i++) {
@@ -1006,6 +1015,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     private void loadVariaveisGlyph(Object[] objs, JComboBox<String> atributo) {
+        for (Object obj : objs) {
+            System.out.println(obj);
+        }
         DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
         atributo.setModel(model);
     }
