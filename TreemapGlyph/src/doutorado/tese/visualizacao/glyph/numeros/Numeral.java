@@ -13,7 +13,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
-
 /**
  *
  * @author Anderson Soares
@@ -33,18 +32,20 @@ public class Numeral {
         setBounds(this.rect);
         this.numero = numero;
 
-        int width = rect.width;
-        int height = rect.height;
+        int[] points = new int[2];
+        points[0] = rect.width;
+        points[1] = rect.height;
+
+        verificarRetangulo(points);
+
+        int width = points[0];
+        int height = points[1];
         width = width / 13;
         height = height / 13;
         int area = width + height;
 
-        if(area<8){
-        
-        }
-        else{    
         fonte = new Font("Arial", Font.PLAIN, area);
-        }
+
     }
 
     public void setBounds(Rectangle rect) {
@@ -57,24 +58,37 @@ public class Numeral {
 
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        
-        
-       
-        int area = width + height;
-
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        montarRetangulo();
-        
-        g2d.setPaint(Color.white);
-        //g2d.fillRect( rect.x+ rect.width/2 ,rect.y+rect.height/2 ,3*area,area);
-        
-        g2d.setColor(Color.black);
-        g2d.setFont(getFonte());
-        g2d.drawString(numero, getCenter().x, getCenter().y);
-        
-        
+        int[] points = new int[2];
+        points[0] = rect.width;
+        points[1] = rect.height;
 
+        verificarRetangulo(points);
+
+        int width = points[0];
+        int height = points[1];
+        width = width / 13;
+        height = height / 13;
+        int result = width + height;
+
+        //verificação para não desenhar letras muito pequenas
+        if (result > 6) {
+            montarRetangulo();
+            g2d.setPaint(Color.white);
+
+            //centro + 1/4
+            int centerX = rect.x + rect.width / 2 + width / 4;
+            int centerY = rect.y + rect.height / 2 - height;
+
+            //width um 10% 
+            g2d.fillRect(centerX, centerY, (int) (result * 0.9), result);
+
+            g2d.setColor(Color.black);
+            g2d.setFont(getFonte());
+            g2d.drawString(numero, getCenter().x, getCenter().y);
+        } else {
+        }
     }
 
     private Point getCenter() {
@@ -87,7 +101,7 @@ public class Numeral {
         int width = (int) Math.round(points[0] * 0.2);
         int height = (int) Math.round(points[1] * 0.2);
 
-        int pX = (int) (rect.x + rect.width / 2+ width/4);
+        int pX = (int) (rect.x + rect.width / 2 + width / 4);
         int pY = (int) (rect.y + rect.height / 2 + (height / 2.5));
 
         return new Point(pX, pY);
