@@ -91,7 +91,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         checkLegenda = new javax.swing.JCheckBox();
         legendaComboBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        tamanhoTreeampComboBox = new javax.swing.JComboBox<>();
+        tamanhoTreemapComboBox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         corTreemapComboBox = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -217,8 +217,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         jLabel1.setText("Size:");
 
-        tamanhoTreeampComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
-        tamanhoTreeampComboBox.setEnabled(false);
+        tamanhoTreemapComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        tamanhoTreemapComboBox.setEnabled(false);
 
         jLabel4.setText("Color:");
 
@@ -246,7 +246,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                                 .addComponent(jLabel4))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tamanhoTreeampComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(tamanhoTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(corTreemapComboBox, 0, 166, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -293,7 +293,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(checkLegenda))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tamanhoTreeampComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tamanhoTreemapComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -458,7 +458,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addContainerGap()
                 .addComponent(progressoBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
             .addComponent(legendaBarraRolage)
         );
         painelDireitaLayout.setVerticalGroup(
@@ -519,13 +519,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void botaoGerarVisualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarVisualizacaoActionPerformed
         limparPainelEsquerda();
-        itemTamanho = tamanhoTreeampComboBox.getSelectedItem().toString();
+        itemTamanho = tamanhoTreemapComboBox.getSelectedItem().toString();
         itemLegenda = legendaComboBox.getSelectedItem().toString();
         itemCor = corTreemapComboBox.getSelectedItem().toString();
         String[] itensHierarquia = parseListString2Array(colunasHierarquicasList2.getModel());
 
         VisualizationsArea v = new VisualizationsArea(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
-                manipulador, itemTamanho, itensHierarquia, itemLegenda);
+                manipulador, itemTamanho, itensHierarquia, itemLegenda, itemCor);
 
         painelEsquerda.add(layerPane);
         view = v.getView();
@@ -533,7 +533,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         layerPane.add(view, new Integer(0), 0);
 
         progressoBarra.setVisible(false);
-        atualizarLegendaTreemap(itemTamanho, itemLegenda, itemCor);
+        atualizarLegendaTreemap(itemCor);
+        limparCacheGlyphs();
     }//GEN-LAST:event_botaoGerarVisualizacaoActionPerformed
 
     private void checkLegendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLegendaActionPerformed
@@ -556,10 +557,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             botaoGerarGlyphs.setEnabled(true);
             layerPane.add(glyphPanel, new Integer(1), 0);
         } else {
-            Constantes.setShowGlyph(false);
-            botaoGerarGlyphs.setEnabled(false);
-            glyphPanel.setVisible(false);
-            layerPane.remove(glyphPanel);
+            limparCacheGlyphs();
         }
     }//GEN-LAST:event_checkGlyphActionPerformed
 
@@ -818,7 +816,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JPanel painelLegendaVis;
     private javax.swing.JProgressBar progressoBarra;
     private javax.swing.JButton removerBotao_treemap;
-    private javax.swing.JComboBox<String> tamanhoTreeampComboBox;
+    private javax.swing.JComboBox<String> tamanhoTreemapComboBox;
     // End of variables declaration//GEN-END:variables
     static Main frame;
     private JLayeredPane layerPane;
@@ -835,7 +833,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void atualizarLegendaGlyphs(ArrayList<Object> atributosEscolhidosGlyph) {
         painelLegendaVis.removeAll();
-        atualizarLegendaTreemap(itemTamanho, itemLegenda, itemCor);
+        atualizarLegendaTreemap(itemCor);
         legendaVisualizacao.setAtributosGlyphs(atributosEscolhidosGlyph);
         for (int i = 0; i < atributosEscolhidosGlyph.size(); i++) {
             if (!atributosEscolhidosGlyph.get(i).equals("---")) {
@@ -846,10 +844,24 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }
 
-    private void atualizarLegendaTreemap(String itemTamanho, String itemLegenda, String itemCor) {
+    private void atualizarLegendaTreemap(String itemCor) {
         painelLegendaVis.removeAll();
-//        JPanel painelDimensao = legendaVisualizacao.addLegendaCor(itemCor);
-//        painelLegendaVis.add(painelDimensao);
+        if (!itemCor.equals("---")) {
+            JPanel painelDimensao = legendaVisualizacao.addLegendaCor(itemCor);
+            painelLegendaVis.add(painelDimensao);
+        }
+    }
+
+    private void limparCacheGlyphs() {
+        Constantes.setShowGlyph(false);
+        botaoGerarGlyphs.setEnabled(false);
+        if (glyphPanel != null) {
+            glyphPanel.setVisible(false);
+            layerPane.remove(glyphPanel);
+        }
+        if (checkGlyph.isSelected()) {
+            checkGlyph.setSelected(false);
+        }
     }
 
     class Task extends SwingWorker<Void, Void> {
@@ -889,7 +901,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     private int executaTarefas(int ordem, int porcentagem) {
-        int tarefas = 8;
+        int tarefas = 9;
         switch (ordem) {
             case 1:
                 manipulador = new ManipuladorArquivo();
@@ -947,6 +959,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis hierarquia Treemap: " + porcentagem + "%");
                 break;
+            case 9:
+                loadItensCoresTreemap(getListaAtributosCategoricos(2));
+                porcentagem = (ordem * 100) / tarefas;
+                progressoBarra.setToolTipText("Carregando variáveis cores Treemap: " + porcentagem + "%");
+                break;
             default:
                 throw new AssertionError();
         }
@@ -966,8 +983,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 itens.add(cabecalho);
             }
         }
-        atualizarComboBox(tamanhoTreeampComboBox, itens);
-        tamanhoTreeampComboBox.setEnabled(true);
+        atualizarComboBox(tamanhoTreemapComboBox, itens);
+        tamanhoTreemapComboBox.setEnabled(true);
     }
 
     private void loadItensLegendaTreemap() {
@@ -982,6 +999,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
         colunasHierarquicasList.setModel(model);
         colunasHierarquicasList.setEnabled(true);
+    }
+
+    private void loadItensCoresTreemap(Object[] objs) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
+        corTreemapComboBox.setModel(model);
+        corTreemapComboBox.setEnabled(true);
     }
 
     /**
@@ -1051,9 +1074,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     private void loadVariaveisGlyph(Object[] objs, JComboBox<String> atributo) {
-        for (Object obj : objs) {
-            System.out.println(obj);
-        }
         DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
         atributo.setModel(model);
     }

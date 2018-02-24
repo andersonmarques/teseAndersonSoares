@@ -12,10 +12,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
-import static java.lang.ProcessBuilder.Redirect.to;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -54,17 +52,21 @@ public class LegendaVisualizacao {
     public JPanel addLegendaCor(String itemCor) {
         JPanel painel = new JPanel(new GridLayout(0, 3));
         painel.setBackground(Color.WHITE);
-        painel.setBorder(BorderFactory.createTitledBorder("Color Subtitle"));
+        painel.setBorder(BorderFactory.createTitledBorder("Color TreeMap Subtitle"));
         painel.setBounds(bounds);
         painel.setVisible(true);
 
         Coluna c = ManipuladorArquivo.getColuna(itemCor);
         List<String> dadosDistintos = c.getDadosDistintos();
         for (int i = 0; i < dadosDistintos.size(); i++) {
-//            JLabel label = criarLabel(dadosDistintos.get(i), null);
-//            painel.add(label);
+            IconeLegenda icon = new IconeLegenda();
+            icon.setDimensao(1);
+            icon.setValorIcon(Constantes.getCor()[i]);
+            JLabel label = criarLabel(dadosDistintos.get(i), icon);
+            painel.add(label);
+            label.setHorizontalAlignment(SwingConstants.LEFT);
+            painel.setAlignmentX(label.LEFT_ALIGNMENT);
         }
-
         return painel;
     }
 

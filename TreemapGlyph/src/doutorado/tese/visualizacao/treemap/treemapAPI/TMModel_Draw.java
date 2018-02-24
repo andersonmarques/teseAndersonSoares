@@ -23,67 +23,71 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-
 package doutorado.tese.visualizacao.treemap.treemapAPI;
 
+import doutorado.tese.io.ManipuladorArquivo;
+import doutorado.tese.util.Coluna;
+import doutorado.tese.util.Constantes;
+import doutorado.tese.visualizacao.treemap.TreeMapItem;
+import doutorado.tese.visualizacao.treemap.TreeMapLevel;
 import doutorado.tese.visualizacao.treemap.TreeMapNode;
 import java.awt.Color;
 import java.awt.Paint;
-import java.util.Date;
+import java.util.List;
 
 import net.bouthier.treemapAWT.TMComputeDrawAdapter;
 
-
 /**
- * The TMModel_Draw class implements an example of a TMComputeDrawAdapter
- for a TMFileModelNode.
- * It use the date of last modification as color,
- * and the name of the file as tooltip.
+ * The TMModel_Draw class implements an example of a TMComputeDrawAdapter for a
+ * TMFileModelNode. It use the date of last modification as color, and the name
+ * of the file as tooltip.
  * <P>
  * The color legend is :
  * <UL>
- *   <IL> white  for files less than a hour old</IL>
- *   <IL> green  for files less than a day old</IL>
- *   <IL> yellow for files less than a week old</IL>
- *   <IL> orange for files less than a month old</IL>
- *   <IL> red    for files less than a year old</IL>
- *   <IL> blue   for files more than a year old</IL>
+ * <IL> white for files less than a hour old</IL>
+ * <IL> green for files less than a day old</IL>
+ * <IL> yellow for files less than a week old</IL>
+ * <IL> orange for files less than a month old</IL>
+ * <IL> red for files less than a year old</IL>
+ * <IL> blue for files more than a year old</IL>
  * </UL>
  *
  * @author Christophe Bouthier [bouthier@loria.fr]
  * @version 2.5
  */
-public class TMModel_Draw 
-	extends TMComputeDrawAdapter {
+public class TMModel_Draw
+        extends TMComputeDrawAdapter {
+
+    private String itemCor;
 
 
     /* --- TMComputeSizeAdapter -- */
-
     public boolean isCompatibleWithObject(Object node) {
         return node instanceof TreeMapNode;
     }
 
     @Override
     public Paint getFillingOfObject(Object node) {
-        if (node instanceof TreeMapNode) {
-            TreeMapNode n = (TreeMapNode) node;
-            long time = (long) n.getSize();
-            long diff = (new Date()).getTime() - time;
-            if (diff <= 3600000L) { // less than an hour
-                return Color.blue;
-            } else if (diff <= 86400000L) { // less than a day
-                return Color.green;
-            } else if (diff <= 604800000L) { // less than a week
-                return Color.yellow;
-            } else if (diff <= 2592000000L) { // less than a month
-                return Color.orange;
-            } else if (diff <= 31536000000L) { // less than a year
-                return Color.red;
-            } else { // more than a year
-                return Color.decode("#F0F8FF");
+        if (node instanceof TreeMapLevel) {
+            TreeMapLevel level = (TreeMapLevel) node;
+            for (TreeMapNode filhos : level.getChildren()) {
+                getFillingOfObject(filhos);
+            }
+        } else {
+            TreeMapItem nodeItem = (TreeMapItem) node;
+            if (!itemCor.equals("---")) {
+                Coluna c = ManipuladorArquivo.getColuna(getItemCor());
+                List<String> dadosDistintos = c.getDadosDistintos();
+                for (int j = 0; j < Constantes.getCor().length; j++) {
+                    if (nodeItem.getMapaDetalhesItem().get(c).equalsIgnoreCase(dadosDistintos.get(j))) {
+                        nodeItem.setColor(Color.decode(Constantes.getCor()[j]));
+                        break;
+                    }
+                }
+                return nodeItem.getColor();
             }
         }
-        return Color.black;
+        return Color.decode(Constantes.getCor()[Constantes.getCor().length - 1]);
     }
 
     public String getTooltipOfObject(Object node) {
@@ -97,7 +101,7 @@ public class TMModel_Draw
 //            String time = tf.format(new Date(modTime));
 
             String tooltip = "<html>" + name + "<p>"
-                    +n.getBounds();
+                    + n.getBounds();
             return tooltip;
         }
         return "";
@@ -119,6 +123,20 @@ public class TMModel_Draw
             return Color.black;
         }
         return Color.black;
+    }
+
+    /**
+     * @return the itemCor
+     */
+    public String getItemCor() {
+        return itemCor;
+    }
+
+    /**
+     * @param itemCor the itemCor to set
+     */
+    public void setItemCor(String itemCor) {
+        this.itemCor = itemCor;
     }
 
 }
