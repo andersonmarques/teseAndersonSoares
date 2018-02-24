@@ -51,12 +51,12 @@ public class IconeLegenda implements Icon {
                 forma.paint(g);
                 break;
             case 3:
-                Letra letra = new Letra(bounds, valor);
+                Letra letra = new Letra(bounds, valor, true);
                 letra.setFonte(new Font("Arial", Font.PLAIN, 12));
                 letra.paint(g);
                 break;
             case 4:
-                Numeral num = new Numeral(bounds, valor);
+                Numeral num = new Numeral(bounds, valor, true);
                 num.setFonte(new Font("Arial", Font.PLAIN, 12));
                 num.paint(g);
                 break;

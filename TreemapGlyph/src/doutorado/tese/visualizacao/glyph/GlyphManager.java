@@ -69,12 +69,12 @@ public final class GlyphManager {
     }
 
     private void adicionarLetrasAlfabeto(Graphics g, Rectangle bounds, String letra) {
-        Letra f = new Letra(bounds, letra);
+        Letra f = new Letra(bounds, letra, false);
         f.paint(g);
     }
 
     private void adicionarNumeros(Graphics g, Rectangle bounds, String numero) {
-        Numeral f = new Numeral(bounds, numero);
+        Numeral f = new Numeral(bounds, numero, false);
         f.paint(g);
     }
 

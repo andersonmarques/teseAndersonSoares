@@ -15,6 +15,7 @@ import doutorado.tese.visualizacao.treemap.Rect;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import doutorado.tese.visualizacao.treemap.TreeMapLevel;
 import doutorado.tese.visualizacao.treemap.TreeMapNode;
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -40,16 +41,17 @@ public class VisualizationsArea {
     private String labelColumn = "";
     private TreeMapNode root;
     private TreeMapNode fixedRoot;
-    
+
     //variaveis para a API do Treemap
     private TMModelNode modelTree = null; // the model of the demo tree
     private TreeMap treeMap = null; // the treemap builded
     private TMView view = null;
     //Star Glyph
     private StarGlyph[] starGlyphs;
+    private String itemCor;
 
     public VisualizationsArea(int w, int h, ManipuladorArquivo manipulador,
-            String itemTamanho, String[] itensHierarquia, String itemLegenda) {
+            String itemTamanho, String[] itensHierarquia, String itemLegenda, String itemCor) {
         this.manipulador = manipulador;
         this.hierarquiaFila = new LinkedList<>();
 
@@ -60,11 +62,13 @@ public class VisualizationsArea {
         root.setRaiz(true);
         root.setLabel("ROOT");
         //é possivel imprimir a arvore chamando o metodo printTree()
-        modelTree = createTree(itensHierarquia, itemTamanho, itemLegenda);
+        modelTree = createTree(itensHierarquia, itemTamanho, itemLegenda, itemCor);
         treeMap = new TreeMap(modelTree);
 
         TMModel_Size cSize = new TMModel_Size();
         TMModel_Draw cDraw = new TMModel_Draw();
+        cDraw.setItemCor(itemCor);
+        cDraw.getFillingOfObject(root);
 
         this.view = treeMap.getView(cSize, cDraw);//getView() retorna um JPainel
 
@@ -97,21 +101,23 @@ public class VisualizationsArea {
             Rectangle area = nodeModel.getArea();
             this.root.setBounds(area);
 
-            this.root = this.fixedRoot;            
+            this.root = this.fixedRoot;
             equalizeRoots(root, nodeModel);
-            
+
             setAreaNodesTree(this.root, nodeModel);
         }
     }
-    
-    public boolean equalizeRoots(TreeMapNode equalized, TMNodeModel nodeModel){
-        if(equalized.getLabel().equals(nodeModel.getTitle())){
+
+    public boolean equalizeRoots(TreeMapNode equalized, TMNodeModel nodeModel) {
+        if (equalized.getLabel().equals(nodeModel.getTitle())) {
             this.root = equalized;
             return true;
-        }else {
-            for(TreeMapNode e : equalized.getChildren())
-                 if(equalizeRoots(e, nodeModel))
-                     return true;
+        } else {
+            for (TreeMapNode e : equalized.getChildren()) {
+                if (equalizeRoots(e, nodeModel)) {
+                    return true;
+                }
+            }
             return false;
         }
     }
@@ -124,7 +130,7 @@ public class VisualizationsArea {
 
                 TreeMapNode filho = nodo.getChildren().get(i);
                 TMNodeModel filhoModel = ((TMNodeModelComposite) nodoPaiModel).getChildrenList().get(i);
-                
+
                 filho.setBounds(filhoModel.getArea());
                 filho.setLabel(filhoModel.getTitle());
                 filho.setParent(nodo);
@@ -150,8 +156,8 @@ public class VisualizationsArea {
         setTreemapItemLabel(this.root.getChildren(), true);
     }
 
-    public void setTreemapItemLabel(List<TreeMapNode> itemsFilhos, boolean isUseLabel) {
-        itemsFilhos.forEach((filho) -> {
+    public void setTreemapItemLabel(List<TreeMapNode> itensFilhos, boolean isUseLabel) {
+        itensFilhos.forEach((filho) -> {
             if (filho instanceof TreeMapItem) {
                 filho.setUseLabel(isUseLabel);
                 if (filho.isUseLabel()) {
@@ -166,9 +172,35 @@ public class VisualizationsArea {
         });
     }
 
-    private TreeMapNode createTree(String[] hierarquia, String itemTamanho, String itemLegenda) {
+//    public void setTreemapItemColor(List<TreeMapNode> itensFilhos) {
+//        itensFilhos.forEach((filho) -> {
+//            if (filho instanceof TreeMapItem) {
+//                if (!itemCor.equals("---")) {
+//                    Coluna c = ManipuladorArquivo.getColuna(itemCor);
+//                    List<String> dadosDistintos = c.getDadosDistintos();
+//                    for (int j = 0; j < Constantes.getCor().length; j++) {
+//                        if (filho.getMapaDetalhesItem().get(c).equalsIgnoreCase(dadosDistintos.get(j))) {
+//                            filho.setColor(Color.decode(Constantes.getCor()[j]));
+//                            break;
+//                        }
+//                    }
+//                }
+//            } else {
+//                TreeMapLevel level = (TreeMapLevel) filho;
+//                setTreemapItemColor(level.getChildren());
+//            }
+//        });
+//    }
+
+//    public void setColorColumn(String itemCor) {
+//        this.itemCor = itemCor;
+////        setTreemapItemColor(this.root.getChildren());
+//    }
+
+    private TreeMapNode createTree(String[] hierarquia, String itemTamanho, String itemLegenda, String itemCor) {
         setHierarchy(hierarquia);
         setSizeColumn(ManipuladorArquivo.getColuna(itemTamanho));
+//        setColorColumn(itemCor);
         if (!Constantes.isShowLegenda()) {
             setTreemapItemLabel(root.getChildren(), false);
         } else {

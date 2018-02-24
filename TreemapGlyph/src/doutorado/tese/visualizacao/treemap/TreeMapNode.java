@@ -7,6 +7,7 @@ package doutorado.tese.visualizacao.treemap;
 
 import doutorado.tese.organize.QuickSort;
 import doutorado.tese.util.Coluna;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -38,6 +39,7 @@ public abstract class TreeMapNode implements TMModelNode{
     private TMModelUpdater updater = null; // the updater for this node
     protected List<TreeMapNode> children;
     private TreeMapNode parent = null;
+    private Color cor;
 
     public void setDepth(int depth) {
         this.depth = depth;
@@ -274,5 +276,13 @@ public abstract class TreeMapNode implements TMModelNode{
      */
     public void setUseLabel(boolean useLabel) {
         this.useLabel = useLabel;
+    }
+
+    public void setColor(Color cor) {
+        this.cor = cor;
+    }
+    
+    public Color getColor(){
+        return cor;
     }
 }

@@ -26,11 +26,13 @@ public class Numeral {
     private Font fonte;
     public int width;
     public int height;
+    private boolean legenda;
 
-    public Numeral(Rectangle r, String numero) {
+    public Numeral(Rectangle r, String numero, boolean legenda) {
         this.rect = r;
         setBounds(this.rect);
         this.numero = numero;
+        this.legenda = legenda;
 
         int[] points = new int[2];
         points[0] = rect.width;
@@ -45,7 +47,6 @@ public class Numeral {
         int area = width + height;
 
         fonte = new Font("Arial", Font.PLAIN, area);
-
     }
 
     public void setBounds(Rectangle rect) {
@@ -73,7 +74,7 @@ public class Numeral {
         int result = width + height;
 
         //verificação para não desenhar letras muito pequenas
-        if (result > 6) {
+        if (result > 5) {
             montarRetangulo();
             g2d.setPaint(Color.white);
 
@@ -87,7 +88,12 @@ public class Numeral {
             g2d.setColor(Color.black);
             g2d.setFont(getFonte());
             g2d.drawString(numero, getCenter().x, getCenter().y);
-        } else {
+        }
+        if (legenda) {
+            montarRetangulo();
+            g2d.setColor(Color.black);
+            g2d.setFont(getFonte());
+            g2d.drawString(numero, getCenter().x, getCenter().y);
         }
     }
 

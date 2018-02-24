@@ -26,7 +26,6 @@ public class Constantes {
         "#5574a6", "#3b3eac", "#F0F8FF"};
 
     public final static String[] TIPO_TEXTURA = {
-        "PATTERN_SS",
         "PATTERN_DIAG1",
         "PATTERN_DIAG2",
         "PATTERN_DIAGDOTS",
@@ -36,21 +35,22 @@ public class Constantes {
         "PATTERN_TUILES",
         "PATTERN_SQUARES",
         "PATTERN_LIGHT_GRAY",
-        "PATTERN_TIO"
+        "PATTERN_TIO",
+        "PATTERN_SS"
     };
     /**
      * 0 - "OCTOGONO",
      * 1 - "ELLIPSE", 
      * 2 - "CRUZ", 
-     * 3 - "HEXAGONO", 
-     * 4 - "LOSANGO", 
-     * 5 - "PENTAGONO", 
-     * 6 - "TRAPEZIO",
+     * 3 - "LOSANGO", 
+     * 4 - "PENTAGONO", 
+     * 5 - "TRAPEZIO", 
+     * 6 - "HEXAGONO",
      * 7 - "RETANGULO", 
      * 8 - "CIRCULO"
      */
     public final static String[] TIPOS_FORMAS_GEOMETRICAS = {
-        "OCTOGONO", "ELLIPSE", "CRUZ", "HEXAGONO", "LOSANGO", "PENTAGONO", "TRAPEZIO", "RETANGULO", "CIRCULO" 
+        "OCTOGONO", "ELLIPSE", "CRUZ", "LOSANGO", "PENTAGONO", "TRAPEZIO", "HEXAGONO", "RETANGULO", "CIRCULO" 
     };
     
     public final static String[] LETRAS_ALFABETO = {

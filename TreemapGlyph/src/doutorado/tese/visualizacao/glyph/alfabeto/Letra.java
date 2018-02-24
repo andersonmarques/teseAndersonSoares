@@ -5,7 +5,6 @@
  */
 package doutorado.tese.visualizacao.glyph.alfabeto;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -13,8 +12,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.text.AttributedCharacterIterator;
-import javax.swing.BorderFactory;
 
 /**
  *
@@ -31,12 +28,13 @@ public class Letra {
     public int widht;
     public int height;
 //    private Font fonte2;
+    private boolean legenda;
 
-    public Letra(Rectangle r, String letra) {
+    public Letra(Rectangle r, String letra, boolean legenda) {
         this.rect = r;
         setBounds(this.rect);
         this.letra = letra;
-        //this.shandowLetra = letra;
+        this.legenda = legenda;
 
         int[] points = new int[2];
         points[0] = rect.width;
@@ -85,7 +83,7 @@ public class Letra {
 //
 //        g2d.drawString(shandowLetra, getCenter().x, getCenter().y);
         //verificação para não desenhar letras muito pequenas
-        if (result > 6) {
+        if (result > 5) {
             g2d.setFont(getFonte());
             g2d.setPaint(Color.white);
 
@@ -98,8 +96,12 @@ public class Letra {
 
             g2d.setColor(Color.black);
             g2d.drawString(letra, getCenter().x, getCenter().y);
-
-        } else {
+        }
+        if (legenda) {
+            montarRetangulo();
+            g2d.setColor(Color.black);
+            g2d.setFont(getFonte());
+            g2d.drawString(letra, getCenter().x, getCenter().y);
         }
 
     }

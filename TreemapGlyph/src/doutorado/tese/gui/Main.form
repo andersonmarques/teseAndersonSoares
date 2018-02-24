@@ -181,7 +181,7 @@
                                           </Group>
                                           <EmptySpace min="23" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="tamanhoTreeampComboBox" max="32767" attributes="0"/>
+                                              <Component id="tamanhoTreemapComboBox" max="32767" attributes="0"/>
                                               <Component id="corTreemapComboBox" pref="166" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -245,7 +245,7 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="tamanhoTreeampComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tamanhoTreemapComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -397,7 +397,7 @@
                         <Property name="text" type="java.lang.String" value="Size:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="tamanhoTreeampComboBox">
+                    <Component class="javax.swing.JComboBox" name="tamanhoTreemapComboBox">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="1">
