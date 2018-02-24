@@ -85,7 +85,7 @@ public class Letra {
 //
 //        g2d.drawString(shandowLetra, getCenter().x, getCenter().y);
         //verificação para não desenhar letras muito pequenas
-        if (result > 6) {
+        if (result >6) {
             g2d.setFont(getFonte());
             g2d.setPaint(Color.white);
 
