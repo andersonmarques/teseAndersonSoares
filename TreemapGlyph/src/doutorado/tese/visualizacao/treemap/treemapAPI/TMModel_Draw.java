@@ -59,6 +59,7 @@ public class TMModel_Draw
         extends TMComputeDrawAdapter {
 
     private String itemCor;
+    private String[] colunasDetalhesDemanda;
 
 
     /* --- TMComputeSizeAdapter -- */
@@ -90,18 +91,22 @@ public class TMModel_Draw
         return Color.decode(Constantes.getCor()[Constantes.getCor().length - 1]);
     }
 
+    @Override
     public String getTooltipOfObject(Object node) {
-        if (node instanceof TreeMapNode) {
-            TreeMapNode n = (TreeMapNode) node;
-            String name = n.getLabel();
-//            long modTime = n.lastModified();
-//            DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
-//            DateFormat tf = DateFormat.getTimeInstance(DateFormat.SHORT);
-//            String date = df.format(new Date(modTime));
-//            String time = tf.format(new Date(modTime));
-
-            String tooltip = "<html>" + name + "<p>"
-                    + n.getBounds();
+        if (node instanceof TreeMapLevel) {
+            TreeMapLevel level = (TreeMapLevel) node;
+            for (TreeMapNode filhos : level.getChildren()) {
+                getTooltipOfObject(filhos);
+            }
+        } else {
+            TreeMapItem nodeItem = (TreeMapItem) node;
+            String tooltip = "<html>";
+            for (int i = 0; i < colunasDetalhesDemanda.length; i++) {
+                Coluna c = ManipuladorArquivo.getColuna(getColunasDetalhesDemanda()[i]);
+                String valorColuna = nodeItem.getMapaDetalhesItem().get(c);
+                tooltip += "<p>" + c.getName() + " : " + valorColuna + "</p>";
+            }
+            tooltip += "</html>";
             return tooltip;
         }
         return "";
@@ -137,6 +142,20 @@ public class TMModel_Draw
      */
     public void setItemCor(String itemCor) {
         this.itemCor = itemCor;
+    }
+
+    /**
+     * @return the colunasDetalhesDemanda
+     */
+    public String[] getColunasDetalhesDemanda() {
+        return colunasDetalhesDemanda;
+    }
+
+    /**
+     * @param colunasDetalhesDemanda the colunasDetalhesDemanda to set
+     */
+    public void setColunasDetalhesDemanda(String[] colunasDetalhesDemanda) {
+        this.colunasDetalhesDemanda = colunasDetalhesDemanda;
     }
 
 }

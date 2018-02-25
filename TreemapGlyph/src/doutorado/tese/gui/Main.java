@@ -26,6 +26,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLayeredPane;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.ListModel;
@@ -109,6 +110,16 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        colunasDetalhesList1 = new javax.swing.JList<>();
+        inserirBotao_detalhes = new javax.swing.JButton();
+        removerBotao_detalhes = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        colunasDetalhesList2 = new javax.swing.JList<>();
+        jLabel12 = new javax.swing.JLabel();
+        updateDetailsButton = new javax.swing.JButton();
         legendaBarraRolage = new javax.swing.JScrollPane();
         GridLayout grid = new GridLayout(0, 1);
         painelLegendaVis = new javax.swing.JPanel();
@@ -443,6 +454,96 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         jTabbedPane1.addTab("Glyph", jPanel2);
 
+        jLabel6.setText("Available Attributes:");
+
+        colunasDetalhesList1.setEnabled(false);
+        colunasDetalhesList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                colunasDetalhesList1ValueChanged(evt);
+            }
+        });
+        jScrollPane5.setViewportView(colunasDetalhesList1);
+
+        inserirBotao_detalhes.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        inserirBotao_detalhes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaDir.png"))); // NOI18N
+        inserirBotao_detalhes.setEnabled(false);
+        inserirBotao_detalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirBotao_detalhesActionPerformed(evt);
+            }
+        });
+
+        removerBotao_detalhes.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        removerBotao_detalhes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaEsq.png"))); // NOI18N
+        removerBotao_detalhes.setEnabled(false);
+        removerBotao_detalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerBotao_detalhesActionPerformed(evt);
+            }
+        });
+
+        colunasDetalhesList2.setEnabled(false);
+        colunasDetalhesList2.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                colunasDetalhesList2ValueChanged(evt);
+            }
+        });
+        jScrollPane6.setViewportView(colunasDetalhesList2);
+
+        jLabel12.setText("Details on Demand:");
+
+        updateDetailsButton.setText("Update Details");
+        updateDetailsButton.setEnabled(false);
+        updateDetailsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateDetailsButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(updateDetailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inserirBotao_detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(removerBotao_detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))))
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(inserirBotao_detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(removerBotao_detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(updateDetailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Details", jPanel3);
+
         legendaBarraRolage.setBackground(new java.awt.Color(255, 255, 255));
         legendaBarraRolage.setBorder(null);
 
@@ -458,7 +559,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addContainerGap()
                 .addComponent(progressoBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, Short.MAX_VALUE)
             .addComponent(legendaBarraRolage)
         );
         painelDireitaLayout.setVerticalGroup(
@@ -517,50 +618,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         return convertida;
     }
 
-    private void botaoGerarVisualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarVisualizacaoActionPerformed
-        limparPainelEsquerda();
-        itemTamanho = tamanhoTreemapComboBox.getSelectedItem().toString();
-        itemLegenda = legendaComboBox.getSelectedItem().toString();
-        itemCor = corTreemapComboBox.getSelectedItem().toString();
-        String[] itensHierarquia = parseListString2Array(colunasHierarquicasList2.getModel());
-
-        VisualizationsArea v = new VisualizationsArea(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
-                manipulador, itemTamanho, itensHierarquia, itemLegenda, itemCor);
-
-        painelEsquerda.add(layerPane);
-        view = v.getView();
-        layerPane.setBounds(view.getBounds());
-        layerPane.add(view, new Integer(0), 0);
-
-        progressoBarra.setVisible(false);
-        atualizarLegendaTreemap(itemCor);
-        limparCacheGlyphs();
-    }//GEN-LAST:event_botaoGerarVisualizacaoActionPerformed
-
-    private void checkLegendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLegendaActionPerformed
-        if (checkLegenda.isSelected()) {
-            Constantes.setShowLegenda(true);
-            legendaComboBox.setEnabled(true);
-        } else {
-            Constantes.setShowLegenda(false);
-            legendaComboBox.setEnabled(false);
-        }
-    }//GEN-LAST:event_checkLegendaActionPerformed
-
-    private void checkGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkGlyphActionPerformed
-        if (checkGlyph.isSelected()) {
-            Constantes.setShowGlyph(true);
-            glyphPanel = new GlassPanel();
-            glyphPanel.setTMView(view);
-
-            atributo1Glyph.setEnabled(true);
-            botaoGerarGlyphs.setEnabled(true);
-            layerPane.add(glyphPanel, new Integer(1), 0);
-        } else {
-            limparCacheGlyphs();
-        }
-    }//GEN-LAST:event_checkGlyphActionPerformed
-
     private void fileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuItemActionPerformed
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -580,29 +637,61 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }//GEN-LAST:event_fileMenuItemActionPerformed
 
-    private void inserirBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotao_treemapActionPerformed
-        List<Object> newListaAtribTreemap = new ArrayList<>();
-        List<Object> atributosEscolhidos = new ArrayList<>();
-        for (int i = 0; i < colunasHierarquicasList2.getModel().getSize(); i++) {
-            String elementAt = colunasHierarquicasList2.getModel().getElementAt(i);
-            atributosEscolhidos.add(elementAt);
-        }
-        atributosEscolhidos.addAll(colunasHierarquicasList.getSelectedValuesList());
-        atributosEscolhidos.sort(null);
-        loadVariaveisEscolhidasTreemap(atributosEscolhidos.toArray());
-        colunasHierarquicasList2.setEnabled(true);
-        botaoGerarVisualizacao.setEnabled(true);
+    private void atributo4GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo4GlyphItemStateChanged
+        loadVariaveisGlyph(getListaAtributosCategoricos(5), atributo5Glyph);
+        atributo5Glyph.setEnabled(true);
+    }//GEN-LAST:event_atributo4GlyphItemStateChanged
 
-        //remover o conteudo da lista de atributos original
-        ListModel<String> modelOriginal = colunasHierarquicasList.getModel();
-        List<String> selectedValuesList = colunasHierarquicasList.getSelectedValuesList();
-        for (int i = 0; i < modelOriginal.getSize(); i++) {
-            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
-                newListaAtribTreemap.add(modelOriginal.getElementAt(i));
-            }
+    private void atributo3GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo3GlyphItemStateChanged
+        loadVariaveisGlyph(getListaAtributosCategoricos(4), atributo4Glyph);
+        atributo4Glyph.setEnabled(true);
+    }//GEN-LAST:event_atributo3GlyphItemStateChanged
+
+    private void atributo2GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo2GlyphItemStateChanged
+        loadVariaveisGlyph(getListaAtributosCategoricos(3), atributo3Glyph);
+        atributo3Glyph.setEnabled(true);
+    }//GEN-LAST:event_atributo2GlyphItemStateChanged
+
+    private void atributo1GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo1GlyphItemStateChanged
+        loadVariaveisGlyph(getListaAtributosCategoricos(2), atributo2Glyph);
+        atributo2Glyph.setEnabled(true);
+    }//GEN-LAST:event_atributo1GlyphItemStateChanged
+
+    private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
+        glyphPanel.setBounds(painelEsquerda.getBounds());
+        glyphPanel.setManipulador(manipulador);
+        ArrayList<Object> atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
+        glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
+
+        glyphPanel.setVisible(true);
+        glyphPanel.repaint();
+
+        atualizarLegendaGlyphs(atributosEscolhidosGlyph);
+    }//GEN-LAST:event_botaoGerarGlyphsActionPerformed
+
+    private void checkGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkGlyphActionPerformed
+        if (checkGlyph.isSelected()) {
+            Constantes.setShowGlyph(true);
+            glyphPanel = new GlassPanel();
+            glyphPanel.setTMView(view);
+
+            atributo1Glyph.setEnabled(true);
+            botaoGerarGlyphs.setEnabled(true);
+            layerPane.add(glyphPanel, new Integer(1), 0);
+        } else {
+            limparCacheGlyphs();
         }
-        loadItensHierarquiaTreemap(newListaAtribTreemap.toArray());
-    }//GEN-LAST:event_inserirBotao_treemapActionPerformed
+    }//GEN-LAST:event_checkGlyphActionPerformed
+
+    private void checkLegendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLegendaActionPerformed
+        if (checkLegenda.isSelected()) {
+            Constantes.setShowLegenda(true);
+            legendaComboBox.setEnabled(true);
+        } else {
+            Constantes.setShowLegenda(false);
+            legendaComboBox.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkLegendaActionPerformed
 
     private void removerBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotao_treemapActionPerformed
         List<Object> newListaAtribTreemap = new ArrayList<>();
@@ -624,32 +713,49 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
             }
         }
-        loadVariaveisEscolhidasTreemap(newListaAtribTreemap.toArray());
+        loadVariaveisEscolhidasList(newListaAtribTreemap.toArray(), colunasHierarquicasList2);
 
         if (colunasHierarquicasList2.getModel().getSize() == 0) {
             colunasHierarquicasList2.setEnabled(false);
         }
     }//GEN-LAST:event_removerBotao_treemapActionPerformed
 
-    private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
-        glyphPanel.setBounds(painelEsquerda.getBounds());
-        glyphPanel.setManipulador(manipulador);
-        ArrayList<Object> atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
-        glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
-
-        glyphPanel.setVisible(true);
-        glyphPanel.repaint();
-
-        atualizarLegendaGlyphs(atributosEscolhidosGlyph);
-    }//GEN-LAST:event_botaoGerarGlyphsActionPerformed
-
-    private void colunasHierarquicasListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasHierarquicasListValueChanged
-        if (colunasHierarquicasList.getSelectedValuesList().size() >= 1) {
-            inserirBotao_treemap.setEnabled(true);
-        } else {
-            inserirBotao_treemap.setEnabled(false);
+    private void baixoBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixoBotao_treemapActionPerformed
+        List<String> novaLista = new ArrayList<>(colunasHierarquicasList2.getModel().getSize());
+        for (int i = 0; i < colunasHierarquicasList2.getModel().getSize(); i++) {
+            novaLista.add(colunasHierarquicasList2.getModel().getElementAt(i));
         }
-    }//GEN-LAST:event_colunasHierarquicasListValueChanged
+        int[] selectedValuesList = colunasHierarquicasList2.getSelectedIndices();
+        for (int i = 0; i < novaLista.size(); i++) {
+            for (int j = 0; j < selectedValuesList.length; j++) {
+                if (i == selectedValuesList[j]) {
+                    String caraFrente = novaLista.get(i + 1);
+                    String caraAtual = novaLista.get(i);
+                    novaLista.add(i + 1, caraAtual);
+                    novaLista.add(i, caraFrente);
+                    novaLista.remove(i + 2);
+                    novaLista.remove(i + 2);
+                    break;
+                }
+            }
+        }
+        loadVariaveisEscolhidasList(novaLista.toArray(), colunasHierarquicasList2);
+    }//GEN-LAST:event_baixoBotao_treemapActionPerformed
+
+    private void cimaBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaBotao_treemapActionPerformed
+        List<String> novaLista = new ArrayList<>();
+        int[] selectedValuesList = colunasHierarquicasList2.getSelectedIndices();
+        for (int i = 0; i < colunasHierarquicasList2.getModel().getSize(); i++) {
+            for (int j = 0; j < selectedValuesList.length; j++) {
+                if (i == selectedValuesList[j]) {
+                    novaLista.add(i - 1, colunasHierarquicasList2.getModel().getElementAt(i));
+                } else {
+                    novaLista.add(colunasHierarquicasList2.getModel().getElementAt(i));
+                }
+            }
+        }
+        loadVariaveisEscolhidasList(novaLista.toArray(), colunasHierarquicasList2);
+    }//GEN-LAST:event_cimaBotao_treemapActionPerformed
 
     private void colunasHierarquicasList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasHierarquicasList2ValueChanged
         if (colunasHierarquicasList2.getSelectedValuesList().size() >= 1) {
@@ -671,62 +777,134 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }//GEN-LAST:event_colunasHierarquicasList2ValueChanged
 
-    private void atributo1GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo1GlyphItemStateChanged
-        loadVariaveisGlyph(getListaAtributosCategoricos(2), atributo2Glyph);
-        atributo2Glyph.setEnabled(true);
-    }//GEN-LAST:event_atributo1GlyphItemStateChanged
-
-    private void atributo2GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo2GlyphItemStateChanged
-        loadVariaveisGlyph(getListaAtributosCategoricos(3), atributo3Glyph);
-        atributo3Glyph.setEnabled(true);
-    }//GEN-LAST:event_atributo2GlyphItemStateChanged
-
-    private void atributo3GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo3GlyphItemStateChanged
-        loadVariaveisGlyph(getListaAtributosCategoricos(4), atributo4Glyph);
-        atributo4Glyph.setEnabled(true);
-    }//GEN-LAST:event_atributo3GlyphItemStateChanged
-
-    private void atributo4GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo4GlyphItemStateChanged
-        loadVariaveisGlyph(getListaAtributosCategoricos(5), atributo5Glyph);
-        atributo5Glyph.setEnabled(true);
-    }//GEN-LAST:event_atributo4GlyphItemStateChanged
-
-    private void cimaBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaBotao_treemapActionPerformed
-        List<String> novaLista = new ArrayList<>();
-        int[] selectedValuesList = colunasHierarquicasList2.getSelectedIndices();
+    private void inserirBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotao_treemapActionPerformed
+        List<Object> newListaAtribTreemap = new ArrayList<>();
+        List<Object> atributosEscolhidos = new ArrayList<>();
         for (int i = 0; i < colunasHierarquicasList2.getModel().getSize(); i++) {
-            for (int j = 0; j < selectedValuesList.length; j++) {
-                if (i == selectedValuesList[j]) {
-                    novaLista.add(i - 1, colunasHierarquicasList2.getModel().getElementAt(i));
-                } else {
-                    novaLista.add(colunasHierarquicasList2.getModel().getElementAt(i));
-                }
+            String elementAt = colunasHierarquicasList2.getModel().getElementAt(i);
+            atributosEscolhidos.add(elementAt);
+        }
+        atributosEscolhidos.addAll(colunasHierarquicasList.getSelectedValuesList());
+        atributosEscolhidos.sort(null);
+        loadVariaveisEscolhidasList(atributosEscolhidos.toArray(), colunasHierarquicasList2);
+        colunasHierarquicasList2.setEnabled(true);
+        botaoGerarVisualizacao.setEnabled(true);
+
+        //remover o conteudo da lista de atributos original
+        ListModel<String> modelOriginal = colunasHierarquicasList.getModel();
+        List<String> selectedValuesList = colunasHierarquicasList.getSelectedValuesList();
+        for (int i = 0; i < modelOriginal.getSize(); i++) {
+            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+                newListaAtribTreemap.add(modelOriginal.getElementAt(i));
             }
         }
-        loadVariaveisEscolhidasTreemap(novaLista.toArray());
-    }//GEN-LAST:event_cimaBotao_treemapActionPerformed
+        loadItensHierarquiaTreemap(newListaAtribTreemap.toArray());
+    }//GEN-LAST:event_inserirBotao_treemapActionPerformed
 
-    private void baixoBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixoBotao_treemapActionPerformed
-        List<String> novaLista = new ArrayList<>(colunasHierarquicasList2.getModel().getSize());
-        for (int i = 0; i < colunasHierarquicasList2.getModel().getSize(); i++) {
-            novaLista.add(colunasHierarquicasList2.getModel().getElementAt(i));
+    private void colunasHierarquicasListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasHierarquicasListValueChanged
+        if (colunasHierarquicasList.getSelectedValuesList().size() >= 1) {
+            inserirBotao_treemap.setEnabled(true);
+        } else {
+            inserirBotao_treemap.setEnabled(false);
         }
-        int[] selectedValuesList = colunasHierarquicasList2.getSelectedIndices();
-        for (int i = 0; i < novaLista.size(); i++) {
-            for (int j = 0; j < selectedValuesList.length; j++) {
-                if (i == selectedValuesList[j]) {
-                    String caraFrente = novaLista.get(i + 1);
-                    String caraAtual = novaLista.get(i);
-                    novaLista.add(i + 1, caraAtual);
-                    novaLista.add(i, caraFrente);
-                    novaLista.remove(i + 2);
-                    novaLista.remove(i + 2);
-                    break;
-                }
+    }//GEN-LAST:event_colunasHierarquicasListValueChanged
+
+    private void botaoGerarVisualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarVisualizacaoActionPerformed
+        limparPainelEsquerda();
+        itemTamanho = tamanhoTreemapComboBox.getSelectedItem().toString();
+        itemLegenda = legendaComboBox.getSelectedItem().toString();
+        itemCor = corTreemapComboBox.getSelectedItem().toString();
+        String[] itensHierarquia = parseListString2Array(colunasHierarquicasList2.getModel());
+        String[] itensDetalhes = parseListString2Array(colunasDetalhesList2.getModel());
+
+        visualizationTreemap = new VisualizationsArea(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
+                manipulador, itemTamanho, itensHierarquia, itemLegenda, itemCor, itensDetalhes);
+
+        painelEsquerda.add(layerPane);
+        view = visualizationTreemap.getView();
+        layerPane.setBounds(view.getBounds());
+        layerPane.add(view, new Integer(0), 0);
+
+        progressoBarra.setVisible(false);
+        atualizarLegendaTreemap(itemCor);
+        limparCacheGlyphs();
+    }//GEN-LAST:event_botaoGerarVisualizacaoActionPerformed
+
+    private void colunasDetalhesList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasDetalhesList1ValueChanged
+        if (colunasDetalhesList1.getSelectedValuesList().size() >= 1) {
+            inserirBotao_detalhes.setEnabled(true);
+        } else {
+            inserirBotao_detalhes.setEnabled(false);
+        }
+    }//GEN-LAST:event_colunasDetalhesList1ValueChanged
+
+    private void inserirBotao_detalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotao_detalhesActionPerformed
+        List<Object> newListaAtribTreemap = new ArrayList<>();
+        List<Object> atributosEscolhidos = new ArrayList<>();
+        for (int i = 0; i < colunasDetalhesList2.getModel().getSize(); i++) {
+            String elementAt = colunasDetalhesList2.getModel().getElementAt(i);
+            atributosEscolhidos.add(elementAt);
+        }
+        atributosEscolhidos.addAll(colunasDetalhesList1.getSelectedValuesList());
+        atributosEscolhidos.sort(null);
+        loadVariaveisEscolhidasList(atributosEscolhidos.toArray(), colunasDetalhesList2);
+        colunasDetalhesList2.setEnabled(true);
+//        botaoGerarVisualizacao.setEnabled(true);
+
+        //remover o conteudo da lista de atributos original
+        ListModel<String> modelOriginal = colunasDetalhesList1.getModel();
+        List<String> selectedValuesList = colunasDetalhesList1.getSelectedValuesList();
+        for (int i = 0; i < modelOriginal.getSize(); i++) {
+            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+                newListaAtribTreemap.add(modelOriginal.getElementAt(i));
             }
         }
-        loadVariaveisEscolhidasTreemap(novaLista.toArray());
-    }//GEN-LAST:event_baixoBotao_treemapActionPerformed
+        loadItensDetalhes(newListaAtribTreemap.toArray());
+    }//GEN-LAST:event_inserirBotao_detalhesActionPerformed
+
+    private void removerBotao_detalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotao_detalhesActionPerformed
+        List<Object> newListaAtribTreemap = new ArrayList<>();
+        List<Object> atributos = new ArrayList<>();
+
+        for (int i = 0; i < colunasDetalhesList1.getModel().getSize(); i++) {
+            String elementAt = colunasDetalhesList1.getModel().getElementAt(i);
+            atributos.add(elementAt);
+        }
+        atributos.addAll(colunasDetalhesList2.getSelectedValuesList());
+        atributos.sort(null);
+        loadItensDetalhes(atributos.toArray());
+
+        //remover o conteudo da lista de hierarquia treemap
+        ListModel<String> modelGlyphs = colunasDetalhesList2.getModel();
+        List<String> selectedValuesList = colunasDetalhesList2.getSelectedValuesList();
+        for (int i = 0; i < modelGlyphs.getSize(); i++) {
+            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
+                newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
+            }
+        }
+        loadVariaveisEscolhidasList(newListaAtribTreemap.toArray(), colunasDetalhesList2);
+
+        if (colunasDetalhesList2.getModel().getSize() == 0) {
+            colunasDetalhesList2.setEnabled(false);
+        }
+    }//GEN-LAST:event_removerBotao_detalhesActionPerformed
+
+    private void colunasDetalhesList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasDetalhesList2ValueChanged
+        if (colunasDetalhesList2.getSelectedValuesList().size() >= 1) {
+            removerBotao_detalhes.setEnabled(true);
+            updateDetailsButton.setEnabled(true);
+        } else {
+            removerBotao_detalhes.setEnabled(false);
+        }
+    }//GEN-LAST:event_colunasDetalhesList2ValueChanged
+
+    private void updateDetailsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDetailsButtonActionPerformed
+        String[] valoresEscolhidos = parseListString2Array(colunasDetalhesList2.getModel());
+        visualizationTreemap.setColunasDetalhesDemanda(valoresEscolhidos);
+        visualizationTreemap.updateDetalhesDemanda();
+        
+        botaoGerarVisualizacaoActionPerformed(evt);
+    }//GEN-LAST:event_updateDetailsButtonActionPerformed
 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
         ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
@@ -785,28 +963,36 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JCheckBox checkGlyph;
     private javax.swing.JCheckBox checkLegenda;
     private javax.swing.JButton cimaBotao_treemap;
+    private javax.swing.JList<String> colunasDetalhesList1;
+    private javax.swing.JList<String> colunasDetalhesList2;
     private javax.swing.JList<String> colunasHierarquicasList;
     private javax.swing.JList<String> colunasHierarquicasList2;
     private javax.swing.JComboBox<String> corTreemapComboBox;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem fileMenuItem;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JButton inserirBotao_detalhes;
     private javax.swing.JButton inserirBotao_treemap;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JScrollPane legendaBarraRolage;
@@ -815,8 +1001,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JPanel painelEsquerda;
     private javax.swing.JPanel painelLegendaVis;
     private javax.swing.JProgressBar progressoBarra;
+    private javax.swing.JButton removerBotao_detalhes;
     private javax.swing.JButton removerBotao_treemap;
     private javax.swing.JComboBox<String> tamanhoTreemapComboBox;
+    private javax.swing.JButton updateDetailsButton;
     // End of variables declaration//GEN-END:variables
     static Main frame;
     private JLayeredPane layerPane;
@@ -826,6 +1014,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private String itemLegenda;
     private String itemCor;
     private TMView view;
+    private VisualizationsArea visualizationTreemap;
 
     private ManipuladorArquivo manipulador;
     private File selectedFile;
@@ -862,6 +1051,24 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         if (checkGlyph.isSelected()) {
             checkGlyph.setSelected(false);
         }
+    }
+
+    private void loadAtributosDetalhes() {
+        List<String> itens = new ArrayList<>();
+        List<String> itens2 = new ArrayList<>();
+        for (String cabecalho : manipulador.getCabecalho()) {
+            itens.add(cabecalho);
+        }
+        String itemRemovido = itens.remove(0);
+        itens2.add(itemRemovido);
+        
+        DefaultComboBoxModel model = new DefaultComboBoxModel(itens.toArray());
+        DefaultComboBoxModel model2 = new DefaultComboBoxModel(itens2.toArray());
+        
+        colunasDetalhesList1.setModel(model);
+        colunasDetalhesList2.setModel(model2);
+        colunasDetalhesList1.setEnabled(true);
+        colunasDetalhesList2.setEnabled(true);
     }
 
     class Task extends SwingWorker<Void, Void> {
@@ -901,7 +1108,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     private int executaTarefas(int ordem, int porcentagem) {
-        int tarefas = 9;
+        int tarefas = 10;
         switch (ordem) {
             case 1:
                 manipulador = new ManipuladorArquivo();
@@ -964,6 +1171,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis cores Treemap: " + porcentagem + "%");
                 break;
+            case 10:
+                loadAtributosDetalhes();
+                porcentagem = (ordem * 100) / tarefas;
+                progressoBarra.setToolTipText("Carregando variáveis para Detalhes sob Demanda: " + porcentagem + "%");
+                break;
             default:
                 throw new AssertionError();
         }
@@ -979,7 +1191,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         List<String> itens = new ArrayList<>();
         for (String cabecalho : manipulador.getCabecalho()) {
             String tipo = manipulador.getMapaCabecalho().get(cabecalho);
-            if (tipo.equalsIgnoreCase(Metadados.TipoDados.Integer.name())) {
+            if (tipo.equalsIgnoreCase(Metadados.TipoDados.Integer.name())
+                    || tipo.equalsIgnoreCase(Metadados.TipoDados.Double.name())) {
                 itens.add(cabecalho);
             }
         }
@@ -999,6 +1212,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
         colunasHierarquicasList.setModel(model);
         colunasHierarquicasList.setEnabled(true);
+    }
+
+    private void loadItensDetalhes(Object[] objs) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
+        colunasDetalhesList1.setModel(model);
+        colunasDetalhesList1.setEnabled(true);
     }
 
     private void loadItensCoresTreemap(Object[] objs) {
@@ -1083,9 +1302,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 //        variaveisGlyphList2.setModel(model);
     }
 
-    private void loadVariaveisEscolhidasTreemap(Object[] objs) {
+    private void loadVariaveisEscolhidasList(Object[] objs, JList<String> jList) {
         DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
-        colunasHierarquicasList2.setModel(model);
+        jList.setModel(model);
     }
 
 //    private void loadVariaveisStarGlyph() {

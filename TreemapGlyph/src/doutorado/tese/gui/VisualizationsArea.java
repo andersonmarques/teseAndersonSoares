@@ -46,12 +46,15 @@ public class VisualizationsArea {
     private TMModelNode modelTree = null; // the model of the demo tree
     private TreeMap treeMap = null; // the treemap builded
     private TMView view = null;
+    private TMModel_Draw cDraw = null;
+    private TMModel_Size cSize = null;
     //Star Glyph
     private StarGlyph[] starGlyphs;
     private String itemCor;
+    private String[] colunasDetalhesDemanda;
 
     public VisualizationsArea(int w, int h, ManipuladorArquivo manipulador,
-            String itemTamanho, String[] itensHierarquia, String itemLegenda, String itemCor) {
+            String itemTamanho, String[] itensHierarquia, String itemLegenda, String itemCor, String[] itensDetalhes) {
         this.manipulador = manipulador;
         this.hierarquiaFila = new LinkedList<>();
 
@@ -65,10 +68,12 @@ public class VisualizationsArea {
         modelTree = createTree(itensHierarquia, itemTamanho, itemLegenda, itemCor);
         treeMap = new TreeMap(modelTree);
 
-        TMModel_Size cSize = new TMModel_Size();
-        TMModel_Draw cDraw = new TMModel_Draw();
+        cSize = new TMModel_Size();
+        cDraw = new TMModel_Draw();
         cDraw.setItemCor(itemCor);
         cDraw.getFillingOfObject(root);
+        colunasDetalhesDemanda = itensDetalhes;
+        updateDetalhesDemanda();
 
         this.view = treeMap.getView(cSize, cDraw);//getView() retorna um JPainel
 
@@ -227,5 +232,24 @@ public class VisualizationsArea {
      */
     public TMView getView() {
         return view;
+    }
+
+    /**
+     * @return the colunasDetalhesDemanda
+     */
+    public String[] getColunasDetalhesDemanda() {        
+        return colunasDetalhesDemanda;
+    }
+
+    /**
+     * @param colunasDetalhesDemanda the colunasDetalhesDemanda to set
+     */
+    public void setColunasDetalhesDemanda(String[] colunasDetalhesDemanda) {
+        this.colunasDetalhesDemanda = colunasDetalhesDemanda;
+    }
+
+    public void updateDetalhesDemanda() {
+        cDraw.setColunasDetalhesDemanda(getColunasDetalhesDemanda());
+        cDraw.getTooltipOfObject(root);
     }
 }
