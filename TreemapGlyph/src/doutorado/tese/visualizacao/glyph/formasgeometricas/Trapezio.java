@@ -74,8 +74,8 @@ public class Trapezio {
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.4);
-        int height = (int) Math.round(points[1] * 0.4);
+        int width = (int) Math.round(points[0] * 0.46);
+        int height = (int) Math.round(points[1] * 0.46);
 
 
         int halfWidth = width / 2;
