@@ -73,8 +73,8 @@ public final class GlyphManager {
         f.paint(g);
     }
 
-    private void adicionarNumeros(Graphics g, Rectangle bounds, String numero) {
-        Numeral f = new Numeral(bounds, numero, false);
+    private void adicionarNumeros(Graphics g, Rectangle bounds, String letra,String numero) {
+        Letra f = new Letra(bounds, letra+numero, false);
         f.paint(g);
     }
 
@@ -164,7 +164,7 @@ public final class GlyphManager {
     private void calcularQuintaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.NUMEROS.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                adicionarNumeros(g, item.getBounds(), Constantes.NUMEROS[j]);
+                adicionarNumeros(g, item.getBounds(),Constantes.LETRAS_ALFABETO[j],Constantes.NUMEROS[j]);
                 break;
             }
         }

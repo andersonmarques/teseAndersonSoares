@@ -8,11 +8,13 @@ package doutorado.tese.visualizacao.glyph.alfabeto;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.geom.Rectangle2D;
 import java.text.AttributedCharacterIterator;
 import javax.swing.BorderFactory;
 
@@ -27,9 +29,6 @@ public class Letra {
     private Rectangle rect;
     private String letra;
     private Font fonte;
-    private String shandowLetra;
-    public int widht;
-    public int height;
     private boolean legenda;
 
     public Letra(Rectangle r, String letra, boolean legenda) {
@@ -37,7 +36,7 @@ public class Letra {
         setBounds(this.rect);
         this.letra = letra;
         this.legenda = legenda;
-
+        //verifica o quadrado interno
         int[] points = new int[2];
         points[0] = rect.width;
         points[1] = rect.height;
@@ -50,8 +49,7 @@ public class Letra {
         height = height / 13;
         int area = width + height;
 
-        fonte = new Font("Arial", Font.PLAIN, area);
-
+        fonte = new Font("Arial black", Font.PLAIN, area);
     }
 
     public void setBounds(Rectangle rect) {
@@ -75,30 +73,24 @@ public class Letra {
 
         verificarRetangulo(points);
 
-        int width = points[0];
-        int height = points[1];
-        width = width / 13;
-        height = height / 13;
-        int result = width + height;
+        int result = points[0] + points[1];
 
-//        g2d.setPaint(Color.black);
-//
-//        g2d.drawString(shandowLetra, getCenter().x, getCenter().y);
         //verificação para não desenhar letras muito pequenas
         if (result > 5) {
             g2d.setFont(getFonte());
-            g2d.setPaint(Color.white);
+            //calculode centro das letras
+            FontMetrics metrics = g.getFontMetrics(getFonte());
+            int x = rect.x + (rect.width - metrics.stringWidth(getLetra())) / 2;
+            int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
 
-            //um width um pouco maior + porcentagem de 4%
-            int porcent = (int) (width * 1.4);
+            FontMetrics fm = g.getFontMetrics();
+            Rectangle2D rect = fm.getStringBounds(getLetra(), g);
 
-            int centerX = rect.x + (rect.width / 2) - porcent;
-            int centerY = rect.y + rect.height / 2 - height;
-            g2d.fillRect(centerX, centerY, result, result);
+            g.setColor(Color.white);
+            g.fillRect(x, y - fm.getAscent(), (int) rect.getWidth(), (int) rect.getHeight());
 
             g2d.setColor(Color.black);
-            g2d.drawString(letra, getCenter().x, getCenter().y);
-
+            g2d.drawString(letra, x, y);
         }
         if (legenda) {
             montarRetangulo();
@@ -110,16 +102,8 @@ public class Letra {
     }
 
     private Point getCenter() {
-
-        int[] points = new int[2];
-        points[0] = rect.width;
-        points[1] = rect.height;
-
-        verificarRetangulo(points);
-        int width = (int) Math.round(points[0] * 0.2);
-        int height = (int) Math.round(points[1] * 0.2);
-        int pX = (int) (rect.x + rect.width / 2 - width / 2);
-        int pY = (int) (rect.y + rect.height / 2 + (height / 2.5));
+        int pX = (int) (rect.x + rect.width / 2);
+        int pY = (int) (rect.y + rect.height / 2);
 
         return new Point(pX, pY);
     }
@@ -177,4 +161,13 @@ public class Letra {
     public void setFonte(Font fonte) {
         this.fonte = fonte;
     }
+
+    public String getLetra() {
+        return letra;
+    }
+
+    public void setLetra(String letra) {
+        this.letra = letra;
+    }
+
 }
