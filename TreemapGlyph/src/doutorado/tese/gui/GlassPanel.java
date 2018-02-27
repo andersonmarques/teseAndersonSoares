@@ -10,7 +10,6 @@ import doutorado.tese.visualizacao.glyph.GlyphManager;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
@@ -31,13 +30,6 @@ public class GlassPanel extends JPanel {
     public GlassPanel() {
         setOpaque(false);
         setLayout(new GroupLayout(this));
-//        this.addMouseListener(new java.awt.event.MouseAdapter() {
-//            @Override
-//            public void mouseClicked(java.awt.event.MouseEvent evt) {
-//                glassPanelMouseClicked(evt);
-//            }
-//        });
-//        this.addMouseListener(view.getAction());
     }
 
     public GlassPanel(Rectangle bounds) {

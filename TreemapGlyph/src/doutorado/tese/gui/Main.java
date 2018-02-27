@@ -860,6 +860,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         }
         loadItensDetalhes(newListaAtribTreemap.toArray());
+        updateDetailsButton.setEnabled(true);
     }//GEN-LAST:event_inserirBotao_detalhesActionPerformed
 
     private void removerBotao_detalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotao_detalhesActionPerformed
@@ -892,7 +893,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void colunasDetalhesList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasDetalhesList2ValueChanged
         if (colunasDetalhesList2.getSelectedValuesList().size() >= 1) {
             removerBotao_detalhes.setEnabled(true);
-            updateDetailsButton.setEnabled(true);
         } else {
             removerBotao_detalhes.setEnabled(false);
         }
@@ -902,7 +902,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         String[] valoresEscolhidos = parseListString2Array(colunasDetalhesList2.getModel());
         visualizationTreemap.setColunasDetalhesDemanda(valoresEscolhidos);
         visualizationTreemap.updateDetalhesDemanda();
-        
+
         botaoGerarVisualizacaoActionPerformed(evt);
     }//GEN-LAST:event_updateDetailsButtonActionPerformed
 
@@ -1061,10 +1061,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
         String itemRemovido = itens.remove(0);
         itens2.add(itemRemovido);
-        
+
         DefaultComboBoxModel model = new DefaultComboBoxModel(itens.toArray());
         DefaultComboBoxModel model2 = new DefaultComboBoxModel(itens2.toArray());
-        
+
         colunasDetalhesList1.setModel(model);
         colunasDetalhesList2.setModel(model2);
         colunasDetalhesList1.setEnabled(true);

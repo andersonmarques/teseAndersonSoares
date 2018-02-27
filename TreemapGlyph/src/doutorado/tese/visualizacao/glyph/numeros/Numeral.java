@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.visualizacao.glyph.alfabeto;
+package doutorado.tese.visualizacao.glyph.numeros;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -19,20 +19,20 @@ import java.awt.geom.Rectangle2D;
  *
  * @author Anderson Soares
  */
-public class Letra {
+public class Numeral {
 
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
-    private String letra;
+    private String numero;
     private Font fonte;
     private boolean legenda;
     private boolean ativo;
 
-    public Letra(Rectangle r, String letra, boolean legenda) {
+    public Numeral(Rectangle r, String numero, boolean legenda) {
         this.rect = r;
         setBounds(this.rect);
-        this.letra = letra;
+        this.numero = numero;
         this.legenda = legenda;
         //verifica o quadrado interno
         int[] points = new int[2];
@@ -48,14 +48,6 @@ public class Letra {
         int area = width + height;
 
         fonte = new Font("Arial black", Font.PLAIN, area);
-    }
-
-    public void setBounds(Rectangle rect) {
-        this.rect = rect;
-    }
-
-    public Rectangle getBounds() {
-        return rect;
     }
 
     public void paint(Graphics g) {
@@ -81,21 +73,28 @@ public class Letra {
             int y = calcularFontMetrics(g).y;
 
             FontMetrics fm = g.getFontMetrics();
-            Rectangle2D rect = fm.getStringBounds(getLetra(), g);
+            Rectangle2D rect = fm.getStringBounds(getNumero(), g);
 
             g.setColor(Color.white);
             g.fillRect(x, y - fm.getAscent(), (int) rect.getWidth(), (int) rect.getHeight());
 
             g2d.setColor(Color.black);
-            g2d.drawString(letra, x, y);
+            g2d.drawString(getNumero(), x, y);
         }
         if (legenda) {
             montarRetangulo();
             g2d.setColor(Color.black);
             g2d.setFont(getFonte());
-            g2d.drawString(letra, calcularFontMetrics(g).x, calcularFontMetrics(g).y);
+            g2d.drawString(getNumero(), calcularFontMetrics(g).x, calcularFontMetrics(g).y);
         }
+    }
 
+    public void setBounds(Rectangle rect) {
+        this.rect = rect;
+    }
+
+    public Rectangle getBounds() {
+        return rect;
     }
 
     /**
@@ -105,7 +104,7 @@ public class Letra {
      */
     private Point calcularFontMetrics(Graphics g) {
         FontMetrics metrics = g.getFontMetrics(getFonte());
-        int pX = rect.x + (rect.width - metrics.stringWidth(getLetra())) / 2;
+        int pX = rect.x + (rect.width - metrics.stringWidth(getNumero())) / 2;
         int pY = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
 
         return new Point(pX, pY);
@@ -165,12 +164,12 @@ public class Letra {
         this.fonte = fonte;
     }
 
-    public String getLetra() {
-        return letra;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setLetra(String letra) {
-        this.letra = letra;
+    public void setLetra(String numero) {
+        this.numero = numero;
     }
 
     /**
@@ -186,5 +185,4 @@ public class Letra {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-
 }

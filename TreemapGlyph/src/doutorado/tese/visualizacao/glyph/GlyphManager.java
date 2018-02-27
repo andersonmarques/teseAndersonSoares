@@ -11,6 +11,7 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.visualizacao.glyph.alfabeto.Letra;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
 import doutorado.tese.visualizacao.glyph.numeros.Numeral;
+//import doutorado.tese.visualizacao.glyph.numeros.Numeral;
 import doutorado.tese.visualizacao.glyph.texture.Textura;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import java.awt.Color;
@@ -31,9 +32,10 @@ public final class GlyphManager {
 
     private final ManipuladorArquivo manipulador;
     private final List<Object> atributosEscolhidos;
-    private HashMap<String, Integer> colunaDadosDist;
+    private HashMap<String, List<String>> colunaDadosDist;
     private TMNodeModelRoot rootNodeZoom;
-    
+    private boolean dimensao1Ativada, dimensao2Ativada, dimensao3Ativada, dimensao4Ativada, dimensao5Ativada;
+    private String letraUtilizada;
 
     public GlyphManager(ManipuladorArquivo manipulador, List<Object> atributosEscolhidos) {
         this.manipulador = manipulador;
@@ -47,7 +49,7 @@ public final class GlyphManager {
             if (!atributosEscolhidos.get(i).equals("---")) {
                 Coluna c = ManipuladorArquivo.getColuna(atributosEscolhidos.get(i).toString());
                 List<String> dadosDistintos = c.getDadosDistintos();
-                colunaDadosDist.put(c.getName(), dadosDistintos.size());
+                colunaDadosDist.put(c.getName(), dadosDistintos);
             }
         }
     }
@@ -73,55 +75,81 @@ public final class GlyphManager {
         f.paint(g);
     }
 
-    private void adicionarNumeros(Graphics g, Rectangle bounds, String letra,String numero) {
-        Letra f = new Letra(bounds, letra+numero, false);
+    /**
+     * Metodo responsavel por instanciar um glyphs do tipo NUMERAL.
+     * Esse metodo concatena o glyph do tipo LETRA, caso tenha sido ativado, ao glyphs NUMERAL.
+     * @param g
+     * @param bounds
+     * @param letra
+     * @param numero 
+     */
+    private void adicionarNumeros(Graphics g, Rectangle bounds, String letra, String numero) {
+        Numeral f = new Numeral(bounds, letra + numero, false);
+        f.paint(g);
+    }
+    
+    /**
+     * Metodo responsavel por instanciar um glyphs do tipo NUMERAL.
+     * @param g
+     * @param bounds
+     * @param numero 
+     */
+    private void adicionarNumeros(Graphics g, Rectangle bounds, String numero) {
+        Numeral f = new Numeral(bounds, numero, false);
         f.paint(g);
     }
 
     public void paint(Graphics g) {
-        for (int dimensao = 0; dimensao < atributosEscolhidos.size(); dimensao++) {
-            if (!atributosEscolhidos.get(dimensao).equals("---")) {
-                Coluna col = ManipuladorArquivo.getColuna(atributosEscolhidos.get(dimensao).toString());
-                List<String> dadosDistintos = col.getDadosDistintos();
-                if (getRootNodeZoom() != null) {
-                    setGlyphsInTreeMapItems(getRootNodeZoom().getRoot(), dimensao, g, col, dadosDistintos);
-                }
-            }
+        if (getRootNodeZoom() != null) {
+            setGlyphsInTreeMapItems(getRootNodeZoom().getRoot(), g);
         }
     }
 
-    public void setGlyphsInTreeMapItems(TMNodeModel nodo, int dimensao, Graphics g, Coluna col, List<String> dadosDistintos) {
+    public void setGlyphsInTreeMapItems(TMNodeModel nodo, Graphics g) {
         if (nodo instanceof TMNodeModelComposite) {//se for TreeMap Level
-            TMNodeModelComposite pai = (TMNodeModelComposite) nodo; 
+            TMNodeModelComposite pai = (TMNodeModelComposite) nodo;
             for (TMNodeModel n : pai.getChildrenList()) {
-                setGlyphsInTreeMapItems(n, dimensao, g, col, dadosDistintos);
+                setGlyphsInTreeMapItems(n, g);
             }
         } else {//se for um treemap Item ele vai desenhar os glyphs
             TMNodeEncapsulator nodeEncapsulator = (TMNodeEncapsulator) nodo.getNode();
             TreeMapItem treemapItem = (TreeMapItem) nodeEncapsulator.getNode();
-            defineDimension2DrawGlyph(dimensao, g, col, treemapItem, dadosDistintos);
+            defineDimension2DrawGlyph(g, treemapItem);
         }
     }
 
-    public void defineDimension2DrawGlyph(int dimensao, Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-        switch (dimensao) {
-            case 0:
-                calcularPrimeiraDimensao(g, col, item, dadosDistintos);
-                break;
-            case 1:
-                calcularSegundaDimensao(g, col, item, dadosDistintos);
-                break;
-            case 2:
-                calcularTerceiraDimensao(g, col, item, dadosDistintos);
-                break;
-            case 3:
-                calcularQuartaDimensao(g, col, item, dadosDistintos);
-                break;
-            case 4:
-                calcularQuintaDimensao(g, col, item, dadosDistintos);
-                break;
-            default:
-                System.err.println("Nao foi possível calcular a dimensão.");
+    public void defineDimension2DrawGlyph(Graphics g, TreeMapItem item) {
+        for (int dimensao = 0; dimensao < atributosEscolhidos.size(); dimensao++) {
+            if (!atributosEscolhidos.get(dimensao).equals("---")) {
+                String colunaEscolhida = atributosEscolhidos.get(dimensao).toString();
+                Coluna col = ManipuladorArquivo.getColuna(colunaEscolhida);
+                List<String> dadosDistintos = colunaDadosDist.get(colunaEscolhida);
+                switch (dimensao) {
+                    case 0:
+                        dimensao1Ativada = true;
+                        calcularPrimeiraDimensao(g, col, item, dadosDistintos);
+                        break;
+                    case 1:
+                        dimensao2Ativada = true;
+                        calcularSegundaDimensao(g, col, item, dadosDistintos);
+                        break;
+                    case 2:
+                        dimensao3Ativada = true;
+                        calcularTerceiraDimensao(g, col, item, dadosDistintos);
+                        break;
+                    case 3:
+                        dimensao4Ativada = true;
+                        letraUtilizada = "";
+                        calcularQuartaDimensao(g, col, item, dadosDistintos);
+                        break;
+                    case 4:
+                        dimensao5Ativada = true;
+                        calcularQuintaDimensao(g, col, item, dadosDistintos);
+                        break;
+                    default:
+                        System.err.println("Nao foi possível calcular a dimensão.");
+                }
+            }
         }
     }
 
@@ -156,6 +184,7 @@ public final class GlyphManager {
         for (int j = 0; j < Constantes.LETRAS_ALFABETO.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 adicionarLetrasAlfabeto(g, item.getBounds(), Constantes.LETRAS_ALFABETO[j]);
+                letraUtilizada = Constantes.LETRAS_ALFABETO[j];
                 break;
             }
         }
@@ -164,7 +193,11 @@ public final class GlyphManager {
     private void calcularQuintaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.NUMEROS.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                adicionarNumeros(g, item.getBounds(),Constantes.LETRAS_ALFABETO[j],Constantes.NUMEROS[j]);
+                if (dimensao4Ativada) {
+                    adicionarNumeros(g, item.getBounds(), letraUtilizada, Constantes.NUMEROS[j]);
+                } else {
+                    adicionarNumeros(g, item.getBounds(), Constantes.NUMEROS[j]);
+                }
                 break;
             }
         }
