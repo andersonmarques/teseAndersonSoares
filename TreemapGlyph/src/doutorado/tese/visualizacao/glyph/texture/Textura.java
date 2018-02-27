@@ -5,6 +5,7 @@
  */
 package doutorado.tese.visualizacao.glyph.texture;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -46,12 +47,34 @@ public class Textura {
 
         montarRetangulo();
         g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+        g2d.setColor(Color.BLACK);
+        g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+
+    }
+    
+         private int[] verificarRetangulo(int [] point){
+        if(point[0] > point[1]){
+            point[0] = point[1];
+           return point;
+        }
+        else if(point[0] < point[1]){
+            point[1] = point[0];
+           return point;
+        }
+        return null;
     }
 
     private void montarRetangulo() {
-        int width = (int) Math.round(rect.width / 1.2);
-        int height = (int) Math.round(rect.height / 1.2);
- 
+         int[] points = new int[2];
+
+        points[0] = rect.width;
+        points[1] = rect.height;
+
+        verificarRetangulo(points);
+
+        int width = (int) Math.round(points[0] * 0.8);
+        int height = (int) Math.round(points[1] * 0.8);
+        
         xPoints = new int[2];
         yPoints = new int[2];
 
