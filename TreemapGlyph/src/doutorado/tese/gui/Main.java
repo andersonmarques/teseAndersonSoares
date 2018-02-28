@@ -1055,6 +1055,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         if (glyphPanel != null) {
             glyphPanel.setVisible(false);
             layerPane.remove(glyphPanel);
+            glyphPanel = null;
         }
         if (checkGlyph.isSelected()) {
             checkGlyph.setSelected(false);

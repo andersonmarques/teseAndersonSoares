@@ -8,6 +8,7 @@ package doutorado.tese.legenda;
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
+import doutorado.tese.visualizacao.glyph.GlyphManager;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -93,7 +94,7 @@ public class LegendaVisualizacao {
                     icon.setValorIcon(Constantes.TIPO_TEXTURA[i]);
                     break;
                 case 1:
-                    icon.setValorIcon(Constantes.getCor()[i]);
+                    icon.setValorIcon(Constantes.getCorGlyphs()[i]);
                     break;
                 case 2:
                     icon.setValorIcon(Constantes.TIPOS_FORMAS_GEOMETRICAS[i]);

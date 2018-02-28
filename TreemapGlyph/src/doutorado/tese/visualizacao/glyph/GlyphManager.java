@@ -19,6 +19,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import net.bouthier.treemapAWT.TMNodeEncapsulator;
 import net.bouthier.treemapAWT.TMNodeModel;
 import net.bouthier.treemapAWT.TMNodeModelComposite;
@@ -36,14 +37,16 @@ public final class GlyphManager {
     private TMNodeModelRoot rootNodeZoom;
     private boolean dimensao1Ativada, dimensao2Ativada, dimensao3Ativada, dimensao4Ativada, dimensao5Ativada;
     private String letraUtilizada;
+    private static String[] shufflerColors;
 
     public GlyphManager(ManipuladorArquivo manipulador, List<Object> atributosEscolhidos) {
         this.manipulador = manipulador;
         this.atributosEscolhidos = atributosEscolhidos;
         colunaDadosDist = new HashMap<>();
         analisarAtributosEscolhidos();
+        shufflerColors = Constantes.getCorGlyphs();
     }
-
+    
     public void analisarAtributosEscolhidos() {
         for (int i = 0; i < atributosEscolhidos.size(); i++) {
             if (!atributosEscolhidos.get(i).equals("---")) {
@@ -76,23 +79,26 @@ public final class GlyphManager {
     }
 
     /**
-     * Metodo responsavel por instanciar um glyphs do tipo NUMERAL.
-     * Esse metodo concatena o glyph do tipo LETRA, caso tenha sido ativado, ao glyphs NUMERAL.
+     * Metodo responsavel por instanciar um glyphs do tipo NUMERAL. Esse metodo
+     * concatena o glyph do tipo LETRA, caso tenha sido ativado, ao glyphs
+     * NUMERAL.
+     *
      * @param g
      * @param bounds
      * @param letra
-     * @param numero 
+     * @param numero
      */
     private void adicionarNumeros(Graphics g, Rectangle bounds, String letra, String numero) {
         Numeral f = new Numeral(bounds, letra + numero, false);
         f.paint(g);
     }
-    
+
     /**
      * Metodo responsavel por instanciar um glyphs do tipo NUMERAL.
+     *
      * @param g
      * @param bounds
-     * @param numero 
+     * @param numero
      */
     private void adicionarNumeros(Graphics g, Rectangle bounds, String numero) {
         Numeral f = new Numeral(bounds, numero, false);
@@ -102,6 +108,7 @@ public final class GlyphManager {
     public void paint(Graphics g) {
         if (getRootNodeZoom() != null) {
             setGlyphsInTreeMapItems(getRootNodeZoom().getRoot(), g);
+
         }
     }
 
@@ -165,7 +172,7 @@ public final class GlyphManager {
     private void calcularSegundaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.getCor().length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                adicionarCorForma(g, item.getBounds(), Color.decode(Constantes.getCor()[j]));
+                adicionarCorForma(g, item.getBounds(), Color.decode(getShufflerColors()[j]));
                 break;
             }
         }
@@ -215,5 +222,12 @@ public final class GlyphManager {
      */
     public void setRootNodeZoom(TMNodeModelRoot rootNodeZoom) {
         this.rootNodeZoom = rootNodeZoom;
+    }
+    
+    /**
+     * @return the shufflerColors
+     */
+    public static String[] getShufflerColors() {
+        return shufflerColors;
     }
 }
