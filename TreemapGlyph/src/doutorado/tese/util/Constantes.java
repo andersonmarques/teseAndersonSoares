@@ -24,11 +24,11 @@ public class Constantes {
         "#5574a6", "#3b3eac", "#F0F8FF"};
 
     public final static String[] TIPO_TEXTURA = {
-        "PATTERN_ASTERISK",
+        "PATTERNV",
         "PATTERN_DIAG1",
         "PATTERN_DIAG2",
         "PATTERN_DIAG3",
-        "PATTERN_DIAG4",
+        "PatternSquareC",
         "PATTERN_DIAG5",
         "PATTERN_DIAGDOTS",
         "PATTERN_DIAGDOTS2",
@@ -39,6 +39,7 @@ public class Constantes {
         "PATTERN_SQUARES",
         "PATTERN_LIGHT_GRAY",
         "PATTERN_TIO"
+            
     };
     /**
      * 0 - "OCTOGONO", 1 - "ELLIPSE", 2 - "CRUZ", 3 - "LOSANGO", 4 -
