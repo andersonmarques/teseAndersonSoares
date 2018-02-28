@@ -5,8 +5,6 @@
  */
 package doutorado.tese.util;
 
-import java.awt.Color;
-
 /**
  *
  * @author Anderson
@@ -59,6 +57,22 @@ public class Constantes {
     public final static String[] NUMEROS = {
         "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
     };
+    
+    public enum NivelGlyph{
+        NIVEL_1 (1),
+        NIVEL_2 (2),
+        NIVEL_3 (3),
+        NIVEL_4 (4),
+        NIVEL_5 (5);
+        
+        private final int nivelGlyph;
+        
+        NivelGlyph(int nivelGlyph){
+            this.nivelGlyph = nivelGlyph;
+        }
+        
+        private double nivel(){return nivelGlyph;}
+    }
 
     public static boolean isShowGlyph() {
         return showGlyph;

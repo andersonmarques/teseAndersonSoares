@@ -77,8 +77,11 @@ public class Numeral {
 
             g.setColor(Color.white);
             g.fillRect(x, y - fm.getAscent(), (int) rect.getWidth(), (int) rect.getHeight());
-
             g2d.setColor(Color.black);
+            if (!legenda) {
+                g.drawRect(x, y - fm.getAscent(), (int) rect.getWidth(), (int) rect.getHeight());
+            }
+
             g2d.drawString(getNumero(), x, y);
         }
         if (legenda) {

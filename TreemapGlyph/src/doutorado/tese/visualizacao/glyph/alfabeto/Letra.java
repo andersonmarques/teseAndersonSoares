@@ -85,8 +85,12 @@ public class Letra {
 
             g.setColor(Color.white);
             g.fillRect(x, y - fm.getAscent(), (int) rect.getWidth(), (int) rect.getHeight());
+            g.setColor(Color.BLACK);
+            if (!legenda) {
+                g.drawRect(x, y - fm.getAscent(), (int) rect.getWidth(), (int) rect.getHeight());
+            }
 
-            g2d.setColor(Color.black);
+//            g2d.setColor(Color.black);
             g2d.drawString(letra, x, y);
         }
         if (legenda) {

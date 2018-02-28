@@ -638,23 +638,22 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_fileMenuItemActionPerformed
 
     private void atributo4GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo4GlyphItemStateChanged
-        loadVariaveisGlyph(getListaAtributosCategoricos(5), atributo5Glyph);
-        atributo5Glyph.setEnabled(true);
+//        loadVariaveisGlyph(getListaAtributosCategoricos(5), atributo5Glyph);
+//        atributo5Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo4GlyphItemStateChanged
 
     private void atributo3GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo3GlyphItemStateChanged
-        loadVariaveisGlyph(getListaAtributosCategoricos(4), atributo4Glyph);
-        atributo4Glyph.setEnabled(true);
+//        loadVariaveisGlyph(getListaAtributosCategoricos(4), atributo4Glyph);
+//        atributo4Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo3GlyphItemStateChanged
 
     private void atributo2GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo2GlyphItemStateChanged
-        loadVariaveisGlyph(getListaAtributosCategoricos(3), atributo3Glyph);
-        atributo3Glyph.setEnabled(true);
+//        loadVariaveisGlyph(getListaAtributosCategoricos(3), atributo3Glyph);
+//        atributo3Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo2GlyphItemStateChanged
 
     private void atributo1GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo1GlyphItemStateChanged
-        loadVariaveisGlyph(getListaAtributosCategoricos(2), atributo2Glyph);
-        atributo2Glyph.setEnabled(true);
+//        atributo2Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo1GlyphItemStateChanged
 
     private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
@@ -676,10 +675,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             glyphPanel.setTMView(view);
 
             atributo1Glyph.setEnabled(true);
+            atributo2Glyph.setEnabled(true);
+            atributo3Glyph.setEnabled(true);
+            atributo4Glyph.setEnabled(true);
+            atributo5Glyph.setEnabled(true);
             botaoGerarGlyphs.setEnabled(true);
             layerPane.add(glyphPanel, new Integer(1), 0);
         } else {
             limparCacheGlyphs();
+            atributo1Glyph.setEnabled(false);
+            atributo2Glyph.setEnabled(false);
+            atributo3Glyph.setEnabled(false);
+            atributo4Glyph.setEnabled(false);
+            atributo5Glyph.setEnabled(false);
         }
     }//GEN-LAST:event_checkGlyphActionPerformed
 
@@ -1157,7 +1165,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 progressoBarra.setToolTipText("Preparando lista legenda: " + porcentagem + "%");
                 break;
             case 7:
-                loadVariaveisGlyph(getListaAtributosCategoricos(1), atributo1Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_1), atributo1Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2), atributo2Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_3), atributo3Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_4), atributo4Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_5), atributo5Glyph);
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis glyph: " + porcentagem + "%");
                 break;
@@ -1167,7 +1179,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 progressoBarra.setToolTipText("Carregando variáveis hierarquia Treemap: " + porcentagem + "%");
                 break;
             case 9:
-                loadItensCoresTreemap(getListaAtributosCategoricos(2));
+                loadItensCoresTreemap(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2));
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis cores Treemap: " + porcentagem + "%");
                 break;
@@ -1233,7 +1245,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
      * @return um array contendo os atributos que serao exibidos nas listas dos
      * glyphs
      */
-    private Object[] getListaAtributosCategoricos(int nivel) {
+    private Object[] getListaAtributosCategoricos(Constantes.NivelGlyph nivel) {
         ArrayList<String> list = new ArrayList<>();
         list.add(0, "---");
         list.addAll(analisarAtributosCategoricos(nivel));
@@ -1251,22 +1263,22 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         return list;
     }
 
-    private List<String> analisarAtributosCategoricos(int nivel) {
+    private List<String> analisarAtributosCategoricos(Constantes.NivelGlyph nivel) {
         ArrayList<String> list = new ArrayList<>();
         switch (nivel) {
-            case 1:
+            case NIVEL_1:
                 analisarQuantAtributosCategoricos(list, Constantes.TIPO_TEXTURA);
                 break;
-            case 2:
+            case NIVEL_2:
                 analisarQuantAtributosCategoricos(list, Constantes.getCor());
                 break;
-            case 3:
+            case NIVEL_3:
                 analisarQuantAtributosCategoricos(list, Constantes.TIPOS_FORMAS_GEOMETRICAS);
                 break;
-            case 4:
+            case NIVEL_4:
                 analisarQuantAtributosCategoricos(list, Constantes.LETRAS_ALFABETO);
                 break;
-            case 5:
+            case NIVEL_5:
                 analisarQuantAtributosCategoricos(list, Constantes.NUMEROS);
                 break;
             default:
