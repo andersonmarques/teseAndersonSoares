@@ -683,11 +683,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             layerPane.add(glyphPanel, new Integer(1), 0);
         } else {
             limparCacheGlyphs();
-            atributo1Glyph.setEnabled(false);
-            atributo2Glyph.setEnabled(false);
-            atributo3Glyph.setEnabled(false);
-            atributo4Glyph.setEnabled(false);
-            atributo5Glyph.setEnabled(false);
         }
     }//GEN-LAST:event_checkGlyphActionPerformed
 
@@ -1056,6 +1051,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             glyphPanel.setVisible(false);
             layerPane.remove(glyphPanel);
             glyphPanel = null;
+            atributo1Glyph.setEnabled(false);
+            atributo2Glyph.setEnabled(false);
+            atributo3Glyph.setEnabled(false);
+            atributo4Glyph.setEnabled(false);
+            atributo5Glyph.setEnabled(false);
         }
         if (checkGlyph.isSelected()) {
             checkGlyph.setSelected(false);
@@ -1068,8 +1068,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         for (String cabecalho : manipulador.getCabecalho()) {
             itens.add(cabecalho);
         }
-        String itemRemovido = itens.remove(0);
-        itens2.add(itemRemovido);
+        for (int i = 0; i < 3; i++) {
+            String itemRemovido = itens.remove(0);
+            itens2.add(itemRemovido);
+        }
 
         DefaultComboBoxModel model = new DefaultComboBoxModel(itens.toArray());
         DefaultComboBoxModel model2 = new DefaultComboBoxModel(itens2.toArray());
@@ -1166,11 +1168,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 progressoBarra.setToolTipText("Preparando lista legenda: " + porcentagem + "%");
                 break;
             case 7:
-                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_1), atributo1Glyph);
-                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2), atributo2Glyph);
-                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_3), atributo3Glyph);
-                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_4), atributo4Glyph);
-                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_5), atributo5Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_1, true), atributo1Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2, true), atributo2Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_3, true), atributo3Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_4, true), atributo4Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_5, true), atributo5Glyph);
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis glyph: " + porcentagem + "%");
                 break;
@@ -1180,7 +1182,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 progressoBarra.setToolTipText("Carregando variáveis hierarquia Treemap: " + porcentagem + "%");
                 break;
             case 9:
-                loadItensCoresTreemap(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2));
+                loadItensCoresTreemap(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2, false));
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis cores Treemap: " + porcentagem + "%");
                 break;
@@ -1246,10 +1248,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
      * @return um array contendo os atributos que serao exibidos nas listas dos
      * glyphs
      */
-    private Object[] getListaAtributosCategoricos(Constantes.NivelGlyph nivel) {
+    private Object[] getListaAtributosCategoricos(Constantes.NivelGlyph nivel, boolean glyph) {
         ArrayList<String> list = new ArrayList<>();
         list.add(0, "---");
-        list.addAll(analisarAtributosCategoricos(nivel));
+        list.addAll(analisarAtributosCategoricos(nivel, glyph));
         return list.toArray();
     }
 
@@ -1264,14 +1266,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         return list;
     }
 
-    private List<String> analisarAtributosCategoricos(Constantes.NivelGlyph nivel) {
+    private List<String> analisarAtributosCategoricos(Constantes.NivelGlyph nivel, boolean glyph) {
         ArrayList<String> list = new ArrayList<>();
         switch (nivel) {
             case NIVEL_1:
                 analisarQuantAtributosCategoricos(list, Constantes.TIPO_TEXTURA);
                 break;
             case NIVEL_2:
-                analisarQuantAtributosCategoricos(list, Constantes.getCor());
+                if (glyph) {
+                    analisarQuantAtributosCategoricos(list, Constantes.getCorGlyphs());
+                } else {
+                    analisarQuantAtributosCategoricos(list, Constantes.getCor());
+                }
                 break;
             case NIVEL_3:
                 analisarQuantAtributosCategoricos(list, Constantes.TIPOS_FORMAS_GEOMETRICAS);

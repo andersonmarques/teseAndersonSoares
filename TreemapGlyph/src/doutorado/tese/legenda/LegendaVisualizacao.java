@@ -53,7 +53,7 @@ public class LegendaVisualizacao {
     public JPanel addLegendaCor(String itemCor) {
         JPanel painel = new JPanel(new GridLayout(0, 3));
         painel.setBackground(Color.WHITE);
-        painel.setBorder(BorderFactory.createTitledBorder("Color TreeMap Subtitle"));
+        painel.setBorder(BorderFactory.createTitledBorder("Color TreeMap ("+itemCor+") Subtitle"));
         painel.setBounds(bounds);
         painel.setVisible(true);
 
