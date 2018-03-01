@@ -12,6 +12,7 @@ import doutorado.tese.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
@@ -22,11 +23,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.ListModel;
@@ -245,20 +248,22 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(checkLegenda)
-                            .addGap(18, 18, 18)
-                            .addComponent(legendaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel4))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tamanhoTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(corTreemapComboBox, 0, 166, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(checkLegenda)
+                                .addGap(18, 18, 18)
+                                .addComponent(legendaComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel4))
+                                .addGap(23, 23, 23)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tamanhoTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(corTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(74, 74, 74))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -277,7 +282,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                                     .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel2)))
                     .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(8, 8, 8))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -625,6 +630,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
+            limparResquiciosBasesAnteriores();
+            
             selectedFile = chooser.getSelectedFile();
 
             progressoBarra.setVisible(true);
@@ -634,6 +641,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             task = new Task();
             task.addPropertyChangeListener(this);
             task.execute();
+        }else{
+            JOptionPane.showMessageDialog(null, "The file type can not be read.", "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_fileMenuItemActionPerformed
 
@@ -1030,6 +1039,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         for (int i = 0; i < atributosEscolhidosGlyph.size(); i++) {
             if (!atributosEscolhidosGlyph.get(i).equals("---")) {
                 JPanel painelDimensao = legendaVisualizacao.addLegendaDimensao(i);
+                painelLegendaVis.setLayout(new BoxLayout(painelLegendaVis, BoxLayout.Y_AXIS));
                 painelLegendaVis.add(painelDimensao);
             }
             painelLegendaVis.revalidate();
@@ -1056,6 +1066,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             atributo3Glyph.setEnabled(false);
             atributo4Glyph.setEnabled(false);
             atributo5Glyph.setEnabled(false);
+            painelLegendaVis.removeAll();
+            painelLegendaVis.repaint();
         }
         if (checkGlyph.isSelected()) {
             checkGlyph.setSelected(false);
@@ -1072,7 +1084,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             String itemRemovido = itens.remove(0);
             itens2.add(itemRemovido);
         }
-
+        itens.remove(itens.size() - 1);
         DefaultComboBoxModel model = new DefaultComboBoxModel(itens.toArray());
         DefaultComboBoxModel model2 = new DefaultComboBoxModel(itens2.toArray());
 
@@ -1080,6 +1092,16 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         colunasDetalhesList2.setModel(model2);
         colunasDetalhesList1.setEnabled(true);
         colunasDetalhesList2.setEnabled(true);
+    }
+
+    private void limparResquiciosBasesAnteriores() {
+        limparPainelEsquerda();
+        limparCacheGlyphs();
+        painelLegendaVis.removeAll();
+        Object[] vazio = {};
+        DefaultComboBoxModel model = new DefaultComboBoxModel(vazio);
+        colunasHierarquicasList2.setModel(model);
+        
     }
 
     class Task extends SwingWorker<Void, Void> {
@@ -1177,7 +1199,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 progressoBarra.setToolTipText("Carregando variáveis glyph: " + porcentagem + "%");
                 break;
             case 8:
-                loadItensHierarquiaTreemap(getColunasCategoricas().toArray());
+                loadItensHierarquiaTreemap(getColunasCategoricas().toArray());                
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis hierarquia Treemap: " + porcentagem + "%");
                 break;
