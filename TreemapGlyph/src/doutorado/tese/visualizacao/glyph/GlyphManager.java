@@ -31,14 +31,18 @@ import net.bouthier.treemapAWT.TMNodeModelRoot;
  */
 public final class GlyphManager {
 
-    private final ManipuladorArquivo manipulador;
-    private final List<Object> atributosEscolhidos;
+    private ManipuladorArquivo manipulador;
+    private List<Object> atributosEscolhidos;
     private HashMap<String, List<String>> colunaDadosDist;
     private TMNodeModelRoot rootNodeZoom;
     private boolean dimensao1Ativada, dimensao2Ativada, dimensao3Ativada, dimensao4Ativada, dimensao5Ativada;
     private String letraUtilizada;
     private static String[] shufflerColors;
 
+    public GlyphManager() {
+        
+    }
+    
     public GlyphManager(ManipuladorArquivo manipulador, List<Object> atributosEscolhidos) {
         this.manipulador = manipulador;
         this.atributosEscolhidos = atributosEscolhidos;
@@ -57,23 +61,23 @@ public final class GlyphManager {
         }
     }
 
-    private void adicionarTextura(Graphics g, Rectangle bounds, String textura) {
+    public void adicionarTextura(Graphics g, Rectangle bounds, String textura) {
         Textura t = new Textura(bounds, textura);
         t.paint(g);
     }
 
-    private void adicionarCorForma(Graphics g, Rectangle bounds, Color cor) {
+    public void adicionarCorForma(Graphics g, Rectangle bounds, Color cor) {
         FormaGeometrica f = new FormaGeometrica(bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[Constantes.TIPOS_FORMAS_GEOMETRICAS.length - 1]);
         f.setColor(cor);
         f.paint(g);
     }
 
-    private void adicionarFormaGeometrica(Graphics g, Rectangle bounds, String nomeForma) {
+    public void adicionarFormaGeometrica(Graphics g, Rectangle bounds, String nomeForma) {
         FormaGeometrica f = new FormaGeometrica(bounds, nomeForma);
         f.paint(g);
     }
 
-    private void adicionarLetrasAlfabeto(Graphics g, Rectangle bounds, String letra) {
+    public void adicionarLetrasAlfabeto(Graphics g, Rectangle bounds, String letra) {
         Letra f = new Letra(bounds, letra, false);
         f.paint(g);
     }
@@ -88,7 +92,7 @@ public final class GlyphManager {
      * @param letra
      * @param numero
      */
-    private void adicionarNumeros(Graphics g, Rectangle bounds, String letra, String numero) {
+    public void adicionarNumeros(Graphics g, Rectangle bounds, String letra, String numero) {
         Numeral f = new Numeral(bounds, letra + numero, false);
         f.paint(g);
     }
@@ -100,7 +104,7 @@ public final class GlyphManager {
      * @param bounds
      * @param numero
      */
-    private void adicionarNumeros(Graphics g, Rectangle bounds, String numero) {
+    public void adicionarNumeros(Graphics g, Rectangle bounds, String numero) {
         Numeral f = new Numeral(bounds, numero, false);
         f.paint(g);
     }
@@ -160,7 +164,7 @@ public final class GlyphManager {
         }
     }
 
-    private void calcularPrimeiraDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public void calcularPrimeiraDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.TIPO_TEXTURA.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 adicionarTextura(g, item.getBounds(), Constantes.TIPO_TEXTURA[j]);
@@ -169,7 +173,7 @@ public final class GlyphManager {
         }
     }
 
-    private void calcularSegundaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public void calcularSegundaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.getCor().length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 adicionarCorForma(g, item.getBounds(), Color.decode(getShufflerColors()[j]));
@@ -178,7 +182,7 @@ public final class GlyphManager {
         }
     }
 
-    private void calcularTerceiraDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public void calcularTerceiraDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.TIPOS_FORMAS_GEOMETRICAS.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 adicionarFormaGeometrica(g, item.getBounds(), Constantes.TIPOS_FORMAS_GEOMETRICAS[j]);
@@ -187,7 +191,7 @@ public final class GlyphManager {
         }
     }
 
-    private void calcularQuartaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public void calcularQuartaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.LETRAS_ALFABETO.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 adicionarLetrasAlfabeto(g, item.getBounds(), Constantes.LETRAS_ALFABETO[j]);
@@ -197,7 +201,7 @@ public final class GlyphManager {
         }
     }
 
-    private void calcularQuintaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public void calcularQuintaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.NUMEROS.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 if (dimensao4Ativada) {

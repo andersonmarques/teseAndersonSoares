@@ -56,17 +56,21 @@ public class Numeral {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         montarRetangulo();
-
+               
         int[] points = new int[2];
         points[0] = rect.width;
         points[1] = rect.height;
 
         verificarRetangulo(points);
 
-        int result = points[0] + points[1];
+        int width = points[0];
+        int height = points[1];
+        width = width / 13;
+        height = height / 13;
+        int area = width + height;
 
         //verificação para não desenhar letras muito pequenas
-        if (result > 5) {
+        //if (area > 5) {
             g2d.setFont(getFonte());
             //calculode centro das letras
             int x = calcularFontMetrics(g).x;
@@ -83,7 +87,7 @@ public class Numeral {
             }
 
             g2d.drawString(getNumero(), x, y);
-        }
+        //}
         if (legenda) {
             montarRetangulo();
             g2d.setColor(Color.black);
