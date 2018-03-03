@@ -68,6 +68,7 @@ public class Constantes {
     public final static String[] NUMEROS = {
         "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
     };
+    public static final int LIMITE_TESTES = 100;
 
     public enum NivelGlyph {
         NIVEL_1(1),
