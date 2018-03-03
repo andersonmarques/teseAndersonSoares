@@ -54,13 +54,14 @@ public class MainTeste extends javax.swing.JFrame {
     private String data;
     private int cont = 0;
     private boolean selectAll = true;
+    private HashMap<String, Integer> areas;
 
     /**
      * Creates new form Main
      */
     public MainTeste() {
 
-        data = "Textura,Cor,Forma,Letra,Numero,Altura,Largura,CorFundo,ViuTextura,ViuCor,ViuForma,ViuLetra,ViuNumero";
+        data = "Textura,Cor,Forma,Letra,Numero,Altura,Largura,CorItem,AreaTextura,AreaCor,AreaForma,AreaLetra,AreaNumero,ViuTextura,ViuCor,ViuForma,ViuLetra,ViuNumero";
         rand = new Random(System.currentTimeMillis());
         configs = new HashMap<>();
         output = new HashMap<>();
@@ -75,6 +76,15 @@ public class MainTeste extends javax.swing.JFrame {
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 
         changeConfigs();
+        
+        this.painelEsquerda.setAreaCallback(new PainelDeTeste.AreaCallback() {
+            @Override
+            public void areaUpdated(HashMap<String, Integer> areas) {
+                MainTeste.this.areas = areas;
+            }
+        });
+        
+        updateOutput();
 
     }
 
@@ -295,14 +305,19 @@ public class MainTeste extends javax.swing.JFrame {
             }
         }
         
-        data += "\n"+configs.get("textura")
-                +","+configs.get("cor")
-                +","+configs.get("forma")
-                +","+configs.get("letra")
-                +","+configs.get("numero")
+        data += "\n"+(configs.get("textura")>=0?1:0)
+                +","+(configs.get("cor")>=0?1:0)
+                +","+(configs.get("forma")>=0?1:0)
+                +","+(configs.get("letra")>=0?1:0)
+                +","+(configs.get("numero")>=0?1:0)
                 +","+configs.get("height")
                 +","+configs.get("width")
-                +","+configs.get("coritem")
+                +","+(configs.get("coritem")>=0?1:0)
+                +","+areas.get("textura")
+                +","+areas.get("cor")
+                +","+areas.get("forma")
+                +","+areas.get("letra")
+                +","+areas.get("numero")
                 +","+(checkboxTexture.isSelected() ? 1 : 0)
                 +","+(checkboxCircle.isSelected() ? 1 : 0)
                 +","+(checkboxGeometry.isSelected() ? 1 : 0)

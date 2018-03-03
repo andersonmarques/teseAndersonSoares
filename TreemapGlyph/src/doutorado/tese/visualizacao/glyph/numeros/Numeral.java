@@ -28,6 +28,9 @@ public class Numeral {
     private Font fonte;
     private boolean legenda;
     private boolean ativo;
+    
+    private int trueHeight;
+    private int trueWidth;
 
     public Numeral(Rectangle r, String numero, boolean legenda) {
         this.rect = r;
@@ -73,8 +76,9 @@ public class Numeral {
         //if (area > 5) {
             g2d.setFont(getFonte());
             //calculode centro das letras
-            int x = calcularFontMetrics(g).x;
-            int y = calcularFontMetrics(g).y;
+            Point p = calcularFontMetrics(g);
+            int x = p.x;
+            int y = p.y;
 
             FontMetrics fm = g.getFontMetrics();
             Rectangle2D rect = fm.getStringBounds(getNumero(), g);
@@ -92,7 +96,7 @@ public class Numeral {
             montarRetangulo();
             g2d.setColor(Color.black);
             g2d.setFont(getFonte());
-            g2d.drawString(getNumero(), calcularFontMetrics(g).x, calcularFontMetrics(g).y);
+            g2d.drawString(getNumero(), p.x, p.y);
         }
     }
 
@@ -111,8 +115,12 @@ public class Numeral {
      */
     private Point calcularFontMetrics(Graphics g) {
         FontMetrics metrics = g.getFontMetrics(getFonte());
-        int pX = rect.x + (rect.width - metrics.stringWidth(getNumero())) / 2;
-        int pY = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        
+        trueHeight = metrics.getHeight();
+        trueWidth =  metrics.stringWidth(getNumero());
+        
+        int pX = rect.x + (rect.width - trueWidth) / 2;
+        int pY = rect.y + ((rect.height - trueHeight) / 2) + metrics.getAscent();
 
         return new Point(pX, pY);
     }
@@ -191,5 +199,9 @@ public class Numeral {
      */
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+    
+    public int getArea(){
+        return trueHeight*trueWidth;
     }
 }

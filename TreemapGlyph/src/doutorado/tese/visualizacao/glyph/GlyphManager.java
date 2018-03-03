@@ -62,25 +62,30 @@ public final class GlyphManager {
         }
     }
 
-    public void adicionarTextura(Graphics g, Rectangle bounds, String textura) {
+    public int adicionarTextura(Graphics g, Rectangle bounds, String textura) {
         Textura t = new Textura(bounds, textura);
         t.paint(g);
+        return t.getArea();
     }
 
-    public void adicionarCorForma(Graphics g, Rectangle bounds, Color cor) {
+    public int adicionarCorForma(Graphics g, Rectangle bounds, Color cor) {
         FormaGeometrica f = GeometryFactory.create(bounds, cor, GeometryFactory.FORMAS.CIRCULO);
         f.setColor(cor);
         f.paint(g);
+        return f.getArea();
     }
 
-    public void adicionarFormaGeometrica(Graphics g, Rectangle bounds, String nomeForma) {
+    public int adicionarFormaGeometrica(Graphics g, Rectangle bounds, String nomeForma) {
         FormaGeometrica f = GeometryFactory.create(bounds, null, nomeForma);
         f.paint(g);
+        return f.getArea();
     }
 
-    public void adicionarLetrasAlfabeto(Graphics g, Rectangle bounds, String letra) {
+    public int adicionarLetrasAlfabeto(Graphics g, Rectangle bounds, String letra) {
         Letra f = new Letra(bounds, letra, false);
         f.paint(g);
+        return f.getArea();
+//        return f.getArea();
     }
 
     /**
@@ -105,9 +110,10 @@ public final class GlyphManager {
      * @param bounds
      * @param numero
      */
-    public void adicionarNumeros(Graphics g, Rectangle bounds, String numero) {
+    public int adicionarNumeros(Graphics g, Rectangle bounds, String numero) {
         Numeral f = new Numeral(bounds, numero, false);
         f.paint(g);
+        return f.getArea();
     }
 
     public void paint(Graphics g) {

@@ -21,8 +21,10 @@ import java.awt.geom.Rectangle2D;
  */
 public class Letra {
 
-    private int[] xPoints;
-    private int[] yPoints;
+//    private int[] xPoints;
+//    private int[] yPoints;
+    private int trueWidth;
+    private int trueHeight;
     private Rectangle rect;
     private String letra;
     private Font fonte;
@@ -39,7 +41,7 @@ public class Letra {
         points[0] = rect.width;
         points[1] = rect.height;
 
-        verificarRetangulo(points);
+        retangulo2quadrado(points);
 
         int width = points[0];
         int height = points[1];
@@ -63,14 +65,14 @@ public class Letra {
 
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        montarRetangulo();
+//        montarRetangulo();
         //verificação para não desenhar letras muito pequenas
         
         int[] points = new int[2];
         points[0] = rect.width;
         points[1] = rect.height;
 
-        verificarRetangulo(points);
+        retangulo2quadrado(points);
 
         int width = points[0];
         int height = points[1];
@@ -81,8 +83,9 @@ public class Letra {
         //if (area > 5) {
             g2d.setFont(getFonte());
             //calculode centro das letras
-            int x = calcularFontMetrics(g).x;
-            int y = calcularFontMetrics(g).y;
+            Point p = calcularFontMetrics(g);
+            int x = p.x;
+            int y = p.y;
 
             FontMetrics fm = g.getFontMetrics();
             Rectangle2D rect = fm.getStringBounds(getLetra(), g);
@@ -98,7 +101,7 @@ public class Letra {
             g2d.drawString(letra, x, y);
         //}
         if (legenda) {
-            montarRetangulo();
+//            montarRetangulo();
             g2d.setColor(Color.black);
             g2d.setFont(getFonte());
             g2d.drawString(letra, calcularFontMetrics(g).x, calcularFontMetrics(g).y);
@@ -113,9 +116,13 @@ public class Letra {
      */
     private Point calcularFontMetrics(Graphics g) {
         FontMetrics metrics = g.getFontMetrics(getFonte());
-        int pX = rect.x + (rect.width - metrics.stringWidth(getLetra())) / 2;
-        int pY = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
-
+        
+        trueHeight = metrics.getHeight();
+        trueWidth = metrics.stringWidth(getLetra());
+        
+        int pX = rect.x + (rect.width - trueWidth) / 2;
+        int pY = rect.y + ((rect.height - trueHeight) / 2) + metrics.getAscent();
+        
         return new Point(pX, pY);
     }
 
@@ -126,7 +133,7 @@ public class Letra {
      * @param height
      * @return
      */
-    private int[] verificarRetangulo(int[] point) {
+    private int[] retangulo2quadrado(int[] point) {
         if (point[0] > point[1]) {
             point[0] = point[1];
             return point;
@@ -137,27 +144,17 @@ public class Letra {
         return null;
     }
 
-    private void montarRetangulo() {
-
-        int[] points = new int[2];
-
-        points[0] = rect.width;
-        points[1] = rect.height;
-
-        verificarRetangulo(points);
-
-        int width = (int) Math.round(points[0] * 0.2);
-        int height = (int) Math.round(points[1] * 0.2);
-
-        xPoints = new int[2];
-        yPoints = new int[2];
-
-        xPoints[0] = (int) (rect.x + (rect.x / 2) - width / 2);
-        yPoints[0] = (int) (rect.y + (rect.y / 2) - height / 2);
-
-        xPoints[1] = width;
-        yPoints[1] = height;
-    }
+//    private void montarRetangulo() {
+//
+//        int[] points = new int[2];
+//
+//        points[0] = rect.width;
+//        points[1] = rect.height;
+//
+//        retangulo2quadrado(points);
+//
+//
+//    }
 
     /**
      * @return the fonte
@@ -193,6 +190,10 @@ public class Letra {
      */
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+    
+    public int getArea(){
+        return trueHeight*trueWidth;
     }
 
 }
