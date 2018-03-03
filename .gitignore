@@ -1,10 +1,4 @@
-/TreemapGlyph/dist/
+**/dist
+**/build
 *.class
-TreemapGlyph\build\
-TreemapGlyph/build/
 *.properties
-*.class
-TreemapGlyph/build/classes/doutorado/tese/gui/MainTeste.class
-*.class
-*.class
-TreemapGlyph/build/classes/doutorado/tese/gui/Main$Task.class
