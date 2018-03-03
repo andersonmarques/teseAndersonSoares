@@ -20,6 +20,7 @@ public class Constantes {
     private static boolean showLegenda = false;
     private static boolean showStarGlyph = false;
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
+    public static final int LIMITE_TESTES = 100;
     private static String[] cor = {
         "#3366cc","#dc3912","#ff9900","#109618","#990099","#0099c6","#dd4477",
         "#66aa00","#b82e2e","#316395","#994499","#22aa99","#aaaa11","#6633cc",
