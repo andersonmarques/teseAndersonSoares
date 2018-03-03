@@ -6,3 +6,5 @@ TreemapGlyph/build/
 *.class
 TreemapGlyph/build/classes/doutorado/tese/gui/MainTeste.class
 *.class
+*.class
+TreemapGlyph/build/classes/doutorado/tese/gui/Main$Task.class
