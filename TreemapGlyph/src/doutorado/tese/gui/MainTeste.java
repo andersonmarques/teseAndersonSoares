@@ -93,7 +93,7 @@ public class MainTeste extends javax.swing.JFrame {
         configs.put("numero", rand.nextInt(Constantes.NUMEROS.length));
         configs.put("x", 50);
         configs.put("y", 50);
-        int length = rand.nextInt(150) + 50;
+        int length = rand.nextInt(50) + 50;
         configs.put("width", length - rand.nextInt(45));
         configs.put("height", length - rand.nextInt(45));
         configs.put("coritem", rand.nextInt(Constantes.getCor().length));
@@ -123,6 +123,7 @@ public class MainTeste extends javax.swing.JFrame {
         checkboxGeometry = new javax.swing.JCheckBox();
         checkboxLetter = new javax.swing.JCheckBox();
         checkboxNumber = new javax.swing.JCheckBox();
+        btnSelectAll = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         fileMenuItem = new javax.swing.JMenuItem();
@@ -187,6 +188,13 @@ public class MainTeste extends javax.swing.JFrame {
 
         checkboxNumber.setText("Number");
 
+        btnSelectAll.setText("SelectAll");
+        btnSelectAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectAllActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -196,11 +204,12 @@ public class MainTeste extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnConfirm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                            .addComponent(btnConfirm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(34, 34, 34))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSelectAll)
                             .addComponent(checkboxNumber)
                             .addComponent(checkboxLetter)
                             .addComponent(checkboxGeometry)
@@ -223,7 +232,9 @@ public class MainTeste extends javax.swing.JFrame {
                 .addComponent(checkboxLetter)
                 .addGap(18, 18, 18)
                 .addComponent(checkboxNumber)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                .addGap(46, 46, 46)
+                .addComponent(btnSelectAll)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -296,7 +307,7 @@ public class MainTeste extends javax.swing.JFrame {
     }//GEN-LAST:event_fileMenuItemActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        if(cont>10){
+        if(cont>100){
             PrintWriter writer = null;
             try {
                 File file = new File("result.txt");
@@ -346,6 +357,14 @@ public class MainTeste extends javax.swing.JFrame {
     private void checkboxCircleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxCircleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_checkboxCircleActionPerformed
+
+    private void btnSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectAllActionPerformed
+        checkboxTexture.setSelected(true);
+        checkboxCircle.setSelected(true);
+        checkboxGeometry.setSelected(true);
+        checkboxLetter.setSelected(true);
+        checkboxNumber.setSelected(true);
+    }//GEN-LAST:event_btnSelectAllActionPerformed
 
 //    private ArrayList<Object> getAtributosEscolhidosGlyph() {
 //        ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
@@ -398,6 +417,7 @@ public class MainTeste extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JButton btnConfirm;
+    private javax.swing.JButton btnSelectAll;
     private javax.swing.JCheckBox checkboxCircle;
     private javax.swing.JCheckBox checkboxGeometry;
     private javax.swing.JCheckBox checkboxLetter;
@@ -425,6 +445,7 @@ public class MainTeste extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem fileMenuItem;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JButton btnSelectAll;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
