@@ -13,24 +13,15 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
 //trapezio descendente
-public class Trapezio {
+public class Trapezio extends FormaGeometrica{
 
     private int[] xPoints;
     private int[] yPoints;
-    private Rectangle rect;
 
 
     public Trapezio(Rectangle r) {
-        this.rect = r;
-        setBounds(this.rect);
-    }
-
-    public void setBounds(Rectangle rect) {
-        this.rect = rect;
-    }
-
-    public Rectangle getBounds() {
-        return rect;
+        super(r, "TRAPEZIO");
+        montarTrapezio();
     }
 
     public void paint(Graphics g) {
@@ -38,7 +29,6 @@ public class Trapezio {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2d.setPaint(Color.BLACK);
-        montarTrapezio();
 
         Polygon p = new Polygon();
 
@@ -69,8 +59,8 @@ public class Trapezio {
     private void montarTrapezio() {
         int[] points = new int[2];
 
-        points[0] = rect.width;
-        points[1] = rect.height;
+        points[0] = getBounds().width;
+        points[1] = getBounds().height;
 
         verificarRetangulo(points);
 
@@ -84,24 +74,29 @@ public class Trapezio {
         int innerHeight = height / 4;
 
         
-        halfWidth += rect.x + rect.width/2 - width/2;
-        halfHeight += rect.y + rect.height/2 - height/2;
+        halfWidth += getBounds().x + getBounds().width/2 - width/2;
+        halfHeight += getBounds().y + getBounds().height/2 - height/2;
         
 
         xPoints = new int[4];
         yPoints = new int[4];
 
         xPoints[0] = halfWidth + innerWidth;
-        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[0] = (int) Math.round(getBounds().y + getBounds().height/2 - height/2);
 
         xPoints[1] = halfWidth - innerWidth;
-        yPoints[1] = (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[1] = (int) Math.round(getBounds().y + getBounds().height/2 - height/2);
 
-        xPoints[2] = (int) Math.round(rect.x + rect.width/2 - width/2);
-        yPoints[2] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
+        xPoints[2] = (int) Math.round(getBounds().x + getBounds().width/2 - width/2);
+        yPoints[2] = height + (int) Math.round(getBounds().y + getBounds().height/2 - height/2);
 
-        xPoints[3] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
-        yPoints[3] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
+        xPoints[3] = width + (int) Math.round(getBounds().x + getBounds().width/2 - width/2);
+        yPoints[3] = height + (int) Math.round(getBounds().y + getBounds().height/2 - height/2);
 
+    }
+
+    @Override
+    public int getArea() {
+        return (yPoints[2]-yPoints[0])*(xPoints[3]-xPoints[2]);
     }
 }

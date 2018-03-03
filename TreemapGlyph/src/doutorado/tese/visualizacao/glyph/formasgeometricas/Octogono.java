@@ -12,44 +12,24 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
-public class Octogono {
+public class Octogono extends FormaGeometrica{
 
     private int[] xPoints;
     private int[] yPoints;
-    private Rectangle rect;
+    private Polygon p;
    
 
     public Octogono(Rectangle r) {
-        this.rect = r;
-        setBounds(this.rect);
+        super(r, "OCTOGONO");
+        montarOctogono();
     }
 
-    public void setBounds(Rectangle rect) {
-        this.rect = rect;
-    }
-
-    public Rectangle getBounds() {
-        return rect;
-    }
 
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2d.setPaint(Color.BLACK);
-        montarOctogono();
-
-        Polygon p = new Polygon();
-
-        p.addPoint(xPoints[0], yPoints[0]);
-        p.addPoint(xPoints[1], yPoints[1]);
-        p.addPoint(xPoints[2], yPoints[2]);
-        p.addPoint(xPoints[3], yPoints[3]);
-        p.addPoint(xPoints[4], yPoints[4]);
-        p.addPoint(xPoints[5], yPoints[5]);
-        p.addPoint(xPoints[6], yPoints[6]);
-        p.addPoint(xPoints[7], yPoints[7]);
-
         
 
         g2d.setColor(Color.white);
@@ -73,6 +53,8 @@ public class Octogono {
     
     private void montarOctogono() {
         int[] points = new int[2];
+        
+        Rectangle rect = getBounds();
 
         points[0] = rect.width;
         points[1] = rect.height;
@@ -119,5 +101,21 @@ public class Octogono {
         xPoints[7] = halfWidth + innerWidth;
         yPoints[7] = (int) Math.round(rect.y + rect.height/2 - height/2);
         
+        p = new Polygon();
+
+        p.addPoint(xPoints[0], yPoints[0]);
+        p.addPoint(xPoints[1], yPoints[1]);
+        p.addPoint(xPoints[2], yPoints[2]);
+        p.addPoint(xPoints[3], yPoints[3]);
+        p.addPoint(xPoints[4], yPoints[4]);
+        p.addPoint(xPoints[5], yPoints[5]);
+        p.addPoint(xPoints[6], yPoints[6]);
+        p.addPoint(xPoints[7], yPoints[7]);
+        
+    }
+
+    @Override
+    public int getArea() {
+        return (xPoints[5]-xPoints[1])*(yPoints[3]-yPoints[0]);
     }
 }

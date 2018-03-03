@@ -22,6 +22,7 @@ public class PainelDeTeste extends javax.swing.JPanel {
     
     
     private HashMap<String, Integer> configs;
+    private HashMap<String, Boolean> output;
     
     
     /**
@@ -55,6 +56,11 @@ public class PainelDeTeste extends javax.swing.JPanel {
     
     public void setConfigs(HashMap<String, Integer> configs){
         this.configs = configs;
+        repaint();
+    }
+    
+    public void updateOutput(HashMap<String, Boolean> output){
+        this.output = output;
         repaint();
     }
     

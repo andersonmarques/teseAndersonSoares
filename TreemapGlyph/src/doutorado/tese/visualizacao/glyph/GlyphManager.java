@@ -10,6 +10,7 @@ import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.visualizacao.glyph.alfabeto.Letra;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
+import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import doutorado.tese.visualizacao.glyph.numeros.Numeral;
 //import doutorado.tese.visualizacao.glyph.numeros.Numeral;
 import doutorado.tese.visualizacao.glyph.texture.Textura;
@@ -67,13 +68,13 @@ public final class GlyphManager {
     }
 
     public void adicionarCorForma(Graphics g, Rectangle bounds, Color cor) {
-        FormaGeometrica f = new FormaGeometrica(bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[Constantes.TIPOS_FORMAS_GEOMETRICAS.length - 1]);
+        FormaGeometrica f = GeometryFactory.create(bounds, cor, GeometryFactory.FORMAS.CIRCULO);
         f.setColor(cor);
         f.paint(g);
     }
 
     public void adicionarFormaGeometrica(Graphics g, Rectangle bounds, String nomeForma) {
-        FormaGeometrica f = new FormaGeometrica(bounds, nomeForma);
+        FormaGeometrica f = GeometryFactory.create(bounds, null, nomeForma);
         f.paint(g);
     }
 

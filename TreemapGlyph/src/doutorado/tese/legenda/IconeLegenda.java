@@ -8,6 +8,7 @@ package doutorado.tese.legenda;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.visualizacao.glyph.alfabeto.Letra;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
+import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import doutorado.tese.visualizacao.glyph.numeros.Numeral;
 import doutorado.tese.visualizacao.glyph.texture.Textura;
 import java.awt.BasicStroke;
@@ -42,12 +43,11 @@ public class IconeLegenda implements Icon {
                 t.paint(g);
                 break;
             case 1:
-                FormaGeometrica f = new FormaGeometrica(bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[Constantes.TIPOS_FORMAS_GEOMETRICAS.length - 1]);
-                f.setColor(Color.decode(valor));
+                FormaGeometrica f = GeometryFactory.create(bounds, Color.decode(valor), GeometryFactory.FORMAS.CIRCULO);
                 f.paint(g);
                 break;
             case 2:
-                FormaGeometrica forma = new FormaGeometrica(bounds, valor);
+                FormaGeometrica forma = GeometryFactory.create(bounds, null, valor);
                 forma.paint(g);
                 break;
             case 3:

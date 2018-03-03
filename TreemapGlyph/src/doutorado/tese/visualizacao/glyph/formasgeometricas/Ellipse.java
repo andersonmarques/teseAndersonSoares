@@ -6,34 +6,22 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
-public class Ellipse {
+public class Ellipse extends FormaGeometrica{
 
     private int[] xPoints;
     private int[] yPoints;
-    private Rectangle rect;
-    private int numberColor;
-    private Color cor;
 
     public Ellipse(Rectangle r) {
-        this.rect = r;
-        setBounds(this.rect);
-        this.cor = cor;
-    }
-  
-
-    public void setBounds(Rectangle rect) {
-        this.rect = rect;
-    }
-
-    public Rectangle getBounds() {
-        return rect;
+        super(r, "ELLIPSE");
+        montarEllipse();
     }
     
 
+    @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        montarEllipse();
+        
        
         g2d.setColor(Color.white);
         g2d.fillOval(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
@@ -58,8 +46,8 @@ public class Ellipse {
     private void montarEllipse() {
         int[] points = new int[2];
 
-        points[0] = rect.width;
-        points[1] = rect.height;
+        points[0] = getBounds().width;
+        points[1] = getBounds().height;
 
         verificarRetangulo(points);
 
@@ -70,11 +58,16 @@ public class Ellipse {
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = (int) (rect.x + rect.width/2 - width/2);
-        yPoints[0] = (int) (rect.y + rect.height/2 - height/2);
+        xPoints[0] = (int) (getBounds().x + getBounds().width/2 - width/2);
+        yPoints[0] = (int) (getBounds().y + getBounds().height/2 - height/2);
 
         xPoints[1] = (int) (width);
         yPoints[1] = (int) (height);
+    }
+
+    @Override
+    public int getArea() {
+        return xPoints[1]*yPoints[1];
     }
 
 }

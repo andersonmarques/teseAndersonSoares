@@ -35,6 +35,10 @@ public class Textura {
     public Rectangle getBounds() {
         return rect;
     }
+    
+    public int getArea(){
+        return xPoints[1]*yPoints[1];
+    }
 
     public void paint(Graphics g) {
         TMPatternFactory textura = TMPatternFactory.getInstance();

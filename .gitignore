@@ -3,3 +3,6 @@
 TreemapGlyph\build\
 TreemapGlyph/build/
 *.properties
+*.class
+TreemapGlyph/build/classes/doutorado/tese/gui/MainTeste.class
+*.class

@@ -222,16 +222,25 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Geometry"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxGeometryActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkboxLetter">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Letter"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxLetterActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkboxNumber">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Number"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxNumberActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnSelectAll">
               <Properties>

@@ -12,24 +12,16 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
-public class Pentagono {
+public class Pentagono extends FormaGeometrica{
 
     private int[] xPoints;
     private int[] yPoints;
-    private Rectangle rect;
+    private Polygon p;
     
 
     public Pentagono(Rectangle r) {
-        this.rect = r;
-        setBounds(this.rect);
-    }
-
-    public void setBounds(Rectangle rect) {
-        this.rect = rect;
-    }
-
-    public Rectangle getBounds() {
-        return rect;
+        super(r, "PENTAGONO");
+        montarPentagono();
     }
 
     public void paint(Graphics g) {
@@ -37,15 +29,7 @@ public class Pentagono {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2d.setPaint(Color.BLACK);
-        montarPentagono();
-
-        Polygon p = new Polygon();
-
-        p.addPoint(xPoints[0], yPoints[0]);
-        p.addPoint(xPoints[1], yPoints[1]);
-        p.addPoint(xPoints[2], yPoints[2]);
-        p.addPoint(xPoints[3], yPoints[3]);
-        p.addPoint(xPoints[4], yPoints[4]);
+        
         //p.translate(xy[0], xy[1]);
 
         g2d.setColor(Color.white);
@@ -71,6 +55,8 @@ public class Pentagono {
     private void montarPentagono() {
         int[] points = new int[2];
 
+        Rectangle rect = getBounds();
+        
         points[0] = rect.width;
         points[1] = rect.height;
 
@@ -107,6 +93,19 @@ public class Pentagono {
 
         xPoints[4] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
         yPoints[4] = halfHeight;
+        
+        p = new Polygon();
 
+        p.addPoint(xPoints[0], yPoints[0]);
+        p.addPoint(xPoints[1], yPoints[1]);
+        p.addPoint(xPoints[2], yPoints[2]);
+        p.addPoint(xPoints[3], yPoints[3]);
+        p.addPoint(xPoints[4], yPoints[4]);
+
+    }
+
+    @Override
+    public int getArea() {
+        return (xPoints[4]-xPoints[1])*(yPoints[3]-yPoints[0]);
     }
 }

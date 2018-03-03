@@ -10,14 +10,8 @@ import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
-import doutorado.tese.visualizacao.glyph.GlyphManager;
-import static doutorado.tese.visualizacao.glyph.GlyphManager.getShufflerColors;
-import doutorado.tese.visualizacao.treemap.Rect;
-import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -54,9 +48,11 @@ public class MainTeste extends javax.swing.JFrame {
 
     
     private HashMap<String, Integer> configs;
+    private HashMap<String, Boolean> output;
     private Random rand;
     private String data;
     private int cont = 0;
+    private boolean selectAll = true;
     
     /**
      * Creates new form Main
@@ -66,6 +62,7 @@ public class MainTeste extends javax.swing.JFrame {
         data = "Textura,Cor,Forma,Letra,Numero,Altura,Largura,CorFundo,ViuTextura,ViuCor,ViuForma,ViuLetra,ViuNumero";
         rand = new Random(System.currentTimeMillis());
         configs = new HashMap<>();
+        output = new HashMap<>();
         
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -183,10 +180,25 @@ public class MainTeste extends javax.swing.JFrame {
         });
 
         checkboxGeometry.setText("Geometry");
+        checkboxGeometry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxGeometryActionPerformed(evt);
+            }
+        });
 
         checkboxLetter.setText("Letter");
+        checkboxLetter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxLetterActionPerformed(evt);
+            }
+        });
 
         checkboxNumber.setText("Number");
+        checkboxNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxNumberActionPerformed(evt);
+            }
+        });
 
         btnSelectAll.setText("SelectAll");
         btnSelectAll.addActionListener(new java.awt.event.ActionListener() {
@@ -340,32 +352,61 @@ public class MainTeste extends javax.swing.JFrame {
         
         
         
-            checkboxTexture.setSelected(false);
-            checkboxCircle.setSelected(false);
-            checkboxGeometry.setSelected(false);
-            checkboxLetter.setSelected(false);
-            checkboxNumber.setSelected(false);
+        checkboxTexture.setSelected(false);
+        checkboxCircle.setSelected(false);
+        checkboxGeometry.setSelected(false);
+        checkboxLetter.setSelected(false);
+        checkboxNumber.setSelected(false);
+        output.put("texture", false);
+        output.put("circle", false);
+        output.put("geometry", false);
+        output.put("letter", false);
+        output.put("number", false);
         
         
         changeConfigs();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void checkboxTextureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxTextureActionPerformed
-        // TODO add your handling code here:
+        updateOutput();
     }//GEN-LAST:event_checkboxTextureActionPerformed
 
     private void checkboxCircleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxCircleActionPerformed
-        // TODO add your handling code here:
+        updateOutput();
     }//GEN-LAST:event_checkboxCircleActionPerformed
 
     private void btnSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectAllActionPerformed
-        checkboxTexture.setSelected(true);
-        checkboxCircle.setSelected(true);
-        checkboxGeometry.setSelected(true);
-        checkboxLetter.setSelected(true);
-        checkboxNumber.setSelected(true);
+        checkboxTexture.setSelected(selectAll);
+        checkboxCircle.setSelected(selectAll);
+        checkboxGeometry.setSelected(selectAll);
+        checkboxLetter.setSelected(selectAll);
+        checkboxNumber.setSelected(selectAll);
+        selectAll = !selectAll;
+        updateOutput();
     }//GEN-LAST:event_btnSelectAllActionPerformed
 
+    private void checkboxGeometryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxGeometryActionPerformed
+        updateOutput();
+    }//GEN-LAST:event_checkboxGeometryActionPerformed
+
+    private void checkboxLetterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxLetterActionPerformed
+        updateOutput();
+    }//GEN-LAST:event_checkboxLetterActionPerformed
+
+    private void checkboxNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxNumberActionPerformed
+        updateOutput();
+    }//GEN-LAST:event_checkboxNumberActionPerformed
+
+    
+    private void updateOutput(){
+        output.put("texture", checkboxTexture.isSelected());
+        output.put("circle", checkboxCircle.isSelected());
+        output.put("geometry", checkboxGeometry.isSelected());
+        output.put("letter", checkboxLetter.isSelected());
+        output.put("number", checkboxNumber.isSelected());
+        painelEsquerda.updateOutput(output);
+    }
+    
 //    private ArrayList<Object> getAtributosEscolhidosGlyph() {
 //        ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
 //        atributosEscolhidosGlyph.add(atributo1Glyph.getSelectedItem());

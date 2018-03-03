@@ -13,24 +13,15 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
 
-public class Losango{
+public class Losango extends FormaGeometrica{
 
     private int[] xPoints;
     private int[] yPoints;
-    private Rectangle rect;
 
 
     public Losango(Rectangle r) {
-        this.rect = r;
-        setBounds(this.rect);
-    }
-    
-    public void setBounds(Rectangle rect){
-        this.rect = rect;
-    }
-    
-    public Rectangle getBounds(){
-        return rect;
+        super(r, "LOSANGO");
+        montarLosango();
     }
 
     public void paint(Graphics g) {
@@ -41,7 +32,7 @@ public class Losango{
         
         g2d.setPaint(Color.BLACK);
         
-        montarLosango();        
+                
         
         Polygon p = new Polygon();
         
@@ -73,8 +64,8 @@ public class Losango{
     private void montarLosango() {
         int[] points = new int[2];
 
-        points[0] = rect.width;
-        points[1] = rect.height;
+        points[0] = getBounds().width;
+        points[1] = getBounds().height;
 
         verificarRetangulo(points);
 
@@ -87,20 +78,20 @@ public class Losango{
         int innerWidth = width / 2;
         int innerHeight = height /2;
 
-        halfWidth += rect.x + rect.width/2 - width/2;
-        halfHeight += rect.y + rect.height/2 - height/2;
+        halfWidth += getBounds().x + getBounds().width/2 - width/2;
+        halfHeight += getBounds().y + getBounds().height/2 - height/2;
 
         xPoints = new int[4];
         yPoints = new int[4];
 
         xPoints[0] = halfWidth;
-        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[0] = (int) Math.round(getBounds().y + getBounds().height/2 - height/2);
 
         xPoints[1] = halfWidth-innerWidth;
         yPoints[1] = halfHeight;
 
         xPoints[2] = halfWidth;
-        yPoints[2] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[2] = height + (int) Math.round(getBounds().y + getBounds().height/2 - height/2);
 
         xPoints[3] = halfWidth + innerWidth;
         yPoints[3] = halfHeight;
@@ -109,5 +100,10 @@ public class Losango{
 
      
 
+    }
+
+    @Override
+    public int getArea() {
+        return (yPoints[2]-yPoints[0])*(xPoints[3]-xPoints[1]);
     }
 }
