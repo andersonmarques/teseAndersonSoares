@@ -1,1 +1,3 @@
 /TreemapGlyph/dist/
+*.class
+TreemapGlyph\build\*
