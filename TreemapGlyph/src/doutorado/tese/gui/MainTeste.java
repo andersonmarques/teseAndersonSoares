@@ -6,40 +6,20 @@
 
 package doutorado.tese.gui;
 
-import doutorado.tese.io.ManipuladorArquivo;
-import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
-import doutorado.tese.legenda.LegendaVisualizacao;
-import doutorado.tese.util.Metadados;
-import java.awt.Color;
-import java.awt.Cursor;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JLayeredPane;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
-import net.bouthier.treemapAWT.TMView;
 
 /**
  *
@@ -55,6 +35,7 @@ public class MainTeste extends javax.swing.JFrame {
     private int cont = 0;
     private boolean selectAll = true;
     private HashMap<String, Integer> areas;
+    private int[] glyphlayers2draw = {0,1,2,3,4,5,6,7};
 
     /**
      * Creates new form Main
@@ -460,5 +441,20 @@ public class MainTeste extends javax.swing.JFrame {
 
     static MainTeste frame;    
     private javax.swing.JLabel contadorLabel;
+    
+    
+    
+    public static void shuffleArray(int[] ar) {
+    // If running on Java 6 or older, use `new Random()` on RHS here
+    Random rnd = ThreadLocalRandom.current();
+    for (int i = ar.length - 1; i > 0; i--)
+    {
+      int index = rnd.nextInt(i + 1);
+      // Simple swap
+      int a = ar[index];
+      ar[index] = ar[i];
+      ar[i] = a;
+    }
+  }
 
 }
