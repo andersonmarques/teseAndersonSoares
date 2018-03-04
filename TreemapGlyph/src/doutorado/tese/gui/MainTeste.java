@@ -33,13 +33,16 @@ public class MainTeste extends javax.swing.JFrame {
     private HashMap<String, Boolean> output;
     private Random rand;
     private String data;
-    private int cont = 0;
     private boolean selectAll = true;
     private HashMap<String, Integer> areas;
     private int[] glyphlayers2draw = {0,1,2,3,4,5};
     private String [] layers = new String[]{"textura","cor","forma","letra","numero","coritem"};
     private HashMap<String, JCheckBox> checkboxes;
-    private int numLayers2remove = 3;
+    
+    private int cont = 0;
+    private int numLayers2remove = 0;
+    private int numAmostras = 100;
+    private int step = (numAmostras/6)+1;
 
     /**
      * Creates new form Main
@@ -84,8 +87,11 @@ public class MainTeste extends javax.swing.JFrame {
     public void changeConfigs() {
         selectAll = true;
         cont++;
-        contadorLabel.setText(cont+" / "+Constantes.LIMITE_TESTES);
+        contadorLabel.setText(cont+" / "+numAmostras);
         System.out.println("Quantidade: " + cont);
+        
+        if(cont % step == 0)
+            numLayers2remove++;
         
         
         configs.put("textura", rand.nextInt(Constantes.TIPO_TEXTURA.length));
@@ -293,7 +299,7 @@ public class MainTeste extends javax.swing.JFrame {
     }
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        if (cont >= 10) {
+        if (cont >= numAmostras) {
             PrintWriter writer = null;
             try {
                 File file = new File("result.txt");
