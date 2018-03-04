@@ -19,14 +19,11 @@ import java.util.HashMap;
  */
 public class PainelDeTeste extends javax.swing.JPanel {
 
-    
-    
     private HashMap<String, Integer> configs;
     private HashMap<String, Boolean> output;
     private HashMap<String, Integer> areas;
     private AreaCallback areaCallback;
-    
-    
+
     /**
      * Creates new form PainelDeTeste
      */
@@ -37,7 +34,7 @@ public class PainelDeTeste extends javax.swing.JPanel {
         initComponents();
         this.areaCallback = new AreaCallback() {
             @Override
-            public void areaUpdated(HashMap<String, Integer> areas) {                
+            public void areaUpdated(HashMap<String, Integer> areas) {
             }
         };
     }
@@ -46,71 +43,76 @@ public class PainelDeTeste extends javax.swing.JPanel {
     public void paint(Graphics g) {
         super.paint(g); //To change body of generated methods, choose Tools | Templates.
         Graphics2D g2d = (Graphics2D) g;
-        
+
         g2d.setColor(Color.decode(Constantes.getCor()[configs.get("coritem")]));
-        g2d.fillRect(configs.get("x"),configs.get("y"),configs.get("width"),configs.get("height"));
+        g2d.fillRect(configs.get("x"), configs.get("y"), configs.get("width"), configs.get("height"));
         g2d.setColor(Color.BLACK);
-        g2d.drawRect(configs.get("x"),configs.get("y"),configs.get("width"),configs.get("height"));
-        
-        GlyphManager manager = new GlyphManager();              
+        g2d.drawRect(configs.get("x"), configs.get("y"), configs.get("width"), configs.get("height"));
+
+        GlyphManager manager = new GlyphManager();
         Rectangle bounds = new Rectangle(configs.get("x"), configs.get("y"), configs.get("width"), configs.get("height"));
-        System.out.println("width: "+configs.get("width") +" height: "+configs.get("height"));
+        System.out.println("width: " + configs.get("width") + " height: " + configs.get("height"));
         int at = manager.adicionarTextura(g, bounds, Constantes.TIPO_TEXTURA[configs.get("textura").intValue()]);
         int ac = manager.adicionarCorForma(g, bounds, Color.decode(Constantes.getCorGlyphs()[configs.get("cor").intValue()]));
         int af = manager.adicionarFormaGeometrica(g, bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[configs.get("forma").intValue()]);
-        int al = manager.adicionarLetrasAlfabeto(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("forma").intValue()]);
-        int an = manager.adicionarNumeros(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("forma").intValue()]+Constantes.NUMEROS[configs.get("forma").intValue()]);
-        
+        int al = manager.adicionarLetrasAlfabeto(g, bounds, Constantes.LETRAS_ALFABETO[configs.get("forma").intValue()]);
+        int an = manager.adicionarNumeros(g, bounds, Constantes.LETRAS_ALFABETO[configs.get("forma").intValue()] + Constantes.NUMEROS[configs.get("forma").intValue()]);
+
         areas.put("textura", at);
         areas.put("cor", ac);
         areas.put("forma", af);
         areas.put("letra", al);
         areas.put("numero", an);
-        
+
         this.areaCallback.areaUpdated(areas);
-        
+
         bounds.x = 400;
-        
+
         g2d.setColor(Color.decode(Constantes.getCor()[configs.get("coritem")]));
-        g2d.fillRect(bounds.x,bounds.y,configs.get("width"),configs.get("height"));
+        g2d.fillRect(bounds.x, bounds.y, configs.get("width"), configs.get("height"));
         g2d.setColor(Color.BLACK);
-        g2d.drawRect(bounds.x,bounds.y,configs.get("width"),configs.get("height"));
-        
-        if(output.get("texture"))
+        g2d.drawRect(bounds.x, bounds.y, configs.get("width"), configs.get("height"));
+
+        if (output.get("texture")) {
             manager.adicionarTextura(g, bounds, Constantes.TIPO_TEXTURA[configs.get("textura").intValue()]);
-        if(output.get("circle"))
+        }
+        if (output.get("circle")) {
             manager.adicionarCorForma(g, bounds, Color.decode(Constantes.getCorGlyphs()[configs.get("cor").intValue()]));
-        if(output.get("geometry"))
+        }
+        if (output.get("geometry")) {
             manager.adicionarFormaGeometrica(g, bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[configs.get("forma").intValue()]);
-        if(output.get("letter"))
-            manager.adicionarLetrasAlfabeto(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("forma").intValue()]);
-        if(output.get("number"))
-            manager.adicionarNumeros(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("forma").intValue()]+Constantes.NUMEROS[configs.get("forma").intValue()]);
-        
-        
+        }
+        if (output.get("letter")) {
+            manager.adicionarLetrasAlfabeto(g, bounds, Constantes.LETRAS_ALFABETO[configs.get("forma").intValue()]);
+        }
+        if (output.get("number")) {
+            if (output.get("letter")) {
+                manager.adicionarNumeros(g, bounds, Constantes.LETRAS_ALFABETO[configs.get("forma").intValue()] + Constantes.NUMEROS[configs.get("forma").intValue()]);
+            } else {
+                manager.adicionarNumeros(g, bounds, Constantes.NUMEROS[configs.get("forma").intValue()]);
+            }
+        }
     }
 
-    
-    public void setAreaCallback(AreaCallback areaCallback){
+    public void setAreaCallback(AreaCallback areaCallback) {
         this.areaCallback = areaCallback;
     }
-    
-    public interface AreaCallback{
+
+    public interface AreaCallback {
+
         public void areaUpdated(HashMap<String, Integer> areas);
     }
-    
-    
-    
-    public void setConfigs(HashMap<String, Integer> configs){
+
+    public void setConfigs(HashMap<String, Integer> configs) {
         this.configs = configs;
         repaint();
     }
-    
-    public void updateOutput(HashMap<String, Boolean> output){
+
+    public void updateOutput(HashMap<String, Boolean> output) {
         this.output = output;
         repaint();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
