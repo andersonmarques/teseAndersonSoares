@@ -17,6 +17,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBox;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -35,7 +36,10 @@ public class MainTeste extends javax.swing.JFrame {
     private int cont = 0;
     private boolean selectAll = true;
     private HashMap<String, Integer> areas;
-    private int[] glyphlayers2draw = {0,1,2,3,4,5,6,7};
+    private int[] glyphlayers2draw = {0,1,2,3,4};
+    private String [] layers = new String[]{"textura","cor","forma","letra","numero"};
+    private HashMap<String, JCheckBox> checkboxes;
+    private int numLayers2remove = 3;
 
     /**
      * Creates new form Main
@@ -55,6 +59,13 @@ public class MainTeste extends javax.swing.JFrame {
         initComponents();
 
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+        
+        checkboxes = new HashMap<>();
+        checkboxes.put("textura", checkboxTexture);
+        checkboxes.put("cor", checkboxCircle);
+        checkboxes.put("forma", checkboxGeometry);
+        checkboxes.put("letra", checkboxLetter);
+        checkboxes.put("numero", checkboxNumber);
 
         changeConfigs();
         
@@ -67,12 +78,15 @@ public class MainTeste extends javax.swing.JFrame {
         
         updateOutput();
 
+        
     }
 
     public void changeConfigs() {
         cont++;
         contadorLabel.setText(cont+" / "+Constantes.LIMITE_TESTES);
         System.out.println("Quantidade: " + cont);
+        
+        
         configs.put("textura", rand.nextInt(Constantes.TIPO_TEXTURA.length));
         configs.put("cor", rand.nextInt(Constantes.getCorGlyphs().length));
         configs.put("forma", rand.nextInt(Constantes.TIPOS_FORMAS_GEOMETRICAS.length - 1));
@@ -84,6 +98,13 @@ public class MainTeste extends javax.swing.JFrame {
         configs.put("width", length - rand.nextInt(45));
         configs.put("height", length - rand.nextInt(45));
         configs.put("coritem", rand.nextInt(Constantes.getCor().length));
+        
+        shuffleArray(glyphlayers2draw);
+        for (int i = 0; i < numLayers2remove; i++) {
+            configs.put(layers[glyphlayers2draw[i]], -1);
+            checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
+        }
+            
 
         painelEsquerda.setConfigs(configs);
     }
@@ -306,12 +327,10 @@ public class MainTeste extends javax.swing.JFrame {
                 +","+(checkboxNumber.isSelected() ? 1 : 0);
         
 
-
-        checkboxTexture.setSelected(false);
-        checkboxCircle.setSelected(false);
-        checkboxGeometry.setSelected(false);
-        checkboxLetter.setSelected(false);
-        checkboxNumber.setSelected(false);
+        for(JCheckBox c : checkboxes.values()){
+            c.setSelected(false);
+            c.setEnabled(true);
+        }
 
         output.put("texture", false);
         output.put("circle", false);
@@ -331,11 +350,10 @@ public class MainTeste extends javax.swing.JFrame {
     }//GEN-LAST:event_checkboxCircleActionPerformed
 
     private void btnSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectAllActionPerformed
-        checkboxTexture.setSelected(selectAll);
-        checkboxCircle.setSelected(selectAll);
-        checkboxGeometry.setSelected(selectAll);
-        checkboxLetter.setSelected(selectAll);
-        checkboxNumber.setSelected(selectAll);
+        for(JCheckBox c : checkboxes.values()){
+            if(c.isEnabled())
+                c.setSelected(selectAll);
+        }
         selectAll = !selectAll;
         updateOutput();
     }//GEN-LAST:event_btnSelectAllActionPerformed

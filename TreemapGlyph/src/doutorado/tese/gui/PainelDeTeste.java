@@ -55,11 +55,23 @@ public class PainelDeTeste extends javax.swing.JPanel {
         GlyphManager manager = new GlyphManager();              
         Rectangle bounds = new Rectangle(configs.get("x"), configs.get("y"), configs.get("width"), configs.get("height"));
         System.out.println("width: "+configs.get("width") +" height: "+configs.get("height"));
-        int at = manager.adicionarTextura(g, bounds, Constantes.TIPO_TEXTURA[configs.get("textura").intValue()]);
-        int ac = manager.adicionarCorForma(g, bounds, Color.decode(Constantes.getCorGlyphs()[configs.get("cor").intValue()]));
-        int af = manager.adicionarFormaGeometrica(g, bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[configs.get("forma").intValue()]);
-        int al = manager.adicionarLetrasAlfabeto(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("forma").intValue()]);
-        int an = manager.adicionarNumeros(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("forma").intValue()]+Constantes.NUMEROS[configs.get("forma").intValue()]);
+        int at = 0, ac = 0, af = 0, al = 0, an =0;
+        if(configs.get("textura") >=0)
+            at = manager.adicionarTextura(g, bounds, Constantes.TIPO_TEXTURA[configs.get("textura")]);
+        if(configs.get("cor") >=0)
+            ac = manager.adicionarCorForma(g, bounds, Color.decode(Constantes.getCorGlyphs()[configs.get("cor")]));
+        if(configs.get("forma") >=0)
+            af = manager.adicionarFormaGeometrica(g, bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[configs.get("forma")]);
+        if(configs.get("letra") >=0 && configs.get("numero") >=0){
+            an = manager.adicionarNumeros(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("letra")]+Constantes.NUMEROS[configs.get("numero")]);
+            al = an;
+        }else{
+            if(configs.get("letra") >=0)
+                al = manager.adicionarLetrasAlfabeto(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("letra")]);        
+            if(configs.get("numero") >=0)
+                an = manager.adicionarNumeros(g, bounds,Constantes.NUMEROS[configs.get("numero")]);
+        }
+        
         
         areas.put("textura", at);
         areas.put("cor", ac);
@@ -77,15 +89,22 @@ public class PainelDeTeste extends javax.swing.JPanel {
         g2d.drawRect(bounds.x,bounds.y,configs.get("width"),configs.get("height"));
         
         if(output.get("texture"))
-            manager.adicionarTextura(g, bounds, Constantes.TIPO_TEXTURA[configs.get("textura").intValue()]);
+            manager.adicionarTextura(g, bounds, Constantes.TIPO_TEXTURA[configs.get("textura")]);
         if(output.get("circle"))
-            manager.adicionarCorForma(g, bounds, Color.decode(Constantes.getCorGlyphs()[configs.get("cor").intValue()]));
+            manager.adicionarCorForma(g, bounds, Color.decode(Constantes.getCorGlyphs()[configs.get("cor")]));
         if(output.get("geometry"))
-            manager.adicionarFormaGeometrica(g, bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[configs.get("forma").intValue()]);
-        if(output.get("letter"))
-            manager.adicionarLetrasAlfabeto(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("forma").intValue()]);
-        if(output.get("number"))
-            manager.adicionarNumeros(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("forma").intValue()]+Constantes.NUMEROS[configs.get("forma").intValue()]);
+            manager.adicionarFormaGeometrica(g, bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[configs.get("forma")]);
+        if(output.get("letter") && output.get("number"))
+            manager.adicionarNumeros(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("letra")]+Constantes.NUMEROS[configs.get("numero")]);
+        else{
+            if(output.get("letter"))
+                manager.adicionarLetrasAlfabeto(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("letra")]);
+            if(output.get("number"))
+                manager.adicionarNumeros(g, bounds,Constantes.NUMEROS[configs.get("numero")]);
+        }
+        
+        
+            
         
         
     }
