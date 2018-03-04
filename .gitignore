@@ -3,3 +3,4 @@
 **/nbproject
 *.class
 *.properties
+*result*.txt
