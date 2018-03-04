@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package doutorado.tese.gui;
 
 import doutorado.tese.util.Constantes;
@@ -18,6 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
+import javax.swing.JSeparator;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -28,21 +28,21 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class MainTeste extends javax.swing.JFrame {
 
-    
     private HashMap<String, Integer> configs;
     private HashMap<String, Boolean> output;
     private Random rand;
     private String data;
     private boolean selectAll = true;
     private HashMap<String, Integer> areas;
-    private int[] glyphlayers2draw = {0,1,2,3,4,5};
-    private String [] layers = new String[]{"textura","cor","forma","letra","numero","coritem"};
+    private int[] glyphlayers2draw = {0, 1, 2, 3, 4, 5};
+    private String[] layers = new String[]{"textura", "cor", "forma", "letra", "numero", "coritem"};
     private HashMap<String, JCheckBox> checkboxes;
-    
+
     private int cont = 0;
     private int numLayers2remove = 0;
     private int numAmostras = 100;
-    private int step = (numAmostras/6)+1;
+    private int step = (numAmostras / 6) + 1;
+    private String nomeArquivo = "result_"+System.getProperty("user.name")+".csv";
 
     /**
      * Creates new form Main
@@ -53,7 +53,7 @@ public class MainTeste extends javax.swing.JFrame {
         rand = new Random(System.currentTimeMillis());
         configs = new HashMap<>();
         output = new HashMap<>();
-        
+
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -62,7 +62,7 @@ public class MainTeste extends javax.swing.JFrame {
         initComponents();
 
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-        
+
         checkboxes = new HashMap<>();
         checkboxes.put("textura", checkboxTexture);
         checkboxes.put("cor", checkboxCircle);
@@ -71,29 +71,27 @@ public class MainTeste extends javax.swing.JFrame {
         checkboxes.put("numero", checkboxNumber);
 
         changeConfigs();
-        
+
         this.painelEsquerda.setAreaCallback(new PainelDeTeste.AreaCallback() {
             @Override
             public void areaUpdated(HashMap<String, Integer> areas) {
                 MainTeste.this.areas = areas;
             }
         });
-        
+
         updateOutput();
 
-        
     }
 
     public void changeConfigs() {
         selectAll = true;
         cont++;
-        contadorLabel.setText(cont+" / "+numAmostras);
-        System.out.println("Quantidade: " + cont);
-        
-        if(cont % step == 0)
+        contadorLabel.setText(cont + " / " + numAmostras);
+
+        if (cont % step == 0) {
             numLayers2remove++;
-        
-        
+        }
+
         configs.put("textura", rand.nextInt(Constantes.TIPO_TEXTURA.length));
         configs.put("cor", rand.nextInt(Constantes.getCorGlyphs().length));
         configs.put("forma", rand.nextInt(Constantes.TIPOS_FORMAS_GEOMETRICAS.length - 1));
@@ -105,15 +103,14 @@ public class MainTeste extends javax.swing.JFrame {
         configs.put("width", length - rand.nextInt(45));
         configs.put("height", length - rand.nextInt(45));
         configs.put("coritem", rand.nextInt(Constantes.getCor().length));
-        
+
         shuffleArray(glyphlayers2draw);
         for (int i = 0; i < numLayers2remove; i++) {
             configs.put(layers[glyphlayers2draw[i]], -1);
-            if(checkboxes.get(layers[glyphlayers2draw[i]]) != null){
+            if (checkboxes.get(layers[glyphlayers2draw[i]]) != null) {
                 checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
             }
         }
-            
 
         painelEsquerda.setConfigs(configs);
     }
@@ -129,6 +126,9 @@ public class MainTeste extends javax.swing.JFrame {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         painelEsquerda = new PainelDeTeste();
+        separador = new javax.swing.JSeparator();
+        glyphsLabel = new javax.swing.JLabel();
+        shouldBeLabel = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
@@ -150,15 +150,36 @@ public class MainTeste extends javax.swing.JFrame {
         painelEsquerda.setBackground(new java.awt.Color(153, 255, 153));
         painelEsquerda.setOpaque(false);
 
+        separador.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        glyphsLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        glyphsLabel.setText("The Glyph:");
+
+        shouldBeLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        shouldBeLabel.setText("How it should be:");
+
         javax.swing.GroupLayout painelEsquerdaLayout = new javax.swing.GroupLayout(painelEsquerda);
         painelEsquerda.setLayout(painelEsquerdaLayout);
         painelEsquerdaLayout.setHorizontalGroup(
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 799, Short.MAX_VALUE)
+            .addGroup(painelEsquerdaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(glyphsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(separador, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(shouldBeLabel)
+                .addContainerGap(261, Short.MAX_VALUE))
         );
         painelEsquerdaLayout.setVerticalGroup(
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 615, Short.MAX_VALUE)
+            .addComponent(separador)
+            .addGroup(painelEsquerdaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(glyphsLabel)
+                    .addComponent(shouldBeLabel))
+                .addContainerGap(575, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(painelEsquerda);
@@ -299,10 +320,46 @@ public class MainTeste extends javax.swing.JFrame {
     }
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        float aspect = configs.get("height") > configs.get("width")
+                ? (configs.get("width") * 1.f) / configs.get("height")
+                : (configs.get("height") * 1.f) / configs.get("width");
+
+        data += "\n" + (configs.get("textura") >= 0 ? 1 : 0)
+                + "," + (configs.get("cor") >= 0 ? 1 : 0)
+                + "," + (configs.get("forma") >= 0 ? 1 : 0)
+                + "," + (configs.get("letra") >= 0 ? 1 : 0)
+                + "," + (configs.get("numero") >= 0 ? 1 : 0)
+                + "," + configs.get("height")
+                + "," + configs.get("width")
+                + "," + (configs.get("width") * configs.get("height"))
+                + "," + aspect
+                + "," + (configs.get("coritem") >= 0 ? 1 : 0)
+                + "," + areas.get("textura")
+                + "," + areas.get("cor")
+                + "," + areas.get("forma")
+                + "," + areas.get("letra")
+                + "," + areas.get("numero")
+                + "," + (checkboxTexture.isSelected() ? 1 : 0)
+                + "," + (checkboxCircle.isSelected() ? 1 : 0)
+                + "," + (checkboxGeometry.isSelected() ? 1 : 0)
+                + "," + (checkboxLetter.isSelected() ? 1 : 0)
+                + "," + (checkboxNumber.isSelected() ? 1 : 0);
+
+        for (JCheckBox c : checkboxes.values()) {
+            c.setSelected(false);
+            c.setEnabled(true);
+        }
+
+        output.put("texture", false);
+        output.put("circle", false);
+        output.put("geometry", false);
+        output.put("letter", false);
+        output.put("number", false);
+
         if (cont >= numAmostras) {
             PrintWriter writer = null;
             try {
-                File file = new File("result.txt");
+                File file = new File(nomeArquivo);
                 writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
                 writer.print(data);
                 writer.flush();
@@ -315,42 +372,6 @@ public class MainTeste extends javax.swing.JFrame {
                 writer.close();
             }
         }
-        
-        float aspect = configs.get("height")>configs.get("width")?
-                (configs.get("width")*1.f)/configs.get("height") :
-                (configs.get("height")*1.f)/configs.get("width") ;
-        
-        data += "\n"+(configs.get("textura")>=0?1:0)
-                +","+(configs.get("cor")>=0?1:0)
-                +","+(configs.get("forma")>=0?1:0)
-                +","+(configs.get("letra")>=0?1:0)
-                +","+(configs.get("numero")>=0?1:0)
-                +","+configs.get("height")
-                +","+configs.get("width")
-                +","+(configs.get("width")*configs.get("height"))
-                +","+aspect
-                +","+(configs.get("coritem")>=0?1:0)
-                +","+areas.get("textura")
-                +","+areas.get("cor")
-                +","+areas.get("forma")
-                +","+areas.get("letra")
-                +","+areas.get("numero")
-                +","+(checkboxTexture.isSelected() ? 1 : 0)
-                +","+(checkboxCircle.isSelected() ? 1 : 0)
-                +","+(checkboxGeometry.isSelected() ? 1 : 0)
-                +","+(checkboxLetter.isSelected() ? 1 : 0)
-                +","+(checkboxNumber.isSelected() ? 1 : 0);
-        
-        for(JCheckBox c : checkboxes.values()){
-            c.setSelected(false);
-            c.setEnabled(true);
-        }
-
-        output.put("texture", false);
-        output.put("circle", false);
-        output.put("geometry", false);
-        output.put("letter", false);
-        output.put("number", false);
 
         changeConfigs();
     }//GEN-LAST:event_btnConfirmActionPerformed
@@ -364,9 +385,10 @@ public class MainTeste extends javax.swing.JFrame {
     }//GEN-LAST:event_checkboxCircleActionPerformed
 
     private void btnSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectAllActionPerformed
-        for(JCheckBox c : checkboxes.values()){
-            if(c.isEnabled())
+        for (JCheckBox c : checkboxes.values()) {
+            if (c.isEnabled()) {
                 c.setSelected(selectAll);
+            }
         }
         selectAll = !selectAll;
         updateOutput();
@@ -385,8 +407,7 @@ public class MainTeste extends javax.swing.JFrame {
         updateOutput();
     }//GEN-LAST:event_checkboxNumberActionPerformed
 
-    
-    private void updateOutput(){
+    private void updateOutput() {
         output.put("texture", checkboxTexture.isSelected());
         output.put("circle", checkboxCircle.isSelected());
         output.put("geometry", checkboxGeometry.isSelected());
@@ -394,7 +415,7 @@ public class MainTeste extends javax.swing.JFrame {
         output.put("number", checkboxNumber.isSelected());
         painelEsquerda.updateOutput(output);
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -440,11 +461,14 @@ public class MainTeste extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkboxNumber;
     private javax.swing.JCheckBox checkboxTexture;
     private javax.swing.JLabel contadorLabel;
+    private javax.swing.JLabel glyphsLabel;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JPanel painelEsquerda;
+    private javax.swing.JSeparator separador;
+    private javax.swing.JLabel shouldBeLabel;
     // End of variables declaration//GEN-END:variables
     */
 
@@ -460,20 +484,21 @@ public class MainTeste extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextPane jTextPane1;
     private PainelDeTeste painelEsquerda;
-    static MainTeste frame;    
+    static MainTeste frame;
     private javax.swing.JLabel contadorLabel;
-        
-    
+    private javax.swing.JLabel glyphsLabel;
+    private javax.swing.JLabel shouldBeLabel;
+    private JSeparator separador;
+
     public static void shuffleArray(int[] ar) {
         // If running on Java 6 or older, use `new Random()` on RHS here
         Random rnd = ThreadLocalRandom.current();
-        for (int i = ar.length - 1; i > 0; i--)
-        {
-          int index = rnd.nextInt(i + 1);
-          // Simple swap
-          int a = ar[index];
-          ar[index] = ar[i];
-          ar[i] = a;
+        for (int i = ar.length - 1; i > 0; i--) {
+            int index = rnd.nextInt(i + 1);
+            // Simple swap
+            int a = ar[index];
+            ar[index] = ar[i];
+            ar[i] = a;
         }
     }
 }
