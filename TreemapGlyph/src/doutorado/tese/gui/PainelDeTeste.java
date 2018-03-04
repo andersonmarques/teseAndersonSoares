@@ -19,14 +19,11 @@ import java.util.HashMap;
  */
 public class PainelDeTeste extends javax.swing.JPanel {
 
-    
-    
     private HashMap<String, Integer> configs;
     private HashMap<String, Boolean> output;
     private HashMap<String, Integer> areas;
     private AreaCallback areaCallback;
-    
-    
+
     /**
      * Creates new form PainelDeTeste
      */
@@ -37,7 +34,7 @@ public class PainelDeTeste extends javax.swing.JPanel {
         initComponents();
         this.areaCallback = new AreaCallback() {
             @Override
-            public void areaUpdated(HashMap<String, Integer> areas) {                
+            public void areaUpdated(HashMap<String, Integer> areas) {
             }
         };
     }
@@ -46,13 +43,16 @@ public class PainelDeTeste extends javax.swing.JPanel {
     public void paint(Graphics g) {
         super.paint(g); //To change body of generated methods, choose Tools | Templates.
         Graphics2D g2d = (Graphics2D) g;
-        
-        g2d.setColor(Color.decode(Constantes.getCor()[configs.get("coritem")]));
-        g2d.fillRect(configs.get("x"),configs.get("y"),configs.get("width"),configs.get("height"));
+
+        Color coritem = configs.get("coritem")>=0 ? 
+                Color.decode(Constantes.getCor()[configs.get("coritem")]):
+                Color.decode(Constantes.getCor()[Constantes.getCor().length-1]);
+        g2d.setColor(coritem);
+        g2d.fillRect(configs.get("x"), configs.get("y"), configs.get("width"), configs.get("height"));
         g2d.setColor(Color.BLACK);
-        g2d.drawRect(configs.get("x"),configs.get("y"),configs.get("width"),configs.get("height"));
-        
-        GlyphManager manager = new GlyphManager();              
+        g2d.drawRect(configs.get("x"), configs.get("y"), configs.get("width"), configs.get("height"));
+
+        GlyphManager manager = new GlyphManager();
         Rectangle bounds = new Rectangle(configs.get("x"), configs.get("y"), configs.get("width"), configs.get("height"));
         System.out.println("width: "+configs.get("width") +" height: "+configs.get("height"));
         int at = 0, ac = 0, af = 0, al = 0, an =0;
@@ -78,13 +78,13 @@ public class PainelDeTeste extends javax.swing.JPanel {
         areas.put("forma", af);
         areas.put("letra", al);
         areas.put("numero", an);
-        
+
         this.areaCallback.areaUpdated(areas);
-        
+
         bounds.x = 400;
-        
-        g2d.setColor(Color.decode(Constantes.getCor()[configs.get("coritem")]));
-        g2d.fillRect(bounds.x,bounds.y,configs.get("width"),configs.get("height"));
+
+        g2d.setColor(coritem);
+        g2d.fillRect(bounds.x, bounds.y, configs.get("width"), configs.get("height"));
         g2d.setColor(Color.BLACK);
         g2d.drawRect(bounds.x,bounds.y,configs.get("width"),configs.get("height"));
         
@@ -109,27 +109,25 @@ public class PainelDeTeste extends javax.swing.JPanel {
         
     }
 
-    
-    public void setAreaCallback(AreaCallback areaCallback){
+    public void setAreaCallback(AreaCallback areaCallback) {
         this.areaCallback = areaCallback;
     }
-    
-    public interface AreaCallback{
+
+    public interface AreaCallback {
+
         public void areaUpdated(HashMap<String, Integer> areas);
     }
-    
-    
-    
-    public void setConfigs(HashMap<String, Integer> configs){
+
+    public void setConfigs(HashMap<String, Integer> configs) {
         this.configs = configs;
         repaint();
     }
-    
-    public void updateOutput(HashMap<String, Boolean> output){
+
+    public void updateOutput(HashMap<String, Boolean> output) {
         this.output = output;
         repaint();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -36,8 +36,8 @@ public class MainTeste extends javax.swing.JFrame {
     private int cont = 0;
     private boolean selectAll = true;
     private HashMap<String, Integer> areas;
-    private int[] glyphlayers2draw = {0,1,2,3,4};
-    private String [] layers = new String[]{"textura","cor","forma","letra","numero"};
+    private int[] glyphlayers2draw = {0,1,2,3,4,5};
+    private String [] layers = new String[]{"textura","cor","forma","letra","numero","coritem"};
     private HashMap<String, JCheckBox> checkboxes;
     private int numLayers2remove = 3;
 
@@ -46,7 +46,7 @@ public class MainTeste extends javax.swing.JFrame {
      */
     public MainTeste() {
 
-        data = "Textura,Cor,Forma,Letra,Numero,Altura,Largura,CorItem,AreaTextura,AreaCor,AreaForma,AreaLetra,AreaNumero,ViuTextura,ViuCor,ViuForma,ViuLetra,ViuNumero";
+        data = "Textura,Cor,Forma,Letra,Numero,Altura,Largura,AreaItem,AspectoItem,CorItem,AreaTextura,AreaCor,AreaForma,AreaLetra,AreaNumero,ViuTextura,ViuCor,ViuForma,ViuLetra,ViuNumero";
         rand = new Random(System.currentTimeMillis());
         configs = new HashMap<>();
         output = new HashMap<>();
@@ -82,6 +82,7 @@ public class MainTeste extends javax.swing.JFrame {
     }
 
     public void changeConfigs() {
+        selectAll = true;
         cont++;
         contadorLabel.setText(cont+" / "+Constantes.LIMITE_TESTES);
         System.out.println("Quantidade: " + cont);
@@ -102,7 +103,9 @@ public class MainTeste extends javax.swing.JFrame {
         shuffleArray(glyphlayers2draw);
         for (int i = 0; i < numLayers2remove; i++) {
             configs.put(layers[glyphlayers2draw[i]], -1);
-            checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
+            if(checkboxes.get(layers[glyphlayers2draw[i]]) != null){
+                checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
+            }
         }
             
 
@@ -290,7 +293,7 @@ public class MainTeste extends javax.swing.JFrame {
     }
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        if (cont > 100) {
+        if (cont >= 10) {
             PrintWriter writer = null;
             try {
                 File file = new File("result.txt");
@@ -307,6 +310,10 @@ public class MainTeste extends javax.swing.JFrame {
             }
         }
         
+        float aspect = configs.get("height")>configs.get("width")?
+                (configs.get("width")*1.f)/configs.get("height") :
+                (configs.get("height")*1.f)/configs.get("width") ;
+        
         data += "\n"+(configs.get("textura")>=0?1:0)
                 +","+(configs.get("cor")>=0?1:0)
                 +","+(configs.get("forma")>=0?1:0)
@@ -314,6 +321,8 @@ public class MainTeste extends javax.swing.JFrame {
                 +","+(configs.get("numero")>=0?1:0)
                 +","+configs.get("height")
                 +","+configs.get("width")
+                +","+(configs.get("width")*configs.get("height"))
+                +","+aspect
                 +","+(configs.get("coritem")>=0?1:0)
                 +","+areas.get("textura")
                 +","+areas.get("cor")
@@ -326,7 +335,6 @@ public class MainTeste extends javax.swing.JFrame {
                 +","+(checkboxLetter.isSelected() ? 1 : 0)
                 +","+(checkboxNumber.isSelected() ? 1 : 0);
         
-
         for(JCheckBox c : checkboxes.values()){
             c.setSelected(false);
             c.setEnabled(true);
@@ -381,16 +389,6 @@ public class MainTeste extends javax.swing.JFrame {
         painelEsquerda.updateOutput(output);
     }
     
-//    private ArrayList<Object> getAtributosEscolhidosGlyph() {
-//        ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
-//        atributosEscolhidosGlyph.add(atributo1Glyph.getSelectedItem());
-//        atributosEscolhidosGlyph.add(atributo2Glyph.getSelectedItem());
-//        atributosEscolhidosGlyph.add(atributo3Glyph.getSelectedItem());
-//        atributosEscolhidosGlyph.add(atributo4Glyph.getSelectedItem());
-//        atributosEscolhidosGlyph.add(atributo5Glyph.getSelectedItem());
-//        return atributosEscolhidosGlyph;
-//    }
-
     /**
      * @param args the command line arguments
      */
@@ -456,23 +454,20 @@ public class MainTeste extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextPane jTextPane1;
     private PainelDeTeste painelEsquerda;
-
     static MainTeste frame;    
     private javax.swing.JLabel contadorLabel;
-    
-    
+        
     
     public static void shuffleArray(int[] ar) {
-    // If running on Java 6 or older, use `new Random()` on RHS here
-    Random rnd = ThreadLocalRandom.current();
-    for (int i = ar.length - 1; i > 0; i--)
-    {
-      int index = rnd.nextInt(i + 1);
-      // Simple swap
-      int a = ar[index];
-      ar[index] = ar[i];
-      ar[i] = a;
+        // If running on Java 6 or older, use `new Random()` on RHS here
+        Random rnd = ThreadLocalRandom.current();
+        for (int i = ar.length - 1; i > 0; i--)
+        {
+          int index = rnd.nextInt(i + 1);
+          // Simple swap
+          int a = ar[index];
+          ar[index] = ar[i];
+          ar[i] = a;
+        }
     }
-  }
-
 }
