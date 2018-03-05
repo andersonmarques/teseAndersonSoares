@@ -37,22 +37,21 @@ public class Constantes {
     };
 
     public final static String[] TIPO_TEXTURA = {
-        "PATTERNV",
-        "PATTERN_DIAG1",
-        "PATTERN_DIAG2",
-        "PATTERN_DIAG3",
-        "PatternSquareC",
-        "PATTERN_DIAG5",
+        "PATTERN_HORIZONTAL",
+        "PATTERN_UP" ,
+        "PATTERN_VERTICAL",
+        "PATTERN_DOWN",
+        "PATTERN_DIAG_LEFT_RIGHT",
+        "PATTERN_LEFT",
+        "PATTERN_DIAG_RIGHT_LEFT" ,
+        "PATTERN_RIGHT",
+        "PATTERN_CHESS",
+        "PATTERN_CROSS_LINES",
+        "PATTERN_DIAG_CROSS_LINES",
         "PATTERN_DIAGDOTS",
-        "PATTERN_DIAGDOTS2",
-        "PATTERN_DIAGS",
         "PATTERN_DOTS",
-        "PATTERN_PLUS",
-        "PATTERN_TUILES",
-        "PATTERN_SQUARES",
-        "PATTERN_LIGHT_GRAY",
-        "PATTERN_TIO"
-
+        "PATTERN_DIAGDOTS2" ,
+        "PATTERN_PLUS" 
     };
     /**
      * 0 - "OCTOGONO", 1 - "ELLIPSE", 2 - "CRUZ", 3 - "LOSANGO", 4 -
