@@ -5,6 +5,7 @@
  */
 package doutorado.tese.util;
 
+import java.awt.Color;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -19,6 +20,9 @@ public class Constantes {
     private static boolean showGlyph = false;
     private static boolean showLegenda = false;
     private static boolean showStarGlyph = false;
+    public static Color ALICE_BLUE = Color.decode("#F0F8FF");
+
+    
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
     private static String[] cor = {
         "#3366cc","#dc3912","#ff9900","#109618","#990099","#0099c6","#dd4477",

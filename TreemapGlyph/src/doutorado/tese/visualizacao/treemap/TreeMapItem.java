@@ -18,13 +18,17 @@ import java.util.Queue;
 public class TreeMapItem extends TreeMapNode {
 
     private String columnLabel;
+    private int [] what2Draw;
+    private boolean hasWhat2Draw;
 
+    
     public TreeMapItem(double size, int order) {
         this.size = size;
         this.classificationOrder = order;
         bounds = new Rect();
         this.mapaDetalhesItem = new HashMap<>();
         children = new ArrayList<>();
+        what2Draw = new int[]{1,1,1,1,1};
     }
 
     public TreeMapItem(double size, TreeMapLevel paiLevel) {
@@ -61,6 +65,22 @@ public class TreeMapItem extends TreeMapNode {
     @Override
     public void inserirFilhos(Queue<String> hierarquia, TreeMapNode item, TreeMapNode pai) {
         throw new UnsupportedOperationException("A TreeMapItem can't have children.");
+    }
+    
+    public int[] getWhat2Draw() {
+        return what2Draw;
+    }
+
+    public void setWhat2Draw(int[] whatToDraw) {
+        this.what2Draw = whatToDraw;
+    }
+    
+    public boolean hasWhat2Draw() {
+        return hasWhat2Draw;
+    }
+
+    public void setWhat2Draw(boolean hasWhat2Draw) {
+        this.hasWhat2Draw = hasWhat2Draw;
     }
 
     private Point centralizarLegenda(Rect rect, Graphics2D g2d) {
