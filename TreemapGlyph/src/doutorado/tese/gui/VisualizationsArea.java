@@ -86,8 +86,8 @@ public class VisualizationsArea {
                 getRootBoundsFromView(t);
             }
         });
-        TMThreadModel.listener = listener;
-        TMUpdaterConcrete.listener = listener;
+//        TMThreadModel.listener = listener;
+        TMUpdaterConcrete.listeners.add(listener);
     }
 
     public void acionarStarGlyph(List<String> variaveisStarGlyph) {
@@ -114,7 +114,9 @@ public class VisualizationsArea {
     }
 
     public boolean equalizeRoots(TreeMapNode equalized, TMNodeModel nodeModel) {
+//        System.out.println("meu root: "+equalized.getLabel()+"\t root API: "+nodeModel.getTitle());
         if (equalized.getLabel().equals(nodeModel.getTitle())) {
+//            System.out.println("meu: "+equalized+"\t root API: "+nodeModel.getNode());
             this.root = equalized;
             return true;
         } else {

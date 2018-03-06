@@ -13,7 +13,6 @@ import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import doutorado.tese.visualizacao.glyph.numeros.Numeral;
 import doutorado.tese.util.tree.*;
-//import doutorado.tese.visualizacao.glyph.numeros.Numeral;
 import doutorado.tese.visualizacao.glyph.texture.Textura;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import java.awt.Color;
@@ -21,11 +20,12 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import net.bouthier.treemapAWT.TMNodeEncapsulator;
 import net.bouthier.treemapAWT.TMNodeModel;
 import net.bouthier.treemapAWT.TMNodeModelComposite;
 import net.bouthier.treemapAWT.TMNodeModelRoot;
+import net.bouthier.treemapAWT.TMOnDrawFinished;
+import net.bouthier.treemapAWT.TMUpdaterConcrete;
 
 /**
  *
@@ -37,16 +37,17 @@ public final class GlyphManager {
     private List<Object> atributosEscolhidos;
     private HashMap<String, List<String>> colunaDadosDist;
     private TMNodeModelRoot rootNodeZoom;
-    private boolean dimensao1Ativada, dimensao2Ativada, dimensao3Ativada, dimensao4Ativada, dimensao5Ativada;
+    private boolean dimensao4Ativada;
     private String letraUtilizada;
     private static String[] shufflerColors;
-    
+
     private HashMap<String, Integer> configs;
+    private boolean decisionTreeActivate;
 
     public GlyphManager() {
         this.configs = new HashMap<>();
     }
-    
+
     public GlyphManager(ManipuladorArquivo manipulador, List<Object> atributosEscolhidos) {
         this.manipulador = manipulador;
         this.atributosEscolhidos = atributosEscolhidos;
@@ -54,8 +55,13 @@ public final class GlyphManager {
         analisarAtributosEscolhidos();
         shufflerColors = Constantes.getCorGlyphs();
         this.configs = new HashMap<>();
+
     }
-    
+
+    public void setUseDecisionTree(boolean decisionTreeActivate) {
+        this.decisionTreeActivate = decisionTreeActivate;
+    }
+
     public void analisarAtributosEscolhidos() {
         for (int i = 0; i < atributosEscolhidos.size(); i++) {
             if (!atributosEscolhidos.get(i).equals("---")) {
@@ -66,30 +72,67 @@ public final class GlyphManager {
         }
     }
 
-    public int adicionarTextura(Graphics g, Rectangle bounds, String textura) {
+    public void paintTextura(Graphics g, TreeMapItem treemapItem) {
+        if (treemapItem.getTextura() != null) {
+            treemapItem.getTextura().paint(g);
+        }
+    }
+
+    public void paintCorForma(Graphics g, TreeMapItem treemapItem) {
+        if (treemapItem.getCorForma() != null) {
+            treemapItem.getCorForma().paint(g);
+        }
+    }
+
+    public void paintFormaGeometrica(Graphics g, TreeMapItem treemapItem) {
+        if (treemapItem.getFormaGeometrica() != null) {
+            treemapItem.getFormaGeometrica().paint(g);
+        }
+    }
+
+    public void paintLetrasAlfabeto(Graphics g, TreeMapItem treemapItem) {
+        if (treemapItem.getLetra() != null) {
+            treemapItem.getLetra().paint(g);
+        }
+    }
+
+    public void paintNumeros(Graphics g, TreeMapItem treemapItem) {
+        if (treemapItem.getNumero() != null) {
+            treemapItem.getNumero().paint(g);
+        }
+    }
+
+    public int prepareTextura(Rectangle bounds, String textura, TreeMapItem treemapItem) {
         Textura t = new Textura(bounds, textura);
-        t.paint(g);
+        if (treemapItem != null) {
+            treemapItem.setTextura(t);
+        }
         return t.getArea();
     }
 
-    public int adicionarCorForma(Graphics g, Rectangle bounds, Color cor) {
-        FormaGeometrica f = GeometryFactory.create(bounds, cor, GeometryFactory.FORMAS.CIRCULO);
-        f.setColor(cor);
-        f.paint(g);
-        return f.getArea();
+    public int prepareCorForma(Rectangle bounds, Color cor, TreeMapItem treemapItem) {
+        FormaGeometrica corForma = GeometryFactory.create(bounds, cor, GeometryFactory.FORMAS.CIRCULO);
+        corForma.setColor(cor);
+        if (treemapItem != null) {
+            treemapItem.setCorForma(corForma);
+        }
+        return corForma.getArea();
     }
 
-    public int adicionarFormaGeometrica(Graphics g, Rectangle bounds, String nomeForma) {
-        FormaGeometrica f = GeometryFactory.create(bounds, null, nomeForma);
-        f.paint(g);
-        return f.getArea();
+    public int prepareFormaGeometrica(Rectangle bounds, String nomeForma, TreeMapItem treemapItem) {
+        FormaGeometrica formaGeometrica = GeometryFactory.create(bounds, null, nomeForma);
+        if (treemapItem != null) {
+            treemapItem.setFormaGeometrica(formaGeometrica);
+        }
+        return formaGeometrica.getArea();
     }
 
-    public int adicionarLetrasAlfabeto(Graphics g, Rectangle bounds, String letra) {
-        Letra f = new Letra(bounds, letra, false);
-        f.paint(g);
-        return f.getArea();
-//        return f.getArea();
+    public int prepareLetrasAlfabeto(Rectangle bounds, String simbolo, TreeMapItem treemapItem) {
+        Letra letra = new Letra(bounds, simbolo, false);
+        if (treemapItem != null) {
+            treemapItem.setLetra(letra);
+        }
+        return letra.getArea();
     }
 
     /**
@@ -97,63 +140,110 @@ public final class GlyphManager {
      * concatena o glyph do tipo LETRA, caso tenha sido ativado, ao glyphs
      * NUMERAL.
      *
-     * @param g
      * @param bounds
+     * @param simbolo
      * @param letra
-     * @param numero
+     * @return
      */
-    public int adicionarNumeros(Graphics g, Rectangle bounds, String letra, String numero) {
-        Numeral f = new Numeral(bounds, letra + numero, false);
-        f.paint(g);
-        return f.getArea();
+    public int prepareNumeros(Rectangle bounds, String letra, String simbolo, TreeMapItem treemapItem) {
+        Numeral numero = new Numeral(bounds, letra + simbolo, false);
+        if (treemapItem != null) {
+            treemapItem.setNumero(numero);
+        }
+        return numero.getArea();
     }
 
     /**
      * Metodo responsavel por instanciar um glyphs do tipo NUMERAL.
      *
-     * @param g
      * @param bounds
-     * @param numero
+     * @param simbolo
+     * @return
      */
-    public int adicionarNumeros(Graphics g, Rectangle bounds, String numero) {
-        Numeral f = new Numeral(bounds, numero, false);
-        f.paint(g);
-        return f.getArea();
+    public int prepareNumeros(Rectangle bounds, String simbolo, TreeMapItem treemapItem) {
+        Numeral numero = new Numeral(bounds, simbolo, false);
+        if (treemapItem != null) {
+            treemapItem.setNumero(numero);
+        }
+        return numero.getArea();
+    }
+
+    public void prepare2Draw() {
+        if (getRootNodeZoom() != null) {
+            prepareGlyphsInTreeMapItems(getRootNodeZoom().getRoot());
+        }
+    }
+
+    private void paintAnalyser(Graphics g, TMNodeModel nodo) {
+        if (nodo instanceof TMNodeModelComposite) {//se for TreeMap Level
+            TMNodeModelComposite pai = (TMNodeModelComposite) nodo;
+            for (TMNodeModel n : pai.getChildrenList()) {
+                paintAnalyser(g, n);
+            }
+        } else {//se for um treemap Item ele vai desenhar os glyphs
+            TMNodeEncapsulator nodeEncapsulator = (TMNodeEncapsulator) nodo.getNode();
+            TreeMapItem item = (TreeMapItem) nodeEncapsulator.getNode();
+            if (!decisionTreeActivate || item.getWhat2Draw()[0] == 1) {
+                paintTextura(g, item);
+            }
+            if (!decisionTreeActivate || item.getWhat2Draw()[1] == 1) {
+                paintCorForma(g, item);
+            }
+            if (!decisionTreeActivate || item.getWhat2Draw()[2] == 1) {
+                paintFormaGeometrica(g, item);
+            }
+            if (!decisionTreeActivate || item.getWhat2Draw()[3] == 1) {
+                paintLetrasAlfabeto(g, item);
+            }
+            if (!decisionTreeActivate || item.getWhat2Draw()[4] == 1) {
+                paintNumeros(g, item);
+            }
+        }
     }
 
     public void paint(Graphics g) {
         if (getRootNodeZoom() != null) {
-            setGlyphsInTreeMapItems(getRootNodeZoom().getRoot(), g);
-
+            paintAnalyser(g, getRootNodeZoom().getRoot());
         }
     }
 
-    public void setGlyphsInTreeMapItems(TMNodeModel nodo, Graphics g) {
+    public void prepareGlyphsInTreeMapItems(TMNodeModel nodo) {
         if (nodo instanceof TMNodeModelComposite) {//se for TreeMap Level
             TMNodeModelComposite pai = (TMNodeModelComposite) nodo;
             for (TMNodeModel n : pai.getChildrenList()) {
-                setGlyphsInTreeMapItems(n, g);
+                prepareGlyphsInTreeMapItems(n);
             }
         } else {//se for um treemap Item ele vai desenhar os glyphs
             TMNodeEncapsulator nodeEncapsulator = (TMNodeEncapsulator) nodo.getNode();
             TreeMapItem treemapItem = (TreeMapItem) nodeEncapsulator.getNode();
-            defineDimension2DrawGlyph(g, treemapItem);
+            prepareDimension2DrawGlyph(treemapItem);
         }
     }
 
-    public void defineDimension2DrawGlyph(Graphics g, TreeMapItem item) {
-        
-        double [] features = new double[15];
-        
+//    public void setGlyphsInTreeMapItems(TMNodeModel nodo, Graphics g) {
+//        if (nodo instanceof TMNodeModelComposite) {//se for TreeMap Level
+//            TMNodeModelComposite pai = (TMNodeModelComposite) nodo;
+//            for (TMNodeModel n : pai.getChildrenList()) {
+//                setGlyphsInTreeMapItems(n, g);
+//            }
+//        } else {//se for um treemap Item ele vai desenhar os glyphs
+//            TMNodeEncapsulator nodeEncapsulator = (TMNodeEncapsulator) nodo.getNode();
+//            TreeMapItem treemapItem = (TreeMapItem) nodeEncapsulator.getNode();
+//            defineDimension2DrawGlyph(g, treemapItem);
+//        }
+//    }
+    public void prepareDimension2DrawGlyph(TreeMapItem item) {
+        double[] features = new double[15];
+
         features[6] = item.getBounds().width;
         features[5] = item.getBounds().height;
-        features[9] = item.getColor().equals(Constantes.ALICE_BLUE)? 0 : 1;
+        features[9] = item.getColor().equals(Constantes.ALICE_BLUE) ? 0 : 1;
         features[7] = features[6] * features[5];
-        
+
         double aspect = features[5] > features[6]
                 ? features[6] / features[5]
                 : features[5] / features[6];
-        
+
         features[8] = aspect;
         for (int dimensao = 0; dimensao < atributosEscolhidos.size(); dimensao++) {
             if (!atributosEscolhidos.get(dimensao).equals("---")) {
@@ -162,88 +252,70 @@ public final class GlyphManager {
                 List<String> dadosDistintos = colunaDadosDist.get(colunaEscolhida);
                 switch (dimensao) {
                     case 0:
-                        if(item.getWhat2Draw()[0] > 0){
-                            dimensao1Ativada = true;
-                            features[10] = calcularPrimeiraDimensao(g, col, item, dadosDistintos);
-                            features[0] = 1;
-                        }
+                        features[10] = preparePrimeiraDimensao(col, item, dadosDistintos);
+                        features[0] = 1;
                         break;
                     case 1:
-                        if(item.getWhat2Draw()[1] > 0){
-                            dimensao2Ativada = true;
-                            features[11] = calcularSegundaDimensao(g, col, item, dadosDistintos);
-                            features[1] = 1;
-                        }
+                        features[11] = prepareSegundaDimensao(col, item, dadosDistintos);
+                        features[1] = 1;
                         break;
                     case 2:
-                        if(item.getWhat2Draw()[2] > 0){
-                            dimensao3Ativada = true;
-                            features[12] = calcularTerceiraDimensao(g, col, item, dadosDistintos);
-                            features[2] = 1;
-                        }
+                        features[12] = prepareTerceiraDimensao(col, item, dadosDistintos);
+                        features[2] = 1;
                         break;
                     case 3:
-                        if(item.getWhat2Draw()[3] > 0){
-                            dimensao4Ativada = true;
-                            letraUtilizada = "";
-                            features[13] = calcularQuartaDimensao(g, col, item, dadosDistintos);
-                            features[3] = 1;
-                        }
+                        dimensao4Ativada = true;
+                        letraUtilizada = "";
+                        features[13] = prepareQuartaDimensao(col, item, dadosDistintos);
+                        features[3] = 1;
                         break;
                     case 4:
-                        if(item.getWhat2Draw()[4] > 0){
-                            dimensao5Ativada = true;
-                            features[14] = calcularQuintaDimensao(g, col, item, dadosDistintos);
-                            features[4] = 1;
-                        }
+                        features[14] = prepareQuintaDimensao(col, item, dadosDistintos);
+                        features[4] = 1;
                         break;
                     default:
                         System.err.println("Nao foi possível calcular a dimensão.");
                 }
             }
         }
-        
         item.getWhat2Draw()[0] = DTViuTextura.predict(features);
         item.getWhat2Draw()[1] = DTViuCor.predict(features);
         item.getWhat2Draw()[2] = DTViuForma.predict(features);
         item.getWhat2Draw()[3] = DTViuLetra.predict(features);
         item.getWhat2Draw()[4] = DTViuNumero.predict(features);
-        
-        item.setWhat2Draw(true);
-        
     }
 
-    public int calcularPrimeiraDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public int preparePrimeiraDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.TIPO_TEXTURA.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                return adicionarTextura(g, item.getBounds(), Constantes.TIPO_TEXTURA[j]);
+                return prepareTextura(item.getBounds(), Constantes.TIPO_TEXTURA[j], item);
             }
         }
         return 0;
     }
 
-    public int calcularSegundaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public int prepareSegundaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.getCor().length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                return adicionarCorForma(g, item.getBounds(), Color.decode(getShufflerColors()[j]));
+                return prepareCorForma(item.getBounds(), Color.decode(getShufflerColors()[j]), item);
             }
         }
         return 0;
     }
 
-    public int calcularTerceiraDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public int prepareTerceiraDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.TIPOS_FORMAS_GEOMETRICAS.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                return adicionarFormaGeometrica(g, item.getBounds(), Constantes.TIPOS_FORMAS_GEOMETRICAS[j]);
+                return prepareFormaGeometrica(item.getBounds(), Constantes.TIPOS_FORMAS_GEOMETRICAS[j], item);
             }
         }
         return 0;
     }
 
-    public int calcularQuartaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public int prepareQuartaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.LETRAS_ALFABETO.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                int result = adicionarLetrasAlfabeto(g, item.getBounds(), Constantes.LETRAS_ALFABETO[j]);
+                int result = prepareLetrasAlfabeto(item.getBounds(), Constantes.LETRAS_ALFABETO[j], item);
                 letraUtilizada = Constantes.LETRAS_ALFABETO[j];
                 return result;
             }
@@ -251,13 +323,13 @@ public final class GlyphManager {
         return 0;
     }
 
-    public int calcularQuintaDimensao(Graphics g, Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public int prepareQuintaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.NUMEROS.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 if (dimensao4Ativada) {
-                    return adicionarNumeros(g, item.getBounds(), letraUtilizada, Constantes.NUMEROS[j]);
+                    return prepareNumeros(item.getBounds(), letraUtilizada, Constantes.NUMEROS[j], item);
                 } else {
-                    return adicionarNumeros(g, item.getBounds(), Constantes.NUMEROS[j]);
+                    return prepareNumeros(item.getBounds(), Constantes.NUMEROS[j], item);
                 }
             }
         }
@@ -276,8 +348,9 @@ public final class GlyphManager {
      */
     public void setRootNodeZoom(TMNodeModelRoot rootNodeZoom) {
         this.rootNodeZoom = rootNodeZoom;
+        System.out.println("Root Node Zoom: "+this.rootNodeZoom.getRoot().getTitle());
     }
-    
+
     /**
      * @return the shufflerColors
      */

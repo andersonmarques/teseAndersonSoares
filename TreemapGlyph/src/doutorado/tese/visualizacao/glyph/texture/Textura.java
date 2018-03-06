@@ -22,12 +22,14 @@ public class Textura {
     private int[] yPoints;
     private Rectangle rect;
     private String nome;
+    TMPatternFactory textura;
 
     public Textura(Rectangle r, String nome) {
         this.rect = r;
         setBounds(this.rect);
         this.nome = nome;
         montarRetangulo();
+        textura = TMPatternFactory.getInstance();
     }
 
     public void setBounds(Rectangle rect) {
@@ -43,19 +45,15 @@ public class Textura {
     }
 
     public void paint(Graphics g) {
-        TMPatternFactory textura = TMPatternFactory.getInstance();
-
         Graphics2D g2d = (Graphics2D) g;
 
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2d.setPaint(textura.get(nome));
-
         
         g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
         g2d.setColor(Color.BLACK);
         g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
-
     }
 
     private void verificarRetangulo(int[] point) {

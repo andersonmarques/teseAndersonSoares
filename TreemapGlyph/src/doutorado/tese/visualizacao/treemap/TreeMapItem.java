@@ -6,6 +6,11 @@
 package doutorado.tese.visualizacao.treemap;
 
 import doutorado.tese.util.Coluna;
+import doutorado.tese.visualizacao.glyph.alfabeto.Letra;
+import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
+import doutorado.tese.visualizacao.glyph.numeros.Numeral;
+import doutorado.tese.visualizacao.glyph.texture.Textura;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -19,7 +24,11 @@ public class TreeMapItem extends TreeMapNode {
 
     private String columnLabel;
     private int [] what2Draw;
-    private boolean hasWhat2Draw;
+    private Textura textura;
+    private FormaGeometrica corForma;
+    private FormaGeometrica formaGeometrica;
+    private Letra letra;
+    private Numeral numero;
 
     
     public TreeMapItem(double size, int order) {
@@ -75,14 +84,6 @@ public class TreeMapItem extends TreeMapNode {
         this.what2Draw = whatToDraw;
     }
     
-    public boolean hasWhat2Draw() {
-        return hasWhat2Draw;
-    }
-
-    public void setWhat2Draw(boolean hasWhat2Draw) {
-        this.hasWhat2Draw = hasWhat2Draw;
-    }
-
     private Point centralizarLegenda(Rect rect, Graphics2D g2d) {
         int stringW = (int) Math.round(g2d.getFontMetrics().getStringBounds(this.getLabel(), g2d).getCenterX());
         int stringH = (int) Math.round(g2d.getFontMetrics().getStringBounds(this.getLabel(), g2d).getCenterY());
@@ -90,4 +91,46 @@ public class TreeMapItem extends TreeMapNode {
         int yTexto = (int) ((rect.height / 2) + rect.y) - stringH;
         return new Point(xTexto, yTexto);
     }
+    
+    public Textura getTextura() {
+        return textura;
+    }
+
+    public void setTextura(Textura textura) {
+        this.textura = textura;
+    }
+
+    public FormaGeometrica getCorForma() {
+        return corForma;
+    }
+
+    public void setCorForma(FormaGeometrica corForma) {
+        this.corForma = corForma;
+    }
+
+    public FormaGeometrica getFormaGeometrica() {
+        return formaGeometrica;
+    }
+
+    public void setFormaGeometrica(FormaGeometrica formaGeometrica) {
+        this.formaGeometrica = formaGeometrica;
+    }
+
+    public Letra getLetra() {
+        return letra;
+    }
+
+    public void setLetra(Letra letra) {
+        this.letra = letra;
+    }
+
+    public Numeral getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Numeral numero) {
+        this.numero = numero;
+    }
+    
+    
 }

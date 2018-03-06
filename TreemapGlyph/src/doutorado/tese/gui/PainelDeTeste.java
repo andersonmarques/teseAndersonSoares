@@ -44,9 +44,9 @@ public class PainelDeTeste extends javax.swing.JPanel {
         super.paint(g); //To change body of generated methods, choose Tools | Templates.
         Graphics2D g2d = (Graphics2D) g;
 
-        Color coritem = configs.get("coritem")>=0 ? 
-                Color.decode(Constantes.getCor()[configs.get("coritem")]):
-                Color.decode(Constantes.getCor()[Constantes.getCor().length-1]);
+        Color coritem = configs.get("coritem") >= 0
+                ? Color.decode(Constantes.getCor()[configs.get("coritem")])
+                : Color.decode(Constantes.getCor()[Constantes.getCor().length - 1]);
         g2d.setColor(coritem);
         g2d.fillRect(configs.get("x"), configs.get("y"), configs.get("width"), configs.get("height"));
         g2d.setColor(Color.BLACK);
@@ -54,25 +54,34 @@ public class PainelDeTeste extends javax.swing.JPanel {
 
         GlyphManager manager = new GlyphManager();
         Rectangle bounds = new Rectangle(configs.get("x"), configs.get("y"), configs.get("width"), configs.get("height"));
-        System.out.println("width: "+configs.get("width") +" height: "+configs.get("height"));
-        int at = 0, ac = 0, af = 0, al = 0, an =0;
-        if(configs.get("textura") >=0)
-            at = manager.adicionarTextura(g, bounds, Constantes.TIPO_TEXTURA[configs.get("textura")]);
-        if(configs.get("cor") >=0)
-            ac = manager.adicionarCorForma(g, bounds, Color.decode(Constantes.getCorGlyphs()[configs.get("cor")]));
-        if(configs.get("forma") >=0)
-            af = manager.adicionarFormaGeometrica(g, bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[configs.get("forma")]);
-        if(configs.get("letra") >=0 && configs.get("numero") >=0){
-            an = manager.adicionarNumeros(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("letra")]+Constantes.NUMEROS[configs.get("numero")]);
-            al = an;
-        }else{
-            if(configs.get("letra") >=0)
-                al = manager.adicionarLetrasAlfabeto(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("letra")]);        
-            if(configs.get("numero") >=0)
-                an = manager.adicionarNumeros(g, bounds,Constantes.NUMEROS[configs.get("numero")]);
+        System.out.println("width: " + configs.get("width") + " height: " + configs.get("height"));
+        int at = 0, ac = 0, af = 0, al = 0, an = 0;
+        if (configs.get("textura") >= 0) {
+            at = manager.prepareTextura(bounds, Constantes.TIPO_TEXTURA[configs.get("textura")], null);
+            manager.paintTextura(g, null);
         }
-        
-        
+        if (configs.get("cor") >= 0) {
+            ac = manager.prepareCorForma(bounds, Color.decode(Constantes.getCorGlyphs()[configs.get("cor")]), null);
+            manager.paintCorForma(g, null);
+        }
+        if (configs.get("forma") >= 0) {
+            af = manager.prepareFormaGeometrica(bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[configs.get("forma")], null);
+            manager.paintFormaGeometrica(g, null);
+        }
+        if (configs.get("letra") >= 0 && configs.get("numero") >= 0) {
+            an = manager.prepareNumeros(bounds, Constantes.LETRAS_ALFABETO[configs.get("letra")] + Constantes.NUMEROS[configs.get("numero")], null);
+            manager.paintLetrasAlfabeto(g, null);
+            al = an;
+        } else {
+            if (configs.get("letra") >= 0) {
+                al = manager.prepareLetrasAlfabeto(bounds, Constantes.LETRAS_ALFABETO[configs.get("letra")], null);
+                manager.paintLetrasAlfabeto(g, null);
+            }
+            if (configs.get("numero") >= 0) {
+                an = manager.prepareNumeros(bounds, Constantes.NUMEROS[configs.get("numero")], null);
+                manager.paintNumeros(g, null);
+            }
+        }
         areas.put("textura", at);
         areas.put("cor", ac);
         areas.put("forma", af);
@@ -86,27 +95,27 @@ public class PainelDeTeste extends javax.swing.JPanel {
         g2d.setColor(coritem);
         g2d.fillRect(bounds.x, bounds.y, configs.get("width"), configs.get("height"));
         g2d.setColor(Color.BLACK);
-        g2d.drawRect(bounds.x,bounds.y,configs.get("width"),configs.get("height"));
-        
-        if(output.get("texture"))
-            manager.adicionarTextura(g, bounds, Constantes.TIPO_TEXTURA[configs.get("textura")]);
-        if(output.get("circle"))
-            manager.adicionarCorForma(g, bounds, Color.decode(Constantes.getCorGlyphs()[configs.get("cor")]));
-        if(output.get("geometry"))
-            manager.adicionarFormaGeometrica(g, bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[configs.get("forma")]);
-        if(output.get("letter") && output.get("number"))
-            manager.adicionarNumeros(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("letra")]+Constantes.NUMEROS[configs.get("numero")]);
-        else{
-            if(output.get("letter"))
-                manager.adicionarLetrasAlfabeto(g, bounds,Constantes.LETRAS_ALFABETO[configs.get("letra")]);
-            if(output.get("number"))
-                manager.adicionarNumeros(g, bounds,Constantes.NUMEROS[configs.get("numero")]);
+        g2d.drawRect(bounds.x, bounds.y, configs.get("width"), configs.get("height"));
+
+        if (output.get("texture")) {
+            manager.prepareTextura(bounds, Constantes.TIPO_TEXTURA[configs.get("textura")], null);
         }
-        
-        
-            
-        
-        
+        if (output.get("circle")) {
+            manager.prepareCorForma(bounds, Color.decode(Constantes.getCorGlyphs()[configs.get("cor")]), null);
+        }
+        if (output.get("geometry")) {
+            manager.prepareFormaGeometrica(bounds, Constantes.TIPOS_FORMAS_GEOMETRICAS[configs.get("forma")], null);
+        }
+        if (output.get("letter") && output.get("number")) {
+            manager.prepareNumeros(bounds, Constantes.LETRAS_ALFABETO[configs.get("letra")] + Constantes.NUMEROS[configs.get("numero")], null);
+        } else {
+            if (output.get("letter")) {
+                manager.prepareLetrasAlfabeto(bounds, Constantes.LETRAS_ALFABETO[configs.get("letra")], null);
+            }
+            if (output.get("number")) {
+                manager.prepareNumeros(bounds, Constantes.NUMEROS[configs.get("numero")], null);
+            }
+        }
     }
 
     public void setAreaCallback(AreaCallback areaCallback) {
