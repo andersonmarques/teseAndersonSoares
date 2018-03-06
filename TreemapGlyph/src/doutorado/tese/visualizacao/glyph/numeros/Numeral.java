@@ -13,6 +13,9 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.font.FontRenderContext;
+import java.awt.font.LineMetrics;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -51,6 +54,7 @@ public class Numeral {
         int area = width + height;
 
         fonte = new Font("Arial black", Font.PLAIN, area);
+        calcularFontMetrics(fonte);
     }
 
     public void paint(Graphics g) {
@@ -122,6 +126,18 @@ public class Numeral {
         int pX = rect.x + (rect.width - trueWidth) / 2;
         int pY = rect.y + ((rect.height - trueHeight) / 2) + metrics.getAscent();
 
+        return new Point(pX, pY);
+    }
+    
+    private Point calcularFontMetrics(Font fonte) {
+        LineMetrics metrics = fonte.getLineMetrics(numero, new FontRenderContext(new AffineTransform(), true, true));
+        
+        trueHeight = Math.round(metrics.getHeight());
+        trueWidth = (int)Math.round(fonte.getStringBounds(numero, new FontRenderContext(new AffineTransform(), true, true)).getWidth());
+        
+        int pX = rect.x + (rect.width - trueWidth) / 2;
+        int pY = rect.y + ((rect.height - trueHeight) / 2) + Math.round(metrics.getAscent());
+        
         return new Point(pX, pY);
     }
 

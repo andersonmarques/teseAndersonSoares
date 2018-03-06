@@ -20,6 +20,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.List;
+import net.bouthier.treemapAWT.TMNode;
 import net.bouthier.treemapAWT.TMNodeEncapsulator;
 import net.bouthier.treemapAWT.TMNodeModel;
 import net.bouthier.treemapAWT.TMNodeModelComposite;
@@ -177,6 +178,8 @@ public final class GlyphManager {
     private void paintAnalyser(Graphics g, TMNodeModel nodo) {
         if (nodo instanceof TMNodeModelComposite) {//se for TreeMap Level
             TMNodeModelComposite pai = (TMNodeModelComposite) nodo;
+            TMNode node = pai.getNode();
+            
             for (TMNodeModel n : pai.getChildrenList()) {
                 paintAnalyser(g, n);
             }
@@ -220,18 +223,6 @@ public final class GlyphManager {
         }
     }
 
-//    public void setGlyphsInTreeMapItems(TMNodeModel nodo, Graphics g) {
-//        if (nodo instanceof TMNodeModelComposite) {//se for TreeMap Level
-//            TMNodeModelComposite pai = (TMNodeModelComposite) nodo;
-//            for (TMNodeModel n : pai.getChildrenList()) {
-//                setGlyphsInTreeMapItems(n, g);
-//            }
-//        } else {//se for um treemap Item ele vai desenhar os glyphs
-//            TMNodeEncapsulator nodeEncapsulator = (TMNodeEncapsulator) nodo.getNode();
-//            TreeMapItem treemapItem = (TreeMapItem) nodeEncapsulator.getNode();
-//            defineDimension2DrawGlyph(g, treemapItem);
-//        }
-//    }
     public void prepareDimension2DrawGlyph(TreeMapItem item) {
         double[] features = new double[15];
 

@@ -22,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import net.bouthier.treemapAWT.TMModelNode;
+import net.bouthier.treemapAWT.TMNodeEncapsulator;
 import net.bouthier.treemapAWT.TMOnDrawFinished;
 import net.bouthier.treemapAWT.TMNodeModel;
 import net.bouthier.treemapAWT.TMNodeModelComposite;
@@ -107,15 +108,23 @@ public class VisualizationsArea {
             this.root.setBounds(area);
 
             this.root = this.fixedRoot;
-            equalizeRoots(root, nodeModel);
+            System.out.println("Equalizou? -> "+equalizeRoots(root, nodeModel));
 
             setAreaNodesTree(this.root, nodeModel);
         }
     }
 
     public boolean equalizeRoots(TreeMapNode equalized, TMNodeModel nodeModel) {
-//        System.out.println("meu root: "+equalized.getLabel()+"\t root API: "+nodeModel.getTitle());
-        if (equalized.getLabel().equals(nodeModel.getTitle())) {
+        System.out.println(nodeModel.getUserData());
+//        if(nodeModel.getNode().getNodeModel() instanceof TreeMapNode){
+//            
+//        }
+
+        TreeMapNode aux = (TreeMapNode) ((TMNodeEncapsulator) nodeModel.getNode()).getNode();
+
+        
+        System.out.println("meu root: "+equalized+"\t root API: "+aux);
+        if (equalized == aux) {
 //            System.out.println("meu: "+equalized+"\t root API: "+nodeModel.getNode());
             this.root = equalized;
             return true;

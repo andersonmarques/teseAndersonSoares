@@ -13,6 +13,9 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.font.FontRenderContext;
+import java.awt.font.LineMetrics;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -33,7 +36,6 @@ public class Letra {
 
     public Letra(Rectangle r, String letra, boolean legenda) {
         this.rect = r;
-        setBounds(this.rect);
         this.letra = letra;
         this.legenda = legenda;
         //verifica o quadrado interno
@@ -50,6 +52,9 @@ public class Letra {
         int area = width + height;
 
         fonte = new Font("Arial black", Font.PLAIN, area);
+        
+        calcularFontMetrics(fonte);
+        
     }
 
     public void setBounds(Rectangle rect) {
@@ -122,6 +127,18 @@ public class Letra {
         
         int pX = rect.x + (rect.width - trueWidth) / 2;
         int pY = rect.y + ((rect.height - trueHeight) / 2) + metrics.getAscent();
+        
+        return new Point(pX, pY);
+    }
+    
+    private Point calcularFontMetrics(Font fonte) {
+        LineMetrics metrics = fonte.getLineMetrics(letra, new FontRenderContext(new AffineTransform(), true, true));
+        
+        trueHeight = Math.round(metrics.getHeight());
+        trueWidth = (int)Math.round(fonte.getStringBounds(letra, new FontRenderContext(new AffineTransform(), true, true)).getWidth());
+        
+        int pX = rect.x + (rect.width - trueWidth) / 2;
+        int pY = rect.y + ((rect.height - trueHeight) / 2) + Math.round(metrics.getAscent());
         
         return new Point(pX, pY);
     }
