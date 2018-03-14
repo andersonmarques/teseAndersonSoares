@@ -19,9 +19,11 @@ public class Triangulo extends JPanel{
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
+    private Color cor;
     
-    public Triangulo(Rectangle r) {
+    public Triangulo(Rectangle r,Color cor) {
         this.rect = r;
+        this.cor = cor;
         setBounds(this.rect);
     }
     
@@ -47,7 +49,7 @@ public class Triangulo extends JPanel{
         p.addPoint(xPoints[2], yPoints[2]);
        
 //        p.translate(xy[0],xy[1]);
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(cor);
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);

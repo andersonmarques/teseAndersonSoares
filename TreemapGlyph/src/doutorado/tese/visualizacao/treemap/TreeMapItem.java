@@ -8,6 +8,7 @@ package doutorado.tese.visualizacao.treemap;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.visualizacao.glyph.alfabeto.Letra;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
+import doutorado.tese.visualizacao.glyph.formasgeometricas.Seta;
 import doutorado.tese.visualizacao.glyph.numeros.Numeral;
 import doutorado.tese.visualizacao.glyph.texture.Textura;
 import java.awt.Graphics;
@@ -115,6 +116,15 @@ public class TreeMapItem extends TreeMapNode {
     public void setFormaGeometrica(FormaGeometrica formaGeometrica) {
         this.formaGeometrica = formaGeometrica;
     }
+    
+    public Seta getSetaDirecao(Seta seta) {
+        return seta;
+    }
+    
+    public void setSetaDirecao(Seta seta) {
+        this.formaGeometrica = seta;
+    }
+    
 
     public Letra getLetra() {
         return letra;

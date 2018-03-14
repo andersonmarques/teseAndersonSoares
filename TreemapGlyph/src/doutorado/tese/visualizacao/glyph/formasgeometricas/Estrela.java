@@ -21,10 +21,12 @@ public class Estrela{
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
+    private Color cor;
    
 
-    public Estrela(Rectangle r) {
+    public Estrela(Rectangle r,Color cor) {
         this.rect = r;
+        this.cor = cor;
         setBounds(this.rect);
     }
     

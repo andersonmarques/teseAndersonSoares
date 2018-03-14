@@ -17,10 +17,12 @@ public class Hexagono extends FormaGeometrica{
     private int[] xPoints;
     private int[] yPoints;
     private Polygon p;
+    private Color cor;
    
 
-    public Hexagono(Rectangle r) {
+    public Hexagono(Rectangle r,Color cor) {
         super(r, "HEXAGONO");
+        this.cor = cor;
         montarHexagono();
     }
 
@@ -31,7 +33,7 @@ public class Hexagono extends FormaGeometrica{
         g2d.setPaint(Color.BLACK);
         
 
-        g2d.setColor(Color.white);
+        g2d.setColor(cor);
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);

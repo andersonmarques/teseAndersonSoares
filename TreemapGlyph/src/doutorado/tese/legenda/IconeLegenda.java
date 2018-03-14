@@ -43,12 +43,12 @@ public class IconeLegenda implements Icon {
                 t.paint(g);
                 break;
             case 1:
-                FormaGeometrica f = GeometryFactory.create(bounds, Color.decode(valor), GeometryFactory.FORMAS.CIRCULO);
-                f.paint(g);
+                FormaGeometrica forma = GeometryFactory.create(bounds, Color.BLUE,GeometryFactory.FORMAS.GLYPH_FORMAS.ARCO,null);
+                forma.paint(g);
                 break;
             case 2:
-                FormaGeometrica forma = GeometryFactory.create(bounds, null, valor);
-                forma.paint(g);
+                FormaGeometrica form = GeometryFactory.create(bounds, Color.BLUE,GeometryFactory.FORMAS.GLYPH_FORMAS.ARCO,null);
+                form.paint(g);
                 break;
             case 3:
                 Letra letra = new Letra(bounds, valor, true);

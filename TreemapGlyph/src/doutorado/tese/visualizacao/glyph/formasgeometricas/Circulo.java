@@ -52,8 +52,8 @@ public class Circulo extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.65);
-        int height = (int) Math.round(points[1] * 0.65);
+        int width = (int) Math.round(points[0] * 0.2);
+        int height = (int) Math.round(points[1] * 0.2);
 
 
         xPoints = new int[2];

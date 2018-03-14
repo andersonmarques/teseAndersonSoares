@@ -15,42 +15,65 @@ import java.awt.Rectangle;
 public class GeometryFactory {
     
     public static final class FORMAS{
-        public static final String CIRCULO = "CIRCULO";
-        public static final String RETANGULO = "RETANGULO";
-        public static final String CRUZ = "CRUZ";
-        public static final String ELLIPSE = "ELLIPSE";
-        public static final String OCTOGONO = "OCTOGONO";
-        public static final String HEXAGONO = "HEXAGONO";
-        public static final String LOSANGO = "LOSANGO";
-        public static final String PENTAGONO = "PENTAGONO";
-        public static final String TRAPEZIO = "TRAPEZIO";
+        
+        public enum GLYPH_FORMAS{
+            CIRCULO     ("CIRCULO"),
+            RETANGULO   ("RETANGULO"),
+            CRUZ        ("CRUZ"),
+            ELLIPSE     ("ELLIPSE"),
+            ARCO        ("ARCO"),
+            HEXAGONO    ("HEXAGONO"),
+            LOSANGO     ("LOSANGO"),
+            PENTAGONO   ("PENTAGONO"),
+            TRAPEZIO    ("TRAPEZIO");
+            
+            private final String nome;
+            
+            GLYPH_FORMAS(String nome){
+                this.nome = nome;
+            }
+            
+            private String nome(){
+                return nome;
+            }
+        }
+//        public static final String CIRCULO = "";
+//        public static final String RETANGULO = "";
+//        public static final String CRUZ = "";
+//        public static final String ELLIPSE = "";
+//        public static final String ARCO = "";
+//        public static final String HEXAGONO = "";
+//        public static final String LOSANGO = "";
+//        public static final String PENTAGONO = "";
+//        public static final String TRAPEZIO = "";
+        
     }
 
     private GeometryFactory() {
     }
     
-    public static FormaGeometrica create(Rectangle bounds, Color cor, String forma){
+    public static FormaGeometrica create(Rectangle bounds, Color cor, FORMAS.GLYPH_FORMAS forma,String angulo){
         switch (forma) {
-            case FORMAS.RETANGULO:
-                return new Retangulo(bounds);
-            case FORMAS.CRUZ:
-                return new Cruz(bounds);
-            case FORMAS.ELLIPSE:
-                return new Ellipse(bounds);
-            case FORMAS.CIRCULO:
+            case RETANGULO:
+                return new Retangulo(bounds,cor);
+            case CRUZ:
+                return new Cruz(bounds,cor);
+            case ELLIPSE:
+                return new Ellipse(bounds,cor);
+            case CIRCULO:
                 return new Circulo(bounds, cor);
-            case FORMAS.OCTOGONO:
-                return new Octogono(bounds);
-            case FORMAS.HEXAGONO:
-                return new Hexagono(bounds);
-            case FORMAS.LOSANGO:
-                return new Losango(bounds);
-            case FORMAS.PENTAGONO:
-                return new Pentagono(bounds);
-            case FORMAS.TRAPEZIO:
-                return new Trapezio(bounds);
+            case ARCO:
+                return new Arco(bounds,cor,angulo);
+            case HEXAGONO:
+                return new Hexagono(bounds,cor);
+            case LOSANGO:
+                return new Losango(bounds,cor);
+            case PENTAGONO:
+                return new Pentagono(bounds,cor);
+            case TRAPEZIO:
+                return new Trapezio(bounds,cor);
             default:
-                return new Retangulo(bounds);
+                return new Retangulo(bounds,cor);
         }
     }
     

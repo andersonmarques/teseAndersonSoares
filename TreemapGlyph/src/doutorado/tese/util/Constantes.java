@@ -59,7 +59,7 @@ public class Constantes {
      * "CIRCULO"
      */
     public final static String[] TIPOS_FORMAS_GEOMETRICAS = {
-        "OCTOGONO", "ELLIPSE", "CRUZ", "LOSANGO", "PENTAGONO", "TRAPEZIO", "HEXAGONO", "RETANGULO", "CIRCULO"
+      "ARCO", "ELLIPSE", "CRUZ", "LOSANGO", "PENTAGONO", "TRAPEZIO", "HEXAGONO", "RETANGULO", "CIRCULO"
 
     };
 
@@ -71,6 +71,11 @@ public class Constantes {
     public final static String[] NUMEROS = {
         "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
     };
+    
+     public final static String[] ANGLE = {
+        "1","2","3","4","5","6","7","8"
+    };
+    
     public static final int LIMITE_TESTES = 100;
 
     public enum NivelGlyph {

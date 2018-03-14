@@ -10,9 +10,11 @@ public class Ellipse extends FormaGeometrica{
 
     private int[] xPoints;
     private int[] yPoints;
+    private Color cor = Color.white;
 
-    public Ellipse(Rectangle r) {
+    public Ellipse(Rectangle r,Color cor) {
         super(r, "ELLIPSE");
+        this.cor = cor;
         montarEllipse();
     }
     
@@ -23,7 +25,7 @@ public class Ellipse extends FormaGeometrica{
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
        
-        g2d.setColor(Color.white);
+        g2d.setColor(cor);
         g2d.fillOval(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
         g2d.setColor(Color.black);
         g2d.drawOval(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);

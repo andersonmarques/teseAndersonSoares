@@ -17,10 +17,12 @@ public class Pentagono extends FormaGeometrica{
     private int[] xPoints;
     private int[] yPoints;
     private Polygon p;
+    private Color cor;
     
 
-    public Pentagono(Rectangle r) {
+    public Pentagono(Rectangle r,Color cor) {
         super(r, "PENTAGONO");
+        this.cor = cor;
         montarPentagono();
     }
 
@@ -32,7 +34,7 @@ public class Pentagono extends FormaGeometrica{
         
         //p.translate(xy[0], xy[1]);
 
-        g2d.setColor(Color.white);
+        g2d.setColor(cor);
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);

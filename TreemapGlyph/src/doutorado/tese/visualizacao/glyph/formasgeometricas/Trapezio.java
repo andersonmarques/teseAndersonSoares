@@ -17,10 +17,12 @@ public class Trapezio extends FormaGeometrica{
 
     private int[] xPoints;
     private int[] yPoints;
+    private Color cor;
 
 
-    public Trapezio(Rectangle r) {
+    public Trapezio(Rectangle r,Color cor) {
         super(r, "TRAPEZIO");
+        this.cor = cor;
         montarTrapezio();
     }
 
@@ -38,7 +40,7 @@ public class Trapezio extends FormaGeometrica{
         p.addPoint(xPoints[3], yPoints[3]);
        
 
-        g2d.setColor(Color.white);
+        g2d.setColor(cor);
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);

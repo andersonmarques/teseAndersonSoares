@@ -10,9 +10,11 @@ public class Retangulo extends FormaGeometrica{
 
     private int[] xPoints;
     private int[] yPoints;
+    private Color cor;
 
-    public Retangulo(Rectangle r) {
+    public Retangulo(Rectangle r,Color cor) {
         super(r, "RETANGULO");
+       this.cor = cor;
         montarRetangulo();
     }
 
@@ -21,10 +23,10 @@ public class Retangulo extends FormaGeometrica{
 
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g2d.setPaint(Color.BLUE);
+        g2d.setPaint(cor);
 
         
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(cor);
         g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
         g2d.setColor(Color.BLACK);
         g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);

@@ -17,10 +17,12 @@ public class Cruz extends FormaGeometrica{
     private int[] xPoints;
     private int[] yPoints;
     private Polygon p;
+    private Color cor;
    
 
-    public Cruz(Rectangle r) {
+    public Cruz(Rectangle r,Color cor) {
         super(r, "CRUZ");
+        this.cor = cor;
         montarCruz();
     }
 
@@ -33,7 +35,7 @@ public class Cruz extends FormaGeometrica{
 
         //p.translate(xy[0], xy[1]);
 
-        g2d.setColor(Color.white);
+        g2d.setColor(cor);
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);
