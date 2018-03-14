@@ -1036,7 +1036,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void atualizarLegendaTreemap(String itemCor) {
         painelLegendaVis.removeAll();
         if (!itemCor.equals("---")) {
-            JPanel painelDimensao = legendaVisualizacao.addLegendaCor(itemCor);
+            JPanel painelDimensao = legendaVisualizacao.addLegendaCorTreemap(itemCor);
             painelLegendaVis.add(painelDimensao);
         }
     }

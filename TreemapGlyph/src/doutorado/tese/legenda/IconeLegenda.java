@@ -43,7 +43,7 @@ public class IconeLegenda implements Icon {
                 t.paint(g);
                 break;
             case 1:
-                FormaGeometrica forma = GeometryFactory.create(bounds, Color.BLUE,GeometryFactory.FORMAS.GLYPH_FORMAS.ARCO,null);
+                FormaGeometrica forma = GeometryFactory.create(bounds, Color.BLUE,GeometryFactory.FORMAS.GLYPH_FORMAS.ARCO, valor);
                 forma.paint(g);
                 break;
             case 2:

@@ -63,7 +63,7 @@ public class GeometryFactory {
             case CIRCULO:
                 return new Circulo(bounds, cor);
             case ARCO:
-                return new Arco(bounds,cor,angulo);
+                return new Arco(bounds,angulo);
             case HEXAGONO:
                 return new Hexagono(bounds,cor);
             case LOSANGO:

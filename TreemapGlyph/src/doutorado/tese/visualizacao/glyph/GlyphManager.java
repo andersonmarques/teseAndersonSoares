@@ -13,10 +13,10 @@ import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import doutorado.tese.visualizacao.glyph.numeros.Numeral;
 import doutorado.tese.util.tree.*;
+import doutorado.tese.visualizacao.glyph.formasgeometricas.Arco;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.Seta;
 import doutorado.tese.visualizacao.glyph.texture.Textura;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.HashMap;
@@ -26,8 +26,6 @@ import net.bouthier.treemapAWT.TMNodeEncapsulator;
 import net.bouthier.treemapAWT.TMNodeModel;
 import net.bouthier.treemapAWT.TMNodeModelComposite;
 import net.bouthier.treemapAWT.TMNodeModelRoot;
-import net.bouthier.treemapAWT.TMOnDrawFinished;
-import net.bouthier.treemapAWT.TMUpdaterConcrete;
 
 /**
  *
@@ -112,10 +110,11 @@ public final class GlyphManager {
         return t.getArea();
     }
      
-    // 2 dimensao arco
-    public int prepareFormaGeometricaCor(Rectangle bounds, Color cor,String nomeForma,TreeMapItem treemapItem) {
-        FormaGeometrica corForma = GeometryFactory.create(bounds, cor,null, nomeForma);
-        corForma.setColor(cor);
+    
+    public int prepareFormaGeometricaCor(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma,String angulo, TreeMapItem treemapItem) {
+        FormaGeometrica corForma = GeometryFactory.create(bounds, null, nomeForma,angulo);
+        System.out.println("prepareFormaGeometricaCor - angulo: "+((Arco)corForma).getAngulo());
+        //corForma.setColor(cor);
         if (treemapItem != null) {
             treemapItem.setCorForma(corForma);
         }
@@ -131,8 +130,10 @@ public final class GlyphManager {
 //        return corForma.getArea();
 //    }
 
+    // 2 dimensao arco
     public int prepareFormaGeometrica(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma,String angulo, TreeMapItem treemapItem) {
-        FormaGeometrica formaGeometrica = GeometryFactory.create(bounds,Color.BLUE, nomeForma,angulo);
+        FormaGeometrica formaGeometrica = GeometryFactory.create(bounds, null, nomeForma, angulo);
+        System.out.println("prepareFormaGeometrica - angulo: "+((Arco)formaGeometrica).getAngulo());
         if (treemapItem != null) {
             treemapItem.setFormaGeometrica(formaGeometrica);
         }
@@ -304,7 +305,8 @@ public final class GlyphManager {
         }
         return 0;
     }
-
+    
+    //aqui e o arco
     public int prepareSegundaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.ANGLE.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
@@ -317,7 +319,7 @@ public final class GlyphManager {
     public int  prepareTerceiraDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                return prepareFormaGeometricaCor(item.getBounds(),Color.decode(getShufflerColors()[j]) ,GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j].name(), item);
+                return prepareFormaGeometricaCor(item.getBounds(),GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j], null, item);
             }
         }
         return 0;

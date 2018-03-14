@@ -17,35 +17,49 @@ import java.awt.geom.Arc2D;
 import java.awt.geom.Path2D;
 
 public class Arco extends FormaGeometrica{
+    private Rectangle rect;
+    private double width;
+    private double height;
 
     private double[] xPoints;
     private double[] yPoints;
     private Path2D p;
     private Color cor;
-    private String angulo = "1";
+    private String nomeAngulo;
+    private double angle;
 
-    public Arco(Rectangle r,Color cor,String angulo) {
+    public Arco(Rectangle r, String angulo) {
         super(r, "ARCO");
-        this.cor = cor;
-        this.angulo = angulo;
+        this.nomeAngulo = angulo;
+//        System.out.println("construtor: "+this.nomeAngulo);
         montarArco();
     }
 
 
-      public void paint(Graphics g) {
-        double angle; 
-        //angle = definirAnglulo(this.angulo);          
+      public void paint(Graphics g) {   
+//        System.out.println("paint: "+ nomeAngulo);
+        
+//        System.out.println("eeeeeeeeeeeee agora:"+definirAnglulo(nomeAngulo));
+
+        
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);     
-        g2d.setColor(cor);
+        g2d.setColor(getCor());
         Graphics2D g2 = (Graphics2D) g; 
        
-        g2d.setPaint(Color.BLACK);
-        //Graphics2D g2d2 = (Graphics2D)  g2d.create();
-        //g2d2.rotate(Math.PI/4);
-     
-        g2d.fill(p);  
-        //g2d.dispose(); 
+        Graphics2D g2d2 = (Graphics2D)  g2d.create();
+
+        Rectangle bounds = getBounds();   
+        g2d2.transform(AffineTransform.getTranslateInstance(bounds.x + Math.round(bounds.width/2.f),bounds.y+Math.round(bounds.height/2.f)));
+        p.transform(AffineTransform.getTranslateInstance(-bounds.x - Math.round(bounds.width/2.f),-bounds.y-Math.round(bounds.height/2.f)));
+        g2d2.rotate(angle);
+//        System.out.println("-----------angulo: "+ nomeAngulo);
+        g2d2.setStroke(new BasicStroke(2.8f));
+        g2d2.setColor(Color.BLACK);
+        g2d2.draw(p);
+        g2d2.setColor(cor);
+        g2d2.fill(p);  
+        g2d2.dispose(); 
     }
 
     //função para deixar os glyphs quadrados
@@ -65,13 +79,14 @@ public class Arco extends FormaGeometrica{
     private void montarArco() {
         int[] points = new int[2];
 
-        Rectangle rect = getBounds();
+        setRect(getBounds());
         points[0] = rect.width;
         points[1] = rect.height;
         verificarRetangulo(points);
         
-        double width = points[0] * 0.5;
-        double height = points[1] * 0.5;
+        
+        setWidth(points[0] * 0.5);
+        setHeight(points[1] * 0.5);
         
         double halfWidth = width / 2.;
         double halfHeight = height / 2.;
@@ -110,38 +125,47 @@ public class Arco extends FormaGeometrica{
         p.quadTo(xPoints[4],yPoints[4] ,xPoints[5],yPoints[5] );
         p.closePath();
         
-       // p.translate(rect.x+ width/2.f,rect.y+height/2.f);
-       // p.translate(-rect.x-width/2.f,-rect.y -height/2.f);
-       
         p.transform(AffineTransform.getTranslateInstance(rect.width/2-width/2,rect.height/2-height/2));
+    
+        angle = definirAnglulo(nomeAngulo);
     }
     
-    public double definirAnglulo(String angle){
+    public double definirAnglulo(String angulo){
         double newAngle = 0;
-        switch(angle){
+        System.out.println("definir angulo: "+angulo);
+        switch(angulo){
             case "1":
                 newAngle = Math.PI;
+                cor = Color.decode("#756bb1");//roxo
                 break;
             case "2":
-                newAngle = 0;
+                newAngle = 0; 
+                cor = Color.decode("#fefe33");//amarelo
                 break;
             case "3":
                 newAngle = Math.PI/2;
+                cor = Color.decode("#31a354");//verde
                 break;
              case "4":
                 newAngle =  -Math.PI/2;
+                cor = Color.decode("#393b79");//azul escuro
                 break;
             case "5":
-                newAngle =  Math.PI/4;
+                newAngle =  Math.PI/4;                
+                cor = Color.decode("#e377c2");//rosa
+
                 break;
             case "6":
                 newAngle = -Math.PI/4;
+                cor = Color.decode("#d62728");//vermelho
                 break;
             case "7":
                 newAngle =  5*Math.PI/6;
+                cor = Color.decode("#FFD700");//dourado
                 break;
             case "8":
                 newAngle =  -3*Math.PI/4;
+                cor = Color.decode("#8c564b");//marrom
                 break;              
             default:
                 break;
@@ -156,6 +180,39 @@ public class Arco extends FormaGeometrica{
     public void setCor(Color cor) {
         this.cor = cor;
     }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setAngulo(String angulo) {
+        this.nomeAngulo = angulo;
+    }
+
+    public String getAngulo() {
+        return nomeAngulo;
+    }
+    
     
     @Override
     public int getArea() {
