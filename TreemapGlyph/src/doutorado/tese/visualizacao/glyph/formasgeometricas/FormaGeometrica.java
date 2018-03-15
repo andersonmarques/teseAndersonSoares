@@ -13,7 +13,7 @@ import java.awt.Rectangle;
  *
  * @author Anderson Soares
  */
-public abstract class FormaGeometrica {
+public class FormaGeometrica {
 
     private Rectangle bounds;
     private String name;
@@ -28,16 +28,47 @@ public abstract class FormaGeometrica {
         this.cor = cor;
     }
 
-    public Rectangle getBounds() {
-        return bounds;
+    public void paint(Graphics g) {
+        switch (name) {
+            case "RETANGULO":
+                Retangulo r = new Retangulo(bounds);
+                r.paint(g);
+                break;
+            case "CRUZ":
+                Cruz cruz = new Cruz(bounds);
+                cruz.paint(g);
+                break;
+            case "ELLIPSE":
+                Ellipse e = new Ellipse(bounds);
+                e.paint(g);
+                break;
+            case "CIRCULO":
+                Circulo c = new Circulo(bounds, cor);
+                c.paint(g);
+                break;
+            case "OCTOGONO":
+                Octogono t = new Octogono(bounds);
+                t.paint(g);
+                break;
+            case "HEXAGONO":
+                Hexagono h = new Hexagono(bounds);
+                h.paint(g);
+                break;
+            case "LOSANGO":
+                Losango l = new Losango(bounds);
+                l.paint(g);
+                break;
+            case "PENTAGONO":
+                Pentagono p = new Pentagono(bounds);
+                p.paint(g);
+                break;
+            case "TRAPEZIO":
+                Trapezio tra = new Trapezio(bounds);
+                tra.paint(g);
+                break;
+            default:
+                System.err.println("Não ha glyphs para o desenho.");
+        }
     }
-    
-    public void setBounds(Rectangle bounds) {
-        this.bounds = bounds;
-    }
-    
-    public abstract int getArea();
-
-    public abstract void paint(Graphics g);
 
 }

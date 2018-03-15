@@ -22,7 +22,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import net.bouthier.treemapAWT.TMModelNode;
-import net.bouthier.treemapAWT.TMNodeEncapsulator;
 import net.bouthier.treemapAWT.TMOnDrawFinished;
 import net.bouthier.treemapAWT.TMNodeModel;
 import net.bouthier.treemapAWT.TMNodeModelComposite;
@@ -87,8 +86,8 @@ public class VisualizationsArea {
                 getRootBoundsFromView(t);
             }
         });
-//        TMThreadModel.listener = listener;
-        TMUpdaterConcrete.listeners.add(listener);
+        TMThreadModel.listener = listener;
+        TMUpdaterConcrete.listener = listener;
     }
 
     public void acionarStarGlyph(List<String> variaveisStarGlyph) {
@@ -108,24 +107,14 @@ public class VisualizationsArea {
             this.root.setBounds(area);
 
             this.root = this.fixedRoot;
-            System.out.println("Equalizou? -> "+equalizeRoots(root, nodeModel));
+            equalizeRoots(root, nodeModel);
 
             setAreaNodesTree(this.root, nodeModel);
         }
     }
 
     public boolean equalizeRoots(TreeMapNode equalized, TMNodeModel nodeModel) {
-        System.out.println(nodeModel.getUserData());
-//        if(nodeModel.getNode().getNodeModel() instanceof TreeMapNode){
-//            
-//        }
-
-        TreeMapNode aux = (TreeMapNode) ((TMNodeEncapsulator) nodeModel.getNode()).getNode();
-
-        
-        System.out.println("meu root: "+equalized+"\t root API: "+aux);
-        if (equalized == aux) {
-//            System.out.println("meu: "+equalized+"\t root API: "+nodeModel.getNode());
+        if (equalized.getLabel().equals(nodeModel.getTitle())) {
             this.root = equalized;
             return true;
         } else {

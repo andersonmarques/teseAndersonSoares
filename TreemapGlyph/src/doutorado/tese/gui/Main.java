@@ -130,7 +130,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         fileMenu = new javax.swing.JMenu();
         fileMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
-        decisionTreeActivate = new javax.swing.JCheckBoxMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -595,9 +594,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         helpMenu.setText("Help");
         helpMenu.setToolTipText("");
 
-        decisionTreeActivate.setText("Activate Decision Tree");
-        helpMenu.add(decisionTreeActivate);
-
         aboutMenuItem.setText("About");
         helpMenu.add(aboutMenuItem);
 
@@ -671,10 +667,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
         glyphPanel.setBounds(painelEsquerda.getBounds());
-        glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());                
         glyphPanel.setManipulador(manipulador);
         ArrayList<Object> atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
         glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
+
         glyphPanel.setVisible(true);
         glyphPanel.repaint();
 
@@ -984,7 +980,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JList<String> colunasHierarquicasList;
     private javax.swing.JList<String> colunasHierarquicasList2;
     private javax.swing.JComboBox<String> corTreemapComboBox;
-    private javax.swing.JCheckBoxMenuItem decisionTreeActivate;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem fileMenuItem;
     private javax.swing.JMenu helpMenu;

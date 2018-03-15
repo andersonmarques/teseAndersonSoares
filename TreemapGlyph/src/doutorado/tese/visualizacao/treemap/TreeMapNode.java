@@ -196,7 +196,7 @@ public abstract class TreeMapNode implements TMModelNode{
 
     @Override
     public String toString() {
-        return super.toString()+"[Label: " + getLabel() + " Pai: " + (paiLevel!=null?paiLevel.getLabel():"") + " Size: " + size; //To change body of generated methods, choose Tools | Templates.
+        return "[Label: " + getLabel() + " Pai: " + paiLevel.getLabel() + " Size: " + size; //To change body of generated methods, choose Tools | Templates.
     }
     
     //Metodos para criar uma arvore

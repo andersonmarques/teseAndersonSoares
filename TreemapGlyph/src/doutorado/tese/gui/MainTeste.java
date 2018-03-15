@@ -3,24 +3,48 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.gui;
 
+package doutorado.tese.gui;
+import doutorado.tese.io.ManipuladorArquivo;
+import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
+import doutorado.tese.legenda.LegendaVisualizacao;
+import doutorado.tese.util.Metadados;
+import doutorado.tese.visualizacao.glyph.GlyphManager;
+import static doutorado.tese.visualizacao.glyph.GlyphManager.getShufflerColors;
+import doutorado.tese.visualizacao.treemap.Rect;
+import doutorado.tese.visualizacao.treemap.TreeMapItem;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JCheckBox;
-import javax.swing.JSeparator;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JLayeredPane;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import net.bouthier.treemapAWT.TMView;
 
 /**
  *
@@ -28,32 +52,21 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class MainTeste extends javax.swing.JFrame {
 
+    
     private HashMap<String, Integer> configs;
-    private HashMap<String, Boolean> output;
     private Random rand;
     private String data;
-    private boolean selectAll = true;
-    private HashMap<String, Integer> areas;
-    private int[] glyphlayers2draw = {0, 1, 2, 3, 4, 5};
-    private String[] layers = new String[]{"textura", "cor", "forma", "letra", "numero", "coritem"};
-    private HashMap<String, JCheckBox> checkboxes;
-
     private int cont = 0;
-    private int numLayers2remove = 0;
-    private int numAmostras = 100;
-    private int step = (numAmostras / 6) + 1;
-    private String nomeArquivo = "result_"+System.getProperty("user.name")+".csv";
-
+    
     /**
      * Creates new form Main
      */
     public MainTeste() {
-
-        data = "Textura,Cor,Forma,Letra,Numero,Altura,Largura,AreaItem,AspectoItem,CorItem,AreaTextura,AreaCor,AreaForma,AreaLetra,AreaNumero,ViuTextura,ViuCor,ViuForma,ViuLetra,ViuNumero";
+        
+        data = "Textura,Cor,Forma,Letra,Numero,Altura,Largura,CorFundo,ViuTextura,ViuCor,ViuForma,ViuLetra,ViuNumero";
         rand = new Random(System.currentTimeMillis());
         configs = new HashMap<>();
-        output = new HashMap<>();
-
+        
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -61,56 +74,31 @@ public class MainTeste extends javax.swing.JFrame {
         }
         initComponents();
 
+        layerPane = new JLayeredPane();
+        
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-
-        checkboxes = new HashMap<>();
-        checkboxes.put("textura", checkboxTexture);
-        checkboxes.put("cor", checkboxCircle);
-        checkboxes.put("forma", checkboxGeometry);
-        checkboxes.put("letra", checkboxLetter);
-        checkboxes.put("numero", checkboxNumber);
-
+        
         changeConfigs();
-
-        this.painelEsquerda.setAreaCallback(new PainelDeTeste.AreaCallback() {
-            @Override
-            public void areaUpdated(HashMap<String, Integer> areas) {
-                MainTeste.this.areas = areas;
-            }
-        });
-
-        updateOutput();
-
+        
     }
-
-    public void changeConfigs() {
-        selectAll = true;
+    
+    
+    public void changeConfigs(){
         cont++;
-        contadorLabel.setText(cont + " / " + numAmostras);
-
-        if (cont % step == 0) {
-            numLayers2remove++;
-        }
-
+        System.out.println("Quantidade: "+cont);
         configs.put("textura", rand.nextInt(Constantes.TIPO_TEXTURA.length));
         configs.put("cor", rand.nextInt(Constantes.getCorGlyphs().length));
-        configs.put("forma", rand.nextInt(Constantes.TIPOS_FORMAS_GEOMETRICAS.length - 1));
+        configs.put("forma", rand.nextInt(Constantes.TIPOS_FORMAS_GEOMETRICAS.length-1));
         configs.put("letra", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
         configs.put("numero", rand.nextInt(Constantes.NUMEROS.length));
         configs.put("x", 50);
         configs.put("y", 50);
-        int length = rand.nextInt(50) + 50;
+        int length = rand.nextInt(150) + 50;
         configs.put("width", length - rand.nextInt(45));
         configs.put("height", length - rand.nextInt(45));
         configs.put("coritem", rand.nextInt(Constantes.getCor().length));
-
-        shuffleArray(glyphlayers2draw);
-        for (int i = 0; i < numLayers2remove; i++) {
-            configs.put(layers[glyphlayers2draw[i]], -1);
-            if (checkboxes.get(layers[glyphlayers2draw[i]]) != null) {
-                checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
-            }
-        }
+        
+        
 
         painelEsquerda.setConfigs(configs);
     }
@@ -126,9 +114,6 @@ public class MainTeste extends javax.swing.JFrame {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         painelEsquerda = new PainelDeTeste();
-        separador = new javax.swing.JSeparator();
-        glyphsLabel = new javax.swing.JLabel();
-        shouldBeLabel = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
@@ -138,48 +123,30 @@ public class MainTeste extends javax.swing.JFrame {
         checkboxGeometry = new javax.swing.JCheckBox();
         checkboxLetter = new javax.swing.JCheckBox();
         checkboxNumber = new javax.swing.JCheckBox();
-        btnSelectAll = new javax.swing.JButton();
-        contadorLabel = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
+        fileMenuItem = new javax.swing.JMenuItem();
+        helpMenu = new javax.swing.JMenu();
+        aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Treemap Glyphs");
 
-        jSplitPane1.setDividerLocation(800);
+        jSplitPane1.setDividerLocation(1000);
         jSplitPane1.setOpaque(false);
 
         painelEsquerda.setBackground(new java.awt.Color(153, 255, 153));
         painelEsquerda.setOpaque(false);
 
-        separador.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        glyphsLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        glyphsLabel.setText("The Glyph:");
-
-        shouldBeLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        shouldBeLabel.setText("How it should be:");
-
         javax.swing.GroupLayout painelEsquerdaLayout = new javax.swing.GroupLayout(painelEsquerda);
         painelEsquerda.setLayout(painelEsquerdaLayout);
         painelEsquerdaLayout.setHorizontalGroup(
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelEsquerdaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(glyphsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(separador, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(shouldBeLabel)
-                .addContainerGap(261, Short.MAX_VALUE))
+            .addGap(0, 946, Short.MAX_VALUE)
         );
         painelEsquerdaLayout.setVerticalGroup(
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(separador)
-            .addGroup(painelEsquerdaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(glyphsLabel)
-                    .addComponent(shouldBeLabel))
-                .addContainerGap(575, Short.MAX_VALUE))
+            .addGap(0, 594, Short.MAX_VALUE)
         );
 
         jSplitPane1.setLeftComponent(painelEsquerda);
@@ -215,34 +182,10 @@ public class MainTeste extends javax.swing.JFrame {
         });
 
         checkboxGeometry.setText("Geometry");
-        checkboxGeometry.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxGeometryActionPerformed(evt);
-            }
-        });
 
         checkboxLetter.setText("Letter");
-        checkboxLetter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxLetterActionPerformed(evt);
-            }
-        });
 
         checkboxNumber.setText("Number");
-        checkboxNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxNumberActionPerformed(evt);
-            }
-        });
-
-        btnSelectAll.setText("SelectAll");
-        btnSelectAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelectAllActionPerformed(evt);
-            }
-        });
-
-        contadorLabel.setText("0 / 100");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -251,25 +194,19 @@ public class MainTeste extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnConfirm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(34, 34, 34))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSelectAll)
                             .addComponent(checkboxNumber)
+                            .addComponent(checkboxLetter)
                             .addComponent(checkboxGeometry)
                             .addComponent(checkboxCircle)
                             .addComponent(checkboxTexture))
-                        .addGap(0, 305, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(checkboxLetter)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(contadorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(34, 34, 34))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,16 +223,34 @@ public class MainTeste extends javax.swing.JFrame {
                 .addComponent(checkboxLetter)
                 .addGap(18, 18, 18)
                 .addComponent(checkboxNumber)
-                .addGap(46, 46, 46)
-                .addComponent(btnSelectAll)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(contadorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jSplitPane1.setRightComponent(jPanel4);
+
+        fileMenu.setText("File");
+
+        fileMenuItem.setText("File");
+        fileMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(fileMenuItem);
+
+        jMenuBar1.add(fileMenu);
+
+        helpMenu.setText("Help");
+        helpMenu.setToolTipText("");
+
+        aboutMenuItem.setText("About");
+        helpMenu.add(aboutMenuItem);
+
+        jMenuBar1.add(helpMenu);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -319,108 +274,96 @@ public class MainTeste extends javax.swing.JFrame {
         return convertida;
     }
 
-    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        float aspect = configs.get("height") > configs.get("width")
-                ? (configs.get("width") * 1.f) / configs.get("height")
-                : (configs.get("height") * 1.f) / configs.get("width");
+    private void fileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuItemActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "TXT & CSV Files", "txt", "csv");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            
+            
+            selectedFile = chooser.getSelectedFile();
 
-        data += "\n" + (configs.get("textura") >= 0 ? 1 : 0)
-                + "," + (configs.get("cor") >= 0 ? 1 : 0)
-                + "," + (configs.get("forma") >= 0 ? 1 : 0)
-                + "," + (configs.get("letra") >= 0 ? 1 : 0)
-                + "," + (configs.get("numero") >= 0 ? 1 : 0)
-                + "," + configs.get("height")
-                + "," + configs.get("width")
-                + "," + (configs.get("width") * configs.get("height"))
-                + "," + aspect
-                + "," + (configs.get("coritem") >= 0 ? 1 : 0)
-                + "," + areas.get("textura")
-                + "," + areas.get("cor")
-                + "," + areas.get("forma")
-                + "," + areas.get("letra")
-                + "," + areas.get("numero")
-                + "," + (checkboxTexture.isSelected() ? 1 : 0)
-                + "," + (checkboxCircle.isSelected() ? 1 : 0)
-                + "," + (checkboxGeometry.isSelected() ? 1 : 0)
-                + "," + (checkboxLetter.isSelected() ? 1 : 0)
-                + "," + (checkboxNumber.isSelected() ? 1 : 0);
+//            progressoBarra.setVisible(true);
+            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            //Instances of javax.swing.SwingWorker are not reusuable, so
+            //we create new instances as needed.
 
-        for (JCheckBox c : checkboxes.values()) {
-            c.setSelected(false);
-            c.setEnabled(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "The file type can not be read.", "Erro!", JOptionPane.ERROR_MESSAGE);
         }
+    }//GEN-LAST:event_fileMenuItemActionPerformed
 
-        output.put("texture", false);
-        output.put("circle", false);
-        output.put("geometry", false);
-        output.put("letter", false);
-        output.put("number", false);
-
-        if (cont >= numAmostras) {
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        if(cont>10){
             PrintWriter writer = null;
             try {
-                File file = new File(nomeArquivo);
+                File file = new File("result.txt");
                 writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
                 writer.print(data);
                 writer.flush();
                 writer.close();
                 System.exit(0);
-
+                
             } catch (IOException ex) {
                 Logger.getLogger(MainTeste.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 writer.close();
             }
         }
-
+        
+        data += "\n"+configs.get("textura")
+                +","+configs.get("cor")
+                +","+configs.get("forma")
+                +","+configs.get("letra")
+                +","+configs.get("numero")
+                +","+configs.get("height")
+                +","+configs.get("width")
+                +","+configs.get("coritem")
+                +","+(checkboxTexture.isSelected() ? 1 : 0)
+                +","+(checkboxCircle.isSelected() ? 1 : 0)
+                +","+(checkboxGeometry.isSelected() ? 1 : 0)
+                +","+(checkboxLetter.isSelected() ? 1 : 0)
+                +","+(checkboxNumber.isSelected() ? 1 : 0);
+        
+        
+        
+            checkboxTexture.setSelected(false);
+            checkboxCircle.setSelected(false);
+            checkboxGeometry.setSelected(false);
+            checkboxLetter.setSelected(false);
+            checkboxNumber.setSelected(false);
+        
+        
         changeConfigs();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void checkboxTextureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxTextureActionPerformed
-        updateOutput();
+        // TODO add your handling code here:
     }//GEN-LAST:event_checkboxTextureActionPerformed
 
     private void checkboxCircleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxCircleActionPerformed
-        updateOutput();
+        // TODO add your handling code here:
     }//GEN-LAST:event_checkboxCircleActionPerformed
 
-    private void btnSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectAllActionPerformed
-        for (JCheckBox c : checkboxes.values()) {
-            if (c.isEnabled()) {
-                c.setSelected(selectAll);
-            }
-        }
-        selectAll = !selectAll;
-        updateOutput();
-    }//GEN-LAST:event_btnSelectAllActionPerformed
-
-
-    private void checkboxGeometryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxGeometryActionPerformed
-        updateOutput();
-    }//GEN-LAST:event_checkboxGeometryActionPerformed
-
-    private void checkboxLetterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxLetterActionPerformed
-        updateOutput();
-    }//GEN-LAST:event_checkboxLetterActionPerformed
-
-    private void checkboxNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxNumberActionPerformed
-        updateOutput();
-    }//GEN-LAST:event_checkboxNumberActionPerformed
-
-    private void updateOutput() {
-        output.put("texture", checkboxTexture.isSelected());
-        output.put("circle", checkboxCircle.isSelected());
-        output.put("geometry", checkboxGeometry.isSelected());
-        output.put("letter", checkboxLetter.isSelected());
-        output.put("number", checkboxNumber.isSelected());
-        painelEsquerda.updateOutput(output);
-    }
+//    private ArrayList<Object> getAtributosEscolhidosGlyph() {
+//        ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
+//        atributosEscolhidosGlyph.add(atributo1Glyph.getSelectedItem());
+//        atributosEscolhidosGlyph.add(atributo2Glyph.getSelectedItem());
+//        atributosEscolhidosGlyph.add(atributo3Glyph.getSelectedItem());
+//        atributosEscolhidosGlyph.add(atributo4Glyph.getSelectedItem());
+//        atributosEscolhidosGlyph.add(atributo5Glyph.getSelectedItem());
+//        return atributosEscolhidosGlyph;
+//    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
+        
+        
+       
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -451,54 +394,194 @@ public class MainTeste extends javax.swing.JFrame {
             }
         });
     }
-    /*
+/*
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JButton btnConfirm;
-    private javax.swing.JButton btnSelectAll;
     private javax.swing.JCheckBox checkboxCircle;
     private javax.swing.JCheckBox checkboxGeometry;
     private javax.swing.JCheckBox checkboxLetter;
     private javax.swing.JCheckBox checkboxNumber;
     private javax.swing.JCheckBox checkboxTexture;
-    private javax.swing.JLabel contadorLabel;
-    private javax.swing.JLabel glyphsLabel;
+    private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenuItem fileMenuItem;
+    private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JPanel painelEsquerda;
-    private javax.swing.JSeparator separador;
-    private javax.swing.JLabel shouldBeLabel;
     // End of variables declaration//GEN-END:variables
     */
-
+    
+    private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JButton btnConfirm;
     private javax.swing.JCheckBox checkboxCircle;
     private javax.swing.JCheckBox checkboxGeometry;
     private javax.swing.JCheckBox checkboxLetter;
     private javax.swing.JCheckBox checkboxNumber;
     private javax.swing.JCheckBox checkboxTexture;
-    private javax.swing.JButton btnSelectAll;
+    private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenuItem fileMenuItem;
+    private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextPane jTextPane1;
     private PainelDeTeste painelEsquerda;
+    
     static MainTeste frame;
-    private javax.swing.JLabel contadorLabel;
-    private javax.swing.JLabel glyphsLabel;
-    private javax.swing.JLabel shouldBeLabel;
-    private JSeparator separador;
+    private JLayeredPane layerPane;
+    private GlassPanel glyphPanel;
+    private LegendaVisualizacao legendaVisualizacao;
+    private String itemTamanho;
+    private String itemLegenda;
+    private String itemCor;
+    private TMView view;
+    private VisualizationsArea visualizationTreemap;
 
-    public static void shuffleArray(int[] ar) {
-        // If running on Java 6 or older, use `new Random()` on RHS here
-        Random rnd = ThreadLocalRandom.current();
-        for (int i = ar.length - 1; i > 0; i--) {
-            int index = rnd.nextInt(i + 1);
-            // Simple swap
-            int a = ar[index];
-            ar[index] = ar[i];
-            ar[i] = a;
-        }
+    private ManipuladorArquivo manipulador;
+    private File selectedFile;
+
+//    private void atualizarLegendaGlyphs(ArrayList<Object> atributosEscolhidosGlyph) {
+//        painelLegendaVis.removeAll();
+//        atualizarLegendaTreemap(itemCor);
+//        legendaVisualizacao.setAtributosGlyphs(atributosEscolhidosGlyph);
+//        for (int i = 0; i < atributosEscolhidosGlyph.size(); i++) {
+//            if (!atributosEscolhidosGlyph.get(i).equals("---")) {
+//                JPanel painelDimensao = legendaVisualizacao.addLegendaDimensao(i);
+//                painelLegendaVis.setLayout(new BoxLayout(painelLegendaVis, BoxLayout.Y_AXIS));
+//                painelLegendaVis.add(painelDimensao);
+//            }
+//            painelLegendaVis.revalidate();
+//        }
+//    }
+
+    
+
+    
+
+    
+
+    private void limparPainelEsquerda() {
+        painelEsquerda.removeAll();
+        painelEsquerda.repaint();
     }
+
+    
+
+    /**
+     * Metodo usado para carregar os atributos categoricos nas listas de glyphs
+     *
+     * @param nivel
+     * @return um array contendo os atributos que serao exibidos nas listas dos
+     * glyphs
+     */
+    private Object[] getListaAtributosCategoricos(Constantes.NivelGlyph nivel, boolean glyph) {
+        ArrayList<String> list = new ArrayList<>();
+        list.add(0, "---");
+        list.addAll(analisarAtributosCategoricos(nivel, glyph));
+        return list.toArray();
+    }
+
+    private List<String> analisarQuantAtributosCategoricos(List<String> list, Object[] obj) {
+        for (String colunasCategorica : getColunasCategoricas()) {
+            Coluna c = ManipuladorArquivo.getColuna(colunasCategorica);
+            int quantDadosDistintos = c.getDadosDistintos().size();
+            if (quantDadosDistintos <= obj.length) {
+                list.add(c.getName());
+            }
+        }
+        return list;
+    }
+
+    private List<String> analisarAtributosCategoricos(Constantes.NivelGlyph nivel, boolean glyph) {
+        ArrayList<String> list = new ArrayList<>();
+        switch (nivel) {
+            case NIVEL_1:
+                analisarQuantAtributosCategoricos(list, Constantes.TIPO_TEXTURA);
+                break;
+            case NIVEL_2:
+                if (glyph) {
+                    analisarQuantAtributosCategoricos(list, Constantes.getCorGlyphs());
+                } else {
+                    analisarQuantAtributosCategoricos(list, Constantes.getCor());
+                }
+                break;
+            case NIVEL_3:
+                analisarQuantAtributosCategoricos(list, Constantes.TIPOS_FORMAS_GEOMETRICAS);
+                break;
+            case NIVEL_4:
+                analisarQuantAtributosCategoricos(list, Constantes.LETRAS_ALFABETO);
+                break;
+            case NIVEL_5:
+                analisarQuantAtributosCategoricos(list, Constantes.NUMEROS);
+                break;
+            default:
+                System.err.println("Nao foi carregar atributos para a dimensão.");
+        }
+        return list;
+    }
+
+    private List<String> getColunasCategoricas() {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < manipulador.getColunas().length - 1; i++) {
+            Coluna c = manipulador.getColunas()[i];
+            if (c.getDescription().equals(Metadados.Descricao.CATEGORICAL)) {
+                list.add(c.getName());
+            }
+        }
+        return list;
+    }
+
+    private void atualizarComboBox(JComboBox comboBox, List<String> itens) {
+        Object[] items = itens.toArray();
+        DefaultComboBoxModel model = new DefaultComboBoxModel(items);
+        comboBox.setModel(model);
+    }
+
+    private void loadVariaveisGlyph(Object[] objs, JComboBox<String> atributo) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
+        atributo.setModel(model);
+    }
+
+    private void loadVariaveisEscolhidasGlyph(Object[] objs) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
+//        variaveisGlyphList2.setModel(model);
+    }
+
+    private void loadVariaveisEscolhidasList(Object[] objs, JList<String> jList) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
+        jList.setModel(model);
+    }
+
+//    private void loadVariaveisStarGlyph() {
+//        List<String> itens = new ArrayList<>();
+//        for (String cabecalho : manipulador.getCabecalho()) {
+//            String tipo = manipulador.getMapaCabecalho().get(cabecalho);
+//            if (tipo.equalsIgnoreCase(Metadados.TipoDados.Integer.name())
+//                    || tipo.equalsIgnoreCase(Metadados.TipoDados.Double.name())) {
+//                itens.add(cabecalho);
+//            }
+//        }
+//        Object[] items = itens.toArray();
+//        DefaultComboBoxModel model = new DefaultComboBoxModel(items);
+//        variaveisGlyphList.setModel(model);
+//    }
+    private void appendToPane(JTextPane tp, String msg, Color c) {
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+        int len = tp.getDocument().getLength();
+        tp.setCaretPosition(len);
+        tp.setCharacterAttributes(aset, false);
+        tp.replaceSelection(msg);
+    }
+    
+    
 }

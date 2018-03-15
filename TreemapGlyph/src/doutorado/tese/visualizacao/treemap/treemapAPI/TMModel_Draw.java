@@ -87,7 +87,6 @@ public class TMModel_Draw
                 }
                 return nodeItem.getColor();
             }
-            nodeItem.setColor(Color.decode("#F0F8FF"));
         }
         return Color.decode("#F0F8FF");
     }

@@ -5,7 +5,6 @@
  */
 package doutorado.tese.util;
 
-import java.awt.Color;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -20,9 +19,6 @@ public class Constantes {
     private static boolean showGlyph = false;
     private static boolean showLegenda = false;
     private static boolean showStarGlyph = false;
-    public static Color ALICE_BLUE = Color.decode("#F0F8FF");
-
-    
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
     private static String[] cor = {
         "#3366cc","#dc3912","#ff9900","#109618","#990099","#0099c6","#dd4477",
@@ -31,27 +27,27 @@ public class Constantes {
     };
 
     private static String[] corGlyphs = {
-        "#1f77b4","#ff7f0e","#2ca02c","#d62728",
-        "#9467bd","#8c564b","#e377c2","#7f7f7f",
-        "#bcbd22","#17becf","#c6dbef","#a1d99b"
+        "#FF0101","#F8D930","#151C48","#00A1D7",
+        "#0A8300","#FF3797","#8C8589","#000000"
     };
 
     public final static String[] TIPO_TEXTURA = {
-        "PATTERN_DIAG_RIGHT_LEFT" ,
-//        "PATTERN_DIAGDOTS2" ,
+        "PATTERNV",
+        "PATTERN_DIAG1",
+        "PATTERN_DIAG2",
+        "PATTERN_DIAG3",
+        "PatternSquareC",
+        "PATTERN_DIAG5",
+        "PATTERN_DIAGDOTS",
+        "PATTERN_DIAGDOTS2",
+        "PATTERN_DIAGS",
         "PATTERN_DOTS",
-        "PATTERN_CHESS",
-        "PATTERN_PLUS" ,
-        "PATTERN_HORIZONTAL",
-        "PATTERN_DOWN",
-        "PATTERN_VERTICAL",
-        "PATTERN_UP" ,
-        "PATTERN_DIAG_LEFT_RIGHT",
-        "PATTERN_LEFT",
-        "PATTERN_RIGHT",
-        "PATTERN_DIAG_CROSS_LINES",
-        "PATTERN_CROSS_LINES",
-        "PATTERN_DIAGDOTS"
+        "PATTERN_PLUS",
+        "PATTERN_TUILES",
+        "PATTERN_SQUARES",
+        "PATTERN_LIGHT_GRAY",
+        "PATTERN_TIO"
+
     };
     /**
      * 0 - "OCTOGONO", 1 - "ELLIPSE", 2 - "CRUZ", 3 - "LOSANGO", 4 -
@@ -71,7 +67,6 @@ public class Constantes {
     public final static String[] NUMEROS = {
         "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
     };
-    public static final int LIMITE_TESTES = 100;
 
     public enum NivelGlyph {
         NIVEL_1(1),

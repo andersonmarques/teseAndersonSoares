@@ -6,14 +6,23 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
-public class Retangulo extends FormaGeometrica{
+public class Retangulo {
 
     private int[] xPoints;
     private int[] yPoints;
+    private Rectangle rect;
 
     public Retangulo(Rectangle r) {
-        super(r, "RETANGULO");
-        montarRetangulo();
+        this.rect = r;
+        setBounds(this.rect);
+    }
+
+    public void setBounds(Rectangle rect) {
+        this.rect = rect;
+    }
+
+    public Rectangle getBounds() {
+        return rect;
     }
 
     public void paint(Graphics g) {
@@ -23,7 +32,7 @@ public class Retangulo extends FormaGeometrica{
 
         g2d.setPaint(Color.BLUE);
 
-        
+        montarRetangulo();
         g2d.setColor(Color.WHITE);
         g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
         g2d.setColor(Color.BLACK);
@@ -46,8 +55,6 @@ public class Retangulo extends FormaGeometrica{
     private void montarRetangulo() {        
         int[] points = new int[2];
 
-        Rectangle rect = getBounds();
-        
         points[0] = rect.width;
         points[1] = rect.height;
 
@@ -66,11 +73,6 @@ public class Retangulo extends FormaGeometrica{
 
         xPoints[1] = width;
         yPoints[1] = height;
-    }
-
-    @Override
-    public int getArea() {
-        return xPoints[1]*yPoints[1];
     }
 
 }
