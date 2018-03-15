@@ -140,7 +140,7 @@ public class Arco extends FormaGeometrica{
                 break;
             case "2":
                 newAngle = 0; 
-                cor = Color.decode("#fefe33");//amarelo
+                cor = Color.decode("#7FFFD4");//azul claro
                 break;
             case "3":
                 newAngle = Math.PI/2;
@@ -148,7 +148,7 @@ public class Arco extends FormaGeometrica{
                 break;
              case "4":
                 newAngle =  -Math.PI/2;
-                cor = Color.decode("#393b79");//azul escuro
+                cor = Color.decode("#cecece");//azul escuro
                 break;
             case "5":
                 newAngle =  Math.PI/4;                
