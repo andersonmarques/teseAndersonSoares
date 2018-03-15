@@ -21,32 +21,31 @@ public class Constantes {
     private static boolean showStarGlyph = false;
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
     private static String[] cor = {
-        "#3366cc","#dc3912","#ff9900","#109618","#990099","#0099c6","#dd4477",
-        "#66aa00","#b82e2e","#316395","#994499","#22aa99","#aaaa11","#6633cc",
-        "#e67300","#8b0707","#651067","#329262","#5574a6", "#3b3eac","#F0F8FF"
+        "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477",
+        "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc",
+        "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac", "#F0F8FF"
     };
 
     private static String[] corGlyphs = {
-        "#FF0101","#F8D930","#151C48","#00A1D7",
-        "#0A8300","#FF3797","#8C8589","#000000"
+        "#FF0101", "#F8D930", "#151C48", "#00A1D7",
+        "#0A8300", "#FF3797", "#8C8589", "#000000"
     };
 
     public final static String[] TIPO_TEXTURA = {
-        "PATTERNV",
-        "PATTERN_DIAG1",
-        "PATTERN_DIAG2",
-        "PATTERN_DIAG3",
-        "PatternSquareC",
-        "PATTERN_DIAG5",
-        "PATTERN_DIAGDOTS",
-        "PATTERN_DIAGDOTS2",
-        "PATTERN_DIAGS",
+        "PATTERN_DIAG_RIGHT_LEFT",
         "PATTERN_DOTS",
+        "PATTERN_CHESS",
         "PATTERN_PLUS",
-        "PATTERN_TUILES",
-        "PATTERN_SQUARES",
-        "PATTERN_LIGHT_GRAY",
-        "PATTERN_TIO"
+        "PATTERN_HORIZONTAL",
+        "PATTERN_DOWN",
+        "PATTERN_VERTICAL",
+        "PATTERN_UP",
+        "PATTERN_DIAG_LEFT_RIGHT",
+        "PATTERN_LEFT",
+        "PATTERN_RIGHT",
+        "PATTERN_DIAG_CROSS_LINES",
+        "PATTERN_CROSS_LINES",
+        "PATTERN_DIAGDOTS"
 
     };
     /**

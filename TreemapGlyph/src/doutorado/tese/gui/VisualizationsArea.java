@@ -86,8 +86,9 @@ public class VisualizationsArea {
                 getRootBoundsFromView(t);
             }
         });
-        TMThreadModel.listener = listener;
-        TMUpdaterConcrete.listener = listener;
+      
+//      TMThreadModel.listener = listener;
+        TMUpdaterConcrete.listeners.add(listener);
     }
 
     public void acionarStarGlyph(List<String> variaveisStarGlyph) {
