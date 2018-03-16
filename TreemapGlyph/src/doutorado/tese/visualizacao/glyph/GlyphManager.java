@@ -25,8 +25,6 @@ import net.bouthier.treemapAWT.TMNodeEncapsulator;
 import net.bouthier.treemapAWT.TMNodeModel;
 import net.bouthier.treemapAWT.TMNodeModelComposite;
 import net.bouthier.treemapAWT.TMNodeModelRoot;
-import net.bouthier.treemapAWT.TMOnDrawFinished;
-import net.bouthier.treemapAWT.TMUpdaterConcrete;
 
 /**
  *
@@ -225,7 +223,7 @@ public final class GlyphManager {
 
     public void prepareDimension2DrawGlyph(TreeMapItem item) {
         double[] features = new double[15];
-
+        limparGlyphsTreemapItem(item);
         features[6] = item.getBounds().width;
         features[5] = item.getBounds().height;
         features[9] = item.getColor().equals(Constantes.ALICE_BLUE) ? 0 : 1;
@@ -339,7 +337,7 @@ public final class GlyphManager {
      */
     public void setRootNodeZoom(TMNodeModelRoot rootNodeZoom) {
         this.rootNodeZoom = rootNodeZoom;
-        System.out.println("Root Node Zoom: "+this.rootNodeZoom.getRoot().getTitle());
+//        System.out.println("Root Node Zoom: "+this.rootNodeZoom.getRoot().getTitle());
     }
 
     /**
@@ -347,5 +345,13 @@ public final class GlyphManager {
      */
     public static String[] getShufflerColors() {
         return shufflerColors;
+    }
+
+    private void limparGlyphsTreemapItem(TreeMapItem item) {
+        item.setTextura(null);
+        item.setCorForma(null);
+        item.setFormaGeometrica(null);
+        item.setLetra(null);
+        item.setNumero(null);
     }
 }

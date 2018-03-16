@@ -15,7 +15,6 @@ import doutorado.tese.visualizacao.treemap.Rect;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import doutorado.tese.visualizacao.treemap.TreeMapLevel;
 import doutorado.tese.visualizacao.treemap.TreeMapNode;
-import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -87,7 +86,7 @@ public class VisualizationsArea {
                 getRootBoundsFromView(t);
             }
         });
-//        TMThreadModel.listener = listener;
+        TMThreadModel.listeners.add(listener);
         TMUpdaterConcrete.listeners.add(listener);
     }
 
@@ -108,7 +107,7 @@ public class VisualizationsArea {
             this.root.setBounds(area);
 
             this.root = this.fixedRoot;
-            System.out.println("Equalizou? -> "+equalizeRoots(root, nodeModel));
+//            System.out.println("Equalizou? -> "+equalizeRoots(root, nodeModel));
 
             setAreaNodesTree(this.root, nodeModel);
         }
@@ -120,10 +119,8 @@ public class VisualizationsArea {
 //            
 //        }
 
-        TreeMapNode aux = (TreeMapNode) ((TMNodeEncapsulator) nodeModel.getNode()).getNode();
-
-        
-        System.out.println("meu root: "+equalized+"\t root API: "+aux);
+        TreeMapNode aux = (TreeMapNode) ((TMNodeEncapsulator) nodeModel.getNode()).getNode();        
+//        System.out.println("meu root: "+equalized+"\t root API: "+aux);
         if (equalized == aux) {
 //            System.out.println("meu: "+equalized+"\t root API: "+nodeModel.getNode());
             this.root = equalized;

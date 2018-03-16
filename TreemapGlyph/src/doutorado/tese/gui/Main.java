@@ -324,6 +324,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jTabbedPane1.addTab("Treemap", jPanel1);
 
         checkGlyph.setText("Glyph");
+        checkGlyph.setEnabled(false);
         checkGlyph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkGlyphActionPerformed(evt);
@@ -635,7 +636,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             limparResquiciosBasesAnteriores();
-            
+            checkGlyph.setEnabled(false);
             selectedFile = chooser.getSelectedFile();
 
             progressoBarra.setVisible(true);
@@ -843,6 +844,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         progressoBarra.setVisible(false);
         atualizarLegendaTreemap(itemCor);
+        checkGlyph.setEnabled(true);
         limparCacheGlyphs();
     }//GEN-LAST:event_botaoGerarVisualizacaoActionPerformed
 

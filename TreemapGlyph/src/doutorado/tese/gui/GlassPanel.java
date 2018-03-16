@@ -30,6 +30,9 @@ public class GlassPanel extends JPanel {
     private TMView view;
     private boolean decisioTree;
 
+    /**
+     * Construtor chamado ao selecionar o checkbox indicando que os glyphs serao usados.
+     */
     public GlassPanel() {
         setOpaque(false);
         setLayout(new GroupLayout(this));
@@ -48,7 +51,7 @@ public class GlassPanel extends JPanel {
             @Override
             public void onDrawFinished(String text) {
                 glyphManager.setRootNodeZoom(view.getRootAnderson());   
-                glyphManager.prepare2Draw();
+                glyphManager.prepare2Draw();//chamado para redesenhar os glyphs no drill-down
             }
         });
     }
