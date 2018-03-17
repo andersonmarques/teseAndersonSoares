@@ -17,6 +17,7 @@ public class Constantes {
 
     public final static String PROGRESS = "progress";
     public final static String VALUE_SAME_SIZE = "\t1";
+    public final static int COR_TREEMAP = -1;
     private static boolean showGlyph = false;
     private static boolean showLegenda = false;
     private static boolean showStarGlyph = false;
@@ -31,38 +32,28 @@ public class Constantes {
     };
 
     private static String[] corGlyphs = {
-        "#1f77b4","#ff7f0e","#2ca02c","#d62728",
-        "#9467bd","#8c564b","#e377c2","#7f7f7f",
-        "#bcbd22","#17becf","#c6dbef","#a1d99b"
+        "#ff0101","#f8d930","#151c48","#00a1d7",
+        "#0a8300","#ff3797","#8c8589","#000000"
     };
 
     public final static String[] TIPO_TEXTURA = {
         "PATTERN_DIAG_RIGHT_LEFT" ,
 //        "PATTERN_DIAGDOTS2" ,
-        "PATTERN_DOTS",
-        "PATTERN_CHESS",
-        "PATTERN_PLUS" ,
+//        "PATTERN_DOTS",
+//        "PATTERN_CHESS",
+//        "PATTERN_PLUS" ,
         "PATTERN_HORIZONTAL",
-        "PATTERN_DOWN",
+//        "PATTERN_DOWN",
         "PATTERN_VERTICAL",
         "PATTERN_UP" ,
         "PATTERN_DIAG_LEFT_RIGHT",
-        "PATTERN_LEFT",
+//        "PATTERN_LEFT",
         "PATTERN_RIGHT",
         "PATTERN_DIAG_CROSS_LINES",
         "PATTERN_CROSS_LINES",
-        "PATTERN_DIAGDOTS"
+//        "PATTERN_DIAGDOTS"
     };
-    /**
-     * 0 - "OCTOGONO", 1 - "ELLIPSE", 2 - "CRUZ", 3 - "LOSANGO", 4 -
-     * "PENTAGONO", 5 - "TRAPEZIO", 6 - "HEXAGONO", 7 - "RETANGULO", 8 -
-     * "CIRCULO"
-     */
-    public final static String[] TIPOS_FORMAS_GEOMETRICAS = {
-        "OCTOGONO", "ELLIPSE", "CRUZ", "LOSANGO", "PENTAGONO", "TRAPEZIO", "HEXAGONO", "RETANGULO", "CIRCULO"
-
-    };
-
+   
     public final static String[] LETRAS_ALFABETO = {
         "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
         "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"

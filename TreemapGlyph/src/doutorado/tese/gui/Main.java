@@ -10,9 +10,9 @@ import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
+import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
@@ -21,8 +21,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -42,22 +40,24 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import net.bouthier.treemapAWT.TMView;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
  * @author Anderson
  */
 public class Main extends javax.swing.JFrame implements PropertyChangeListener {
-
+    
+    private static final Logger logger = LogManager.getLogger(Main.class);
     /**
      * Creates new form Main
      */
     public Main() {
-
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            logger.info(Main.class.getName());//.log(Level.SEVERE, null, ex);
         }
         initComponents();
 
@@ -638,9 +638,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             limparResquiciosBasesAnteriores();
             checkGlyph.setEnabled(false);
             selectedFile = chooser.getSelectedFile();
-
             progressoBarra.setVisible(true);
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            logger.info("Arquivo selecionado: "+selectedFile);
             //Instances of javax.swing.SwingWorker are not reusuable, so
             //we create new instances as needed.
             task = new Task();
@@ -648,6 +648,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             task.execute();
         }else{
             JOptionPane.showMessageDialog(null, "The file type can not be read.", "Erro!", JOptionPane.ERROR_MESSAGE);
+            logger.error("The file type can not be read. - Did it again!");
         }
     }//GEN-LAST:event_fileMenuItemActionPerformed
 
@@ -1056,7 +1057,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void atualizarLegendaTreemap(String itemCor) {
         painelLegendaVis.removeAll();
         if (!itemCor.equals("---")) {
-            JPanel painelDimensao = legendaVisualizacao.addLegendaCor(itemCor);
+            JPanel painelDimensao = legendaVisualizacao.addLegendaCorTreemap(itemCor);
             painelLegendaVis.add(painelDimensao);
         }
     }
@@ -1151,6 +1152,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         int tarefas = 10;
         switch (ordem) {
             case 1:
+                logger.info("Leitura do arquivo.");
                 manipulador = new ManipuladorArquivo();
                 manipulador.lerArquivo(selectedFile);
                 porcentagem = (ordem * 100) / tarefas;
@@ -1158,8 +1160,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 break;
             case 2:
                 try {
+                    logger.info("Montando Objetos coluna.");
                     manipulador.montarColunas(manipulador.getCabecalho(), manipulador.getTipos());
                 } catch (Exception e) {
+                    logger.error("Erro montar objetos COLUNA. \n"+e.fillInStackTrace());
                     e.printStackTrace();
                 }
                 porcentagem = (ordem * 100) / tarefas;
@@ -1167,8 +1171,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 break;
             case 3:
                 try {
+                    logger.info("Carregando itens no treemap.");
                     manipulador.carregarItensTreemap();
                 } catch (Throwable e) {
+                    logger.error("Erro ao carregar itens no treemap. \n"+e.fillInStackTrace());
                     e.printStackTrace();
                 }
                 porcentagem = (ordem * 100) / tarefas;
@@ -1176,27 +1182,32 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 break;
             case 4:
                 try {
+                    logger.info("Definindo a descrição das colunas.");
                     for (int i = 0; i < manipulador.getColunas().length; i++) {
                         Coluna c = manipulador.getColunas()[i];
                         c.configurarDescricao(manipulador.getDadosColuna(manipulador.getCabecalho()[i]));
                     }
                 } catch (Exception e) {
+                    logger.error("Erro ao definir a descrição das colunas. \n"+e.fillInStackTrace());
                     e.printStackTrace();
                 }
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Definindo a descrição das colunas: " + porcentagem + "%");
                 break;
             case 5:
+                logger.info("Preparando lista tamanho para o treemap.");
                 loadItensTamanhoTreemap();
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Preparando lista tamanho: " + porcentagem + "%");
                 break;
             case 6:
+                logger.info("Preparando lista legenda para o treemap.");
                 loadItensLegendaTreemap();
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Preparando lista legenda: " + porcentagem + "%");
                 break;
             case 7:
+                logger.info("Preparando variáveis glyphs.");
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_1, true), atributo1Glyph);
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2, true), atributo2Glyph);
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_3, true), atributo3Glyph);
@@ -1206,16 +1217,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 progressoBarra.setToolTipText("Carregando variáveis glyph: " + porcentagem + "%");
                 break;
             case 8:
+                logger.info("Preparando variáveis hierarquia para o treemap.");
                 loadItensHierarquiaTreemap(getColunasCategoricas().toArray());                
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis hierarquia Treemap: " + porcentagem + "%");
                 break;
             case 9:
+                logger.info("Preparando variáveis Cores para o treemap.");
                 loadItensCoresTreemap(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2, false));
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis cores Treemap: " + porcentagem + "%");
                 break;
             case 10:
+                logger.info("Preparando variáveis para Detalhes sob Demanda para o treemap.");
                 loadAtributosDetalhes();
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis para Detalhes sob Demanda: " + porcentagem + "%");
@@ -1309,7 +1323,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 }
                 break;
             case NIVEL_3:
-                analisarQuantAtributosCategoricos(list, Constantes.TIPOS_FORMAS_GEOMETRICAS);
+                analisarQuantAtributosCategoricos(list, GeometryFactory.FORMAS.GLYPH_FORMAS.values());
                 break;
             case NIVEL_4:
                 analisarQuantAtributosCategoricos(list, Constantes.LETRAS_ALFABETO);

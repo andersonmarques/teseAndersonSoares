@@ -6,6 +6,7 @@
 package doutorado.tese.gui;
 
 import doutorado.tese.util.Constantes;
+import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -94,7 +95,7 @@ public class MainTeste extends javax.swing.JFrame {
 
         configs.put("textura", rand.nextInt(Constantes.TIPO_TEXTURA.length));
         configs.put("cor", rand.nextInt(Constantes.getCorGlyphs().length));
-        configs.put("forma", rand.nextInt(Constantes.TIPOS_FORMAS_GEOMETRICAS.length - 1));
+        configs.put("forma", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
         configs.put("letra", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
         configs.put("numero", rand.nextInt(Constantes.NUMEROS.length));
         configs.put("x", 50);

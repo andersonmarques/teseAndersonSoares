@@ -13,7 +13,8 @@ import java.awt.RenderingHints;
 import net.bouthier.treemapAWT.TMPatternFactory;
 
 /**
- *
+ *  O objeto textura ocupa 80% do item do treemap
+ * 
  * @author Anderson Soares
  */
 public class Textura {

@@ -32,22 +32,27 @@ public class IconeLegenda implements Icon {
     private String valor;
 
     private BasicStroke stroke = new BasicStroke(4);
+    private GeometryFactory.FORMAS.GLYPH_FORMAS valorForma;
 
     public void paintIcon(Component c, Graphics g, int x, int y) {
         Graphics2D g2d = (Graphics2D) g.create();
 
         Rectangle bounds = new Rectangle(x, y, width, height);
         switch (dimensao) {
+            case Constantes.COR_TREEMAP:
+                FormaGeometrica corTreemap = GeometryFactory.create(bounds, Color.decode(valor), GeometryFactory.FORMAS.GLYPH_FORMAS.RETANGULO);
+                corTreemap.paint(g);
+                break;
             case 0:
                 Textura t = new Textura(bounds, valor);
                 t.paint(g);
                 break;
             case 1:
-                FormaGeometrica f = GeometryFactory.create(bounds, Color.decode(valor), GeometryFactory.FORMAS.CIRCULO);
+                FormaGeometrica f = GeometryFactory.create(bounds, Color.decode(valor), GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO);
                 f.paint(g);
                 break;
             case 2:
-                FormaGeometrica forma = GeometryFactory.create(bounds, null, valor);
+                FormaGeometrica forma = GeometryFactory.create(bounds, null, valorForma);
                 forma.paint(g);
                 break;
             case 3:
@@ -95,5 +100,9 @@ public class IconeLegenda implements Icon {
 
     void setValorIcon(String valor) {
         this.valor = valor;
+    }
+    
+    void setValorIcon(GeometryFactory.FORMAS.GLYPH_FORMAS forma){
+        this.valorForma = forma;
     }
 }

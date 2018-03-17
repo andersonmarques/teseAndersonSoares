@@ -6,6 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
+/**
+ * O objeto Circulo com cor ocupa 65% do item do treemap
+ * 
+ * @author Anderson Soares
+ */
 public class Circulo extends FormaGeometrica{
 
     private int[] xPoints;

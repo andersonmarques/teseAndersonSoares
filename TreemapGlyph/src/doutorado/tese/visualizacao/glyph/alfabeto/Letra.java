@@ -19,7 +19,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 /**
- *
+ * O objeto Letra ocupa 20% do item do treemap
  * @author Anderson Soares
  */
 public class Letra {

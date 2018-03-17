@@ -10,7 +10,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 /**
- *
+ * O objeto FormaGeometrica ocupa 50% do item do treemap
  * @author Anderson Soares
  */
 public abstract class FormaGeometrica {

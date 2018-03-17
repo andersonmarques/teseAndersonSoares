@@ -8,22 +8,17 @@ package doutorado.tese.legenda;
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
-import doutorado.tese.visualizacao.glyph.GlyphManager;
-import java.awt.BorderLayout;
+import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.OverlayLayout;
 import javax.swing.SwingConstants;
 
 /**
@@ -55,7 +50,7 @@ public class LegendaVisualizacao {
         return label;
     }
 
-    public JPanel addLegendaCor(String itemCor) {
+    public JPanel addLegendaCorTreemap(String itemCor) {
         JPanel painel = new JPanel(new GridLayout(0, 3));
         painel.setBackground(Color.WHITE);
         painel.setBorder(BorderFactory.createTitledBorder("Color TreeMap (" + itemCor + ") Subtitle"));
@@ -66,7 +61,7 @@ public class LegendaVisualizacao {
         List<String> dadosDistintos = c.getDadosDistintos();
         for (int i = 0; i < dadosDistintos.size(); i++) {
             IconeLegenda icon = new IconeLegenda();
-            icon.setDimensao(1);
+            icon.setDimensao(Constantes.COR_TREEMAP);
             icon.setValorIcon(Constantes.getCor()[i]);
             JLabel label = criarLabel(dadosDistintos.get(i), icon);
             painel.add(label);
@@ -102,7 +97,7 @@ public class LegendaVisualizacao {
                     icon.setValorIcon(Constantes.getCorGlyphs()[i]);
                     break;
                 case 2:
-                    icon.setValorIcon(Constantes.TIPOS_FORMAS_GEOMETRICAS[i]);
+                    icon.setValorIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i]);
                     break;
                 case 3:
                     icon.setValorIcon(Constantes.LETRAS_ALFABETO[i]);

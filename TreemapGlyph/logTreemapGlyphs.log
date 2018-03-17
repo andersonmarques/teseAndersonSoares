@@ -1,0 +1,22 @@
+2018-03-17 20:32:12,681 INFO d.t.g.Main [AWT-EventQueue-0] Arquivo selecionado: C:\Users\Anderson Soares\Documents\MIRAMAR.csv
+2018-03-17 20:32:12,790 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Leitura do arquivo.
+2018-03-17 20:32:12,899 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Montando Objetos coluna.
+2018-03-17 20:32:13,000 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Carregando itens no treemap.
+2018-03-17 20:32:13,004 ERROR d.t.g.Main [SwingWorker-pool-3-thread-1] Erro ao carregar itens no treemap. java.lang.ArrayIndexOutOfBoundsException: 2
+2018-03-17 20:32:13,106 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Definindo a descrição das colunas.
+2018-03-17 20:32:13,109 ERROR d.t.g.Main [SwingWorker-pool-3-thread-1] Erro ao definir a descrição das colunas. null
+2018-03-17 20:32:13,210 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Preparando lista tamanho para o treemap.
+2018-03-17 20:32:13,311 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Preparando lista legenda para o treemap.
+2018-03-17 20:32:13,412 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Preparando variáveis glyphs.
+2018-03-17 20:38:26,712 INFO d.t.g.Main [AWT-EventQueue-0] Arquivo selecionado: C:\Users\Anderson Soares\Documents\MIRAMAR.csv
+2018-03-17 20:38:26,818 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Leitura do arquivo.
+2018-03-17 20:38:26,934 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Montando Objetos coluna.
+2018-03-17 20:38:27,036 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Carregando itens no treemap.
+2018-03-17 20:38:27,039 ERROR d.t.g.Main [SwingWorker-pool-3-thread-1] Erro ao carregar itens no treemap. 
+java.lang.ArrayIndexOutOfBoundsException: 2
+2018-03-17 20:38:27,140 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Definindo a descrição das colunas.
+2018-03-17 20:38:27,145 ERROR d.t.g.Main [SwingWorker-pool-3-thread-1] Erro ao definir a descrição das colunas. 
+java.lang.NullPointerException
+2018-03-17 20:38:27,246 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Preparando lista tamanho para o treemap.
+2018-03-17 20:38:27,351 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Preparando lista legenda para o treemap.
+2018-03-17 20:38:27,452 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Preparando variáveis glyphs.
