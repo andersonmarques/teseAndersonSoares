@@ -26,7 +26,8 @@ public class TreeMapItem extends TreeMapNode {
     private String columnLabel;
     private int [] what2Draw;
     private Textura textura;
-    private FormaGeometrica corForma;
+    private FormaGeometrica corForma;  
+    private FormaGeometrica circulo;
     private FormaGeometrica formaGeometrica;
     private Letra letra;
     private Numeral numero;
@@ -117,6 +118,14 @@ public class TreeMapItem extends TreeMapNode {
         this.formaGeometrica = formaGeometrica;
     }
     
+     public FormaGeometrica getFormaGeometricaInterna() {
+        return formaGeometrica;
+    }
+
+    public void setFormaGeometricaInterna(FormaGeometrica formaGeometrica) {
+        this.formaGeometrica = formaGeometrica;
+    }
+    
     public Seta getSetaDirecao(Seta seta) {
         return seta;
     }
@@ -141,6 +150,17 @@ public class TreeMapItem extends TreeMapNode {
     public void setNumero(Numeral numero) {
         this.numero = numero;
     }
+
+    public FormaGeometrica getCirculo() {
+        return circulo;
+    }
+
+    public void setCirculo(FormaGeometrica circulo) {
+        this.circulo = circulo;
+    }
+
+    
+    
     
     
 }

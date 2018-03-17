@@ -14,7 +14,7 @@ import java.awt.RenderingHints;
 
 
 public class Losango extends FormaGeometrica{
-
+    private Polygon p;
     private int[] xPoints;
     private int[] yPoints;
     private Color cor;
@@ -29,12 +29,6 @@ public class Losango extends FormaGeometrica{
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setPaint(Color.BLACK);
-        
-        Polygon p = new Polygon();  
-        p.addPoint(xPoints[0], yPoints[0]);
-        p.addPoint(xPoints[1], yPoints[1]);
-        p.addPoint(xPoints[2], yPoints[2]);
-        p.addPoint(xPoints[3], yPoints[3]);
         
         g2d.setColor(cor);
         g2d.fillPolygon(p);
@@ -59,28 +53,38 @@ public class Losango extends FormaGeometrica{
         int[] points = new int[2];
         points[0] = getBounds().width;
         points[1] = getBounds().height;
-
+        
+        Rectangle rect = getBounds();
+        
         verificarRetangulo(points);
-        int width = (int) Math.round(points[0] * 0.5);
-        int height = (int) Math.round(points[1] * 0.5);
+        int width = (int) Math.round(points[0] * 0.2);
+        int height = (int) Math.round(points[1] * 0.2);
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 2;
         int innerHeight = height /2;
 
-        halfWidth += getBounds().x + getBounds().width/2 - width/2;
-        halfHeight += getBounds().y + getBounds().height/2 - height/2;
+        halfWidth += getBounds().x;
+        halfHeight += getBounds().y;
         
         xPoints = new int[4];
         yPoints = new int[4];
         xPoints[0] = halfWidth;
-        yPoints[0] = (int) Math.round(getBounds().y + getBounds().height/2 - height/2);
+        yPoints[0] = (int) Math.round(getBounds().y );
         xPoints[1] = halfWidth-innerWidth;
         yPoints[1] = halfHeight;
         xPoints[2] = halfWidth;
-        yPoints[2] = height + (int) Math.round(getBounds().y + getBounds().height/2 - height/2);
+        yPoints[2] = height + (int) Math.round(getBounds().y);
         xPoints[3] = halfWidth + innerWidth;
         yPoints[3] = halfHeight;
+        
+        p = new Polygon(); 
+        p.addPoint(xPoints[0], yPoints[0]);
+        p.addPoint(xPoints[1], yPoints[1]);
+        p.addPoint(xPoints[2], yPoints[2]);
+        p.addPoint(xPoints[3], yPoints[3]);
+        
+        p.translate(rect.width/2+width/2,rect.height/2-height/2);
 
     }
 

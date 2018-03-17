@@ -85,8 +85,8 @@ public class Arco extends FormaGeometrica{
         verificarRetangulo(points);
         
         
-        setWidth(points[0] * 0.5);
-        setHeight(points[1] * 0.5);
+        setWidth(points[0] * 0.6);
+        setHeight(points[1] * 0.6);
         
         double halfWidth = width / 2.;
         double halfHeight = height / 2.;

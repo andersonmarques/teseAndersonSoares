@@ -55,15 +55,15 @@ public class Retangulo extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.4);
-        int height = (int) Math.round(points[1] * 0.4);
+        int width = (int) Math.round(points[0] * 0.2);
+        int height = (int) Math.round(points[1] * 0.2);
 
 
         
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] =   rect.x + rect.width/2 - width/2 ;
+        xPoints[0] =   rect.x + rect.width/2 +width/2 ;
         yPoints[0] =   rect.y + rect.height/2 - height/2;
 
         xPoints[1] = width;

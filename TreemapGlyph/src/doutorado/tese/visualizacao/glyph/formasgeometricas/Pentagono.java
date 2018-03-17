@@ -31,9 +31,6 @@ public class Pentagono extends FormaGeometrica{
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2d.setPaint(Color.BLACK);
-        
-        //p.translate(xy[0], xy[1]);
-
         g2d.setColor(cor);
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
@@ -64,8 +61,8 @@ public class Pentagono extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.5);
-        int height = (int) Math.round(points[1] * 0.5);
+        int width = (int) Math.round(points[0] * 0.2);
+        int height = (int) Math.round(points[1] * 0.2);
 
 
      
@@ -75,25 +72,25 @@ public class Pentagono extends FormaGeometrica{
         int innerHeight = height / 4;
 
     
-        halfWidth += rect.x + rect.width/2 - width/2;
-        halfHeight += rect.y + rect.height/2 - height/2;
+        halfWidth += rect.x;
+        halfHeight += rect.y;
         
         xPoints = new int[5];
         yPoints = new int[5];
 
         xPoints[0] = halfWidth;
-        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[0] = (int) Math.round(rect.y);
 
-        xPoints[1] = (int) Math.round(rect.x + rect.width/2 - width/2);
+        xPoints[1] = (int) Math.round(rect.x);
         yPoints[1] = halfHeight;
 
         xPoints[2] = halfWidth - innerWidth;
-        yPoints[2] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[2] = height + (int) Math.round(rect.y);
 
         xPoints[3] = halfWidth + innerWidth;
-        yPoints[3] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[3] = height + (int) Math.round(rect.y);
 
-        xPoints[4] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
+        xPoints[4] = width + (int) Math.round(rect.x);
         yPoints[4] = halfHeight;
         
         p = new Polygon();
@@ -103,6 +100,8 @@ public class Pentagono extends FormaGeometrica{
         p.addPoint(xPoints[2], yPoints[2]);
         p.addPoint(xPoints[3], yPoints[3]);
         p.addPoint(xPoints[4], yPoints[4]);
+        
+        p.translate(rect.width/2+width/2,rect.height/2-height/2);
 
     }
 

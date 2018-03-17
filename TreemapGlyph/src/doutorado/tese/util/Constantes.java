@@ -35,6 +35,11 @@ public class Constantes {
         "#9467bd","#8c564b","#e377c2","#7f7f7f",
         "#bcbd22","#17becf","#c6dbef","#a1d99b"
     };
+    
+    private static String[] corFormas = {
+        "#FF0101", "#F8D930", "#151C48", "#00A1D7",
+       "#0A8300", "#FF3797", "#8C8589", "#000000"
+    };
 
     public final static String[] TIPO_TEXTURA = {
         "PATTERN_DIAG_RIGHT_LEFT" ,
@@ -136,5 +141,11 @@ public class Constantes {
     public static String[] getCorGlyphs() {
         return corGlyphs;
     }
+
+    public static String[] getCorFormas() {
+        return corFormas;
+    }
+    
+    
 
 }

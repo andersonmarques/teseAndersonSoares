@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 public class Triangulo extends JPanel{
 
+    private Polygon p;
     private int[] xPoints;
     private int[] yPoints;
     private Rectangle rect;
@@ -42,12 +43,7 @@ public class Triangulo extends JPanel{
         g2d.setPaint(Color.darkGray);
     
         montarTriangulo();
-        Polygon p = new Polygon();
         
-        p.addPoint(xPoints[0], yPoints[0]);
-        p.addPoint(xPoints[1], yPoints[1]);
-        p.addPoint(xPoints[2], yPoints[2]);
-       
 //        p.translate(xy[0],xy[1]);
         g2d.setColor(cor);
         g2d.fillPolygon(p);
@@ -76,8 +72,10 @@ public class Triangulo extends JPanel{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.45);
-        int height = (int) Math.round(points[1] * 0.45);
+        Rectangle rect = getBounds();
+        
+        int width = (int) Math.round(points[0] * 0.2);
+        int height = (int) Math.round(points[1] * 0.2);
 
 
         int halfWidth = width / 2;
@@ -99,5 +97,12 @@ public class Triangulo extends JPanel{
 
         xPoints[2] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
         yPoints[2] = halfHeight+ innerHeight;
+        
+                
+        p.addPoint(xPoints[0], yPoints[0]);
+        p.addPoint(xPoints[1], yPoints[1]);
+        p.addPoint(xPoints[2], yPoints[2]);
+       
+        p.translate(rect.width/2+width/2,rect.height/2-height/2);
     }
 }

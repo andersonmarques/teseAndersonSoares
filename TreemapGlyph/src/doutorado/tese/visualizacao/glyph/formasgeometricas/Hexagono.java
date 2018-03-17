@@ -62,37 +62,37 @@ public class Hexagono extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.5);
-        int height = (int) Math.round(points[1] * 0.5);
+        int width = (int) Math.round(points[0] * 0.2);
+        int height = (int) Math.round(points[1] * 0.2);
 
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 4;
         int innerHeight = height / 4;
 
-        halfWidth += rect.x + rect.width/2 - width/2;
-        halfHeight += rect.y + rect.height/2 - height/2;
+        halfWidth += rect.x;
+        halfHeight += rect.y;
 
        
         xPoints = new int[6];
         yPoints = new int[6];
 
         xPoints[0] = halfWidth;
-        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[0] = (int) Math.round(rect.y);
 
-        xPoints[1] = (int) Math.round(rect.x + rect.width/2 - width/2);
+        xPoints[1] = (int) Math.round(rect.x);
         yPoints[1] = halfHeight - innerHeight;
 
-        xPoints[2] = (int) Math.round(rect.x + rect.width/2 - width/2);
+        xPoints[2] = (int) Math.round(rect.x);
         yPoints[2] = halfHeight + innerHeight;
 
         xPoints[3] = halfWidth;
-        yPoints[3] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[3] = height + (int) Math.round(rect.y);
 
-        xPoints[4] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
+        xPoints[4] = width + (int) Math.round(rect.x);
         yPoints[4] = halfHeight + innerHeight;
 
-        xPoints[5] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
+        xPoints[5] = width + (int) Math.round(rect.x);
         yPoints[5] = halfHeight - innerHeight;
         
         p = new Polygon();
@@ -103,6 +103,8 @@ public class Hexagono extends FormaGeometrica{
         p.addPoint(xPoints[3], yPoints[3]);
         p.addPoint(xPoints[4], yPoints[4]);
         p.addPoint(xPoints[5], yPoints[5]);
+        
+        p.translate(rect.width/2+width/2,rect.height/2-height/2);
     }
 
     @Override

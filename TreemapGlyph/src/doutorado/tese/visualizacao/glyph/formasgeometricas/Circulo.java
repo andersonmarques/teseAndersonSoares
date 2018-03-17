@@ -52,14 +52,14 @@ public class Circulo extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.2);
-        int height = (int) Math.round(points[1] * 0.2);
+        int width = (int) Math.round(points[0] * 0.1);
+        int height = (int) Math.round(points[1] * 0.1);
 
 
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = (int) (rect.x + rect.width/2 - width/2);
+        xPoints[0] = (int) (rect.x + rect.width/2 + width/2 + width);
         yPoints[0] = (int) (rect.y + rect.height/2 - height/2);
 
         xPoints[1] = (int) (width);

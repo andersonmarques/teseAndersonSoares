@@ -17,15 +17,14 @@ public class GeometryFactory {
     public static final class FORMAS{
         
         public enum GLYPH_FORMAS{
-            CIRCULO     ("CIRCULO"),
             RETANGULO   ("RETANGULO"),
             CRUZ        ("CRUZ"),
             ELLIPSE     ("ELLIPSE"),
-            ARCO        ("ARCO"),
             HEXAGONO    ("HEXAGONO"),
             LOSANGO     ("LOSANGO"),
             PENTAGONO   ("PENTAGONO"),
-            TRAPEZIO    ("TRAPEZIO");
+            ARCO        ("ARCO"),
+            CIRCULO     ("CIRCULO");
             
             private final String nome;
             
@@ -45,7 +44,7 @@ public class GeometryFactory {
 //        public static final String HEXAGONO = "";
 //        public static final String LOSANGO = "";
 //        public static final String PENTAGONO = "";
-//        public static final String TRAPEZIO = "";
+
         
     }
 
@@ -62,16 +61,14 @@ public class GeometryFactory {
                 return new Ellipse(bounds,cor);
             case CIRCULO:
                 return new Circulo(bounds, cor);
-            case ARCO:
-                return new Arco(bounds,angulo);
             case HEXAGONO:
                 return new Hexagono(bounds,cor);
             case LOSANGO:
                 return new Losango(bounds,cor);
             case PENTAGONO:
                 return new Pentagono(bounds,cor);
-            case TRAPEZIO:
-                return new Trapezio(bounds,cor);
+             case ARCO:
+                return new Arco(bounds,angulo);
             default:
                 return new Retangulo(bounds,cor);
         }

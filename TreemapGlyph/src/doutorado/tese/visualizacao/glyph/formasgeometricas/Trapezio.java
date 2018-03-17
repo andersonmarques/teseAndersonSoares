@@ -15,6 +15,7 @@ import java.awt.RenderingHints;
 //trapezio descendente
 public class Trapezio extends FormaGeometrica{
 
+    private Polygon p;
     private int[] xPoints;
     private int[] yPoints;
     private Color cor;
@@ -30,16 +31,7 @@ public class Trapezio extends FormaGeometrica{
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g2d.setPaint(Color.BLACK);
-
-        Polygon p = new Polygon();
-
-        p.addPoint(xPoints[0], yPoints[0]);
-        p.addPoint(xPoints[1], yPoints[1]);
-        p.addPoint(xPoints[2], yPoints[2]);
-        p.addPoint(xPoints[3], yPoints[3]);
-       
-
+        g2d.setPaint(Color.BLACK);     
         g2d.setColor(cor);
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
@@ -66,8 +58,8 @@ public class Trapezio extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.46);
-        int height = (int) Math.round(points[1] * 0.46);
+        int width = (int) Math.round(points[0] * 0.2);
+        int height = (int) Math.round(points[1] * 0.2);
 
 
         int halfWidth = width / 2;
@@ -79,7 +71,7 @@ public class Trapezio extends FormaGeometrica{
         halfWidth += getBounds().x + getBounds().width/2 - width/2;
         halfHeight += getBounds().y + getBounds().height/2 - height/2;
         
-
+        Rectangle rect = getBounds();
         xPoints = new int[4];
         yPoints = new int[4];
 
@@ -94,6 +86,14 @@ public class Trapezio extends FormaGeometrica{
 
         xPoints[3] = width + (int) Math.round(getBounds().x + getBounds().width/2 - width/2);
         yPoints[3] = height + (int) Math.round(getBounds().y + getBounds().height/2 - height/2);
+       
+        p = new Polygon();
+        p.addPoint(xPoints[0], yPoints[0]);
+        p.addPoint(xPoints[1], yPoints[1]);
+        p.addPoint(xPoints[2], yPoints[2]);
+        p.addPoint(xPoints[3], yPoints[3]);
+        
+        p.translate(rect.width/2+width/2,rect.height/2-height/2);
 
     }
 

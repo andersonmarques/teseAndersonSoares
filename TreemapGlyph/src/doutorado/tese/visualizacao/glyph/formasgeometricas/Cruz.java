@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
 
 public class Cruz extends FormaGeometrica{
 
@@ -32,9 +33,6 @@ public class Cruz extends FormaGeometrica{
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2d.setPaint(Color.BLACK);
-
-        //p.translate(xy[0], xy[1]);
-
         g2d.setColor(cor);
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
@@ -66,8 +64,8 @@ public class Cruz extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.5);
-        int height = (int) Math.round(points[1] * 0.5);
+        int width = (int) Math.round(points[0] * 0.2);
+        int height = (int) Math.round(points[1] * 0.2);
 
       
         int halfWidth = width / 2;
@@ -75,48 +73,48 @@ public class Cruz extends FormaGeometrica{
         int innerWidth = width / 4;
         int innerHeight = height / 4;
 
-        halfWidth += rect.x + rect.width/2 - width/2;
-        halfHeight += rect.y + rect.height/2 - height/2;
+        halfWidth += rect.x ;
+        halfHeight += rect.y ;
         
         
         xPoints = new int[12];
         yPoints = new int[12];
 
         xPoints[0] = halfWidth - innerWidth;
-        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[0] = (int) Math.round(rect.y);
 
         xPoints[1] = halfWidth - innerWidth;
         yPoints[1] = halfHeight - innerHeight;
 
-        xPoints[2] = (int) Math.round(rect.x + rect.width/2 - width/2);
+        xPoints[2] = (int) Math.round(rect.x);
         yPoints[2] = halfHeight - innerHeight;
 
-        xPoints[3] = (int) Math.round(rect.x + rect.width/2 - width/2);
+        xPoints[3] = (int) Math.round(rect.x);
         yPoints[3] = halfHeight + innerHeight;
 
         xPoints[4] = halfWidth - innerWidth;
         yPoints[4] = halfHeight + innerHeight;
 
         xPoints[5] = halfWidth - innerWidth;
-        yPoints[5] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[5] = height + (int) Math.round(rect.y);
 
         xPoints[6] = halfWidth + innerWidth;
-        yPoints[6] = height + (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[6] = height + (int) Math.round(rect.y );
 
         xPoints[7] = halfWidth + innerWidth;
         yPoints[7] = halfHeight + innerHeight;
 
-        xPoints[8] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
+        xPoints[8] = width + (int) Math.round(rect.x );
         yPoints[8] = halfHeight + innerHeight;
 
-        xPoints[9] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
+        xPoints[9] = width + (int) Math.round(rect.x );
         yPoints[9] = halfHeight - innerHeight;
 
         xPoints[10] = halfWidth + innerWidth;
         yPoints[10] = halfHeight - innerHeight;
 
         xPoints[11] = halfWidth + innerWidth;
-        yPoints[11] = (int) Math.round(rect.y + rect.height/2 - height/2);
+        yPoints[11] = (int) Math.round(rect.y );
         
         
         p = new Polygon();
@@ -133,6 +131,9 @@ public class Cruz extends FormaGeometrica{
         p.addPoint(xPoints[9], yPoints[9]);
         p.addPoint(xPoints[10], yPoints[10]);
         p.addPoint(xPoints[11], yPoints[11]);
+        
+        p.translate(rect.width/2+width/2,rect.height/2-height/2);
+    
 
     }
 

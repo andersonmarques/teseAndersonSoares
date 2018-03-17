@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
 public class Ellipse extends FormaGeometrica{
-
+    
     private int[] xPoints;
     private int[] yPoints;
     private Color cor = Color.white;
@@ -53,14 +53,14 @@ public class Ellipse extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.65);
-        int height = (int) Math.round(points[1] * 0.4);
+        int width = (int) Math.round(points[0] * 0.3);
+        int height = (int) Math.round(points[1] * 0.1);
 
 
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = (int) (getBounds().x + getBounds().width/2 - width/2);
+        xPoints[0] = (int) (getBounds().x + getBounds().width/2 + width/4);
         yPoints[0] = (int) (getBounds().y + getBounds().height/2 - height/2);
 
         xPoints[1] = (int) (width);
