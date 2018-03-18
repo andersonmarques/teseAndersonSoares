@@ -29,6 +29,8 @@ import net.bouthier.treemapAWT.TMThreadModel;
 import net.bouthier.treemapAWT.TMUpdaterConcrete;
 import net.bouthier.treemapAWT.TMView;
 import net.bouthier.treemapAWT.TreeMap;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -36,6 +38,7 @@ import net.bouthier.treemapAWT.TreeMap;
  */
 public class VisualizationsArea {
 
+    private static final Logger logger = LogManager.getLogger(VisualizationsArea.class);
     private final ManipuladorArquivo manipulador;
     private Queue<String> hierarquiaFila;
     private String labelColumn = "";
@@ -107,20 +110,17 @@ public class VisualizationsArea {
             this.root.setBounds(area);
 
             this.root = this.fixedRoot;
-//            System.out.println("Equalizou? -> "+equalizeRoots(root, nodeModel));
+            boolean equalizeRoots = equalizeRoots(root, nodeModel);
+            logger.info("Equalizou os Root do Treemap? "+ equalizeRoots);
 
             setAreaNodesTree(this.root, nodeModel);
         }
     }
 
     public boolean equalizeRoots(TreeMapNode equalized, TMNodeModel nodeModel) {
-        System.out.println(nodeModel.getUserData());
-//        if(nodeModel.getNode().getNodeModel() instanceof TreeMapNode){
-//            
-//        }
-
-        TreeMapNode aux = (TreeMapNode) ((TMNodeEncapsulator) nodeModel.getNode()).getNode();        
+        TreeMapNode aux = (TreeMapNode) ((TMNodeEncapsulator) nodeModel.getNode()).getNode();
 //        System.out.println("meu root: "+equalized+"\t root API: "+aux);
+        logger.info("meu root: "+equalized+"\n\t\t root API: "+aux);
         if (equalized == aux) {
 //            System.out.println("meu: "+equalized+"\t root API: "+nodeModel.getNode());
             this.root = equalized;

@@ -131,7 +131,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         fileMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         decisionTreeActivate = new javax.swing.JCheckBoxMenuItem();
-        aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Treemap Glyphs");
@@ -593,14 +592,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         jMenuBar1.add(fileMenu);
 
-        helpMenu.setText("Help");
+        helpMenu.setText("DecisionTree");
         helpMenu.setToolTipText("");
 
-        decisionTreeActivate.setText("Activate Decision Tree");
+        decisionTreeActivate.setText("Activate");
         helpMenu.add(decisionTreeActivate);
-
-        aboutMenuItem.setText("About");
-        helpMenu.add(aboutMenuItem);
 
         jMenuBar1.add(helpMenu);
 
@@ -970,7 +966,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JComboBox<String> atributo1Glyph;
     private javax.swing.JComboBox<String> atributo2Glyph;
     private javax.swing.JComboBox<String> atributo3Glyph;
