@@ -224,16 +224,16 @@ public final class GlyphManager {
     public void prepareDimension2DrawGlyph(TreeMapItem item) {
         double[] features = new double[15];
         limparGlyphsTreemapItem(item);
-        features[6] = item.getBounds().width;
-        features[5] = item.getBounds().height;
-        features[9] = item.getColor().equals(Constantes.ALICE_BLUE) ? 0 : 1;
-        features[7] = features[6] * features[5];
+        features[Constantes.FEATURE_LARGURA] = item.getBounds().width;
+        features[Constantes.FEATURE_ALTURA] = item.getBounds().height;
+        features[Constantes.PRESENCA_COR_TREEMAP] = item.getColor().equals(Constantes.ALICE_BLUE) ? Constantes.AUSENTE : Constantes.PRESENTE;
+        features[Constantes.FEATURE_AREA] = features[Constantes.FEATURE_LARGURA] * features[Constantes.FEATURE_ALTURA];
 
-        double aspect = features[5] > features[6]
-                ? features[6] / features[5]
-                : features[5] / features[6];
+        double aspect = features[Constantes.FEATURE_ALTURA] > features[Constantes.FEATURE_LARGURA]
+                ? features[Constantes.FEATURE_LARGURA] / features[Constantes.FEATURE_ALTURA]
+                : features[Constantes.FEATURE_ALTURA] / features[Constantes.FEATURE_LARGURA];
 
-        features[8] = aspect;
+        features[Constantes.FEATURE_ASPECT] = aspect;
         for (int dimensao = 0; dimensao < atributosEscolhidos.size(); dimensao++) {
             if (!atributosEscolhidos.get(dimensao).equals("---")) {
                 String colunaEscolhida = atributosEscolhidos.get(dimensao).toString();
@@ -241,37 +241,37 @@ public final class GlyphManager {
                 List<String> dadosDistintos = colunaDadosDist.get(colunaEscolhida);
                 switch (dimensao) {
                     case 0:
-                        features[10] = preparePrimeiraDimensao(col, item, dadosDistintos);
-                        features[0] = 1;
+                        features[Constantes.AREA_TEXTURA] = preparePrimeiraDimensao(col, item, dadosDistintos);
+                        features[Constantes.PRESENCA_TEXTURA] = Constantes.PRESENTE;
                         break;
                     case 1:
-                        features[11] = prepareSegundaDimensao(col, item, dadosDistintos);
-                        features[1] = 1;
+                        features[Constantes.AREA_COR_FORMA] = prepareSegundaDimensao(col, item, dadosDistintos);
+                        features[Constantes.PRESENCA_COR_FORMA] = Constantes.PRESENTE;
                         break;
                     case 2:
-                        features[12] = prepareTerceiraDimensao(col, item, dadosDistintos);
-                        features[2] = 1;
+                        features[Constantes.AREA_FORMA] = prepareTerceiraDimensao(col, item, dadosDistintos);
+                        features[Constantes.PRESENCA_FORMA] = Constantes.PRESENTE;
                         break;
                     case 3:
                         dimensao4Ativada = true;
                         letraUtilizada = "";
-                        features[13] = prepareQuartaDimensao(col, item, dadosDistintos);
-                        features[3] = 1;
+                        features[Constantes.AREA_LETRA] = prepareQuartaDimensao(col, item, dadosDistintos);
+                        features[Constantes.PRESENCA_LETRA] = Constantes.PRESENTE;
                         break;
                     case 4:
-                        features[14] = prepareQuintaDimensao(col, item, dadosDistintos);
-                        features[4] = 1;
+                        features[Constantes.AREA_NUMERO] = prepareQuintaDimensao(col, item, dadosDistintos);
+                        features[Constantes.PRESENCA_NUMERO] = Constantes.PRESENTE;
                         break;
                     default:
                         System.err.println("Nao foi possível calcular a dimensão.");
                 }
             }
         }
-        item.getWhat2Draw()[0] = DTViuTextura.predict(features);
-        item.getWhat2Draw()[1] = DTViuCor.predict(features);
-        item.getWhat2Draw()[2] = DTViuForma.predict(features);
-        item.getWhat2Draw()[3] = DTViuLetra.predict(features);
-        item.getWhat2Draw()[4] = DTViuNumero.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = DTViuTextura.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_COR_FORMA] = DTViuCor.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = DTViuForma.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_LETRA] = DTViuLetra.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_NUMERO] = DTViuNumero.predict(features);
     }
 
     public int preparePrimeiraDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {

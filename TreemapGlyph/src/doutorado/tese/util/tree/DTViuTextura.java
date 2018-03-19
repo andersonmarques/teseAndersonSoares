@@ -1,5 +1,7 @@
 package doutorado.tese.util.tree;
 
+import doutorado.tese.util.Constantes;
+
 public class DTViuTextura {
 
     private static int findMax(int[] nums) {

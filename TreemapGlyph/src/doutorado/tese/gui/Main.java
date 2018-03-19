@@ -48,8 +48,9 @@ import org.apache.logging.log4j.Logger;
  * @author Anderson
  */
 public class Main extends javax.swing.JFrame implements PropertyChangeListener {
-    
+
     private static final Logger logger = LogManager.getLogger(Main.class);
+
     /**
      * Creates new form Main
      */
@@ -60,7 +61,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             logger.info(Main.class.getName());//.log(Level.SEVERE, null, ex);
         }
         initComponents();
-
+        jSplitPane1.setDividerLocation(2000);
         layerPane = new JLayeredPane();
 
         legendaVisualizacao = new LegendaVisualizacao(painelLegendaVis.getBounds());
@@ -129,7 +130,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         fileMenuItem = new javax.swing.JMenuItem();
-        helpMenu = new javax.swing.JMenu();
+        decisionTreeMenu = new javax.swing.JMenu();
         decisionTreeActivate = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -592,13 +593,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         jMenuBar1.add(fileMenu);
 
-        helpMenu.setText("DecisionTree");
-        helpMenu.setToolTipText("");
+        decisionTreeMenu.setText("DecisionTree");
+        decisionTreeMenu.setToolTipText("");
 
         decisionTreeActivate.setText("Activate");
-        helpMenu.add(decisionTreeActivate);
+        decisionTreeActivate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decisionTreeActivateActionPerformed(evt);
+            }
+        });
+        decisionTreeMenu.add(decisionTreeActivate);
 
-        jMenuBar1.add(helpMenu);
+        jMenuBar1.add(decisionTreeMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -636,13 +642,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             selectedFile = chooser.getSelectedFile();
             progressoBarra.setVisible(true);
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            logger.info("Arquivo selecionado: "+selectedFile);
+            logger.info("Arquivo selecionado: " + selectedFile);
             //Instances of javax.swing.SwingWorker are not reusuable, so
             //we create new instances as needed.
             task = new Task();
             task.addPropertyChangeListener(this);
             task.execute();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "The file type can not be read.", "Erro!", JOptionPane.ERROR_MESSAGE);
             logger.error("The file type can not be read. - Did it again!");
         }
@@ -669,7 +675,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
         glyphPanel.setBounds(painelEsquerda.getBounds());
-        glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());                
+        glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
         glyphPanel.setManipulador(manipulador);
         ArrayList<Object> atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
         glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
@@ -921,6 +927,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         botaoGerarVisualizacaoActionPerformed(evt);
     }//GEN-LAST:event_updateDetailsButtonActionPerformed
 
+    private void decisionTreeActivateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decisionTreeActivateActionPerformed
+        botaoGerarGlyphsActionPerformed(evt);
+        if (decisionTreeActivate.isSelected()) {
+            logger.info("Árvore de decisão avivada");
+        }
+    }//GEN-LAST:event_decisionTreeActivateActionPerformed
+
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
         ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
         atributosEscolhidosGlyph.add(atributo1Glyph.getSelectedItem());
@@ -983,9 +996,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JList<String> colunasHierarquicasList2;
     private javax.swing.JComboBox<String> corTreemapComboBox;
     private javax.swing.JCheckBoxMenuItem decisionTreeActivate;
+    private javax.swing.JMenu decisionTreeMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem fileMenuItem;
-    private javax.swing.JMenu helpMenu;
     private javax.swing.JButton inserirBotao_detalhes;
     private javax.swing.JButton inserirBotao_treemap;
     private javax.swing.JLabel jLabel1;
@@ -1104,7 +1117,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         Object[] vazio = {};
         DefaultComboBoxModel model = new DefaultComboBoxModel(vazio);
         colunasHierarquicasList2.setModel(model);
-        
+
     }
 
     class Task extends SwingWorker<Void, Void> {
@@ -1158,7 +1171,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     logger.info("Montando Objetos coluna.");
                     manipulador.montarColunas(manipulador.getCabecalho(), manipulador.getTipos());
                 } catch (Exception e) {
-                    logger.error("Erro montar objetos COLUNA. \n"+e.fillInStackTrace());
+                    logger.error("Erro montar objetos COLUNA. \n", e);
                     e.printStackTrace();
                 }
                 porcentagem = (ordem * 100) / tarefas;
@@ -1169,7 +1182,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     logger.info("Carregando itens no treemap.");
                     manipulador.carregarItensTreemap();
                 } catch (Throwable e) {
-                    logger.error("Erro ao carregar itens no treemap. \n"+e.fillInStackTrace());
+                    logger.error("Erro ao carregar itens no treemap. \n", e);
                     e.printStackTrace();
                 }
                 porcentagem = (ordem * 100) / tarefas;
@@ -1183,7 +1196,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         c.configurarDescricao(manipulador.getDadosColuna(manipulador.getCabecalho()[i]));
                     }
                 } catch (Exception e) {
-                    logger.error("Erro ao definir a descrição das colunas. \n"+e.fillInStackTrace());
+                    logger.error("Erro ao definir a descrição das colunas. \n", e);
                     e.printStackTrace();
                 }
                 porcentagem = (ordem * 100) / tarefas;
@@ -1213,7 +1226,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 break;
             case 8:
                 logger.info("Preparando variáveis hierarquia para o treemap.");
-                loadItensHierarquiaTreemap(getColunasCategoricas().toArray());                
+                loadItensHierarquiaTreemap(getColunasCategoricas().toArray());
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis hierarquia Treemap: " + porcentagem + "%");
                 break;

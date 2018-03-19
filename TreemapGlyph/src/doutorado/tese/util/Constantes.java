@@ -6,8 +6,6 @@
 package doutorado.tese.util;
 
 import java.awt.Color;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -22,38 +20,54 @@ public class Constantes {
     private static boolean showLegenda = false;
     private static boolean showStarGlyph = false;
     public static Color ALICE_BLUE = Color.decode("#F0F8FF");
+    public static final int PRESENCA_TEXTURA = 0;
+    public static final int PRESENCA_COR_FORMA = 1;
+    public static final int PRESENCA_FORMA = 2;
+    public static final int PRESENCA_LETRA = 3;
+    public static final int PRESENCA_NUMERO = 4;
+    public static final int FEATURE_ALTURA = 5;
+    public static final int FEATURE_LARGURA = 6;
+    public static final int FEATURE_AREA = 7;
+    public static final int FEATURE_ASPECT = 8;
+    public static final int PRESENCA_COR_TREEMAP = 9;
+    public static final int AREA_TEXTURA = 10;
+    public static final int AREA_COR_FORMA = 11;
+    public static final int AREA_FORMA = 12;
+    public static final int AREA_LETRA = 13;
+    public static final int AREA_NUMERO = 14;
+    public static final int PRESENTE = 1;
+    public static final int AUSENTE = 0;
 
-    
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
     private static String[] cor = {
-        "#3366cc","#dc3912","#ff9900","#109618","#990099","#0099c6","#dd4477",
-        "#66aa00","#b82e2e","#316395","#994499","#22aa99","#aaaa11","#6633cc",
-        "#e67300","#8b0707","#651067","#329262","#5574a6", "#3b3eac","#F0F8FF"
+        "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477",
+        "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc",
+        "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac", "#F0F8FF"
     };
 
     private static String[] corGlyphs = {
-        "#ff0101","#f8d930","#151c48","#00a1d7",
-        "#0a8300","#ff3797","#8c8589","#000000"
+        "#ff0101", "#f8d930", "#151c48", "#00a1d7",
+        "#0a8300", "#ff3797", "#8c8589", "#000000"
     };
 
     public final static String[] TIPO_TEXTURA = {
-        "PATTERN_DIAG_RIGHT_LEFT" ,
+        "PATTERN_DIAG_RIGHT_LEFT",
+        "PATTERN_HORIZONTAL",
+        "PATTERN_VERTICAL",
+        "PATTERN_UP",
+        "PATTERN_DIAG_LEFT_RIGHT",
+        "PATTERN_RIGHT",
+        "PATTERN_DIAG_CROSS_LINES",
+        "PATTERN_CROSS_LINES"
 //        "PATTERN_DIAGDOTS2" ,
 //        "PATTERN_DOTS",
 //        "PATTERN_CHESS",
 //        "PATTERN_PLUS" ,
-        "PATTERN_HORIZONTAL",
 //        "PATTERN_DOWN",
-        "PATTERN_VERTICAL",
-        "PATTERN_UP" ,
-        "PATTERN_DIAG_LEFT_RIGHT",
 //        "PATTERN_LEFT",
-        "PATTERN_RIGHT",
-        "PATTERN_DIAG_CROSS_LINES",
-        "PATTERN_CROSS_LINES",
 //        "PATTERN_DIAGDOTS"
     };
-   
+
     public final static String[] LETRAS_ALFABETO = {
         "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
         "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"

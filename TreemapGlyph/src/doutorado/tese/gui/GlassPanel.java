@@ -17,6 +17,8 @@ import net.bouthier.treemapAWT.TMNodeModelRoot;
 import net.bouthier.treemapAWT.TMOnDrawFinished;
 import net.bouthier.treemapAWT.TMUpdaterConcrete;
 import net.bouthier.treemapAWT.TMView;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -24,6 +26,7 @@ import net.bouthier.treemapAWT.TMView;
  */
 public class GlassPanel extends JPanel {
 
+    private static final Logger logger = LogManager.getLogger(GlassPanel.class);
     private ManipuladorArquivo manipulador;
     private GlyphManager glyphManager;
     private TMNodeModelRoot nodeModelRoot;
@@ -50,7 +53,9 @@ public class GlassPanel extends JPanel {
         TMUpdaterConcrete.listeners.add(new TMOnDrawFinished() {
             @Override
             public void onDrawFinished(String text) {
+                logger.info("Acionando onDrawFinished()", text);
                 glyphManager.setRootNodeZoom(view.getRootAnderson());   
+                logger.info("Acionando prepare2Draw() a partir do onDrawFinished() - Root: "+glyphManager.getRootNodeZoom());
                 glyphManager.prepare2Draw();//chamado para redesenhar os glyphs no drill-down
             }
         });
@@ -59,11 +64,10 @@ public class GlassPanel extends JPanel {
     public void setAtributosEscolhidos(List<Object> atributosEscolhidos) {
         glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos);
         glyphManager.setUseDecisionTree(decisioTree);
-        glyphManager.setRootNodeZoom(view.getRootAnderson());        
+        glyphManager.setRootNodeZoom(view.getRootAnderson()); 
+        logger.info("Acionando prepare2Draw() a partir do setAtributosEscolhidos() - Root: "+glyphManager.getRootNodeZoom());
         glyphManager.prepare2Draw();
-    }
-
-    
+    }    
     
     @Override
     public void paintComponent(Graphics g) {

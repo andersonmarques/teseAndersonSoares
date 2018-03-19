@@ -110,7 +110,10 @@ public class TMModel_Draw
             tooltip += "</html>";
             return tooltip;
         }
-        return "";
+        return "<html>"+
+                "<p>Label: "+((TreeMapLevel)node).getLabel()+"</p>"+
+                "<p>Leaves: "+((TreeMapLevel)node).getChildren().size()+"</p>"
+                +"</html>";
     }
 
     @Override

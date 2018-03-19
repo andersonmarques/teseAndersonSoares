@@ -17,7 +17,7 @@
                 <MarkerFilter marker="EXCEPTION" onMatch="ACCEPT" onMismatch="DENY"/>
             </filters>
         </Console>
-        <File name="File" fileName="${filename}">
+        <File name="File" fileName="${filename}" append="false">
             <PatternLayout>
                 <pattern>%d %p %C{1.} [%t] %m%n</pattern>
             </PatternLayout>
@@ -30,6 +30,7 @@
                 <KeyValuePair key="test" value="123"/>
             </ThreadContextMapFilter>
             <AppenderRef ref="STDOUT"/>
+            <!--<AppenderRef ref="FLOW"/>-->
         </Logger>
  
         <Logger name="org.apache.logging.log4j.test2" level="debug" additivity="false">
@@ -40,14 +41,17 @@
                 </ThreadContextMapFilter>
             </AppenderRef>
             <AppenderRef ref="STDOUT" level="error"/>
+            <!--<AppenderRef ref="FLOW" level="error"/>-->
         </Logger>
  
         <Logger name="org.apache.logging.log4j.test3" level="info">
             <AppenderRef ref="STDOUT"/>        
+            <!--<AppenderRef ref="FLOW"/>-->   
         </Logger>
     
         <Root level="trace">
             <AppenderRef ref="File"/>
+            <AppenderRef ref="FLOW"/>   
         </Root>
     </Loggers>
  

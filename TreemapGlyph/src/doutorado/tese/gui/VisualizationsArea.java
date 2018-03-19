@@ -111,7 +111,15 @@ public class VisualizationsArea {
 
             this.root = this.fixedRoot;
             boolean equalizeRoots = equalizeRoots(root, nodeModel);
-            logger.info("Equalizou os Root do Treemap? "+ equalizeRoots);
+            try {
+                if (!equalizeRoots) {
+                    throw new Exception();
+                } else {
+                    logger.info("Equalizou os Root do Treemap? " + equalizeRoots);
+                }
+            } catch (Exception e) {
+                logger.error("Erro, não foi possível equalizar os objs Roots", e);
+            }
 
             setAreaNodesTree(this.root, nodeModel);
         }
@@ -119,10 +127,8 @@ public class VisualizationsArea {
 
     public boolean equalizeRoots(TreeMapNode equalized, TMNodeModel nodeModel) {
         TreeMapNode aux = (TreeMapNode) ((TMNodeEncapsulator) nodeModel.getNode()).getNode();
-//        System.out.println("meu root: "+equalized+"\t root API: "+aux);
-        logger.info("meu root: "+equalized+"\n\t\t root API: "+aux);
         if (equalized == aux) {
-//            System.out.println("meu: "+equalized+"\t root API: "+nodeModel.getNode());
+            logger.info("meu root: " + equalized + "\n\t\t root API: " + aux);
             this.root = equalized;
             return true;
         } else {
@@ -185,35 +191,9 @@ public class VisualizationsArea {
         });
     }
 
-//    public void setTreemapItemColor(List<TreeMapNode> itensFilhos) {
-//        itensFilhos.forEach((filho) -> {
-//            if (filho instanceof TreeMapItem) {
-//                if (!itemCor.equals("---")) {
-//                    Coluna c = ManipuladorArquivo.getColuna(itemCor);
-//                    List<String> dadosDistintos = c.getDadosDistintos();
-//                    for (int j = 0; j < Constantes.getCor().length; j++) {
-//                        if (filho.getMapaDetalhesItem().get(c).equalsIgnoreCase(dadosDistintos.get(j))) {
-//                            filho.setColor(Color.decode(Constantes.getCor()[j]));
-//                            break;
-//                        }
-//                    }
-//                }
-//            } else {
-//                TreeMapLevel level = (TreeMapLevel) filho;
-//                setTreemapItemColor(level.getChildren());
-//            }
-//        });
-//    }
-
-//    public void setColorColumn(String itemCor) {
-//        this.itemCor = itemCor;
-////        setTreemapItemColor(this.root.getChildren());
-//    }
-
     private TreeMapNode createTree(String[] hierarquia, String itemTamanho, String itemLegenda, String itemCor) {
         setHierarchy(hierarquia);
         setSizeColumn(ManipuladorArquivo.getColuna(itemTamanho));
-//        setColorColumn(itemCor);
         if (!Constantes.isShowLegenda()) {
             setTreemapItemLabel(root.getChildren(), false);
         } else {
@@ -245,7 +225,7 @@ public class VisualizationsArea {
     /**
      * @return the colunasDetalhesDemanda
      */
-    public String[] getColunasDetalhesDemanda() {        
+    public String[] getColunasDetalhesDemanda() {
         return colunasDetalhesDemanda;
     }
 
