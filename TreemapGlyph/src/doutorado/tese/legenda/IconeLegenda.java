@@ -47,18 +47,17 @@ public class IconeLegenda implements Icon {
                 forma.paint(g);
                 break;
             case 2:
-                FormaGeometrica form = GeometryFactory.create(bounds, Color.white,GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO,null);
+                FormaGeometrica form = GeometryFactory.create(bounds, Color.WHITE,GeometryFactory.FORMAS.GLYPH_FORMAS.ARCO, valor);
                 form.paint(g);
                 break;
             case 3:
-                Letra letra = new Letra(bounds, valor, true);
-                letra.setFonte(new Font("Arial", Font.PLAIN, 12));
-                letra.paint(g);
+                FormaGeometrica formCor = GeometryFactory.create(bounds, Color.white,GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO,valor);
+                formCor.paint(g);
                 break;
             case 4:
-                Numeral num = new Numeral(bounds, valor, true);
-                num.setFonte(new Font("Arial", Font.PLAIN, 12));
-                num.paint(g);
+                FormaGeometrica circulo = GeometryFactory.create(bounds,Color.decode(shufflerColors[]),GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO,valor);
+                circulo.paint(g);
+        
                 break;
             default:
                 inserirIconeAusente(g2d, x, y);

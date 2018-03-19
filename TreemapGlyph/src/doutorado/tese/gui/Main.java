@@ -12,7 +12,6 @@ import doutorado.tese.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
@@ -21,8 +20,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -49,6 +48,8 @@ import net.bouthier.treemapAWT.TMView;
  */
 public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
+    private static final Logger logger = LogManager.getLogger(Main.class);
+
     /**
      * Creates new form Main
      */
@@ -57,7 +58,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            logger.info(Main.class.getName());//.log(Level.SEVERE, null, ex);
         }
         initComponents();
 
@@ -131,7 +132,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         fileMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         decisionTreeActivate = new javax.swing.JCheckBoxMenuItem();
-        aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Treemap Glyphs");
@@ -317,13 +317,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(corTreemapComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Treemap", jPanel1);
 
         checkGlyph.setText("Glyph");
+        checkGlyph.setEnabled(false);
         checkGlyph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkGlyphActionPerformed(evt);
@@ -596,14 +597,16 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         jMenuBar1.add(fileMenu);
 
-        helpMenu.setText("Help");
+        helpMenu.setText("Decision Tree");
         helpMenu.setToolTipText("");
 
-        decisionTreeActivate.setText("Activate Decision Tree");
+        decisionTreeActivate.setText("Activate");
+        decisionTreeActivate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decisionTreeActivateActionPerformed(evt);
+            }
+        });
         helpMenu.add(decisionTreeActivate);
-
-        aboutMenuItem.setText("About");
-        helpMenu.add(aboutMenuItem);
 
         jMenuBar1.add(helpMenu);
 
@@ -639,7 +642,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             limparResquiciosBasesAnteriores();
-            
+            checkGlyph.setEnabled(false);
+
             selectedFile = chooser.getSelectedFile();
 
             progressoBarra.setVisible(true);
@@ -649,7 +653,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             task = new Task();
             task.addPropertyChangeListener(this);
             task.execute();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "The file type can not be read.", "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_fileMenuItemActionPerformed
@@ -675,7 +679,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
         glyphPanel.setBounds(painelEsquerda.getBounds());
-        glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());                
+        glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
         glyphPanel.setManipulador(manipulador);
         ArrayList<Object> atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
         glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
@@ -847,6 +851,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         progressoBarra.setVisible(false);
         atualizarLegendaTreemap(itemCor);
+        checkGlyph.setEnabled(true);
         limparCacheGlyphs();
     }//GEN-LAST:event_botaoGerarVisualizacaoActionPerformed
 
@@ -930,6 +935,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_atributo5GlyphItemStateChanged
 
+    private void decisionTreeActivateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decisionTreeActivateActionPerformed
+        botaoGerarGlyphsActionPerformed(evt);
+        if (decisionTreeActivate.isSelected()) {
+            logger.info("Arvore de decisão ativada");//.log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_decisionTreeActivateActionPerformed
+
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
         ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
         atributosEscolhidosGlyph.add(atributo1Glyph.getSelectedItem());
@@ -975,7 +987,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JComboBox<String> atributo1Glyph;
     private javax.swing.JComboBox<String> atributo2Glyph;
     private javax.swing.JComboBox<String> atributo3Glyph;
@@ -1114,7 +1125,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         Object[] vazio = {};
         DefaultComboBoxModel model = new DefaultComboBoxModel(vazio);
         colunasHierarquicasList2.setModel(model);
-        
+
     }
 
     class Task extends SwingWorker<Void, Void> {
@@ -1212,7 +1223,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 progressoBarra.setToolTipText("Carregando variáveis glyph: " + porcentagem + "%");
                 break;
             case 8:
-                loadItensHierarquiaTreemap(getColunasCategoricas().toArray());                
+                loadItensHierarquiaTreemap(getColunasCategoricas().toArray());
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis hierarquia Treemap: " + porcentagem + "%");
                 break;

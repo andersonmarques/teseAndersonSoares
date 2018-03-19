@@ -102,7 +102,7 @@ public class LegendaVisualizacao {
                     icon.setValorIcon(Constantes.LETRAS_ALFABETO[i]);
                     break;
                 case 4:
-                    icon.setValorIcon(Constantes.NUMEROS[i]);
+                    icon.setValorIcon(Constantes.getCorGlyphs()[i]);
                     break;
                 default:
                     throw new AssertionError();
