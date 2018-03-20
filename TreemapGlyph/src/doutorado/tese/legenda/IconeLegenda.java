@@ -30,6 +30,8 @@ public class IconeLegenda implements Icon {
     private int height = 32;
     private int dimensao;
     private String valor;
+    private GeometryFactory.FORMAS.GLYPH_FORMAS formaGeom;
+    private Color cor;
 
     private BasicStroke stroke = new BasicStroke(4);
 
@@ -47,15 +49,15 @@ public class IconeLegenda implements Icon {
                 forma.paint(g);
                 break;
             case 2:
-                FormaGeometrica form = GeometryFactory.create(bounds, Color.WHITE,GeometryFactory.FORMAS.GLYPH_FORMAS.ARCO, valor);
+                FormaGeometrica form = GeometryFactory.create(bounds, Color.WHITE,formaGeom, valor);
                 form.paint(g);
                 break;
             case 3:
-                FormaGeometrica formCor = GeometryFactory.create(bounds, Color.white,GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO,valor);
+                FormaGeometrica formCor = GeometryFactory.create(bounds,cor,formaGeom,valor);
                 formCor.paint(g);
                 break;
             case 4:
-                FormaGeometrica circulo = GeometryFactory.create(bounds,Color.decode(shufflerColors[]),GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO,valor);
+                FormaGeometrica circulo = GeometryFactory.create(bounds,cor,GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO,valor);
                 circulo.paint(g);
         
                 break;
@@ -95,4 +97,13 @@ public class IconeLegenda implements Icon {
     void setValorIcon(String valor) {
         this.valor = valor;
     }
+    
+    void setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS forma){
+        this.formaGeom = forma;
+    }
+
+    public void setCor(Color cor) {
+        this.cor = cor;
+    }
 }
+

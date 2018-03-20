@@ -65,7 +65,7 @@ public class Constantes {
      * "CIRCULO"
      */
     public final static String[] TIPOS_FORMAS_GEOMETRICAS = {
-      "ARCO", "ELLIPSE", "CRUZ", "LOSANGO", "PENTAGONO", "TRAPEZIO", "HEXAGONO", "RETANGULO", "CIRCULO"
+      "ARCO","ELLIPSE", "CRUZ", "LOSANGO", "PENTAGONO", "TRAPEZIO", "HEXAGONO", "RETANGULO", "CIRCULO"
 
     };
 

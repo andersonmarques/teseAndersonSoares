@@ -8,6 +8,7 @@ package doutorado.tese.legenda;
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
+import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -96,13 +97,16 @@ public class LegendaVisualizacao {
                     icon.setValorIcon(Constantes.ANGLE[i]);
                     break;
                 case 2:
-                    icon.setValorIcon(Constantes.TIPOS_FORMAS_GEOMETRICAS[i]);
+                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i]);
                     break;
                 case 3:
-                    icon.setValorIcon(Constantes.LETRAS_ALFABETO[i]);
+                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i]);
+                    icon.setCor(Color.decode(Constantes.getCorFormas()[i]));
+
                     break;
                 case 4:
-                    icon.setValorIcon(Constantes.getCorGlyphs()[i]);
+                    icon.setCor(Color.decode(Constantes.getCorGlyphs()[i]));
+                    
                     break;
                 default:
                     throw new AssertionError();
