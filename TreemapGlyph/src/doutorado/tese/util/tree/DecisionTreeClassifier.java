@@ -29,11 +29,25 @@ public class DecisionTreeClassifier {
             if(features[10] <= 182.5){ // TA
                 if(features[12] <= 72.5){ //SA
                     // 110/115 Representa a confiaça que o algoritmo tem nessa resposta.
-                    classes[0][0] = 110;classes[0][1] = 5;
-                    classes[1][0] = 115;classes[1][1] = 0;
-                    classes[2][0] = 111;classes[2][1] = 4;
-                    classes[3][0] = 102;classes[3][1] = 13;
-                    classes[4][0] = 107;classes[4][1] = 8;
+//                    classes[0][0] = 110;classes[0][1] = 5;
+//                    classes[1][0] = 115;classes[1][1] = 0;
+//                    classes[2][0] = 111;classes[2][1] = 4;
+//                    classes[3][0] = 102;classes[3][1] = 13;
+//                    classes[4][0] = 107;classes[4][1] = 8;
+                    if(features[11] <= 5){ //Editado Manualmente com expertise do Anderson
+                        classes[0][0] = 110;classes[0][1] = 5;
+                        classes[1][0] = 115;classes[1][1] = 0;
+                        classes[2][0] = 111;classes[2][1] = 4;
+                        classes[3][0] = 102;classes[3][1] = 13;
+                        classes[4][0] = 107;classes[4][1] = 8;
+                    }else{
+                        classes[0][0] = 110;classes[0][1] = 5;
+                        classes[1][0] = 0;classes[1][1] = 115;
+                        classes[2][0] = 111;classes[2][1] = 4;
+                        classes[3][0] = 102;classes[3][1] = 13;
+                        classes[4][0] = 107;classes[4][1] = 8;
+                    }
+                    
                 }else{
                     classes[0][0] = 64;classes[0][1] = 0;
                     classes[1][0] = 64;classes[1][1] = 0;
@@ -66,11 +80,20 @@ public class DecisionTreeClassifier {
                         classes[3][0] = 103;classes[3][1] = 9;
                         classes[4][0] = 106;classes[4][1] = 6;
                     }else{
-                        classes[0][0] = 108;classes[0][1] = 4;
-                        classes[1][0] = 109;classes[1][1] = 3;
-                        classes[2][0] = 3;classes[2][1] = 109;
-                        classes[3][0] = 103;classes[3][1] = 9;
-                        classes[4][0] = 106;classes[4][1] = 6;
+                        if(features[12] <= 20){ //SA
+                            classes[0][0] = 108;classes[0][1] = 4;
+                            classes[1][0] = 109;classes[1][1] = 3;
+                            classes[2][0] = 109;classes[2][1] = 3;
+                            classes[3][0] = 103;classes[3][1] = 9;
+                            classes[4][0] = 106;classes[4][1] = 6;
+                        }else{
+                            classes[0][0] = 108;classes[0][1] = 4;
+                            classes[1][0] = 109;classes[1][1] = 3;
+                            classes[2][0] = 3;classes[2][1] = 109;
+                            classes[3][0] = 103;classes[3][1] = 9;
+                            classes[4][0] = 106;classes[4][1] = 6;
+                        }
+                        
                     }
                     
                 }else{
