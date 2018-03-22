@@ -66,9 +66,9 @@ public class DecisionTreeClassifier {
                         classes[3][0] = 103;classes[3][1] = 9;
                         classes[4][0] = 106;classes[4][1] = 6;
                     }else{
-                        classes[0][0] = 4;classes[0][1] = 108;
+                        classes[0][0] = 108;classes[0][1] = 4;
                         classes[1][0] = 109;classes[1][1] = 3;
-                        classes[2][0] = 109;classes[2][1] = 3;
+                        classes[2][0] = 3;classes[2][1] = 109;
                         classes[3][0] = 103;classes[3][1] = 9;
                         classes[4][0] = 106;classes[4][1] = 6;
                     }
