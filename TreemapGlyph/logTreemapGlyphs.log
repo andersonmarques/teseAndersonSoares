@@ -1,0 +1,96 @@
+2018-03-22 19:24:27,366 INFO d.t.g.Main [AWT-EventQueue-0] Arquivo selecionado: C:\Users\Anderson Soares\Documents\idh2000.txt
+2018-03-22 19:24:27,567 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Leitura do arquivo.
+2018-03-22 19:24:28,151 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Montando Objetos coluna.
+2018-03-22 19:24:28,253 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Carregando itens no treemap.
+2018-03-22 19:24:28,434 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Definindo a descrição das colunas.
+2018-03-22 19:24:30,587 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Preparando lista tamanho para o treemap.
+2018-03-22 19:24:30,692 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Preparando lista legenda para o treemap.
+2018-03-22 19:24:30,794 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Preparando variáveis glyphs.
+2018-03-22 19:24:30,900 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Preparando variáveis hierarquia para o treemap.
+2018-03-22 19:24:31,000 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Preparando variáveis Cores para o treemap.
+2018-03-22 19:24:31,101 INFO d.t.g.Main [SwingWorker-pool-3-thread-1] Preparando variáveis para Detalhes sob Demanda para o treemap.
+2018-03-22 19:24:40,920 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:24:40,920 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:24:41,126 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:24:41,127 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:24:59,623 INFO d.t.g.GlassPanel [AWT-EventQueue-0] Acionando prepare2Draw() a partir do setAtributosEscolhidos() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:25:02,289 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:25:02,289 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:25:02,291 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando onDrawFinished()
+2018-03-22 19:25:02,292 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando prepare2Draw() a partir do onDrawFinished() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:25:07,524 INFO d.t.g.GlassPanel [AWT-EventQueue-0] Acionando prepare2Draw() a partir do setAtributosEscolhidos() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:25:08,233 INFO d.t.g.Main [AWT-EventQueue-0] Árvore de decisão avivada
+2018-03-22 19:25:08,403 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:25:08,404 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:25:08,404 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando onDrawFinished()
+2018-03-22 19:25:08,404 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando prepare2Draw() a partir do onDrawFinished() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:25:22,435 INFO d.t.g.GlassPanel [AWT-EventQueue-0] Acionando prepare2Draw() a partir do setAtributosEscolhidos() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:25:23,162 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:25:23,162 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:25:23,163 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando onDrawFinished()
+2018-03-22 19:25:23,163 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando prepare2Draw() a partir do onDrawFinished() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:25:26,376 INFO d.t.g.GlassPanel [AWT-EventQueue-0] Acionando prepare2Draw() a partir do setAtributosEscolhidos() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:25:27,009 INFO d.t.g.Main [AWT-EventQueue-0] Árvore de decisão avivada
+2018-03-22 19:25:27,058 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:25:27,059 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:25:27,059 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando onDrawFinished()
+2018-03-22 19:25:27,059 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando prepare2Draw() a partir do onDrawFinished() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:26:04,821 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:26:04,821 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:26:04,823 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando onDrawFinished()
+2018-03-22 19:26:04,823 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando prepare2Draw() a partir do onDrawFinished() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:26:06,034 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:26:06,034 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:26:06,035 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando onDrawFinished()
+2018-03-22 19:26:06,035 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando prepare2Draw() a partir do onDrawFinished() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:26:06,696 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:26:06,696 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:26:06,696 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando onDrawFinished()
+2018-03-22 19:26:06,697 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando prepare2Draw() a partir do onDrawFinished() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:26:10,727 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:26:10,727 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:26:10,727 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando onDrawFinished()
+2018-03-22 19:26:10,727 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando prepare2Draw() a partir do onDrawFinished() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:26:22,779 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:26:22,780 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:26:22,780 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando onDrawFinished()
+2018-03-22 19:26:22,780 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando prepare2Draw() a partir do onDrawFinished() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:26:23,522 INFO d.t.g.VisualizationsArea [Thread-5] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:26:23,523 INFO d.t.g.VisualizationsArea [Thread-5] Equalizou os Root do Treemap? true
+2018-03-22 19:26:23,543 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:26:23,543 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:26:23,544 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@22678277[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@22678277[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:26:23,544 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:26:23,604 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:26:23,605 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:26:23,605 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando onDrawFinished()
+2018-03-22 19:26:23,605 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando prepare2Draw() a partir do onDrawFinished() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:26:24,302 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@22678277[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@22678277[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:26:24,303 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:26:28,024 INFO d.t.g.GlassPanel [AWT-EventQueue-0] Acionando prepare2Draw() a partir do setAtributosEscolhidos() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@34b21538
+2018-03-22 19:26:28,667 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@249c23ad[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:26:28,667 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:26:28,668 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando onDrawFinished()
+2018-03-22 19:26:28,668 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando prepare2Draw() a partir do onDrawFinished() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@17b16739
+2018-03-22 19:26:29,299 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] meu root: doutorado.tese.visualizacao.treemap.TreeMapLevel@22678277[Label: ROOT Pai:  Size: 1.6979917E8
+		 root API: doutorado.tese.visualizacao.treemap.TreeMapLevel@22678277[Label: ROOT Pai:  Size: 1.6979917E8
+2018-03-22 19:26:29,299 INFO d.t.g.VisualizationsArea [AWT-EventQueue-0] Equalizou os Root do Treemap? true
+2018-03-22 19:26:29,299 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando onDrawFinished()
+2018-03-22 19:26:29,300 INFO d.t.g.GlassPanel$1 [AWT-EventQueue-0] Acionando prepare2Draw() a partir do onDrawFinished() - Root: net.bouthier.treemapAWT.TMNodeModelRoot@34b21538

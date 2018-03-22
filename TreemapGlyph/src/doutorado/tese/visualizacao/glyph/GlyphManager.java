@@ -268,11 +268,11 @@ public final class GlyphManager {
                 }
             }
         }
-        item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = DTViuTextura.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_COR_FORMA] = DTViuCor.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = DTViuForma.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_LETRA] = DTViuLetra.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_NUMERO] = DTViuNumero.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = DecisionTreeClassifier.predict(features)[0];
+        item.getWhat2Draw()[Constantes.PRESENCA_COR_FORMA] = DecisionTreeClassifier.predict(features)[1];
+        item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = DecisionTreeClassifier.predict(features)[2];
+        item.getWhat2Draw()[Constantes.PRESENCA_LETRA] = DecisionTreeClassifier.predict(features)[3];
+        item.getWhat2Draw()[Constantes.PRESENCA_NUMERO] = DecisionTreeClassifier.predict(features)[4];
     }
 
     public int preparePrimeiraDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {

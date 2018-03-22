@@ -11,7 +11,7 @@ import java.util.Arrays;
  *
  * @author Gustavo
  */
-class DecisionTreeClassifier {
+public class DecisionTreeClassifier {
 
     private static int[] findMax(int[][] nums) {
         int[] index = new int[nums.length];

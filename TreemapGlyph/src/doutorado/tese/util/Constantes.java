@@ -29,7 +29,7 @@ public class Constantes {
     public static final int FEATURE_LARGURA = 6;
     public static final int FEATURE_AREA = 7;//TIA - TOTAL ITEM AREA
     public static final int FEATURE_ASPECT = 8;
-    public static final int PRESENCA_COR_TREEMAP = 9;
+    public static final int PRESENCA_COR_TREEMAP = 9;//
     public static final int AREA_TEXTURA = 10;//TA - TEXTURE AREA
     public static final int AREA_CIRCULO_COLORIDO = 11;//CCA - Colored circle area
     public static final int AREA_FORMA = 12;//SA - SHAPE AREA
