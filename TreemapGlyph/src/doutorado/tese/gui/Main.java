@@ -114,6 +114,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         atributo5Glyph = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        atributo7Glyph = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
+        atributo6Glyph = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -317,8 +321,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(corTreemapComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Treemap", jPanel1);
@@ -390,6 +394,31 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 atributo5GlyphItemStateChanged(evt);
             }
         });
+        atributo5Glyph.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atributo5GlyphActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Attribute 6:");
+
+        atributo7Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        atributo7Glyph.setEnabled(false);
+        atributo7Glyph.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                atributo7GlyphItemStateChanged(evt);
+            }
+        });
+
+        jLabel14.setText("Attribute 7:");
+
+        atributo6Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        atributo6Glyph.setEnabled(false);
+        atributo6Glyph.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                atributo6GlyphItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -400,11 +429,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(checkGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,7 +458,15 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(atributo5Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(atributo5Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(atributo6Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(atributo7Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 92, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -450,7 +488,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(atributo3Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(atributo4Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
@@ -458,9 +496,17 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(atributo5Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(atributo6Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(atributo7Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Glyph", jPanel2);
@@ -549,7 +595,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                     .addComponent(jScrollPane6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(updateDetailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                .addComponent(updateDetailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -578,9 +624,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             .addGroup(painelDireitaLayout.createSequentialGroup()
                 .addComponent(progressoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(legendaBarraRolage))
+                .addComponent(legendaBarraRolage, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
         );
 
         jSplitPane1.setRightComponent(painelDireita);
@@ -700,6 +746,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             atributo3Glyph.setEnabled(true);
             atributo4Glyph.setEnabled(true);
             atributo5Glyph.setEnabled(true);
+            atributo6Glyph.setEnabled(true);
+            atributo7Glyph.setEnabled(true);
+
             botaoGerarGlyphs.setEnabled(true);
             layerPane.add(glyphPanel, new Integer(1), 0);
         } else {
@@ -942,6 +991,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }//GEN-LAST:event_decisionTreeActivateActionPerformed
 
+    private void atributo7GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo7GlyphItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo7GlyphItemStateChanged
+
+    private void atributo6GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo6GlyphItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo6GlyphItemStateChanged
+
+    private void atributo5GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo5GlyphActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo5GlyphActionPerformed
+
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
         ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
         atributosEscolhidosGlyph.add(atributo1Glyph.getSelectedItem());
@@ -949,6 +1010,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atributosEscolhidosGlyph.add(atributo3Glyph.getSelectedItem());
         atributosEscolhidosGlyph.add(atributo4Glyph.getSelectedItem());
         atributosEscolhidosGlyph.add(atributo5Glyph.getSelectedItem());
+        atributosEscolhidosGlyph.add(atributo6Glyph.getSelectedItem());
+        atributosEscolhidosGlyph.add(atributo7Glyph.getSelectedItem());
+
         return atributosEscolhidosGlyph;
     }
 
@@ -992,6 +1056,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JComboBox<String> atributo3Glyph;
     private javax.swing.JComboBox<String> atributo4Glyph;
     private javax.swing.JComboBox<String> atributo5Glyph;
+    private javax.swing.JComboBox<String> atributo6Glyph;
+    private javax.swing.JComboBox<String> atributo7Glyph;
     private javax.swing.JButton baixoBotao_treemap;
     private javax.swing.JButton botaoGerarGlyphs;
     private javax.swing.JButton botaoGerarVisualizacao;
@@ -1013,6 +1079,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1219,6 +1287,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_3, true), atributo3Glyph);
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_4, true), atributo4Glyph);
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_5, true), atributo5Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_6, true), atributo6Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_7, true), atributo7Glyph);
+
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis glyph: " + porcentagem + "%");
                 break;
@@ -1333,6 +1404,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 break;
             case NIVEL_5:
                 analisarQuantAtributosCategoricos(list, Constantes.NUMEROS);
+                break;
+            case NIVEL_6:
+                analisarQuantAtributosCategoricos(list, Constantes.TIPOS_FORMAS_GEOMETRICAS);
+                break;
+            case NIVEL_7:
+                analisarQuantAtributosCategoricos(list, Constantes.TIPOS_FORMAS_GEOMETRICAS);
                 break;
             default:
                 System.err.println("Nao foi carregar atributos para a dimensão.");

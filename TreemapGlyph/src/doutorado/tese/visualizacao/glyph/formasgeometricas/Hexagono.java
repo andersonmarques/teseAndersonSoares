@@ -104,7 +104,7 @@ public class Hexagono extends FormaGeometrica{
         p.addPoint(xPoints[4], yPoints[4]);
         p.addPoint(xPoints[5], yPoints[5]);
         
-        p.translate(rect.width/2+width/2,rect.height/2-height/2);
+        p.translate(0,rect.height-height);
     }
 
     @Override

@@ -59,7 +59,7 @@ public class Circulo extends FormaGeometrica{
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = (int) (rect.x + rect.width/2 + width/2 + width);
+        xPoints[0] = (int) (rect.x + rect.width/2 - width/2);
         yPoints[0] = (int) (rect.y + rect.height/2 - height/2);
 
         xPoints[1] = (int) (width);

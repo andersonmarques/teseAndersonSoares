@@ -89,7 +89,9 @@ public class Constantes {
         NIVEL_2(2),
         NIVEL_3(3),
         NIVEL_4(4),
-        NIVEL_5(5);
+        NIVEL_5(5),
+        NIVEL_6(6),
+        NIVEL_7(7);
 
         private final int nivelGlyph;
 

@@ -23,8 +23,9 @@ public class GeometryFactory {
             HEXAGONO    ("HEXAGONO"),
             LOSANGO     ("LOSANGO"),
             PENTAGONO   ("PENTAGONO"),
-            ARCO        ("ARCO"),
-            CIRCULO     ("CIRCULO");
+            TRIANGULO   ("TRIANGULO"),
+            CIRCULO     ("CIRCULO"),
+            ARCO        ("ARCO");
             
             private final String nome;
             
@@ -54,7 +55,7 @@ public class GeometryFactory {
     public static FormaGeometrica create(Rectangle bounds, Color cor, FORMAS.GLYPH_FORMAS forma,String angulo){
         switch (forma) {
             case RETANGULO:
-                return new Retangulo(bounds,cor);
+                return new Retangulo(bounds,cor,angulo);
             case CRUZ:
                 return new Cruz(bounds,cor);
             case ELLIPSE:
@@ -65,12 +66,14 @@ public class GeometryFactory {
                 return new Hexagono(bounds,cor);
             case LOSANGO:
                 return new Losango(bounds,cor);
+            case TRIANGULO:
+                return new Triangulo(bounds, cor);
             case PENTAGONO:
                 return new Pentagono(bounds,cor);
              case ARCO:
                 return new Arco(bounds,angulo);
             default:
-                return new Retangulo(bounds,cor);
+                return new Retangulo(bounds,cor,angulo);
         }
     }
     

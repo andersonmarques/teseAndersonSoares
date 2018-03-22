@@ -53,7 +53,7 @@ public class IconeLegenda implements Icon {
                 form.paint(g);
                 break;
             case 3:
-                FormaGeometrica formCor = GeometryFactory.create(bounds,cor,formaGeom,valor);
+                FormaGeometrica formCor = GeometryFactory.create(bounds,cor,GeometryFactory.FORMAS.GLYPH_FORMAS.RETANGULO,valor);
                 formCor.paint(g);
                 break;
             case 4:

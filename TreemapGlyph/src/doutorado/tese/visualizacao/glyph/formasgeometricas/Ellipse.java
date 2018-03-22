@@ -18,13 +18,10 @@ public class Ellipse extends FormaGeometrica{
         montarEllipse();
     }
     
-
     @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
-       
         g2d.setColor(cor);
         g2d.fillOval(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
         g2d.setColor(Color.black);
@@ -53,15 +50,15 @@ public class Ellipse extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.3);
-        int height = (int) Math.round(points[1] * 0.1);
+        int width = (int) Math.round(points[0] * 0.2);
+        int height = (int) Math.round(points[1] * 0.15);
 
 
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = (int) (getBounds().x + getBounds().width/2 + width/4);
-        yPoints[0] = (int) (getBounds().y + getBounds().height/2 - height/2);
+        xPoints[0] = (int) (getBounds().x + getBounds().width- width);
+        yPoints[0] = (int) (getBounds().y + getBounds().height - height);
 
         xPoints[1] = (int) (width);
         yPoints[1] = (int) (height);

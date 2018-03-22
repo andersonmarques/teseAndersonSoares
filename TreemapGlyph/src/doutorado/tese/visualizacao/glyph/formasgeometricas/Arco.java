@@ -86,11 +86,11 @@ public class Arco extends FormaGeometrica{
         
         
         setWidth(points[0] * 0.5);
-        setHeight(points[1] * 0.5);
+        setHeight(points[1] * 0.45);
         
         double halfWidth = width / 2.;
         double halfHeight = height / 2.;
-        double innerWidth = width / 4.;
+        double innerWidth = width / 4;
         double innerHeight = height / 4.;
 
         halfWidth += rect.x ;
@@ -109,13 +109,13 @@ public class Arco extends FormaGeometrica{
         yPoints[2] = height + rect.y;
         
         xPoints[3] = halfWidth + innerWidth; 
-        yPoints[3] = halfHeight + innerHeight;
+        yPoints[3] = halfHeight + 1.5*innerHeight;
         
-        xPoints[4] = rect.x -innerWidth;
+        xPoints[4] = rect.x -innerWidth/2;
         yPoints[4] = halfHeight;
         
         xPoints[5] = halfWidth + innerWidth; 
-        yPoints[5] = halfHeight - innerHeight;       
+        yPoints[5] = halfHeight - 1.5*innerHeight;       
         
         p = new Path2D.Double();
   

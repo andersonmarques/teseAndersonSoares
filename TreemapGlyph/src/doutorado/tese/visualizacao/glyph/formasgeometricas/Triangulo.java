@@ -11,46 +11,34 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import javax.swing.JPanel;
 
+public class Triangulo extends FormaGeometrica{
 
-public class Triangulo extends JPanel{
-
-    private Polygon p;
     private int[] xPoints;
     private int[] yPoints;
-    private Rectangle rect;
+    private Polygon p;
     private Color cor;
-    
+   
+
     public Triangulo(Rectangle r,Color cor) {
-        this.rect = r;
+        super(r, "Triangulo");
         this.cor = cor;
-        setBounds(this.rect);
-    }
-    
-    public void setBounds(Rectangle rect){
-        this.rect = rect;
-    }
-    
-    public Rectangle getBounds(){
-        return rect;
+        montarTriangulo();
     }
 
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g2d.setPaint(Color.darkGray);
-    
-        montarTriangulo();
+        g2d.setPaint(Color.BLACK);
         
-//        p.translate(xy[0],xy[1]);
+
         g2d.setColor(cor);
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);
     }
-    
+
     
     private int[] verificarRetangulo(int [] point){
         if(point[0] > point[1]){
@@ -63,46 +51,50 @@ public class Triangulo extends JPanel{
         }
         return null;
     }
-
+    
     private void montarTriangulo() {
         int[] points = new int[2];
 
+        Rectangle rect = getBounds();
+        
         points[0] = rect.width;
         points[1] = rect.height;
 
         verificarRetangulo(points);
 
-        Rectangle rect = getBounds();
-        
         int width = (int) Math.round(points[0] * 0.2);
         int height = (int) Math.round(points[1] * 0.2);
 
-
         int halfWidth = width / 2;
         int halfHeight = height / 2;
-        int innerWidth = width / 2;
-        int innerHeight = height / 2;
+        int innerWidth = width / 4;
+        int innerHeight = height / 4;
 
-        halfWidth += rect.x + rect.width/2 - width/2;
-        halfHeight += rect.y + rect.height/2 - height/2;
+        halfWidth += rect.x;
+        halfHeight += rect.y;
 
+       
         xPoints = new int[3];
         yPoints = new int[3];
 
         xPoints[0] = halfWidth;
-        yPoints[0] = (int) Math.round(rect.y + rect.height/2 - height/2)- width/5;
+        yPoints[0] = (int) Math.round(rect.y);
 
-        xPoints[1] = halfWidth - innerWidth;
-        yPoints[1] = halfHeight+ innerHeight;
+        xPoints[1] = (int) Math.round(rect.x);
+        yPoints[1] = height + (int) Math.round(rect.y);
 
-        xPoints[2] = width + (int) Math.round(rect.x + rect.width/2 - width/2);
-        yPoints[2] = halfHeight+ innerHeight;
-        
-                
+        xPoints[2] = width + (int) Math.round(rect.x);
+        yPoints[2] = height + (int) Math.round(rect.y);        
+        p = new Polygon();
+
         p.addPoint(xPoints[0], yPoints[0]);
         p.addPoint(xPoints[1], yPoints[1]);
-        p.addPoint(xPoints[2], yPoints[2]);
-       
+        p.addPoint(xPoints[2], yPoints[2]);        
         p.translate(rect.width/2+width/2,rect.height/2-height/2);
+    }
+
+    @Override
+    public int getArea() {
+        return (xPoints[1]-xPoints[1])*(yPoints[2]-yPoints[2]);
     }
 }

@@ -29,6 +29,12 @@ public class TreeMapItem extends TreeMapNode {
     private FormaGeometrica corForma;  
     private FormaGeometrica circulo;
     private FormaGeometrica formaGeometrica;
+    private FormaGeometrica formaSupEsq;
+    private FormaGeometrica formaInfEsq;
+    private FormaGeometrica formaSupDir;
+    private FormaGeometrica formaInfDir;
+
+
     private Letra letra;
     private Numeral numero;
 
@@ -157,6 +163,38 @@ public class TreeMapItem extends TreeMapNode {
 
     public void setCirculo(FormaGeometrica circulo) {
         this.circulo = circulo;
+    }
+
+    public FormaGeometrica getFormaSupEsq() {
+        return formaSupEsq;
+    }
+
+    public void setFormaSupEsq(FormaGeometrica formaSupEsq) {
+        this.formaSupEsq = formaSupEsq;
+    }
+
+    public FormaGeometrica getFormaInfEsq() {
+        return formaInfEsq;
+    }
+
+    public void setFormaInfEsq(FormaGeometrica formaInfEsq) {
+        this.formaInfEsq = formaInfEsq;
+    }
+
+    public FormaGeometrica getFormaSupDir() {
+        return formaSupDir;
+    }
+
+    public void setFormaSupDir(FormaGeometrica formaSupDir) {
+        this.formaSupDir = formaSupDir;
+    }
+
+    public FormaGeometrica getFormaInfDir() {
+        return formaInfDir;
+    }
+
+    public void setFormaInfDir(FormaGeometrica formaInfDir) {
+        this.formaInfDir = formaInfDir;
     }
 
     

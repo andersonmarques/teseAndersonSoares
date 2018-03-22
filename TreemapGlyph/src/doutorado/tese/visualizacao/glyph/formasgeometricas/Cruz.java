@@ -132,8 +132,12 @@ public class Cruz extends FormaGeometrica{
         p.addPoint(xPoints[10], yPoints[10]);
         p.addPoint(xPoints[11], yPoints[11]);
         
-        p.translate(rect.width/2+width/2,rect.height/2-height/2);
-    
+        
+
+    }
+    private void posicoes(){
+    //centralizado        
+    //p.translate(rect.width/2+width/2,rect.height/2-height/2);
 
     }
 
