@@ -22,19 +22,19 @@ public class Constantes {
     public static Color ALICE_BLUE = Color.decode("#F0F8FF");
     public static final int PRESENCA_TEXTURA = 0;
     public static final int PRESENCA_COR_FORMA = 1;
-    public static final int PRESENCA_FORMA = 2;
+    public static final int PRESENCA_FORMA = 2;//SP -SHAPE PRESENCE
     public static final int PRESENCA_LETRA = 3;
     public static final int PRESENCA_NUMERO = 4;
     public static final int FEATURE_ALTURA = 5;
     public static final int FEATURE_LARGURA = 6;
-    public static final int FEATURE_AREA = 7;
+    public static final int FEATURE_AREA = 7;//TIA - TOTAL ITEM AREA
     public static final int FEATURE_ASPECT = 8;
     public static final int PRESENCA_COR_TREEMAP = 9;
-    public static final int AREA_TEXTURA = 10;
-    public static final int AREA_COR_FORMA = 11;
-    public static final int AREA_FORMA = 12;
+    public static final int AREA_TEXTURA = 10;//TA - TEXTURE AREA
+    public static final int AREA_CIRCULO_COLORIDO = 11;//CCA - Colored circle area
+    public static final int AREA_FORMA = 12;//SA - SHAPE AREA
     public static final int AREA_LETRA = 13;
-    public static final int AREA_NUMERO = 14;
+    public static final int AREA_NUMERO = 14;//NA - NUMBER AREA
     public static final int PRESENTE = 1;
     public static final int AUSENTE = 0;
 
@@ -46,7 +46,7 @@ public class Constantes {
     };
 
     private static String[] corGlyphs = {
-        "#ff0101", "#f8d930", "#151c48", "#00a1d7",
+        "#ff0101", "#f8d930", "#174580", "#00a1d7",
         "#0a8300", "#ff3797", "#8c8589", "#000000"
     };
 

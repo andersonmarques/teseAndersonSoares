@@ -119,6 +119,7 @@ public final class GlyphManager {
     }
 
     public int prepareFormaGeometrica(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, TreeMapItem treemapItem) {
+//        System.out.println("++++ "+nomeForma+"\t"+bounds);
         FormaGeometrica formaGeometrica = GeometryFactory.create(bounds, null, nomeForma);
         if (treemapItem != null) {
             treemapItem.setFormaGeometrica(formaGeometrica);
@@ -245,7 +246,7 @@ public final class GlyphManager {
                         features[Constantes.PRESENCA_TEXTURA] = Constantes.PRESENTE;
                         break;
                     case 1:
-                        features[Constantes.AREA_COR_FORMA] = prepareSegundaDimensao(col, item, dadosDistintos);
+                        features[Constantes.AREA_CIRCULO_COLORIDO] = prepareSegundaDimensao(col, item, dadosDistintos);
                         features[Constantes.PRESENCA_COR_FORMA] = Constantes.PRESENTE;
                         break;
                     case 2:
@@ -293,7 +294,8 @@ public final class GlyphManager {
     }
 
     public int prepareTerceiraDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length; j++) {
+        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
+            System.out.println("--- "+GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j].name());
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 return prepareFormaGeometrica(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j], item);
             }
