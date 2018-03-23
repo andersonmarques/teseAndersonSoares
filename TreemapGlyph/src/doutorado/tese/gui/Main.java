@@ -1331,7 +1331,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 }
                 break;
             case NIVEL_3:
-                analisarQuantAtributosCategoricos(list, GeometryFactory.FORMAS.GLYPH_FORMAS.values());
+                GeometryFactory.FORMAS.GLYPH_FORMAS[] formas = new GeometryFactory.FORMAS.GLYPH_FORMAS[GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1];
+                for (int i = 0; i < formas.length; i++) {
+                    formas[i] = GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i];                    
+                }
+                analisarQuantAtributosCategoricos(list, formas);
                 break;
             case NIVEL_4:
                 analisarQuantAtributosCategoricos(list, Constantes.LETRAS_ALFABETO);

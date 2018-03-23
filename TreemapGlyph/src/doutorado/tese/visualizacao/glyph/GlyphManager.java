@@ -250,7 +250,7 @@ public final class GlyphManager {
                         features[Constantes.PRESENCA_COR_FORMA] = Constantes.PRESENTE;
                         break;
                     case 2:
-                        features[Constantes.AREA_FORMA] = prepareTerceiraDimensao(col, item, dadosDistintos);
+                        features[Constantes.AREA_SHAPE] = prepareTerceiraDimensao(col, item, dadosDistintos);
                         features[Constantes.PRESENCA_FORMA] = Constantes.PRESENTE;
                         break;
                     case 3:

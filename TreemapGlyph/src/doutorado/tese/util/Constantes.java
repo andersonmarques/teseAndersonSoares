@@ -32,7 +32,7 @@ public class Constantes {
     public static final int PRESENCA_COR_TREEMAP = 9;//
     public static final int AREA_TEXTURA = 10;//TA - TEXTURE AREA
     public static final int AREA_CIRCULO_COLORIDO = 11;//CCA - Colored circle area
-    public static final int AREA_FORMA = 12;//SA - SHAPE AREA
+    public static final int AREA_SHAPE = 12;//SA - SHAPE AREA
     public static final int AREA_LETRA = 13;
     public static final int AREA_NUMERO = 14;//NA - NUMBER AREA
     public static final int PRESENTE = 1;
