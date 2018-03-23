@@ -89,8 +89,10 @@ public class Triangulo extends FormaGeometrica{
 
         p.addPoint(xPoints[0], yPoints[0]);
         p.addPoint(xPoints[1], yPoints[1]);
-        p.addPoint(xPoints[2], yPoints[2]);        
-        p.translate(rect.width/2+width/2,rect.height/2-height/2);
+        p.addPoint(xPoints[2], yPoints[2]);   
+        
+        p.translate(0+width/2,rect.height-2*height);
+ 
     }
 
     @Override

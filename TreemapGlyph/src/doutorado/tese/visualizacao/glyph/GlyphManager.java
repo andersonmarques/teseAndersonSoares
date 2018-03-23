@@ -407,7 +407,7 @@ public final class GlyphManager {
     public int prepareQuartaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                int result = prepareCorFormaInfEsq(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.HEXAGONO, Color.decode(Constantes.getCorFormas()[j]), item);
+                int result = prepareCorFormaInfEsq(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.TRIANGULO, Color.decode(Constantes.getCorFormas()[j]), item);
                 return result;
             }
         }
@@ -433,11 +433,11 @@ public final class GlyphManager {
         }
         return 0;
     }
-
+    
     public int prepareSetimaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-        for (int j = 0; j < Constantes.getCorGlyphs().length; j++) {
+        for (int j = 0; j < 2; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                return prepareCirculoCor(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO, Color.decode(shufflerColors[j]), item);
+                return prepareCirculoCor(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO, Color.black, item);
             }
         }
         return 0;

@@ -26,8 +26,6 @@ public class Retangulo extends FormaGeometrica{
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2d.setPaint(cor);
-
-        
         g2d.setColor(cor);
         g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
         g2d.setColor(Color.BLACK);
@@ -46,54 +44,11 @@ public class Retangulo extends FormaGeometrica{
         }
         return null;
     }
-        
-    private int[] definirPosicao(Rectangle rect,int width,int height,String angulo){
-         int[] points = new int[2];
-         
-        switch(angulo){
-            case "1":// Math.PI esquerda;
-                xPoints[0] =   rect.x + rect.width/2 +width/2 ;
-                yPoints[1] =   rect.y + rect.height/2 - height/2;
-                break;
-            case "2"://0 direita; 
-                xPoints[0] =   rect.x + rect.width/2 - width ;
-                yPoints[1] =   rect.y + rect.height/2 - height/2;
-                break;
-            case "3"://Math.PI/2 cima;
-                xPoints[0] =   rect.x + rect.width/2 - width/2 ;
-                yPoints[1] =   rect.y + rect.height/2 + height/2;
-                break;
-             case "4":// -Math.PI/2 baixo;
-                xPoints[0] =   rect.x + rect.width/2 - width/2 ;
-                yPoints[1] =   rect.y + rect.height/2 + height;
-                break;
-            case "5":// Math.PI/4 diagonal superior direita;                
-                xPoints[0] =   rect.x + rect.width/2 - width ;
-                yPoints[1] =   rect.y + rect.height/2 + height;
-                break;
-            case "6"://-Math.PI/4 diagonal inferior direita
-                xPoints[0] =   rect.x + rect.width/2 - width ;
-                yPoints[1] =   rect.y + rect.height/2 - height;
-                break;
-            case "7"://5*Math.PI/6 diagonal inferior esquerda
-                xPoints[0] =   rect.x + rect.width/2 + width/2 ;
-                yPoints[1] =   rect.y + rect.height/2 - height/2;
-                break;
-            case "8"://-3*Math.PI/4 diagonal superior esquerda
-                xPoints[0] =   rect.x + rect.width/2 + width/2 ;
-                yPoints[1] =   rect.y + rect.height/2 + height/2;
-                break;              
-            default:
-                break;
-        }
-        return points;
-    }
-    
+ 
     private void montarRetangulo() {        
-        int[] points = new int[2];
-
         Rectangle rect = getBounds();
         
+        int[] points = new int[2];
         points[0] = rect.width;
         points[1] = rect.height;
 
@@ -105,12 +60,8 @@ public class Retangulo extends FormaGeometrica{
         yPoints = new int[2];
         
         int[] posicao = new int[2];
-//      posicao = definirPosicao(rect,width,height,angulo);
-//      xPoints[0] =   posicao[0] ;
-//      yPoints[0] =   posicao[1];
-//    
-        xPoints[0] =   rect.x + rect.width - width;
-        yPoints[0] =   rect.y ;
+        xPoints[0] =   rect.x + rect.width / 2 +  2*width / 2;
+        yPoints[0] =   rect.y + rect.height / 4 - height/2;
 
         xPoints[1] = width;
         yPoints[1] = height;

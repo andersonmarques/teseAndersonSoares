@@ -92,7 +92,6 @@ public class Pentagono extends FormaGeometrica{
 
         xPoints[4] = width + (int) Math.round(rect.x);
         yPoints[4] = halfHeight;
-        
         p = new Polygon();
 
         p.addPoint(xPoints[0], yPoints[0]);
@@ -100,9 +99,8 @@ public class Pentagono extends FormaGeometrica{
         p.addPoint(xPoints[2], yPoints[2]);
         p.addPoint(xPoints[3], yPoints[3]);
         p.addPoint(xPoints[4], yPoints[4]);
-        
-        p.translate(rect.width/2+width/2,rect.height/2-height/2);
-
+//        rect.x + rect.width / 2 +  2*width / 2
+        p.translate(0+points[0]-points[0]/2+width,rect.height-2*height);
     }
 
     @Override

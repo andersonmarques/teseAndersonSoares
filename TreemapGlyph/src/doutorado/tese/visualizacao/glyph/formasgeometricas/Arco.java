@@ -85,13 +85,15 @@ public class Arco extends FormaGeometrica{
         verificarRetangulo(points);
         
         
-        setWidth(points[0] * 0.5);
-        setHeight(points[1] * 0.45);
+        setWidth(points[0] * 0.4);
+        setHeight(points[1] * 0.4);
         
-        double halfWidth = width / 2.;
-        double halfHeight = height / 2.;
+        double halfWidth = width / 2;
+        double halfHeight = height / 2;
         double innerWidth = width / 4;
-        double innerHeight = height / 4.;
+        double innerHeight = height / 5;
+        double innerWidth2 = width / 6;
+        double innerHeight2 = height / 6;
 
         halfWidth += rect.x ;
         halfHeight += rect.y;
@@ -109,13 +111,13 @@ public class Arco extends FormaGeometrica{
         yPoints[2] = height + rect.y;
         
         xPoints[3] = halfWidth + innerWidth; 
-        yPoints[3] = halfHeight + 1.5*innerHeight;
+        yPoints[3] = halfHeight + 2*innerHeight2;
         
         xPoints[4] = rect.x -innerWidth/2;
         yPoints[4] = halfHeight;
         
         xPoints[5] = halfWidth + innerWidth; 
-        yPoints[5] = halfHeight - 1.5*innerHeight;       
+        yPoints[5] = halfHeight - 2*innerHeight2;       
         
         p = new Path2D.Double();
   
