@@ -73,7 +73,7 @@ public class PainelDeTeste extends javax.swing.JPanel {
         }
         if (configs.get("letra") >= 0 && configs.get("numero") >= 0) {
             areaNumero = manager.prepareNumeros(bounds, Constantes.LETRAS_ALFABETO[configs.get("letra")] + Constantes.NUMEROS[configs.get("numero")], item);
-            manager.paintLetrasAlfabeto(g, item);
+            manager.paintNumeros(g, item);
             areaLetra = areaNumero;
         } else {
             if (configs.get("letra") >= 0) {
@@ -100,23 +100,29 @@ public class PainelDeTeste extends javax.swing.JPanel {
         g2d.setColor(Color.BLACK);
         g2d.drawRect(bounds.x, bounds.y, configs.get("width"), configs.get("height"));
 
-        if (output.get("texture")) {
+        if (output.get("texture") && configs.get("textura") >= 0) {
             manager.prepareTextura(bounds, Constantes.TIPO_TEXTURA[configs.get("textura")], item);
+            manager.paintTextura(g, item);
         }
-        if (output.get("circle")) {
+        if (output.get("circle") && configs.get("cor") >= 0) {
             manager.prepareCorForma(bounds, Color.decode(Constantes.getCorGlyphs()[configs.get("cor")]), item);
+            manager.paintCorForma(g, item);
         }
-        if (output.get("geometry")) {
+        if (output.get("geometry") && configs.get("forma") >= 0) {
             manager.prepareFormaGeometrica(bounds, GeometryFactory.FORMAS.GLYPH_FORMAS.values()[configs.get("forma")], item);
+            manager.paintFormaGeometrica(g, item);
         }
-        if (output.get("letter") && output.get("number")) {
+        if (output.get("letter") && output.get("number") && configs.get("numero") >= 0 && configs.get("letra") >= 0) {
             manager.prepareNumeros(bounds, Constantes.LETRAS_ALFABETO[configs.get("letra")] + Constantes.NUMEROS[configs.get("numero")], item);
+            manager.paintNumeros(g, item);
         } else {
-            if (output.get("letter")) {
+            if (output.get("letter") && configs.get("letra") >= 0) {
                 manager.prepareLetrasAlfabeto(bounds, Constantes.LETRAS_ALFABETO[configs.get("letra")], item);
+                manager.paintLetrasAlfabeto(g, item);
             }
-            if (output.get("number")) {
+            if (output.get("number") && configs.get("numero") >= 0) {
                 manager.prepareNumeros(bounds, Constantes.NUMEROS[configs.get("numero")], item);
+                manager.paintNumeros(g, item);
             }
         }
     }

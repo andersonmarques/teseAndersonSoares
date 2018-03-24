@@ -89,9 +89,9 @@ public class MainTeste extends javax.swing.JFrame {
         cont++;
         contadorLabel.setText(cont + " / " + numAmostras);
 
-        if (cont % step == 0) {
-            numLayers2remove++;
-        }
+//        if (cont % step == 0) {
+//            numLayers2remove++;
+//        }
 
         configs.put("textura", rand.nextInt(Constantes.TIPO_TEXTURA.length));
         configs.put("cor", rand.nextInt(Constantes.getCorGlyphs().length));
@@ -100,18 +100,24 @@ public class MainTeste extends javax.swing.JFrame {
         configs.put("numero", rand.nextInt(Constantes.NUMEROS.length));
         configs.put("x", 50);
         configs.put("y", 50);
-        int length = rand.nextInt(50) + 50;
-        configs.put("width", length - rand.nextInt(45));
-        configs.put("height", length - rand.nextInt(45));
+        int length = rand.nextInt(50) + 5;
+        configs.put("width", Math.abs(length - rand.nextInt(40)));
+        configs.put("height", Math.abs(length - rand.nextInt(40)));
         configs.put("coritem", rand.nextInt(Constantes.getCor().length));
 
-        shuffleArray(glyphlayers2draw);
-        for (int i = 0; i < numLayers2remove; i++) {
-            configs.put(layers[glyphlayers2draw[i]], -1);
-            if (checkboxes.get(layers[glyphlayers2draw[i]]) != null) {
-                checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
-            }
-        }
+//        shuffleArray(glyphlayers2draw);
+//        for (int i = 0; i < numLayers2remove; i++) {
+//            configs.put(layers[glyphlayers2draw[i]], -1);
+//            if (checkboxes.get(layers[glyphlayers2draw[i]]) != null) {
+//                checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
+//            }
+        configs.put("textura", -1);
+//        configs.put("cor", rand.nextInt(Constantes.getCorGlyphs().length));
+        configs.put("forma", - 1);
+        configs.put("letra", -1);
+        configs.put("numero", -1);
+        configs.put("coritem", -1);
+        
 
         painelEsquerda.setConfigs(configs);
     }

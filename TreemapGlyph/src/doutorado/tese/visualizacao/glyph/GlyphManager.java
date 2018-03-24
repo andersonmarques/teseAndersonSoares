@@ -295,7 +295,6 @@ public final class GlyphManager {
 
     public int prepareTerceiraDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
-            System.out.println("--- "+GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j].name());
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 return prepareFormaGeometrica(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j], item);
             }
