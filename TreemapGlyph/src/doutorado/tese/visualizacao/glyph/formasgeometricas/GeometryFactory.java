@@ -51,29 +51,29 @@ public class GeometryFactory {
 
     private GeometryFactory() {
     }
-    
-    public static FormaGeometrica create(Rectangle bounds, Color cor, FORMAS.GLYPH_FORMAS forma,String angulo){
+    //porcentgem tam
+    public static FormaGeometrica create(Rectangle bounds, Color cor, FORMAS.GLYPH_FORMAS forma,String angulo,float tam,String posicao){
         switch (forma) {
             case RETANGULO:
-                return new Retangulo(bounds,cor,angulo);
+                return new Retangulo(bounds,cor,angulo,tam,posicao);
             case CRUZ:
-                return new Cruz(bounds,cor);
+                return new Cruz(bounds,cor,tam,posicao);
             case ELLIPSE:
-                return new Ellipse(bounds,cor);
+                return new Ellipse(bounds,cor,tam,posicao);
             case CIRCULO:
-                return new Circulo(bounds, cor);
+                return new Circulo(bounds, cor,tam,posicao);
             case HEXAGONO:
-                return new Hexagono(bounds,cor);
+                return new Hexagono(bounds,cor,tam,posicao);
             case LOSANGO:
-                return new Losango(bounds,cor);
+                return new Losango(bounds,cor,tam,posicao);
             case TRIANGULO:
-                return new Triangulo(bounds, cor);
+                return new Triangulo(bounds, cor,tam,posicao);
             case PENTAGONO:
-                return new Pentagono(bounds,cor);
+                return new Pentagono(bounds,cor,tam,posicao);
              case ARCO:
-                return new Arco(bounds,angulo);
+                return new Arco(bounds,angulo,tam,posicao);
             default:
-                return new Retangulo(bounds,cor,angulo);
+                return new Retangulo(bounds,cor,angulo,tam,posicao);
         }
     }
     

@@ -27,10 +27,16 @@ public class Arco extends FormaGeometrica{
     private Color cor;
     private String nomeAngulo;
     private double angle;
+    private float tam;
+    private String position;
 
-    public Arco(Rectangle r, String angulo) {
+
+    public Arco(Rectangle r, String angulo,float tam,String position) {
         super(r, "ARCO");
+        this.tam = tam;
         this.nomeAngulo = angulo;
+        this.position = position;
+        
 //        System.out.println("construtor: "+this.nomeAngulo);
         montarArco();
     }
@@ -54,7 +60,8 @@ public class Arco extends FormaGeometrica{
         p.transform(AffineTransform.getTranslateInstance(-bounds.x - Math.round(bounds.width/2.f),-bounds.y-Math.round(bounds.height/2.f)));
         g2d2.rotate(angle);
 //        System.out.println("-----------angulo: "+ nomeAngulo);
-        g2d2.setStroke(new BasicStroke(2.8f));
+        g2d2.setStroke(new BasicStroke(1.4f));
+        
         g2d2.setColor(Color.BLACK);
         g2d2.draw(p);
         g2d2.setColor(cor);
@@ -117,14 +124,19 @@ public class Arco extends FormaGeometrica{
         yPoints[4] = halfHeight;
         
         xPoints[5] = halfWidth + innerWidth; 
-        yPoints[5] = halfHeight - 2*innerHeight2;       
+        yPoints[5] = halfHeight - 2*innerHeight2;
         
+        xPoints[6] = width + rect.x;
+        yPoints[6] = rect.y;
+
         p = new Path2D.Double();
   
         p.moveTo(xPoints[0], yPoints[0]);
         p.quadTo(xPoints[1], yPoints[1],xPoints[2], yPoints[2]); 
         p.lineTo(xPoints[3],yPoints[3]);
         p.quadTo(xPoints[4],yPoints[4] ,xPoints[5],yPoints[5] );
+        p.lineTo(xPoints[6],yPoints[6]);
+
         p.closePath();
         
         p.transform(AffineTransform.getTranslateInstance(rect.width/2-width/2,rect.height/2-height/2));

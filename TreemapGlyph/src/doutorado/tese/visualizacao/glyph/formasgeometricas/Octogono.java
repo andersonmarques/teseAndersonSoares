@@ -17,6 +17,7 @@ public class Octogono extends FormaGeometrica{
     private int[] xPoints;
     private int[] yPoints;
     private Polygon p;
+    private float tam;
    
 
     public Octogono(Rectangle r) {
@@ -61,8 +62,8 @@ public class Octogono extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.2);
-        int height = (int) Math.round(points[1] * 0.2);
+        int width = (int) Math.round(points[0] * tam);
+        int height = (int) Math.round(points[1] * tam);
 
         int halfWidth = width / 2;
         int halfHeight = height / 2;

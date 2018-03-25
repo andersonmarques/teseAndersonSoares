@@ -81,6 +81,10 @@ public class Constantes {
      public final static String[] ANGLE = {
         "1","2","3","4","5","6","7","8"
     };
+     
+    public final static String[] visivel = {
+        "0","1"
+    };
     
     public static final int LIMITE_TESTES = 100;
 

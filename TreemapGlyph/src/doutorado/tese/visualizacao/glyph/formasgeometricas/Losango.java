@@ -18,10 +18,14 @@ public class Losango extends FormaGeometrica{
     private int[] xPoints;
     private int[] yPoints;
     private Color cor;
-
-    public Losango(Rectangle r,Color cor) {
+    private float tam;
+    private String position;
+    
+    public Losango(Rectangle r,Color cor,float tam,String position) {
         super(r, "LOSANGO");
         this.cor = cor;
+        this.tam = tam;
+        this.position = position;
         montarLosango();
     }
 
@@ -57,8 +61,8 @@ public class Losango extends FormaGeometrica{
         Rectangle rect = getBounds();
         
         verificarRetangulo(points);
-        int width = (int) Math.round(points[0] * 0.2);
-        int height = (int) Math.round(points[1] * 0.2);
+        int width = (int) Math.round(points[0] * tam);
+        int height = (int) Math.round(points[1] * tam);
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 2;
@@ -83,9 +87,38 @@ public class Losango extends FormaGeometrica{
         p.addPoint(xPoints[1], yPoints[1]);
         p.addPoint(xPoints[2], yPoints[2]);
         p.addPoint(xPoints[3], yPoints[3]);
-        
-        p.translate(rect.width/2+width/2,rect.height/2-height/2);
+         
+        int [] result = definirPosicao(rect,width,height,position); 
+        p.translate(result[0],result[1]);
 
+    }
+    
+        private int[] definirPosicao(Rectangle rect,int width,int height,String position){
+        int [] result = new int[2];
+        switch(position){
+            case "1":
+                result[0] = rect.width/2-rect.width/4-width/2;
+                result[1] = rect.height/4 -height/2;
+                return result;
+            case "2":
+                result[0] = rect.width/2-rect.width/4-width/2;
+                result[1] = rect.height-2*height;
+                return result;
+            case "3":
+                result[0] = rect.width-rect.width/4-width;
+                result[1] = rect.height-2*height;
+                break;
+            case "4":
+                result[0] = rect.width-rect.width/4-width;
+                result[1] = rect.height/4 -height/2;                
+                break;
+            case "5":
+                result[0] = rect.width/2-height/2;
+                result[1] = rect.height/2-height/2;
+                return result;
+                
+        }
+        return result;
     }
 
     @Override

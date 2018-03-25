@@ -11,10 +11,14 @@ public class Ellipse extends FormaGeometrica{
     private int[] xPoints;
     private int[] yPoints;
     private Color cor = Color.white;
-
-    public Ellipse(Rectangle r,Color cor) {
+    private float tam;
+    private String position;
+    
+    public Ellipse(Rectangle r,Color cor,float tam,String position) {
         super(r, "ELLIPSE");
         this.cor = cor;
+        this.tam = tam;
+        this.position = position;
         montarEllipse();
     }
     
@@ -50,8 +54,8 @@ public class Ellipse extends FormaGeometrica{
         points[1] = getBounds().height;
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.2);
-        int height = (int) Math.round(points[1] * 0.15);
+        int width = (int) Math.round(points[0] * tam);
+        int height = (int) Math.round(points[1] * tam/2);
 
         xPoints = new int[2];
         yPoints = new int[2];

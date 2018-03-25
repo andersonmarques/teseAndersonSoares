@@ -32,6 +32,8 @@ public class IconeLegenda implements Icon {
     private String valor;
     private GeometryFactory.FORMAS.GLYPH_FORMAS formaGeom;
     private Color cor;
+    
+
 
     private BasicStroke stroke = new BasicStroke(4);
 
@@ -45,21 +47,30 @@ public class IconeLegenda implements Icon {
                 t.paint(g);
                 break;
             case 1:
-                FormaGeometrica forma = GeometryFactory.create(bounds, Color.BLUE,GeometryFactory.FORMAS.GLYPH_FORMAS.ARCO, valor);
+                FormaGeometrica forma = GeometryFactory.create(bounds, Color.BLUE, GeometryFactory.FORMAS.GLYPH_FORMAS.ARCO, valor,0.5f,"5");
                 forma.paint(g);
                 break;
             case 2:
-                FormaGeometrica form = GeometryFactory.create(bounds, Color.WHITE,formaGeom, valor);
+                FormaGeometrica form = GeometryFactory.create(bounds, cor, formaGeom, valor,0.5f,"1");
                 form.paint(g);
                 break;
             case 3:
-                FormaGeometrica formCor = GeometryFactory.create(bounds,cor,GeometryFactory.FORMAS.GLYPH_FORMAS.RETANGULO,valor);
+                FormaGeometrica formCor = GeometryFactory.create(bounds, cor, GeometryFactory.FORMAS.GLYPH_FORMAS.TRIANGULO, valor,0.5f,"5");
                 formCor.paint(g);
                 break;
             case 4:
-                FormaGeometrica circulo = GeometryFactory.create(bounds,cor,GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO,valor);
+                FormaGeometrica circulo = GeometryFactory.create(bounds, cor, GeometryFactory.FORMAS.GLYPH_FORMAS.PENTAGONO, valor,0.5f,"5");
                 circulo.paint(g);
-        
+                break;
+            case 5:
+                FormaGeometrica quadrado = GeometryFactory.create(bounds, cor, GeometryFactory.FORMAS.GLYPH_FORMAS.LOSANGO, valor,0.5f,"5");
+                quadrado.paint(g);
+                break;
+            case 6:
+                if( valor=="1"){
+                FormaGeometrica cir = GeometryFactory.create(bounds,Color.BLACK, GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO, valor,0.5f,"5");
+                cir.paint(g);
+                }
                 break;
             default:
                 inserirIconeAusente(g2d, x, y);
@@ -97,8 +108,8 @@ public class IconeLegenda implements Icon {
     void setValorIcon(String valor) {
         this.valor = valor;
     }
-    
-    void setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS forma){
+
+    void setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS forma) {
         this.formaGeom = forma;
     }
 
@@ -106,4 +117,3 @@ public class IconeLegenda implements Icon {
         this.cor = cor;
     }
 }
-

@@ -92,25 +92,25 @@ public final class GlyphManager {
     }
 
     public void paintCorFormaSupEsq(Graphics g, TreeMapItem treemapItem) {
-        if (treemapItem.getFormaSupEsq()!= null) {
+        if (treemapItem.getFormaSupEsq() != null) {
             treemapItem.getFormaSupEsq().paint(g);
         }
     }
-    
+
     public void paintCorFormaInfEsq(Graphics g, TreeMapItem treemapItem) {
-        if (treemapItem.getFormaInfEsq()!= null) {
+        if (treemapItem.getFormaInfEsq() != null) {
             treemapItem.getFormaInfEsq().paint(g);
         }
     }
 
     public void paintCorFormaSupDir(Graphics g, TreeMapItem treemapItem) {
-        if (treemapItem.getFormaSupDir()!= null) {
+        if (treemapItem.getFormaSupDir() != null) {
             treemapItem.getFormaSupDir().paint(g);
         }
     }
 
     public void paintCorFormaInfDir(Graphics g, TreeMapItem treemapItem) {
-        if (treemapItem.getFormaInfDir()!= null) {
+        if (treemapItem.getFormaInfDir() != null) {
             treemapItem.getFormaInfDir().paint(g);
         }
     }
@@ -136,7 +136,7 @@ public final class GlyphManager {
     }
 
     public int prepareFormaGeometrica(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, String angulo, TreeMapItem treemapItem) {
-        FormaGeometrica formaGeometrica = GeometryFactory.create(bounds, null, nomeForma, angulo);
+        FormaGeometrica formaGeometrica = GeometryFactory.create(bounds, null, nomeForma, angulo,0.4f,"5");
         System.out.println("prepareFormaGeometrica - angulo: " + ((Arco) formaGeometrica).getAngulo());
         if (treemapItem != null) {
             treemapItem.setFormaGeometrica(formaGeometrica);
@@ -144,29 +144,9 @@ public final class GlyphManager {
         return formaGeometrica.getArea();
     }
 
-    public int prepareCorForma(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, Color cor, TreeMapItem treemapItem) {
-        FormaGeometrica corForma;
-        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0");
-        corForma.setColor(cor);
-        if (treemapItem != null) {
-            treemapItem.setCorForma(corForma);
-        }
-        return corForma.getArea();
-    }
-
-    public int prepareCorFormaSupDir(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, Color cor, TreeMapItem treemapItem) {
-        FormaGeometrica corForma;
-        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0");
-        corForma.setColor(cor);
-        if (treemapItem != null) {
-            treemapItem.setFormaSupDir(corForma);
-        }
-        return corForma.getArea();
-    }
-
     public int prepareCorFormaSupEsq(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, Color cor, TreeMapItem treemapItem) {
         FormaGeometrica corForma;
-        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0");
+        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0", 0.2f, "1");
         corForma.setColor(cor);
         if (treemapItem != null) {
             treemapItem.setFormaSupEsq(corForma);
@@ -176,9 +156,9 @@ public final class GlyphManager {
 
     public int prepareCorFormaInfEsq(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, Color cor, TreeMapItem treemapItem) {
         FormaGeometrica corForma;
-        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0");
+        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0", 0.2f, "2");
         corForma.setColor(cor);
-        if (treemapItem != null){
+        if (treemapItem != null) {
             treemapItem.setFormaInfEsq(corForma);
         }
         return corForma.getArea();
@@ -186,7 +166,7 @@ public final class GlyphManager {
 
     public int prepareCorFormaInfDir(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, Color cor, TreeMapItem treemapItem) {
         FormaGeometrica corForma;
-        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0");
+        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0", 0.2f, "3");
         corForma.setColor(cor);
         if (treemapItem != null) {
             treemapItem.setFormaInfDir(corForma);
@@ -194,9 +174,19 @@ public final class GlyphManager {
         return corForma.getArea();
     }
 
+    public int prepareCorFormaSupDir(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, Color cor, TreeMapItem treemapItem) {
+        FormaGeometrica corForma;
+        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0", 0.2f, "4");
+        corForma.setColor(cor);
+        if (treemapItem != null) {
+            treemapItem.setFormaSupDir(corForma);
+        }
+        return corForma.getArea();
+    }
+
     public int prepareCirculoCor(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, Color cor, TreeMapItem treemapItem) {
         FormaGeometrica corForma;
-        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0");
+        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0", 0.1f, "5");
         corForma.setColor(cor);
         if (treemapItem != null) {
             treemapItem.setCirculo(corForma);
@@ -244,7 +234,7 @@ public final class GlyphManager {
             }
         }
     }
-    
+
     public void paint(Graphics g) {
         if (getRootNodeZoom() != null) {
             paintAnalyser(g, getRootNodeZoom().getRoot());
@@ -354,50 +344,12 @@ public final class GlyphManager {
         }
         return 0;
     }
-
-    //forms feometricxas
-//    public int prepareTerceiraDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-//        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 2; j++) {
-//            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-//                int result = prepareCorForma(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j],Color.WHITE, item);
-//                formaUsada = GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j];
-//                return result;
-//            }
-//        }
-//        return 0;
-//    }
-    //formas com cor
-//    public int prepareQuartaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-//           for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
-//            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-//                
-//                if(dimensao3Ativada){
-//                    return prepareCorForma(item.getBounds(),formaUsada, Color.decode(Constantes.getCorFormas()[j]), item);                
-//                } else {
-//                    int result = prepareCorForma(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j],Color.decode(Constantes.getCorFormas()[j]), item);
-//                    return result;
-//                }
-//            }
-//    }
-//    return 0;
-//    }
-    //circulo pequeno com cor
-//    public int prepareQuintaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-//        for (int j = 0; j < Constantes.NUMEROS.length; j++) {
-//            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-//                return prepareCirculoCor(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO, Color.decode(shufflerColors[j]), item);
-//                //return prepareFormaGeometrica(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.ARCO, Constantes.ANGLE[j], item);
-//
-//            }
-//        }
-//        return 0;
-//    }
     //novos niveis 
     //nivel 3 cruz no canto superior direito do glyph
     public int prepareTerceiraDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 2; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                int result = prepareCorFormaSupEsq(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.CRUZ, Color.decode(shufflerColors[j]), item);
+                int result = prepareCorFormaSupEsq(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.CRUZ,Color.decode(Constantes.getCorFormas()[j]), item);
                 return result;
             }
         }
@@ -417,7 +369,7 @@ public final class GlyphManager {
     public int prepareQuintaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                int result = prepareCorFormaInfDir(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.ELLIPSE, Color.decode(Constantes.getCorFormas()[j]), item);
+                int result = prepareCorFormaInfDir(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.PENTAGONO, Color.decode(Constantes.getCorFormas()[j]), item);
                 return result;
             }
         }
@@ -427,17 +379,21 @@ public final class GlyphManager {
     public int prepareSextaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                int result = prepareCorFormaSupDir(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.RETANGULO, Color.decode(Constantes.getCorFormas()[j]), item);
+                int result = prepareCorFormaSupDir(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.LOSANGO, Color.decode(Constantes.getCorFormas()[j]), item);
                 return result;
             }
         }
         return 0;
     }
-    
+
     public int prepareSetimaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-        for (int j = 0; j < 2; j++) {
+        for (int j = 0; j < Constantes.visivel.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                return prepareCirculoCor(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO, Color.black, item);
+                if(Constantes.visivel[j] == "1"){
+                    return prepareCirculoCor(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO, Color.black, item);
+                }
+                else{
+                }
             }
         }
         return 0;

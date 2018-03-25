@@ -97,16 +97,24 @@ public class LegendaVisualizacao {
                     icon.setValorIcon(Constantes.ANGLE[i]);
                     break;
                 case 2:
-                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i]);
+                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.CRUZ);
+                    icon.setCor(Color.decode(Constantes.getCorFormas()[i]));
                     break;
                 case 3:
-                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i]);
+                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.TRIANGULO);
                     icon.setCor(Color.decode(Constantes.getCorFormas()[i]));
-
                     break;
                 case 4:
-                    icon.setCor(Color.decode(Constantes.getCorGlyphs()[i]));
-                    
+                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.ELLIPSE);
+                    icon.setCor(Color.decode(Constantes.getCorFormas()[i]));
+                    break;
+                case 5:
+                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.RETANGULO);
+                    icon.setCor(Color.decode(Constantes.getCorFormas()[i]));
+                    break;
+                case 6:
+                    icon.setValorIcon(Constantes.visivel[i]);
+                    icon.setCor(Color.decode(Constantes.getCorFormas()[i]));
                     break;
                 default:
                     throw new AssertionError();

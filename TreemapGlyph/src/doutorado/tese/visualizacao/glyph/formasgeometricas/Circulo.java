@@ -12,10 +12,15 @@ public class Circulo extends FormaGeometrica{
     private int[] yPoints;
     private int numberColor;
     private Color cor;
+    private float tam;
+    private String position;
 
-    public Circulo(Rectangle r, Color cor) {
+
+    public Circulo(Rectangle r, Color cor,float tam,String position) {
         super(r, "CIRCULO");
         this.cor = cor;
+        this.tam = tam;
+        this.position = position;
         montarCirculo();
     }
 
@@ -52,8 +57,8 @@ public class Circulo extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.1);
-        int height = (int) Math.round(points[1] * 0.1);
+        int width = (int) Math.round(points[0] * tam);
+        int height = (int) Math.round(points[1] * tam);
 
 
         xPoints = new int[2];

@@ -18,11 +18,15 @@ public class Pentagono extends FormaGeometrica{
     private int[] yPoints;
     private Polygon p;
     private Color cor;
+    private float tam;
+    private String position;
     
 
-    public Pentagono(Rectangle r,Color cor) {
+    public Pentagono(Rectangle r,Color cor,float tam,String position) {
         super(r, "PENTAGONO");
         this.cor = cor;
+        this.tam = tam;
+        this.position = position;
         montarPentagono();
     }
 
@@ -61,8 +65,8 @@ public class Pentagono extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.2);
-        int height = (int) Math.round(points[1] * 0.2);
+        int width = (int) Math.round(points[0] * tam);
+        int height = (int) Math.round(points[1] * tam);
 
 
      
@@ -99,8 +103,38 @@ public class Pentagono extends FormaGeometrica{
         p.addPoint(xPoints[2], yPoints[2]);
         p.addPoint(xPoints[3], yPoints[3]);
         p.addPoint(xPoints[4], yPoints[4]);
-//        rect.x + rect.width / 2 +  2*width / 2
-        p.translate(0+points[0]-points[0]/2+width,rect.height-2*height);
+    
+        int [] result = definirPosicao(rect,width,height,position); 
+        p.translate(result[0],result[1]);
+
+    }
+    
+        private int[] definirPosicao(Rectangle rect,int width,int height,String position){
+        int [] result = new int[2];
+        switch(position){
+            case "1":
+                result[0] = rect.width/2-rect.width/4-width/2;
+                result[1] = rect.height/4 -height/2;
+                return result;
+            case "2":
+                result[0] = rect.width/2-rect.width/4-width/2;
+                result[1] = rect.height-2*height;
+                return result;
+            case "3":
+                result[0] = rect.width-rect.width/4-width;
+                result[1] = rect.height-2*height;
+                break;
+            case "4":
+                result[0] = rect.width-rect.width/4-width;
+                result[1] = rect.height/4 -height/2;                
+                break;
+            case "5":
+                result[0] = rect.width/2-height/2;
+                result[1] = rect.height/2-height/2;
+                return result;
+                
+        }
+        return result;
     }
 
     @Override

@@ -19,11 +19,13 @@ public class Trapezio extends FormaGeometrica{
     private int[] xPoints;
     private int[] yPoints;
     private Color cor;
+    private float tam;
 
 
-    public Trapezio(Rectangle r,Color cor) {
+    public Trapezio(Rectangle r,Color cor,float tam) {
         super(r, "TRAPEZIO");
         this.cor = cor;
+        this.tam = tam;
         montarTrapezio();
     }
 
@@ -58,8 +60,8 @@ public class Trapezio extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.2);
-        int height = (int) Math.round(points[1] * 0.2);
+        int width = (int) Math.round(points[0] * tam);
+        int height = (int) Math.round(points[1] * tam);
 
 
         int halfWidth = width / 2;

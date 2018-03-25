@@ -22,7 +22,7 @@ public class Estrela{
     private int[] yPoints;
     private Rectangle rect;
     private Color cor;
-   
+    private int tam;
 
     public Estrela(Rectangle r,Color cor) {
         this.rect = r;
@@ -88,8 +88,8 @@ public class Estrela{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.45);
-        int height = (int) Math.round(points[1] * 0.45);
+        int width = (int) Math.round(points[0] * tam);
+        int height = (int) Math.round(points[1] * tam);
 
           int halfWidth = width / 2;
         int halfHeight = height / 2;

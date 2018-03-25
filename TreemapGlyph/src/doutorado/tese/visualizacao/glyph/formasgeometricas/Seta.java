@@ -6,6 +6,7 @@
 package doutorado.tese.visualizacao.glyph.formasgeometricas;
 
 import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -20,6 +21,7 @@ public class Seta extends FormaGeometrica{
     private int[] yPoints;
     private Polygon p;
     private Color c;
+    private float tam;
  
     public Seta(Rectangle r,String angle) {
         super(r, "SETA");

@@ -18,11 +18,14 @@ public class Hexagono extends FormaGeometrica{
     private int[] yPoints;
     private Polygon p;
     private Color cor;
+    private float tam;
+    private String position;
    
-
-    public Hexagono(Rectangle r,Color cor) {
+    public Hexagono(Rectangle r,Color cor,float tam,String position) {
         super(r, "HEXAGONO");
         this.cor = cor;
+        this.tam = tam;
+        this.position = position;
         montarHexagono();
     }
 
@@ -31,14 +34,12 @@ public class Hexagono extends FormaGeometrica{
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2d.setPaint(Color.BLACK);
-        
 
         g2d.setColor(cor);
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);
     }
-
     
     private int[] verificarRetangulo(int [] point){
         if(point[0] > point[1]){
@@ -55,15 +56,14 @@ public class Hexagono extends FormaGeometrica{
     private void montarHexagono() {
         int[] points = new int[2];
 
-        Rectangle rect = getBounds();
-        
+        Rectangle rect = getBounds();        
         points[0] = rect.width;
         points[1] = rect.height;
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * 0.2);
-        int height = (int) Math.round(points[1] * 0.2);
+        int width = (int) Math.round(points[0] * tam);
+        int height = (int) Math.round(points[1] * tam);
 
         int halfWidth = width / 2;
         int halfHeight = height / 2;
