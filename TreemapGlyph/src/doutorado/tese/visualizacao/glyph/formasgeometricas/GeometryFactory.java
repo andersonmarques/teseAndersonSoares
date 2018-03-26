@@ -24,6 +24,7 @@ public class GeometryFactory {
             LOSANGO     ("LOSANGO"),
             PENTAGONO   ("PENTAGONO"),
             TRIANGULO   ("TRIANGULO"),
+            TRAPEZIO   ("TRAPEZIO"),
             CIRCULO     ("CIRCULO"),
             ARCO        ("ARCO");
             
@@ -33,7 +34,7 @@ public class GeometryFactory {
                 this.nome = nome;
             }
             
-            private String nome(){
+            public String nome(){
                 return nome;
             }
         }
@@ -44,9 +45,7 @@ public class GeometryFactory {
 //        public static final String ARCO = "";
 //        public static final String HEXAGONO = "";
 //        public static final String LOSANGO = "";
-//        public static final String PENTAGONO = "";
-
-        
+//        public static final String PENTAGONO = "";      
     }
 
     private GeometryFactory() {
@@ -70,6 +69,8 @@ public class GeometryFactory {
                 return new Triangulo(bounds, cor,tam,posicao);
             case PENTAGONO:
                 return new Pentagono(bounds,cor,tam,posicao);
+            case TRAPEZIO:
+                return new Trapezio(bounds,cor,tam,posicao);
              case ARCO:
                 return new Arco(bounds,angulo,tam,posicao);
             default:

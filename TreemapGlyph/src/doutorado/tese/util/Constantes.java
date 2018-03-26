@@ -37,18 +37,18 @@ public class Constantes {
     };
     
     private static String[] corFormas = {
-        "#FF0101", "#F8D930", "#151C48", "#00A1D7",
+        "#FF0101", "#F8D930", "#174580", "#00A1D7",
        "#0A8300", "#FF3797", "#8C8589", "#000000"
     };
 
     public final static String[] TIPO_TEXTURA = {
         "PATTERN_DIAG_RIGHT_LEFT" ,
         "PATTERN_HORIZONTAL",
+        "PATTERN_DIAG_CROSS_LINES",
         "PATTERN_VERTICAL",
         "PATTERN_UP" ,
         "PATTERN_DIAG_LEFT_RIGHT",
         "PATTERN_RIGHT",
-        "PATTERN_DIAG_CROSS_LINES",
         "PATTERN_CROSS_LINES"
        
 //        "PATTERN_DIAGDOTS2" ,

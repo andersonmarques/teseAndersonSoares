@@ -36,6 +36,8 @@ public final class GlyphManager {
 
     private ManipuladorArquivo manipulador;
     private List<Object> atributosEscolhidos;
+    private List<Object> formasEscolhidas;
+
     private HashMap<String, List<String>> colunaDadosDist;
     private TMNodeModelRoot rootNodeZoom;
     private boolean dimensao3Ativada;
@@ -49,9 +51,10 @@ public final class GlyphManager {
         this.configs = new HashMap<>();
     }
 
-    public GlyphManager(ManipuladorArquivo manipulador, List<Object> atributosEscolhidos) {
+    public GlyphManager(ManipuladorArquivo manipulador, List<Object> atributosEscolhidos,List<Object> formasEscolhidas) {
         this.manipulador = manipulador;
         this.atributosEscolhidos = atributosEscolhidos;
+        this.formasEscolhidas = formasEscolhidas;
         colunaDadosDist = new HashMap<>();
         analisarAtributosEscolhidos();
         shufflerColors = Constantes.getCorGlyphs();
@@ -283,6 +286,7 @@ public final class GlyphManager {
                 String colunaEscolhida = atributosEscolhidos.get(dimensao).toString();
                 Coluna col = ManipuladorArquivo.getColuna(colunaEscolhida);
                 List<String> dadosDistintos = colunaDadosDist.get(colunaEscolhida);
+                
                 switch (dimensao) {
                     case 0:
                         features[10] = preparePrimeiraDimensao(col, item, dadosDistintos);
@@ -293,21 +297,20 @@ public final class GlyphManager {
                         features[1] = 1;
                         break;
                     case 2:
-                        features[12] = prepareTerceiraDimensao(col, item, dadosDistintos);
+                        features[12] = prepareTerceiraDimensao(col, item, dadosDistintos,formasEscolhidas);
                         features[2] = 1;
-                        dimensao3Ativada = true;
                         break;
                     case 3:
-                        features[13] = prepareQuartaDimensao(col, item, dadosDistintos);
+                        features[13] = prepareQuartaDimensao(col, item, dadosDistintos,formasEscolhidas);
                         features[3] = 1;
 
                         break;
                     case 4:
-                        features[14] = prepareQuintaDimensao(col, item, dadosDistintos);
+                        features[14] = prepareQuintaDimensao(col, item, dadosDistintos,formasEscolhidas);
                         features[4] = 1;
                         break;
                     case 5:
-                        features[14] = prepareSextaDimensao(col, item, dadosDistintos);
+                        features[14] = prepareSextaDimensao(col, item, dadosDistintos,formasEscolhidas);
                         features[4] = 1;
                         break;
                     case 6:
@@ -346,40 +349,40 @@ public final class GlyphManager {
     }
     //novos niveis 
     //nivel 3 cruz no canto superior direito do glyph
-    public int prepareTerceiraDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public int prepareTerceiraDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos,List<Object> FormasEscolhidas) {
         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 2; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                int result = prepareCorFormaSupEsq(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.CRUZ,Color.decode(Constantes.getCorFormas()[j]), item);
+                int result = prepareCorFormaSupEsq(item.getBounds(),GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(FormasEscolhidas.get(0))),Color.decode(Constantes.getCorFormas()[j]), item);
                 return result;
             }
         }
         return 0;
     }
 
-    public int prepareQuartaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public int prepareQuartaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos,List<Object> FormasEscolhidas) {
         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                int result = prepareCorFormaInfEsq(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.TRIANGULO, Color.decode(Constantes.getCorFormas()[j]), item);
+                int result = prepareCorFormaInfEsq(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(FormasEscolhidas.get(1))), Color.decode(Constantes.getCorFormas()[j]), item);
                 return result;
             }
         }
         return 0;
     }
 
-    public int prepareQuintaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public int prepareQuintaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos,List<Object> FormasEscolhidas) {
         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                int result = prepareCorFormaInfDir(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.PENTAGONO, Color.decode(Constantes.getCorFormas()[j]), item);
+                int result = prepareCorFormaInfDir(item.getBounds(),GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(FormasEscolhidas.get(2))), Color.decode(Constantes.getCorFormas()[j]), item);
                 return result;
             }
         }
         return 0;
     }
 
-    public int prepareSextaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public int prepareSextaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos,List<Object> FormasEscolhidas) {
         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                int result = prepareCorFormaSupDir(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.LOSANGO, Color.decode(Constantes.getCorFormas()[j]), item);
+                int result = prepareCorFormaSupDir(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(FormasEscolhidas.get(3))), Color.decode(Constantes.getCorFormas()[j]), item);
                 return result;
             }
         }

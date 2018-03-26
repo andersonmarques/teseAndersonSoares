@@ -55,15 +55,15 @@ public class IconeLegenda implements Icon {
                 form.paint(g);
                 break;
             case 3:
-                FormaGeometrica formCor = GeometryFactory.create(bounds, cor, GeometryFactory.FORMAS.GLYPH_FORMAS.TRIANGULO, valor,0.5f,"5");
+                FormaGeometrica formCor = GeometryFactory.create(bounds, cor, formaGeom, valor,0.5f,"5");
                 formCor.paint(g);
                 break;
             case 4:
-                FormaGeometrica circulo = GeometryFactory.create(bounds, cor, GeometryFactory.FORMAS.GLYPH_FORMAS.PENTAGONO, valor,0.5f,"5");
+                FormaGeometrica circulo = GeometryFactory.create(bounds, cor,  formaGeom, valor,0.5f,"5");
                 circulo.paint(g);
                 break;
             case 5:
-                FormaGeometrica quadrado = GeometryFactory.create(bounds, cor, GeometryFactory.FORMAS.GLYPH_FORMAS.LOSANGO, valor,0.5f,"5");
+                FormaGeometrica quadrado = GeometryFactory.create(bounds, cor,  formaGeom, valor,0.5f,"5");
                 quadrado.paint(g);
                 break;
             case 6:

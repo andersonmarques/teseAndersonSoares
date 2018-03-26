@@ -26,14 +26,16 @@ import javax.swing.SwingConstants;
  * @author Anderson Soares
  */
 public class LegendaVisualizacao {
-
+    List<Object> formasEscolhidas;
+    List<Object> atributosEscolhidos;
     ArrayList<Object> atributosEscolhidosGlyph;
     private Rectangle bounds;
 
-    public LegendaVisualizacao(Rectangle bound) {
+    public LegendaVisualizacao(Rectangle bound,List<Object> formasEscolhidas) {
+        this.formasEscolhidas= formasEscolhidas;
         setBounds(bound);
     }
-
+    
     public JLabel criarLabel(String conteudoDist, Icon icon) {
         JLabel label = null;
         if (icon != null) {
@@ -97,19 +99,19 @@ public class LegendaVisualizacao {
                     icon.setValorIcon(Constantes.ANGLE[i]);
                     break;
                 case 2:
-                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.CRUZ);
+                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(formasEscolhidas.get(0))));
                     icon.setCor(Color.decode(Constantes.getCorFormas()[i]));
                     break;
                 case 3:
-                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.TRIANGULO);
+                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(formasEscolhidas.get(1))));
                     icon.setCor(Color.decode(Constantes.getCorFormas()[i]));
                     break;
                 case 4:
-                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.ELLIPSE);
+                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(formasEscolhidas.get(2))));
                     icon.setCor(Color.decode(Constantes.getCorFormas()[i]));
                     break;
                 case 5:
-                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.RETANGULO);
+                    icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(formasEscolhidas.get(3))));
                     icon.setCor(Color.decode(Constantes.getCorFormas()[i]));
                     break;
                 case 6:
@@ -132,6 +134,12 @@ public class LegendaVisualizacao {
         this.atributosEscolhidosGlyph = atributosEscolhidosGlyph;
     }
 
+    public void setFormasEscolhidas(List<Object> formasEscolhidas) {
+        this.formasEscolhidas = formasEscolhidas;
+    }
+
+    
+    
     private void setBounds(Rectangle bounds) {
         this.bounds = bounds;
     }

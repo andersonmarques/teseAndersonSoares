@@ -59,12 +59,40 @@ public class Ellipse extends FormaGeometrica{
 
         xPoints = new int[2];
         yPoints = new int[2];
-        
-        xPoints[0] =   rect.x + rect.width / 2 + 2*width / 2;
-        yPoints[0] =   rect.y + rect.height /2 + rect.height /4 - height/2;
-
         xPoints[1] = (int) (width);
         yPoints[1] = (int) (height);
+        int[] pos = definirPosicao(rect,width, height, position);
+        xPoints[0] =   pos[0];
+        yPoints[0] =   pos[1];
+        
+    }
+    private int[] definirPosicao(Rectangle rect, int width, int height, String position) {
+        int[] result = new int[2];
+        switch (position) {
+            case "1":
+                result[0] = rect.x +  2*width / 2;
+                result[1] = rect.y + rect.height/ 4 - height / 2;
+                return result;
+            case "2":
+                result[0] = rect.x +  2*width / 2;
+                result[1] = rect.y + rect.height- 2*height;
+                return result;
+            case "3":
+                result[0] = rect.x + rect.width/2 + 2*width / 2;
+                result[1] = rect.y + rect.height- 2*height;
+                break;
+            case "4":
+                result[0] = rect.x + rect.width/2 + 2*width / 2;
+                result[1] = rect.y + rect.height/ 4 - height / 2;
+                break;
+            case "5":
+                result[0] = rect.x + rect.width / 2 - 2*width / 2;
+                result[1] = rect.y +rect.height/2 - height/2;
+                
+                return result;
+
+        }
+        return result;
     }
 
     @Override
