@@ -149,7 +149,7 @@ public final class GlyphManager {
 
     public int prepareCorFormaSupEsq(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, Color cor, TreeMapItem treemapItem) {
         FormaGeometrica corForma;
-        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0", 0.2f, "1");
+        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0", 0.25f, "1");
         corForma.setColor(cor);
         if (treemapItem != null) {
             treemapItem.setFormaSupEsq(corForma);
@@ -159,7 +159,7 @@ public final class GlyphManager {
 
     public int prepareCorFormaInfEsq(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, Color cor, TreeMapItem treemapItem) {
         FormaGeometrica corForma;
-        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0", 0.2f, "2");
+        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0", 0.25f, "2");
         corForma.setColor(cor);
         if (treemapItem != null) {
             treemapItem.setFormaInfEsq(corForma);
@@ -169,7 +169,7 @@ public final class GlyphManager {
 
     public int prepareCorFormaInfDir(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, Color cor, TreeMapItem treemapItem) {
         FormaGeometrica corForma;
-        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0", 0.2f, "3");
+        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0", 0.25f, "3");
         corForma.setColor(cor);
         if (treemapItem != null) {
             treemapItem.setFormaInfDir(corForma);
@@ -179,7 +179,7 @@ public final class GlyphManager {
 
     public int prepareCorFormaSupDir(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, Color cor, TreeMapItem treemapItem) {
         FormaGeometrica corForma;
-        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0", 0.2f, "4");
+        corForma = GeometryFactory.create(bounds, cor, nomeForma, "0", 0.25f, "4");
         corForma.setColor(cor);
         if (treemapItem != null) {
             treemapItem.setFormaSupDir(corForma);

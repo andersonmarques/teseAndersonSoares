@@ -61,8 +61,11 @@ public class Hexagono extends FormaGeometrica {
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * tam);
-        int height = (int) Math.round(points[1] * tam);
+        int innerRectX = (int) Math.round(points[0] * 0.8);
+        int innerRectY = (int) Math.round(points[0] * 0.8);
+
+        int width = (int) (innerRectX * tam);
+        int height = (int) (innerRectY * tam);
 
         int halfWidth = width / 2;
         int halfHeight = height / 2;
@@ -102,34 +105,35 @@ public class Hexagono extends FormaGeometrica {
         p.addPoint(xPoints[4], yPoints[4]);
         p.addPoint(xPoints[5], yPoints[5]);
 
-        int[] result = definirPosicao(rect, width, height, position);
+        int[] result = definirPosicao(rect, innerRectX, innerRectY, width, height, position);
         p.translate(result[0], result[1]);
 
     }
-    private int[] definirPosicao(Rectangle rect, int width, int height, String position) {
+
+    private int[] definirPosicao(Rectangle rect, int innerRectX, int innerRectY, int width, int height, String position) {
         int[] result = new int[2];
-        switch (position) {
+        switch(position){
             case "1":
-                result[0] = rect.width / 2 - rect.width / 4 - width / 2;
-                result[1] = rect.height / 4 - height / 2;
+                result[0] = rect.width/2-innerRectX/2;
+                result[1] = rect.height/2 -innerRectX/2;
                 return result;
             case "2":
-                result[0] = rect.width / 2 - rect.width / 4 - width / 2;
-                result[1] = rect.height - 2 * height;
+                result[0] = rect.width/2-innerRectX/2;
+                result[1] = rect.height/2+innerRectX/2 - height;
                 return result;
             case "3":
-                result[0] = rect.width - rect.width / 4 - width;
-                result[1] = rect.height - 2 * height;
+                result[0] =  rect.width/2+innerRectX/2-width;
+                result[1] =  rect.height/2+innerRectX/2 - height;
                 break;
             case "4":
-                result[0] = rect.width - rect.width / 4 - width;
-                result[1] = rect.height / 4 - height / 2;
+                result[0] = rect.width/2+innerRectX/2-width ;
+                result[1] = rect.height/2 -innerRectX/2;               
                 break;
             case "5":
-                result[0] = rect.width / 2 - height / 2;
-                result[1] = rect.height / 2 - height / 2;
+                result[0] = rect.width/2-height/2;
+                result[1] = rect.height/2-height/2;
                 return result;
-
+                
         }
         return result;
     }

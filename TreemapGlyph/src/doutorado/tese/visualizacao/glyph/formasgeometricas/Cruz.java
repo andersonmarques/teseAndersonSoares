@@ -13,7 +13,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 
-public class Cruz extends FormaGeometrica{
+public class Cruz extends FormaGeometrica {
 
     private int[] xPoints;
     private int[] yPoints;
@@ -22,12 +22,11 @@ public class Cruz extends FormaGeometrica{
     private float tam;
     private String position;
 
-
-    public Cruz(Rectangle r,Color cor,float tam,String position) {
+    public Cruz(Rectangle r, Color cor, float tam, String position) {
         super(r, "CRUZ");
         this.cor = cor;
         this.tam = tam;
-        this.position= position;
+        this.position = position;
         montarCruz();
     }
 
@@ -42,25 +41,23 @@ public class Cruz extends FormaGeometrica{
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);
     }
-    
-        //função para deixar os glyphs quadrados
-        private int[] verificarRetangulo(int [] point){
-        if(point[0] > point[1]){
+
+    //função para deixar os glyphs quadrados
+    private int[] verificarRetangulo(int[] point) {
+        if (point[0] > point[1]) {
             point[0] = point[1];
-           return point;
-        }
-        else if(point[0] < point[1]){
+            return point;
+        } else if (point[0] < point[1]) {
             point[1] = point[0];
-           return point;
+            return point;
         }
         return null;
     }
 
-
     private void montarCruz() {
-        
+
         int[] points = new int[2];
-        
+
         Rectangle rect = getBounds();
 
         points[0] = rect.width;
@@ -68,19 +65,19 @@ public class Cruz extends FormaGeometrica{
 
         verificarRetangulo(points);
 
-        int width = (int) Math.round(points[0] * tam);
-        int height = (int) Math.round(points[1] * tam);
+        int innerRectX = (int) Math.round(points[0] * 0.8);
+        int innerRectY = (int) Math.round(points[0] * 0.8);
 
-      
+        int width = (int) (innerRectX * tam);
+        int height = (int) (innerRectY * tam);
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 4;
         int innerHeight = height / 4;
 
-        halfWidth += rect.x ;
-        halfHeight += rect.y ;
-        
-        
+        halfWidth += rect.x;
+        halfHeight += rect.y;
+
         xPoints = new int[12];
         yPoints = new int[12];
 
@@ -103,24 +100,23 @@ public class Cruz extends FormaGeometrica{
         yPoints[5] = height + (int) Math.round(rect.y);
 
         xPoints[6] = halfWidth + innerWidth;
-        yPoints[6] = height + (int) Math.round(rect.y );
+        yPoints[6] = height + (int) Math.round(rect.y);
 
         xPoints[7] = halfWidth + innerWidth;
         yPoints[7] = halfHeight + innerHeight;
 
-        xPoints[8] = width + (int) Math.round(rect.x );
+        xPoints[8] = width + (int) Math.round(rect.x);
         yPoints[8] = halfHeight + innerHeight;
 
-        xPoints[9] = width + (int) Math.round(rect.x );
+        xPoints[9] = width + (int) Math.round(rect.x);
         yPoints[9] = halfHeight - innerHeight;
 
         xPoints[10] = halfWidth + innerWidth;
         yPoints[10] = halfHeight - innerHeight;
 
         xPoints[11] = halfWidth + innerWidth;
-        yPoints[11] = (int) Math.round(rect.y );
-        
-        
+        yPoints[11] = (int) Math.round(rect.y);
+
         p = new Polygon();
 
         p.addPoint(xPoints[0], yPoints[0]);
@@ -135,30 +131,30 @@ public class Cruz extends FormaGeometrica{
         p.addPoint(xPoints[9], yPoints[9]);
         p.addPoint(xPoints[10], yPoints[10]);
         p.addPoint(xPoints[11], yPoints[11]);
-        
-        int [] result = definirPosicao(rect,width,height,position); 
-        p.translate(result[0],result[1]);
+
+        int[] result = definirPosicao(rect, innerRectX, innerRectY, width, height, position);
+        p.translate(result[0], result[1]);
 
     }
-    
-        private int[] definirPosicao(Rectangle rect,int width,int height,String position){
-        int [] result = new int[2];
+
+    private int[] definirPosicao(Rectangle rect, int innerRectX, int innerRectY, int width, int height, String position) {
+        int[] result = new int[2];
         switch(position){
             case "1":
-                result[0] = rect.width/2-rect.width/4-width/2;
-                result[1] = rect.height/4 -height/2;
+                result[0] = rect.width/2-innerRectX/2;
+                result[1] = rect.height/2 -innerRectX/2;
                 return result;
             case "2":
-                result[0] = rect.width/2-rect.width/4-width/2;
-                result[1] = rect.height-2*height;
+                result[0] = rect.width/2-innerRectX/2;
+                result[1] = rect.height/2+innerRectX/2 - height;
                 return result;
             case "3":
-                result[0] = rect.width-rect.width/4-width;
-                result[1] = rect.height-2*height;
+                result[0] =  rect.width/2+innerRectX/2-width;
+                result[1] =  rect.height/2+innerRectX/2 - height;
                 break;
             case "4":
-                result[0] = rect.width-rect.width/4-width;
-                result[1] = rect.height/4 -height/2;                
+                result[0] = rect.width/2+innerRectX/2-width ;
+                result[1] = rect.height/2 -innerRectX/2;               
                 break;
             case "5":
                 result[0] = rect.width/2-height/2;
@@ -168,9 +164,9 @@ public class Cruz extends FormaGeometrica{
         }
         return result;
     }
-        
+
     @Override
     public int getArea() {
-        return (xPoints[8]-xPoints[2])*(yPoints[5]-yPoints[0]);
+        return (xPoints[8] - xPoints[2]) * (yPoints[5] - yPoints[0]);
     }
 }
