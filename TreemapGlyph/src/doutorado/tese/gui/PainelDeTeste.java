@@ -57,7 +57,7 @@ public class PainelDeTeste extends javax.swing.JPanel {
         GlyphManager manager = new GlyphManager();
         Rectangle bounds = new Rectangle(configs.get("x"), configs.get("y"), configs.get("width"), configs.get("height"));
         TreeMapItem item = new TreeMapItem();
-        System.out.println("width: " + configs.get("width") + " height: " + configs.get("height"));
+//        System.out.println("width: " + configs.get("width") + " height: " + configs.get("height"));
         int areaTextura = 0, areaFormaCor = 0, areaForma = 0, areaLetra = 0, areaNumero = 0;
         if (configs.get("textura") >= 0) {
             areaTextura = manager.prepareTextura(bounds, Constantes.TIPO_TEXTURA[configs.get("textura")], item);
@@ -93,7 +93,7 @@ public class PainelDeTeste extends javax.swing.JPanel {
 
         this.areaCallback.areaUpdated(areas);
 
-        bounds.x = 400;
+        bounds.x = 200;
 
         g2d.setColor(coritem);
         g2d.fillRect(bounds.x, bounds.y, configs.get("width"), configs.get("height"));

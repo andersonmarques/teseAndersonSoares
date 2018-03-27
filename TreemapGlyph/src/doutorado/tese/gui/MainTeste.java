@@ -18,6 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
@@ -62,7 +63,7 @@ public class MainTeste extends javax.swing.JFrame {
         }
         initComponents();
 
-        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+//        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 
         checkboxes = new HashMap<>();
         checkboxes.put("textura", checkboxTexture);
@@ -89,9 +90,9 @@ public class MainTeste extends javax.swing.JFrame {
         cont++;
         contadorLabel.setText(cont + " / " + numAmostras);
 
-//        if (cont % step == 0) {
-//            numLayers2remove++;
-//        }
+        if (cont % step == 0) {
+            numLayers2remove++;
+        }
 
         configs.put("textura", rand.nextInt(Constantes.TIPO_TEXTURA.length));
         configs.put("cor", rand.nextInt(Constantes.getCorGlyphs().length));
@@ -101,22 +102,23 @@ public class MainTeste extends javax.swing.JFrame {
         configs.put("x", 50);
         configs.put("y", 50);
         int length = rand.nextInt(50) + 5;
-        configs.put("width", Math.abs(length - rand.nextInt(40)));
-        configs.put("height", Math.abs(length - rand.nextInt(40)));
+        configs.put("width", Math.abs(length - rand.nextInt(100)));
+        configs.put("height", Math.abs(length - rand.nextInt(100)));
         configs.put("coritem", rand.nextInt(Constantes.getCor().length));
 
-//        shuffleArray(glyphlayers2draw);
-//        for (int i = 0; i < numLayers2remove; i++) {
-//            configs.put(layers[glyphlayers2draw[i]], -1);
-//            if (checkboxes.get(layers[glyphlayers2draw[i]]) != null) {
-//                checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
-//            }
-        configs.put("textura", -1);
-//        configs.put("cor", rand.nextInt(Constantes.getCorGlyphs().length));
-        configs.put("forma", - 1);
-        configs.put("letra", -1);
-        configs.put("numero", -1);
-        configs.put("coritem", -1);
+        shuffleArray(glyphlayers2draw);
+        for (int i = 0; i < numLayers2remove; i++) {
+            configs.put(layers[glyphlayers2draw[i]], -1);
+            if (checkboxes.get(layers[glyphlayers2draw[i]]) != null) {
+                checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
+            }
+        }
+//        configs.put("textura", rand.nextInt(Constantes.TIPO_TEXTURA.length));
+//        configs.put("cor", rand.nextInt(Constantes.getCorGlyphs().length - 1));
+//        configs.put("forma", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length));
+//        configs.put("letra", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
+//        configs.put("numero", rand.nextInt(Constantes.NUMEROS.length));
+//        configs.put("coritem", rand.nextInt(Constantes.getCor().length));
         
 
         painelEsquerda.setConfigs(configs);
@@ -150,8 +152,11 @@ public class MainTeste extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Treemap Glyphs");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(new java.awt.Dimension(764, 240));
+        setResizable(false);
 
-        jSplitPane1.setDividerLocation(800);
+        jSplitPane1.setDividerLocation(400);
         jSplitPane1.setOpaque(false);
 
         painelEsquerda.setBackground(new java.awt.Color(153, 255, 153));
@@ -171,22 +176,25 @@ public class MainTeste extends javax.swing.JFrame {
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEsquerdaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(glyphsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(glyphsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
                 .addComponent(separador, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(shouldBeLabel)
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelEsquerdaLayout.setVerticalGroup(
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(separador)
             .addGroup(painelEsquerdaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(glyphsLabel)
-                    .addComponent(shouldBeLabel))
-                .addContainerGap(575, Short.MAX_VALUE))
+                    .addGroup(painelEsquerdaLayout.createSequentialGroup()
+                        .addComponent(shouldBeLabel)
+                        .addContainerGap(198, Short.MAX_VALUE))
+                    .addGroup(painelEsquerdaLayout.createSequentialGroup()
+                        .addComponent(glyphsLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addComponent(separador)
         );
 
         jSplitPane1.setLeftComponent(painelEsquerda);
@@ -256,50 +264,52 @@ public class MainTeste extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSelectAll)
-                            .addComponent(checkboxNumber)
-                            .addComponent(checkboxGeometry)
-                            .addComponent(checkboxCircle)
-                            .addComponent(checkboxTexture))
-                        .addGap(0, 305, Short.MAX_VALUE))
+                        .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(contadorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(checkboxLetter)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkboxTexture)
+                            .addComponent(checkboxCircle))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(contadorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(34, 34, 34))))
+                                .addComponent(checkboxLetter)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSelectAll))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(checkboxGeometry)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkboxNumber)))
+                        .addGap(36, 36, 36))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(checkboxTexture)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkboxTexture)
+                    .addComponent(checkboxGeometry)
+                    .addComponent(checkboxNumber))
+                .addGap(2, 2, 2)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkboxCircle)
+                    .addComponent(checkboxLetter)
+                    .addComponent(btnSelectAll))
                 .addGap(18, 18, 18)
-                .addComponent(checkboxCircle)
-                .addGap(18, 18, 18)
-                .addComponent(checkboxGeometry)
-                .addGap(18, 18, 18)
-                .addComponent(checkboxLetter)
-                .addGap(18, 18, 18)
-                .addComponent(checkboxNumber)
-                .addGap(46, 46, 46)
-                .addComponent(btnSelectAll)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(contadorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(contadorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSplitPane1.setRightComponent(jPanel4);
@@ -308,7 +318,7 @@ public class MainTeste extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,6 +381,7 @@ public class MainTeste extends javax.swing.JFrame {
                 writer.print(data);
                 writer.flush();
                 writer.close();
+                JOptionPane.showMessageDialog(null, "Obrigado por participar do teste.", "Obrigado!", JOptionPane.INFORMATION_MESSAGE);
                 System.exit(0);
 
             } catch (IOException ex) {
