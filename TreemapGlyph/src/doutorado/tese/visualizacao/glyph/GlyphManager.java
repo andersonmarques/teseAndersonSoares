@@ -178,7 +178,7 @@ public final class GlyphManager {
         if (nodo instanceof TMNodeModelComposite) {//se for TreeMap Level
             TMNodeModelComposite pai = (TMNodeModelComposite) nodo;
             TMNode node = pai.getNode();
-            
+
             for (TMNodeModel n : pai.getChildrenList()) {
                 paintAnalyser(g, n);
             }
@@ -236,36 +236,44 @@ public final class GlyphManager {
 
         features[Constantes.FEATURE_ASPECT] = aspect;
         for (int dimensao = 0; dimensao < atributosEscolhidos.size(); dimensao++) {
-            if (!atributosEscolhidos.get(dimensao).equals("---")) {
-                String colunaEscolhida = atributosEscolhidos.get(dimensao).toString();
-                Coluna col = ManipuladorArquivo.getColuna(colunaEscolhida);
-                List<String> dadosDistintos = colunaDadosDist.get(colunaEscolhida);
-                switch (dimensao) {
-                    case 0:
-                        features[Constantes.AREA_TEXTURA] = preparePrimeiraDimensao(col, item, dadosDistintos);
-                        features[Constantes.PRESENCA_TEXTURA] = Constantes.PRESENTE;
-                        break;
-                    case 1:
-                        features[Constantes.AREA_CIRCULO_COLORIDO] = prepareSegundaDimensao(col, item, dadosDistintos);
-                        features[Constantes.PRESENCA_COR_FORMA] = Constantes.PRESENTE;
-                        break;
-                    case 2:
-                        features[Constantes.AREA_SHAPE] = prepareTerceiraDimensao(col, item, dadosDistintos);
-                        features[Constantes.PRESENCA_FORMA] = Constantes.PRESENTE;
-                        break;
-                    case 3:
+            String colunaEscolhida = atributosEscolhidos.get(dimensao).toString();
+            Coluna col = ManipuladorArquivo.getColuna(colunaEscolhida);
+            List<String> dadosDistintos = colunaDadosDist.get(colunaEscolhida);
+            if (atributosEscolhidos.get(dimensao).equals("---")) {
+                dadosDistintos = null;
+            }
+            switch (dimensao) {
+                case 0:
+                    features[Constantes.AREA_TEXTURA] = dadosDistintos != null ? preparePrimeiraDimensao(col, item, dadosDistintos):
+                            prepareTextura(item.getBounds(), Constantes.TIPO_TEXTURA[0], null);
+                    features[Constantes.PRESENCA_TEXTURA] = Constantes.PRESENTE;
+                    break;
+                case 1:
+                    features[Constantes.AREA_CIRCULO_COLORIDO] = dadosDistintos != null ? prepareSegundaDimensao(col, item, dadosDistintos):
+                            prepareCorForma(item.getBounds(), Color.decode(getShufflerColors()[0]), null);
+                    features[Constantes.PRESENCA_COR_FORMA] = Constantes.PRESENTE;
+                    break;
+                case 2:
+                    features[Constantes.AREA_SHAPE] = dadosDistintos != null ? prepareTerceiraDimensao(col, item, dadosDistintos):
+                            prepareFormaGeometrica(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.values()[0], null);
+                    features[Constantes.PRESENCA_FORMA] = Constantes.PRESENTE;
+                    break;
+                case 3:
+                    if (!atributosEscolhidos.get(dimensao).equals("---")) {
                         dimensao4Ativada = true;
                         letraUtilizada = "";
-                        features[Constantes.AREA_LETRA] = prepareQuartaDimensao(col, item, dadosDistintos);
-                        features[Constantes.PRESENCA_LETRA] = Constantes.PRESENTE;
-                        break;
-                    case 4:
-                        features[Constantes.AREA_NUMERO] = prepareQuintaDimensao(col, item, dadosDistintos);
-                        features[Constantes.PRESENCA_NUMERO] = Constantes.PRESENTE;
-                        break;
-                    default:
-                        System.err.println("Nao foi possível calcular a dimensão.");
-                }
+                    }
+                    features[Constantes.AREA_LETRA] = dadosDistintos != null ? prepareQuartaDimensao(col, item, dadosDistintos):
+                            prepareLetrasAlfabeto(item.getBounds(), Constantes.LETRAS_ALFABETO[0], null);
+                    features[Constantes.PRESENCA_LETRA] = Constantes.PRESENTE;
+                    break;
+                case 4:
+                    features[Constantes.AREA_NUMERO] = dadosDistintos != null ? prepareQuintaDimensao(col, item, dadosDistintos):
+                            prepareNumeros(item.getBounds(), Constantes.NUMEROS[0], null);
+                    features[Constantes.PRESENCA_NUMERO] = Constantes.PRESENTE;
+                    break;
+                default:
+                    System.err.println("Nao foi possível calcular a dimensão.");
             }
         }
         item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = DecisionTreeClassifier.predict(features)[0];
