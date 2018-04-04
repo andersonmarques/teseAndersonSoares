@@ -88,7 +88,7 @@ public class Ellipse extends FormaGeometrica {
                 result[1] = rect.y + rect.height / 2 - innerRectY / 2;
                 break;
             case "5":
-                result[0] = rect.x + rect.width / 2 - 2 * width / 2;
+                result[0] = rect.x + rect.width / 2 - width / 2;
                 result[1] = rect.y + rect.height / 2 - height / 2;
 
                 return result;

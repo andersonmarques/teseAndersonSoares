@@ -6,6 +6,7 @@
 package doutorado.tese.gui;
 
 import doutorado.tese.io.ManipuladorArquivo;
+import doutorado.tese.legenda.IconeLegenda;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.legenda.LegendaVisualizacao;
@@ -13,7 +14,10 @@ import doutorado.tese.util.Metadados;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -55,18 +59,30 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
      * Creates new form Main
      */
     public Main() {
-
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             logger.info(Main.class.getName());//.log(Level.SEVERE, null, ex);
         }
+        formasGeometricas = new String[4];         
+        formasGeometricas[0] = "RETANGULO";
+        formasGeometricas[1] = "TRIANGULO";
+        formasGeometricas[2] = "HEXAGONO";
+        formasGeometricas[3] = "LOSANGO";
+
+                
         initComponents();
 
         layerPane = new JLayeredPane();
         ArrayList<Object> formasEscolhidosGlyph = getFormaEscolhidasGlyph();
         legendaVisualizacao = new LegendaVisualizacao(painelLegendaVis.getBounds(),formasEscolhidosGlyph);
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+        
+        btnForma1.setEnabled(false);
+        btnForma2.setEnabled(false);
+        btnForma3.setEnabled(false);
+        btnForma4.setEnabled(false);
+
     }
 
     /**
@@ -104,26 +120,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jPanel2 = new javax.swing.JPanel();
         checkGlyph = new javax.swing.JCheckBox();
         botaoGerarGlyphs = new javax.swing.JButton();
-        atributo1Glyph = new javax.swing.JComboBox<>();
-        atributo2Glyph = new javax.swing.JComboBox<>();
-        atributo3Glyph = new javax.swing.JComboBox<>();
-        atributo4Glyph = new javax.swing.JComboBox<>();
-        atributo5Glyph = new javax.swing.JComboBox<>();
-        atributo7Glyph = new javax.swing.JComboBox<>();
-        atributo6Glyph = new javax.swing.JComboBox<>();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        forma2 = new javax.swing.JComboBox<>();
-        forma1 = new javax.swing.JComboBox<>();
-        forma4 = new javax.swing.JComboBox<>();
-        forma3 = new javax.swing.JComboBox<>();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        jPanel4 = new menuDesenho();
+        atributo3Glyph = new javax.swing.JComboBox<>();
+        atributo6Glyph = new javax.swing.JComboBox<>();
+        atributo5Glyph = new javax.swing.JComboBox<>();
+        atributo4Glyph = new javax.swing.JComboBox<>();
+        atributo7Glyph = new javax.swing.JComboBox<>();
+        atributo2Glyph = new javax.swing.JComboBox<>();
+        atributo1Glyph = new javax.swing.JComboBox<>();
+        btnForma2 = new javax.swing.JButton();
+        btnForma1 = new javax.swing.JButton();
+        btnForma3 = new javax.swing.JButton();
+        btnForma4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -160,7 +169,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         );
         painelEsquerdaLayout.setVerticalGroup(
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 783, Short.MAX_VALUE)
+            .addGap(0, 482, Short.MAX_VALUE)
         );
 
         jSplitPane1.setLeftComponent(painelEsquerda);
@@ -349,27 +358,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        atributo1Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
-        atributo1Glyph.setEnabled(false);
-        atributo1Glyph.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                atributo1GlyphItemStateChanged(evt);
-            }
-        });
-        atributo1Glyph.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atributo1GlyphActionPerformed(evt);
-            }
-        });
-
-        atributo2Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
-        atributo2Glyph.setEnabled(false);
-        atributo2Glyph.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                atributo2GlyphItemStateChanged(evt);
-            }
-        });
-
         atributo3Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         atributo3Glyph.setEnabled(false);
         atributo3Glyph.addItemListener(new java.awt.event.ItemListener() {
@@ -380,45 +368,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atributo3Glyph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 atributo3GlyphActionPerformed(evt);
-            }
-        });
-
-        atributo4Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
-        atributo4Glyph.setEnabled(false);
-        atributo4Glyph.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                atributo4GlyphItemStateChanged(evt);
-            }
-        });
-        atributo4Glyph.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atributo4GlyphActionPerformed(evt);
-            }
-        });
-
-        atributo5Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
-        atributo5Glyph.setEnabled(false);
-        atributo5Glyph.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                atributo5GlyphItemStateChanged(evt);
-            }
-        });
-        atributo5Glyph.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atributo5GlyphActionPerformed(evt);
-            }
-        });
-
-        atributo7Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
-        atributo7Glyph.setEnabled(false);
-        atributo7Glyph.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                atributo7GlyphItemStateChanged(evt);
-            }
-        });
-        atributo7Glyph.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atributo7GlyphActionPerformed(evt);
             }
         });
 
@@ -435,43 +384,157 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logo1.png"))); // NOI18N
-
-        jLabel7.setText("Textura:");
-
-        jLabel8.setText("Arco:");
-
-        forma2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "..."}));
-        forma2.setEnabled(false);
-
-        forma1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
-        forma1.setEnabled(false);
-        forma1.addActionListener(new java.awt.event.ActionListener() {
+        atributo5Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        atributo5Glyph.setEnabled(false);
+        atributo5Glyph.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                atributo5GlyphItemStateChanged(evt);
+            }
+        });
+        atributo5Glyph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                forma1ActionPerformed(evt);
+                atributo5GlyphActionPerformed(evt);
             }
         });
 
-        forma4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "..." }));
-        forma4.setEnabled(false);
-
-        forma3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
-        forma3.setEnabled(false);
-        forma3.addActionListener(new java.awt.event.ActionListener() {
+        atributo4Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        atributo4Glyph.setEnabled(false);
+        atributo4Glyph.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                atributo4GlyphItemStateChanged(evt);
+            }
+        });
+        atributo4Glyph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                forma3ActionPerformed(evt);
+                atributo4GlyphActionPerformed(evt);
             }
         });
 
-        jLabel16.setText("2° Forma");
+        atributo7Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        atributo7Glyph.setEnabled(false);
+        atributo7Glyph.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                atributo7GlyphItemStateChanged(evt);
+            }
+        });
+        atributo7Glyph.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atributo7GlyphActionPerformed(evt);
+            }
+        });
 
-        jLabel18.setText("3° Forma");
+        atributo2Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        atributo2Glyph.setEnabled(false);
+        atributo2Glyph.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                atributo2GlyphItemStateChanged(evt);
+            }
+        });
 
-        jLabel19.setText("4° Forma");
+        atributo1Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        atributo1Glyph.setEnabled(false);
+        atributo1Glyph.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                atributo1GlyphItemStateChanged(evt);
+            }
+        });
+        atributo1Glyph.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atributo1GlyphActionPerformed(evt);
+            }
+        });
 
-        jLabel20.setText("5° Forma");
+        btnForma2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForma2ActionPerformed(evt);
+            }
+        });
 
-        jLabel21.setText("1° Forma");
+        btnForma1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForma1ActionPerformed(evt);
+            }
+        });
+
+        btnForma3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForma3ActionPerformed(evt);
+            }
+        });
+
+        btnForma4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForma4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(atributo3Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(atributo4Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnForma1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnForma2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnForma4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(atributo6Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(atributo7Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(atributo1Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnForma3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)))
+                        .addComponent(atributo5Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(35, 35, 35))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(atributo2Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(150, 150, 150))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(atributo6Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnForma4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(atributo2Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnForma1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(atributo3Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnForma3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnForma2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(atributo4Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(atributo5Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(atributo7Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(atributo1Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -480,128 +543,29 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(checkGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(atributo4Glyph, 0, 84, Short.MAX_VALUE)
-                            .addComponent(atributo3Glyph, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(forma2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel16))
-                            .addComponent(forma1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel14)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(atributo6Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(atributo5Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(forma4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(jLabel19))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(forma3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(atributo1Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(atributo2Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(60, 60, 60)
-                                        .addComponent(jLabel18))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(jLabel7)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel14))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jLabel20)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
-                        .addComponent(atributo7Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addComponent(jLabel8)))
+                .addGap(1, 1, 1)
+                .addComponent(checkGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(atributo1Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(atributo2Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(checkGlyph)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel20)
-                                .addGap(11, 11, 11))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(forma1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(atributo3Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(atributo4Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(forma2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(forma4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(atributo6Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(atributo5Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(forma3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(atributo7Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(checkGlyph)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addGap(22, 22, 22))
         );
@@ -674,7 +638,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -711,13 +675,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             painelDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDireitaLayout.createSequentialGroup()
                 .addGroup(painelDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(painelDireitaLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(progressoBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(painelDireitaLayout.createSequentialGroup()
-                        .addComponent(legendaBarraRolage, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(legendaBarraRolage, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 32, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painelDireitaLayout.setVerticalGroup(
@@ -727,7 +691,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(legendaBarraRolage, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
+                .addComponent(legendaBarraRolage, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
         );
 
         jSplitPane1.setRightComponent(painelDireita);
@@ -792,7 +756,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             limparResquiciosBasesAnteriores();
             checkGlyph.setEnabled(false);
-
             selectedFile = chooser.getSelectedFile();
 
             progressoBarra.setVisible(true);
@@ -952,9 +915,35 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         progressoBarra.setVisible(false);
         atualizarLegendaTreemap(itemCor);
         checkGlyph.setEnabled(true);
-        limparCacheGlyphs();
+        legendaBotoes();
     }//GEN-LAST:event_botaoGerarVisualizacaoActionPerformed
 
+    private void legendaBotoes(){
+        IconeLegenda icon1 = new IconeLegenda();
+        IconeLegenda icon2 = new IconeLegenda();
+        IconeLegenda icon3 = new IconeLegenda();
+        IconeLegenda icon4 = new IconeLegenda();
+        icon1.setDimensao(4);
+        icon2.setDimensao(4);
+        icon3.setDimensao(4);
+        icon4.setDimensao(4);
+
+        icon1.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf(formasGeometricas[0]));
+        icon2.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf(formasGeometricas[1]));
+        icon3.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf(formasGeometricas[2]));
+        icon4.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf(formasGeometricas[3]));
+
+        icon1.setCor(Color.WHITE);
+        icon2.setCor(Color.WHITE);
+        icon3.setCor(Color.WHITE);
+        icon4.setCor(Color.WHITE);
+
+        btnForma1.setIcon(icon1);
+        btnForma2.setIcon(icon2);     
+        btnForma3.setIcon(icon3);
+        btnForma4.setIcon(icon4);
+    }
+    
     private void colunasDetalhesList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasDetalhesList1ValueChanged
         if (colunasDetalhesList1.getSelectedValuesList().size() >= 1) {
             inserirBotao_detalhes.setEnabled(true);
@@ -1027,7 +1016,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         String[] valoresEscolhidos = parseListString2Array(colunasDetalhesList2.getModel());
         visualizationTreemap.setColunasDetalhesDemanda(valoresEscolhidos);
         visualizationTreemap.updateDetalhesDemanda();
-
         botaoGerarVisualizacaoActionPerformed(evt);
     }//GEN-LAST:event_updateDetailsButtonActionPerformed
 
@@ -1038,13 +1026,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }//GEN-LAST:event_decisionTreeActivateActionPerformed
 
-    private void atributo6GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo6GlyphItemStateChanged
+    private void atributo4GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo4GlyphActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_atributo6GlyphItemStateChanged
+    }//GEN-LAST:event_atributo4GlyphActionPerformed
 
-    private void atributo7GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo7GlyphItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_atributo7GlyphItemStateChanged
+    private void atributo4GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo4GlyphItemStateChanged
+        //        loadVariaveisGlyph(getListaAtributosCategoricos(5), atributo5Glyph);
+        //        atributo5Glyph.setEnabled(true);
+    }//GEN-LAST:event_atributo4GlyphItemStateChanged
 
     private void atributo5GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo5GlyphActionPerformed
         // TODO add your handling code here:
@@ -1054,20 +1043,39 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_atributo5GlyphItemStateChanged
 
-    private void atributo4GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo4GlyphItemStateChanged
-        //        loadVariaveisGlyph(getListaAtributosCategoricos(5), atributo5Glyph);
-        //        atributo5Glyph.setEnabled(true);
-    }//GEN-LAST:event_atributo4GlyphItemStateChanged
+    private void atributo6GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo6GlyphActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo6GlyphActionPerformed
+
+    private void atributo6GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo6GlyphItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo6GlyphItemStateChanged
+
+    private void atributo3GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo3GlyphActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo3GlyphActionPerformed
 
     private void atributo3GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo3GlyphItemStateChanged
         //        loadVariaveisGlyph(getListaAtributosCategoricos(4), atributo4Glyph);
         //        atributo4Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo3GlyphItemStateChanged
 
+    private void atributo7GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo7GlyphActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo7GlyphActionPerformed
+
+    private void atributo7GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo7GlyphItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo7GlyphItemStateChanged
+
     private void atributo2GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo2GlyphItemStateChanged
         //        loadVariaveisGlyph(getListaAtributosCategoricos(3), atributo3Glyph);
         //        atributo3Glyph.setEnabled(true);
     }//GEN-LAST:event_atributo2GlyphItemStateChanged
+
+    private void atributo1GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo1GlyphActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo1GlyphActionPerformed
 
     private void atributo1GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo1GlyphItemStateChanged
         //        atributo2Glyph.setEnabled(true);
@@ -1079,7 +1087,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         glyphPanel.setManipulador(manipulador);
         ArrayList<Object> atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
         ArrayList<Object> formasEscolhidosGlyph = getFormaEscolhidasGlyph();
-
+        
         glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph,formasEscolhidosGlyph);
         glyphPanel.setVisible(true);
         glyphPanel.repaint();
@@ -1100,44 +1108,77 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             atributo5Glyph.setEnabled(true);
             atributo6Glyph.setEnabled(true);
             atributo7Glyph.setEnabled(true);
-            forma1.setEnabled(true);
-            forma2.setEnabled(true);
-            forma3.setEnabled(true);
-            forma4.setEnabled(true);
+            btnForma2.setEnabled(true);
+            btnForma1.setEnabled(true);
+            btnForma3.setEnabled(true);
+            btnForma4.setEnabled(true);
             botaoGerarGlyphs.setEnabled(true);
             layerPane.add(glyphPanel, new Integer(1), 0);
         } else {
             limparCacheGlyphs();
         }
     }//GEN-LAST:event_checkGlyphActionPerformed
+    
+    private void btnForma1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForma1ActionPerformed
+       Object[] possibilities = getListaFormas(false);
+       String s = (String) JOptionPane.showInputDialog(
+               this,
+               "Shapes:","Choose Shape",
+               JOptionPane.PLAIN_MESSAGE,
+               null,
+               possibilities,
+               "---");
+      
+       formasGeometricas[0] = s;
+       legendaBotoes();
+       //If a string was returned,        
+    }//GEN-LAST:event_btnForma1ActionPerformed
 
-    private void atributo4GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo4GlyphActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_atributo4GlyphActionPerformed
+    private void btnForma2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForma2ActionPerformed
+        // TODO add your handling code here
+          Object[] possibilities = getListaFormas(false);
+       String s = (String) JOptionPane.showInputDialog(
+               this,
+               "Shapes:","Choose Shape",
+               JOptionPane.PLAIN_MESSAGE,
+               null,
+               possibilities,
+               "---");
+       
+       formasGeometricas[1] = s;
+       legendaBotoes();
+    }//GEN-LAST:event_btnForma2ActionPerformed
 
-    private void atributo7GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo7GlyphActionPerformed
+    private void btnForma3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForma3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_atributo7GlyphActionPerformed
+          Object[] possibilities = getListaFormas(false);
+       String s = (String) JOptionPane.showInputDialog(
+               this,
+               "Shapes:","Choose Shape",
+               JOptionPane.PLAIN_MESSAGE,
+               null,
+               possibilities,
+               "---");
+       
+       formasGeometricas[2] = s;
+       legendaBotoes();
 
-    private void atributo6GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo6GlyphActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_atributo6GlyphActionPerformed
+    }//GEN-LAST:event_btnForma3ActionPerformed
 
-    private void forma3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forma3ActionPerformed
+    private void btnForma4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForma4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_forma3ActionPerformed
-
-    private void forma1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forma1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_forma1ActionPerformed
-
-    private void atributo3GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo3GlyphActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_atributo3GlyphActionPerformed
-
-    private void atributo1GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo1GlyphActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_atributo1GlyphActionPerformed
+          Object[] possibilities = getListaFormas(false);
+       String s = (String) JOptionPane.showInputDialog(
+               this,
+               "Shapes:","Choose Shape",
+               JOptionPane.PLAIN_MESSAGE,
+               null,
+               possibilities,
+               "---");
+       
+       formasGeometricas[3] = s;
+       legendaBotoes();
+    }//GEN-LAST:event_btnForma4ActionPerformed
 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
         ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
@@ -1152,12 +1193,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         return atributosEscolhidosGlyph;
     }
     
+    //formas escolhas
     private ArrayList<Object> getFormaEscolhidasGlyph() {
         ArrayList<Object> formaEscolhidasGlyph = new ArrayList<>();
-        formaEscolhidasGlyph.add(forma1.getSelectedItem());
-        formaEscolhidasGlyph.add(forma2.getSelectedItem());
-        formaEscolhidasGlyph.add(forma3.getSelectedItem());
-        formaEscolhidasGlyph.add(forma4.getSelectedItem());
+        formaEscolhidasGlyph.add(formasGeometricas[0]);
+        formaEscolhidasGlyph.add(formasGeometricas[1]);
+        formaEscolhidasGlyph.add(formasGeometricas[2]);
+        formaEscolhidasGlyph.add(formasGeometricas[3]);
         
         return formaEscolhidasGlyph;
     }
@@ -1209,6 +1251,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton baixoBotao_treemap;
     private javax.swing.JButton botaoGerarGlyphs;
     private javax.swing.JButton botaoGerarVisualizacao;
+    private javax.swing.JButton btnForma1;
+    private javax.swing.JButton btnForma2;
+    private javax.swing.JButton btnForma3;
+    private javax.swing.JButton btnForma4;
     private javax.swing.JCheckBox checkGlyph;
     private javax.swing.JCheckBox checkLegenda;
     private javax.swing.JButton cimaBotao_treemap;
@@ -1220,32 +1266,21 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JCheckBoxMenuItem decisionTreeActivate;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem fileMenuItem;
-    private javax.swing.JComboBox<String> forma1;
-    private javax.swing.JComboBox<String> forma2;
-    private javax.swing.JComboBox<String> forma3;
-    private javax.swing.JComboBox<String> forma4;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JButton inserirBotao_detalhes;
     private javax.swing.JButton inserirBotao_treemap;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -1263,6 +1298,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JComboBox<String> tamanhoTreemapComboBox;
     private javax.swing.JButton updateDetailsButton;
     // End of variables declaration//GEN-END:variables
+    private Graphics2D gbtn0;
+    private Graphics2D gbtn1;
+    private Graphics2D gbtn2;
+    private Graphics2D gbtn3;
+
+    private String[] formasGeometricas;
     static Main frame;
     private JLayeredPane layerPane;
     private GlassPanel glyphPanel;
@@ -1444,10 +1485,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_6, true), atributo6Glyph);
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_7, true), atributo7Glyph);
                 
-                loadFormasGlyph(getListaFormas(true),forma1);
-                loadFormasGlyph(getListaFormas(true),forma2);
-                loadFormasGlyph(getListaFormas(true),forma3);
-                loadFormasGlyph(getListaFormas(true),forma4);
+                //loadFormasGlyph(getListaFormas(true),forma1);
+//                loadFormasGlyph(getListaFormas(true),forma2);
+//                loadFormasGlyph(getListaFormas(true),forma3);
+//                loadFormasGlyph(getListaFormas(true),forma4);
 
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis glyph: " + porcentagem + "%");

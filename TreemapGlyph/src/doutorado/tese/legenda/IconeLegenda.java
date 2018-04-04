@@ -32,8 +32,6 @@ public class IconeLegenda implements Icon {
     private String valor;
     private GeometryFactory.FORMAS.GLYPH_FORMAS formaGeom;
     private Color cor;
-    
-
 
     private BasicStroke stroke = new BasicStroke(4);
 
@@ -109,7 +107,7 @@ public class IconeLegenda implements Icon {
         this.valor = valor;
     }
 
-    void setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS forma) {
+    public void setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS forma) {
         this.formaGeom = forma;
     }
 
