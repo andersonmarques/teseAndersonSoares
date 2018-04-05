@@ -360,9 +360,9 @@ public final class GlyphManager {
     }
 
     public int prepareQuartaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos,List<Object> FormasEscolhidas) {
-        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
+        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 2; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                int result = prepareCorFormaInfEsq(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(FormasEscolhidas.get(1))), Color.decode(Constantes.getCorFormas()[j]), item);
+                int result = prepareCorFormaInfEsq(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(FormasEscolhidas.get(1))), Color.decode(Constantes.getCorFormas2()[j]), item);
                 return result;
             }
         }
@@ -370,7 +370,7 @@ public final class GlyphManager {
     }
 
     public int prepareQuintaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos,List<Object> FormasEscolhidas) {
-        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
+        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 2; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 int result = prepareCorFormaInfDir(item.getBounds(),GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(FormasEscolhidas.get(2))), Color.decode(Constantes.getCorFormas()[j]), item);
                 return result;
@@ -380,9 +380,9 @@ public final class GlyphManager {
     }
 
     public int prepareSextaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos,List<Object> FormasEscolhidas) {
-        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
+        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 2; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                int result = prepareCorFormaSupDir(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(FormasEscolhidas.get(3))), Color.decode(Constantes.getCorFormas()[j]), item);
+                int result = prepareCorFormaSupDir(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(FormasEscolhidas.get(3))), Color.decode(Constantes.getCorFormas2()[j]), item);
                 return result;
             }
         }

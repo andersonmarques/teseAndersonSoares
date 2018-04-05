@@ -1388,7 +1388,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         Object[] vazio = {};
         DefaultComboBoxModel model = new DefaultComboBoxModel(vazio);
         colunasHierarquicasList2.setModel(model);
-
     }
 
     class Task extends SwingWorker<Void, Void> {

@@ -8,7 +8,6 @@ package doutorado.tese.util;
 import java.awt.Color;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-
 /**
  *
  * @author Anderson
@@ -40,6 +39,22 @@ public class Constantes {
         "#FF0101", "#F8D930", "#174580", "#00A1D7",
        "#0A8300", "#FF3797", "#8C8589", "#000000"
     };
+    
+     private static String[] corFormas2 = {
+        "#00FEFE","#0726CF","#E8BA7F","#FF5E28",
+        "#F57CFF","#F57CFF","#00C868","#FFFFFF"
+    };
+     
+    private static String[] corFormas3 = {
+        "#00FEFE","#F8D930","#E8BA7F","#FF5E28",
+        "#F57CFF","#F57CFF","#00C868","#FFFFFF"
+    };
+    
+    private static String[] corFormas4 = {
+        "#00FEFE","#F8D930","#E8BA7F","#FF5E28",
+        "#F57CFF","#F57CFF","#00C868","#FFFFFF"
+    };
+    
 
     public final static String[] TIPO_TEXTURA = {
         "PATTERN_DIAG_RIGHT_LEFT" ,
@@ -152,6 +167,12 @@ public class Constantes {
     public static String[] getCorFormas() {
         return corFormas;
     }
+
+    public static String[] getCorFormas2() {
+        return corFormas2;
+    }
+
+    
     
     
 

@@ -52,8 +52,8 @@ public class Ellipse extends FormaGeometrica {
         points[1] = getBounds().height;
         verificarRetangulo(points);
 
-        int innerRectX = (int) Math.round(points[0] * 0.8);
-        int innerRectY = (int) Math.round(points[0] * 0.8);
+        int innerRectX = (int) Math.round(points[0] * 0.7);
+        int innerRectY = (int) Math.round(points[0] * 0.7);
         int width = (int) (innerRectX * tam);
         int height = (int) (innerRectY * tam / 2);
 

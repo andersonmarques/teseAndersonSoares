@@ -66,7 +66,7 @@ public class IconeLegenda implements Icon {
                 break;
             case 6:
                 if( valor=="1"){
-                FormaGeometrica cir = GeometryFactory.create(bounds,Color.BLACK, GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO, valor,0.5f,"5");
+                FormaGeometrica cir = GeometryFactory.create(bounds,Color.BLACK, GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO, valor,0.3f,"5");
                 cir.paint(g);
                 }
                 break;

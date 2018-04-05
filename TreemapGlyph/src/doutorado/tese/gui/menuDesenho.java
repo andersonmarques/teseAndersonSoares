@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
 import javax.swing.JPanel;
 
 /**
@@ -21,7 +22,14 @@ public class menuDesenho extends JPanel{
         g.setColor(Color.black);
                 g.setColor(Color.white);
         g.fillRect(0, 0, 500, 500);
-        Image img = Toolkit.getDefaultToolkit().getImage("C:\\Users\\Elvis (LABVIS)\\Documents\\GitHub\\teseAndersonSoares\\TreemapGlyph\\src\\icon\\logo2.png");
+        
+       String basePath = new File("").getAbsolutePath();
+       System.out.println(basePath);
+
+       String path = new File("src\\icon\\logo2.png").getAbsolutePath();
+       System.out.println(path);
+       
+       Image img = Toolkit.getDefaultToolkit().getImage(path);
         g.drawImage(img,65, 30, this);
     }
     

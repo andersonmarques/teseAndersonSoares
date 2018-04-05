@@ -63,8 +63,9 @@ public class LegendaVisualizacao {
         List<String> dadosDistintos = c.getDadosDistintos();
         for (int i = 0; i < dadosDistintos.size(); i++) {
             IconeLegenda icon = new IconeLegenda();
-            icon.setDimensao(1);
-            icon.setValorIcon(Constantes.getCor()[i]);
+            icon.setDimensao(4);
+            icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.RETANGULO);
+            icon.setCor(Color.decode(Constantes.getCor()[i]));
             JLabel label = criarLabel(dadosDistintos.get(i), icon);
             painel.add(label);
             label.setHorizontalAlignment(SwingConstants.LEFT);
@@ -104,7 +105,7 @@ public class LegendaVisualizacao {
                     break;
                 case 3:
                     icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(formasEscolhidas.get(1))));
-                    icon.setCor(Color.decode(Constantes.getCorFormas()[i]));
+                    icon.setCor(Color.decode(Constantes.getCorFormas2()[i]));
                     break;
                 case 4:
                     icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(formasEscolhidas.get(2))));
@@ -112,7 +113,7 @@ public class LegendaVisualizacao {
                     break;
                 case 5:
                     icon.setFormaIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.valueOf((String)(formasEscolhidas.get(3))));
-                    icon.setCor(Color.decode(Constantes.getCorFormas()[i]));
+                    icon.setCor(Color.decode(Constantes.getCorFormas2()[i]));
                     break;
                 case 6:
                     icon.setValorIcon(Constantes.visivel[i]);
