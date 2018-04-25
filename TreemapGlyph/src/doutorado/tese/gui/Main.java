@@ -1222,7 +1222,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             case 7:
                 logger.info("Preparando variáveis glyphs.");
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_1, true), atributo1Glyph);
-                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2, true), atributo2Glyph);
+                List<String> itens = new ArrayList<>();
+                itens.add("---");
+                for (String cabecalho : manipulador.getCabecalho()) {
+                    itens.add(cabecalho);
+                }
+                loadVariaveisGlyph(itens.toArray(), atributo2Glyph);
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_3, true), atributo3Glyph);
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_4, true), atributo4Glyph);
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_5, true), atributo5Glyph);
@@ -1237,7 +1242,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 break;
             case 9:
                 logger.info("Preparando variáveis Cores para o treemap.");
-                loadItensCoresTreemap(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2, false));
+//                loadItensCoresTreemap(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2, false));
+                List<String> coresTreemap = new ArrayList<>();
+                coresTreemap.add("---");
+                for (String cabecalho : manipulador.getCabecalho()) {
+                    coresTreemap.add(cabecalho);
+                }
+                loadItensCoresTreemap(coresTreemap.toArray());
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis cores Treemap: " + porcentagem + "%");
                 break;
@@ -1338,7 +1349,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             case NIVEL_3:
                 GeometryFactory.FORMAS.GLYPH_FORMAS[] formas = new GeometryFactory.FORMAS.GLYPH_FORMAS[GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1];
                 for (int i = 0; i < formas.length; i++) {
-                    formas[i] = GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i];                    
+                    formas[i] = GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i];
                 }
                 analisarQuantAtributosCategoricos(list, formas);
                 break;

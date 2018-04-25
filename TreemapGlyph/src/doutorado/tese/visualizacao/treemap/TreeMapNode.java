@@ -122,7 +122,7 @@ public abstract class TreeMapNode implements TMModelNode{
     }
 
     /**
-     * @return the mapaDetalhesItem
+     * @return retorna o valor do item folha. 
      */
     public HashMap<Coluna, String> getMapaDetalhesItem() {
         return mapaDetalhesItem;

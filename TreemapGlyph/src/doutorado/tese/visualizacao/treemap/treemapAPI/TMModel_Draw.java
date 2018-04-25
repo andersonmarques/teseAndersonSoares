@@ -28,6 +28,8 @@ package doutorado.tese.visualizacao.treemap.treemapAPI;
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
+import doutorado.tese.util.Metadados;
+import doutorado.tese.visualizacao.glyph.ColorInterpolator;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import doutorado.tese.visualizacao.treemap.TreeMapLevel;
 import doutorado.tese.visualizacao.treemap.TreeMapNode;
@@ -79,10 +81,17 @@ public class TMModel_Draw
             if (!itemCor.equals("---")) {
                 Coluna c = ManipuladorArquivo.getColuna(getItemCor());
                 List<String> dadosDistintos = c.getDadosDistintos();
-                for (int j = 0; j < Constantes.getCor().length; j++) {
-                    if (nodeItem.getMapaDetalhesItem().get(c).equalsIgnoreCase(dadosDistintos.get(j))) {
-                        nodeItem.setColor(Color.decode(Constantes.getCor()[j]));
-                        break;
+                if (c.getDescription() == Metadados.Descricao.CONTINUOUS) {
+                    ColorInterpolator interpolator = new ColorInterpolator();
+                    interpolator.config(c.maiorMenorValues[0],c.maiorMenorValues[1] , Color.MAGENTA, Color.YELLOW);
+                    Color cor = interpolator.interpolate(Double.parseDouble(nodeItem.getMapaDetalhesItem().get(c)));
+                    nodeItem.setColor(cor);
+                } else {
+                    for (int j = 0; j < Constantes.getCor().length; j++) {
+                        if (nodeItem.getMapaDetalhesItem().get(c).equalsIgnoreCase(dadosDistintos.get(j))) {
+                            nodeItem.setColor(Color.decode(Constantes.getCor()[j]));
+                            break;
+                        }
                     }
                 }
                 return nodeItem.getColor();
@@ -110,10 +119,10 @@ public class TMModel_Draw
             tooltip += "</html>";
             return tooltip;
         }
-        return "<html>"+
-                "<p>Label: "+((TreeMapLevel)node).getLabel()+"</p>"+
-                "<p>Leaves: "+((TreeMapLevel)node).getChildren().size()+"</p>"
-                +"</html>";
+        return "<html>"
+                + "<p>Label: " + ((TreeMapLevel) node).getLabel() + "</p>"
+                + "<p>Leaves: " + ((TreeMapLevel) node).getChildren().size() + "</p>"
+                + "</html>";
     }
 
     @Override

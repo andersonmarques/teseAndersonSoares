@@ -17,7 +17,7 @@ import java.util.Map;
  * @author Anderson Soares
  */
 public class Coluna {
-
+    public double[] maiorMenorValues = new double[2];
     private String name;
     private Metadados.Descricao description;
     private Metadados.TipoDados type;
@@ -151,8 +151,10 @@ public class Coluna {
                 higher = findMax(dado, higher);
                 lower = findMin(dado, lower);
             }
-            double[] distinctValues = {higher, lower};
-            mapaMaiorMenor.put(getName(), distinctValues);
+            
+            maiorMenorValues[0] = higher; 
+            maiorMenorValues[1] = lower;
+            mapaMaiorMenor.put(getName(), maiorMenorValues);
         }// else {        
         setDadosColuna(dadosColunas);
         //}

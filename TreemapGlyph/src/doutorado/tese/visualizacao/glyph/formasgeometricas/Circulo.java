@@ -47,6 +47,19 @@ public class Circulo extends FormaGeometrica{
         return null;
     }
 
+    private void intepolation(int Xmin,int Xmax,Color c,Color c2){
+        
+       double ar = (1.0*c2.getRed()-c.getRed())/(Xmax-Xmin);
+       double br = c.getRed() - ar* Xmin;
+       
+       double ab = (1.0*c2.getRed()-c.getRed())/(Xmax-Xmin);
+       double bb = c.getRed() - ar* Xmin;
+       
+       double ag = (1.0*c2.getRed()-c.getRed())/(Xmax-Xmin);
+       double bg = c.getRed() - ar* Xmin;
+       
+        
+    }
     
     private void montarCirculo() {
         int[] points = new int[2];

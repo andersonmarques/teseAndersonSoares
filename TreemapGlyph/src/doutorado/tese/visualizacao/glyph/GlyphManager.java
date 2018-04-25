@@ -8,6 +8,7 @@ package doutorado.tese.visualizacao.glyph;
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
+import doutorado.tese.util.Metadados;
 import doutorado.tese.visualizacao.glyph.alfabeto.Letra;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
@@ -81,6 +82,7 @@ public final class GlyphManager {
         if (treemapItem.getCorForma() != null) {
             treemapItem.getCorForma().paint(g);
         }
+        
     }
 
     public void paintFormaGeometrica(Graphics g, TreeMapItem treemapItem) {
@@ -293,10 +295,18 @@ public final class GlyphManager {
     }
 
     public int prepareSegundaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+        if(col.getDescription() == Metadados.Descricao.CONTINUOUS){
+            ColorInterpolator interpolator = new ColorInterpolator();
+            interpolator.config(col.maiorMenorValues[0],col.maiorMenorValues[1] , Color.orange, Color.decode("#4682B4"));
+            Color cor = interpolator.interpolate(Double.parseDouble(item.getMapaDetalhesItem().get(col)));
+            return prepareCorForma(item.getBounds(), cor, item);
+        }
+        else{
         for (int j = 0; j < Constantes.getCor().length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 return prepareCorForma(item.getBounds(), Color.decode(getShufflerColors()[j]), item);
             }
+        }
         }
         return 0;
     }
