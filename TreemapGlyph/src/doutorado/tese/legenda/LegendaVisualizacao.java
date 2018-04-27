@@ -8,6 +8,7 @@ package doutorado.tese.legenda;
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
+import doutorado.tese.util.Metadados;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import java.awt.Color;
 import java.awt.Font;
@@ -58,15 +59,19 @@ public class LegendaVisualizacao {
         painel.setVisible(true);
 
         Coluna c = ManipuladorArquivo.getColuna(itemCor);
-        List<String> dadosDistintos = c.getDadosDistintos();
-        for (int i = 0; i < dadosDistintos.size(); i++) {
-            IconeLegenda icon = new IconeLegenda();
-            icon.setDimensao(Constantes.COR_TREEMAP);
-            icon.setValorIcon(Constantes.getCor()[i]);
-            JLabel label = criarLabel(dadosDistintos.get(i), icon);
-            painel.add(label);
-            label.setHorizontalAlignment(SwingConstants.LEFT);
-            painel.setAlignmentX(label.LEFT_ALIGNMENT);
+        if (c.getDescription() == Metadados.Descricao.CONTINUOUS) {
+            //TODO Criar legenda de cores continuas.
+        } else {
+            List<String> dadosDistintos = c.getDadosDistintos();
+            for (int i = 0; i < dadosDistintos.size(); i++) {
+                IconeLegenda icon = new IconeLegenda();
+                icon.setDimensao(Constantes.COR_TREEMAP);
+                icon.setValorIcon(Constantes.getCor()[i]);
+                JLabel label = criarLabel(dadosDistintos.get(i), icon);
+                painel.add(label);
+                label.setHorizontalAlignment(SwingConstants.LEFT);
+                painel.setAlignmentX(label.LEFT_ALIGNMENT);
+            }
         }
         return painel;
     }
@@ -85,6 +90,7 @@ public class LegendaVisualizacao {
         painel.setVisible(true);
 
         Coluna c = ManipuladorArquivo.getColuna(this.atributosEscolhidosGlyph.get(dimensao).toString());
+
         List<String> dadosDistintos = c.getDadosDistintos();
         for (int i = 0; i < dadosDistintos.size(); i++) {
             IconeLegenda icon = new IconeLegenda();
@@ -94,7 +100,11 @@ public class LegendaVisualizacao {
                     icon.setValorIcon(Constantes.TIPO_TEXTURA[i]);
                     break;
                 case 1:
-                    icon.setValorIcon(Constantes.getCorGlyphs()[i]);
+                    if (c.getDescription() == Metadados.Descricao.CONTINUOUS) {
+
+                    } else {
+                        icon.setValorIcon(Constantes.getCorGlyphs()[i]);
+                    }
                     break;
                 case 2:
                     icon.setValorIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i]);

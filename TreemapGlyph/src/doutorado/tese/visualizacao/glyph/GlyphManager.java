@@ -82,7 +82,7 @@ public final class GlyphManager {
         if (treemapItem.getCorForma() != null) {
             treemapItem.getCorForma().paint(g);
         }
-        
+
     }
 
     public void paintFormaGeometrica(Graphics g, TreeMapItem treemapItem) {
@@ -246,18 +246,18 @@ public final class GlyphManager {
             }
             switch (dimensao) {
                 case 0:
-                    features[Constantes.AREA_TEXTURA] = dadosDistintos != null ? preparePrimeiraDimensao(col, item, dadosDistintos):
-                            prepareTextura(item.getBounds(), Constantes.TIPO_TEXTURA[0], null);
+                    features[Constantes.AREA_TEXTURA] = dadosDistintos != null ? preparePrimeiraDimensao(col, item, dadosDistintos)
+                            : prepareTextura(item.getBounds(), Constantes.TIPO_TEXTURA[0], null);
                     features[Constantes.PRESENCA_TEXTURA] = Constantes.PRESENTE;
                     break;
                 case 1:
-                    features[Constantes.AREA_CIRCULO_COLORIDO] = dadosDistintos != null ? prepareSegundaDimensao(col, item, dadosDistintos):
-                            prepareCorForma(item.getBounds(), Color.decode(getShufflerColors()[0]), null);
+                    features[Constantes.AREA_CIRCULO_COLORIDO] = dadosDistintos != null ? prepareSegundaDimensao(col, item, dadosDistintos)
+                            : prepareCorForma(item.getBounds(), Color.decode(getShufflerColors()[0]), null);
                     features[Constantes.PRESENCA_COR_FORMA] = Constantes.PRESENTE;
                     break;
                 case 2:
-                    features[Constantes.AREA_SHAPE] = dadosDistintos != null ? prepareTerceiraDimensao(col, item, dadosDistintos):
-                            prepareFormaGeometrica(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.values()[0], null);
+                    features[Constantes.AREA_SHAPE] = dadosDistintos != null ? prepareTerceiraDimensao(col, item, dadosDistintos)
+                            : prepareFormaGeometrica(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.values()[0], null);
                     features[Constantes.PRESENCA_FORMA] = Constantes.PRESENTE;
                     break;
                 case 3:
@@ -265,13 +265,13 @@ public final class GlyphManager {
                         dimensao4Ativada = true;
                         letraUtilizada = "";
                     }
-                    features[Constantes.AREA_LETRA] = dadosDistintos != null ? prepareQuartaDimensao(col, item, dadosDistintos):
-                            prepareLetrasAlfabeto(item.getBounds(), Constantes.LETRAS_ALFABETO[0], null);
+                    features[Constantes.AREA_LETRA] = dadosDistintos != null ? prepareQuartaDimensao(col, item, dadosDistintos)
+                            : prepareLetrasAlfabeto(item.getBounds(), Constantes.LETRAS_ALFABETO[0], null);
                     features[Constantes.PRESENCA_LETRA] = Constantes.PRESENTE;
                     break;
                 case 4:
-                    features[Constantes.AREA_NUMERO] = dadosDistintos != null ? prepareQuintaDimensao(col, item, dadosDistintos):
-                            prepareNumeros(item.getBounds(), Constantes.NUMEROS[0], null);
+                    features[Constantes.AREA_NUMERO] = dadosDistintos != null ? prepareQuintaDimensao(col, item, dadosDistintos)
+                            : prepareNumeros(item.getBounds(), Constantes.NUMEROS[0], null);
                     features[Constantes.PRESENCA_NUMERO] = Constantes.PRESENTE;
                     break;
                 default:
@@ -295,18 +295,17 @@ public final class GlyphManager {
     }
 
     public int prepareSegundaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-        if(col.getDescription() == Metadados.Descricao.CONTINUOUS){
+        if (col.getDescription() == Metadados.Descricao.CONTINUOUS) {
             ColorInterpolator interpolator = new ColorInterpolator();
-            interpolator.config(col.maiorMenorValues[0],col.maiorMenorValues[1] , Color.orange, Color.decode("#4682B4"));
+            interpolator.config(col.maiorMenorValues[0], col.maiorMenorValues[1], Color.orange, Color.decode("#4682B4"));
             Color cor = interpolator.interpolate(Double.parseDouble(item.getMapaDetalhesItem().get(col)));
             return prepareCorForma(item.getBounds(), cor, item);
-        }
-        else{
-        for (int j = 0; j < Constantes.getCor().length; j++) {
-            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                return prepareCorForma(item.getBounds(), Color.decode(getShufflerColors()[j]), item);
+        } else {
+            for (int j = 0; j < Constantes.getCor().length; j++) {
+                if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+                    return prepareCorForma(item.getBounds(), Color.decode(getShufflerColors()[j]), item);
+                }
             }
-        }
         }
         return 0;
     }

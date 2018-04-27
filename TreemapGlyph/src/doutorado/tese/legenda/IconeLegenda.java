@@ -6,6 +6,7 @@
 package doutorado.tese.legenda;
 
 import doutorado.tese.util.Constantes;
+import doutorado.tese.util.Metadados;
 import doutorado.tese.visualizacao.glyph.alfabeto.Letra;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
@@ -48,8 +49,12 @@ public class IconeLegenda implements Icon {
                 t.paint(g);
                 break;
             case 1:
-                FormaGeometrica f = GeometryFactory.create(bounds, Color.decode(valor), GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO);
-                f.paint(g);
+                if (valor == null) {
+                    //TODO Criar legenda de cores continuas. 
+               } else {
+                    FormaGeometrica f = GeometryFactory.create(bounds, Color.decode(valor), GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO);
+                    f.paint(g);
+                }
                 break;
             case 2:
                 FormaGeometrica forma = GeometryFactory.create(bounds, null, valorForma);
@@ -101,8 +106,8 @@ public class IconeLegenda implements Icon {
     void setValorIcon(String valor) {
         this.valor = valor;
     }
-    
-    void setValorIcon(GeometryFactory.FORMAS.GLYPH_FORMAS forma){
+
+    void setValorIcon(GeometryFactory.FORMAS.GLYPH_FORMAS forma) {
         this.valorForma = forma;
     }
 }

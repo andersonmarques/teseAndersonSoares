@@ -15,7 +15,7 @@ public class ColorInterpolator {
     double ar,ag,ab,br,bg,bb;
     
     public  void config(double Xmin,double Xmax,Color c,Color c2){
-        
+       
        ar = (1.0*c2.getRed()-c.getRed())/(Xmax-Xmin);
        br = c.getRed() - ar* Xmin;
        

@@ -83,7 +83,7 @@ public class TMModel_Draw
                 List<String> dadosDistintos = c.getDadosDistintos();
                 if (c.getDescription() == Metadados.Descricao.CONTINUOUS) {
                     ColorInterpolator interpolator = new ColorInterpolator();
-                    interpolator.config(c.maiorMenorValues[0],c.maiorMenorValues[1] , Color.MAGENTA, Color.YELLOW);
+                    interpolator.config(c.maiorMenorValues[0],c.maiorMenorValues[1] , Color.decode("#800080"), Color.WHITE);
                     Color cor = interpolator.interpolate(Double.parseDouble(nodeItem.getMapaDetalhesItem().get(c)));
                     nodeItem.setColor(cor);
                 } else {
