@@ -68,7 +68,7 @@ public class TMModel_Draw
     }
 
     @Override
-    public Paint getFillingOfObject(Object node) {
+        public Paint getFillingOfObject(Object node) {
         if (node instanceof TreeMapLevel) {
             TreeMapLevel level = (TreeMapLevel) node;
             for (TreeMapNode filhos : level.getChildren()) {

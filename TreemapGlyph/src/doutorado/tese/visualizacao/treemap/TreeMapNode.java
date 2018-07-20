@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -18,13 +19,14 @@ import java.util.Queue;
 import java.util.Vector;
 import net.bouthier.treemapAWT.TMModelNode;
 import net.bouthier.treemapAWT.TMModelUpdater;
+import net.bouthier.treemapAWT.TMNode;
+import net.bouthier.treemapAWT.TMNodeModel;
 
 /**
  *
  * @author Anderson Soares
  */
 public abstract class TreeMapNode implements TMModelNode{
-
     double size;
     Rectangle bounds;
     int classificationOrder = 0;
@@ -187,6 +189,7 @@ public abstract class TreeMapNode implements TMModelNode{
         return bordaInterna;
     }
 
+   
     /**
      * @param bordaInterna the bordaInterna to set
      */
