@@ -34,6 +34,7 @@ import doutorado.tese.visualizacao.treemap.TreeMapNode;
 import java.awt.Color;
 import java.awt.Paint;
 import java.util.List;
+import javax.swing.JToolTip;
 
 import net.bouthier.treemapAWT.TMComputeDrawAdapter;
 
@@ -160,6 +161,11 @@ public class TMModel_Draw
      */
     public void setColunasDetalhesDemanda(String[] colunasDetalhesDemanda) {
         this.colunasDetalhesDemanda = colunasDetalhesDemanda;
+    }
+
+    @Override
+    public JToolTip getDetailsOnDemand(Object node) {
+        return null; //To change body of generated methods, choose Tools | Templates.
     }
 
 }

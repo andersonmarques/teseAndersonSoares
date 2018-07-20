@@ -16,6 +16,8 @@ import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import doutorado.tese.visualizacao.treemap.TreeMapLevel;
 import doutorado.tese.visualizacao.treemap.TreeMapNode;
 import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -90,7 +92,21 @@ public class VisualizationsArea {
             }
         });
         TMThreadModel.listeners.add(listener);
+  
+        //        TMThreadModel.listener = listener;
         TMUpdaterConcrete.listeners.add(listener);
+        
+        this.view.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                TreeMapNode nodeUnderTheMouse = (TreeMapNode) VisualizationsArea.this.view.getNodeUnderTheMouse(e);
+                System.out.println("---->"+nodeUnderTheMouse.getBounds().toString());
+            }
+            
+        });
+        
+        
     }
 
     public void acionarStarGlyph(List<String> variaveisStarGlyph) {
